@@ -6605,4 +6605,19 @@ table,
 .list-group {
   font-size: 0.875em; }
 
+.profile-header {
+  padding-top: 2em; }
+  .profile-header .profile-info {
+    padding-top: 1em; }
+  .profile-header .bio {
+    padding-left: 0;
+    padding-top: 1em; }
+    .profile-header .bio .table td, .profile-header .bio .table th {
+      border: 0; }
+
+.profile-content {
+  padding-top: 2em; }
+  .profile-content .container {
+    max-width: 768px; }
+
 /*# sourceMappingURL=main.css.map */
