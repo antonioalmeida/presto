@@ -6617,16 +6617,17 @@ table,
     .profile-header .bio .table td, .profile-header .bio .table th {
       border: 0; }
 
-.profile-content {
+.small-container {
   padding-top: 2em; }
-  .profile-content .container {
+  .small-container .container {
     max-width: 768px; }
 
 .sign-up-card .social-buttons div {
   margin: 0 1em 0.5em 1em; }
 
-.navbar .profile-photo {
-  margin-top: -1em;
-  margin-bottom: -1em; }
+.navbar-nav .profile-photo {
+  margin-bottom: 0.25em; }
+.navbar-nav .nav-link {
+  font-size: 1.3819rem; }
 
 /*# sourceMappingURL=main.css.map */
