@@ -1,0 +1,55 @@
+ .bootstrap-tagsinput {
+  display: inline-block;
+
+  padding: 1em;
+  color: $body-color;
+
+  width: 100%;
+  cursor: text;
+
+  input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 0.3em;
+    margin: 0;
+    width: auto;
+    max-width: inherit;
+
+    &:focus {
+        border: none;
+        box-shadow: none;
+    }
+  }
+
+  .badge {
+    margin-right: 0.25em;
+
+    [data-role="remove"] {
+      margin-left: 8px;
+      cursor: pointer;
+
+      &:after {
+          padding: 0px 4px;
+          border-radius:50%;
+          font-size:13px
+      }
+    }
+  }
+}
+
+// fix this later
+
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1;
+}
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777;
+}
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777;
+}
+
+

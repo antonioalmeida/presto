@@ -23,3 +23,23 @@
 	}
 
 }
+
+.modal {
+	.modal-content {
+		border-top-width: 0.5em;
+		border-top-color: $primary;
+	}
+
+	.main-question {
+		width: 100%;
+		font-size: $font-size-base*1.5;
+		padding: 0.5em;
+		border: none;
+
+		&:focus{
+			outline: none;
+		}
+
+
+	}
+}

@@ -6652,4 +6652,53 @@ body {
   height: auto;
   max-height: 8em; }
 
+.modal .modal-content {
+  border-top-width: 0.5em;
+  border-top-color: #20c997; }
+.modal .main-question {
+  width: 100%;
+  font-size: 1.5945rem;
+  padding: 0.5em;
+  border: none; }
+  .modal .main-question:focus {
+    outline: none; }
+
+.bootstrap-tagsinput {
+  display: inline-block;
+  padding: 1em;
+  color: #343a40;
+  width: 100%;
+  cursor: text; }
+  .bootstrap-tagsinput input {
+    border: none;
+    box-shadow: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0 0.3em;
+    margin: 0;
+    width: auto;
+    max-width: inherit; }
+    .bootstrap-tagsinput input:focus {
+      border: none;
+      box-shadow: none; }
+  .bootstrap-tagsinput .badge {
+    margin-right: 0.25em; }
+    .bootstrap-tagsinput .badge [data-role="remove"] {
+      margin-left: 8px;
+      cursor: pointer; }
+      .bootstrap-tagsinput .badge [data-role="remove"]:after {
+        padding: 0px 4px;
+        border-radius: 50%;
+        font-size: 13px; }
+
+.bootstrap-tagsinput.form-control input::-moz-placeholder {
+  color: #777;
+  opacity: 1; }
+
+.bootstrap-tagsinput.form-control input:-ms-input-placeholder {
+  color: #777; }
+
+.bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
+  color: #777; }
+
 /*# sourceMappingURL=main.css.map */
