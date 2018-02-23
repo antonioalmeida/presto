@@ -6630,4 +6630,26 @@ table,
 .navbar-nav .nav-link {
   font-size: 1.3819rem; }
 
+body {
+  background-color: #f8f9fa; }
+
+/*
+.card {
+	border-top-width: 0.5em;
+	border-top-color: $primary;
+
+	.card-header {
+		padding-top: 0.5em; 
+		padding-bottom: 0.5em; 
+		font-size: $font-size-base*0.8
+	}
+
+}*/
+.list-group-item .answer-preview {
+  max-height: 9em; }
+.list-group-item .answer-image-preview img {
+  max-width: 100%;
+  height: auto;
+  max-height: 8em; }
+
 /*# sourceMappingURL=main.css.map */

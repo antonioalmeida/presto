@@ -1,193 +1,241 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-    <title>Profile | Presto</title>
+  <title>Profile | Presto</title>
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/offcanvas.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/offcanvas.css" />
 
-   <!-- Bootstrap core JS -->
-   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Bootstrap core JS -->
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-   <!-- Fontawesome pro -->
-   <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- Fontawesome pro -->
+  <script defer src="assets/js/fontawesome-all.min.js"></script>
 
-   <!-- Offcanvas -->
-   <script defer src="assets/js/offcanvas.js"></script>
+  <!-- Offcanvas -->
+  <script defer src="assets/js/offcanvas.js"></script>
 
-  </head>
+</head>
 
-  <body>
+<body>
 
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#"><h4>Presto</h4></a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <div class="container">
+      <a class="navbar-brand" href="#"><h4>Presto</h4></a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-          <ul class="mr-auto">
-          </ul>
+      <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+        <ul class="mr-auto">
+        </ul>
 
+        <ul class="navbar-nav align-items-end">
+          <li class="nav-item pr-2">
+            <a class="nav-link">
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="far fa-plus"></i> Add Question
+              </button>
+            </a>
+          </li>
+          <li class="nav-item pr-2">
+            <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+          </li>
+          <li class="nav-item pr-2 dropdown">
+            <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Cenas</a>
+            </div>
+          </li>
 
-          <ul class="navbar-nav align-items-end">
-            <li class="nav-item pr-2">
-              <a class="nav-link" href="#"><i class="far fa-search"></i></a>
-            </li>
-            <li class="nav-item pr-2 dropdown">
-              <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Cenas</a>
-              </div>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
-              </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Logout</a>
-              </div>
-            </li>
-          </ul>
+          <li class="nav-item dropdown">
+            <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="#">Logout</a>
+            </div>
+          </li>
+        </ul>
       </div>
 
-      </div>
-    </nav>
+    </div>
+  </nav>
 
-    <main role="main">
+  <main role="main">
 
-      <section class="profile-header">
-        <div class="container"> 
-          <div class="row"> 
-            <div class="col-md-3">
-              <img class="img-fluid rounded-circle" src="assets/img/portrait-man.jpeg"/>
+    <section class="profile-header">
+      <div class="container"> 
+        <div class="row"> 
+          <div class="col-sm-2 align-self-center">
+            <img class="img-fluid rounded-circle" src="assets/img/portrait-man.jpeg"/>
+          </div>
+
+          <div class="col-sm-6 profile-info">
+            <h1>António Almeida</h1>
+            <h4 class="text-muted">@antonioalmeida</h4>
+
+            <!-- bio -->
+            <div>
+              <p class="lead">
+                This platform is awesome, the best I've ever seen.
+               <p>
             </div>
 
-            <div class="col-md-9 profile-info">
-              <h1>António Almeida</h1>
-              <h4 class="text-muted">@antonioalmeida</h4>
+          </div>
 
-              <!-- bio -->
-              <div class="bio">
-
-                <div class="col-sm-8">
-                <table class="table table-sm">
-                  <tbody>
-                    <tr>
-                      <th>Questions</th>
-                      <th>Answers</th>
-                      <th>Followers</th>
-                      <th>Following</th>
-                    </tr>
-                    <tr>
-                      <th>55</th>
-                      <td>34</td>
-                      <td>1.2k</td>
-                      <td>340</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div class="col-sm-4 align-self-center">
+           <div class="card">
+            <div class="card-body">
+              <div class="text-center">
+                 <h2><a href="#"><i class="fa fa-gem"></i></a> 1.6k</h2> 
               </div>
-
+              <div class="d-flex justify-content-between flex-wrap">
+                <div class="p-2">
+                  <h6>55 <br><small class="text-muted">questions</small></h6>
+                </div>
+                <div class="p-2">
+                  <h6>63 <br><small class="text-muted">answers</small></h6>
+                </div>
+                <div class="p-2">
+                  <h6>632 <br><small class="text-muted">followers</small></h6>
+                </div>
+                <div class="p-2">
+                  <h6>55 <br><small class="text-muted">following</small></h6>
+                </div>
               </div>
-
             </div>
+          </div> 
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- content -->
-      <section class="small-container">
-        <div class="container">
+    <!-- content -->
+    <section class="small-container">
+      <div class="container">
 
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <!-- Questions go here -->
-                <br>
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">What is the meaning of life?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
+          </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <!-- Questions go here -->
+            <br>
+
+            <div class="list-group">
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small>João Damas <span class="text-muted">asked</span></small>
                 </div>
+                <small class="text-muted"><i class="far fa-book"></i> Science, Education</small>
+              </a>
 
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">How can I pass LBAW first try?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">How can I succeed in Maths?</h4>
+                  <small>Bruno Piedade <span class="text-muted">asked</span></small>
                 </div>
+                <small class="text-muted"><i class="far fa-book"></i> School, Education</small>
+              </a>
 
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Is is true that JAS codes in Word?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small>João Damas <span class="text-muted">asked</span></small>
                 </div>
+                <small class="text-muted"><i class="far fa-book"></i> Science, Education</small>
+              </a>
 
-              </div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <!-- answers go here --> 
-                <br>
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted"> answered</span> João Damas' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">How did I pass RCOM?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">How can I succeed in Maths?</h4>
+                  <small>Bruno Piedade <span class="text-muted">asked</span></small>
                 </div>
+                <small class="text-muted"><i class="far fa-book"></i> School, Education</small>
+              </a>
 
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted">answered</span> Diogo Torres' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Why didn't I get the Teaching Assistant job?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted">answered</span> Diogo Torres' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Primary card title</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-              </div>
             </div>
 
+
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!-- answers go here --> 
+            <br>
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">Where has Math been invented?</h4>
+                  <small>António Almeida <span class="text-muted">answered</span></small>
+                </div>
+                <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <a href="#">(read more)</a></p>
+                <small class="text-muted"><i class="far fa-book"></i> Maths, History</small>
+
+              </div>
+
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">Where has Math been invented?</h4>
+                  <small>António Almeida <span class="text-muted">answered</span></small>
+                </div>
+                <div class="row answer-preview">
+                  <div class="answer-text-preview col-sm-8 mb-1">
+                    <p>The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <a href="#">(read more)</a></p>
+                  </div>
+                  <div class="answer-image-preview col-sm-4">
+                    <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
+                  </div>
+                </div>
+                <small class="text-muted"><i class="far fa-book"></i> Maths, History</small>
+
+              </div>
+
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">Where has Math been invented?</h4>
+                  <small>António Almeida <span class="text-muted">answered</span></small>
+                </div>
+                <div class="row answer-preview">
+                  <div class="answer-text-preview col-sm mb-1">
+                    <p>The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <a href="#">(read more)</a></p>
+                  </div>
+                  <div class="answer-image-preview col-sm-4">
+                    <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
+                  </div>
+                </div>
+                <small class="text-muted"><i class="far fa-book"></i> Maths, History</small>
+
+              </div>
+
+          </div>
         </div>
-      </section>
+
+      </div>
+    </section>
 
 
-    </main><!-- /.container -->
+  </main><!-- /.container -->
 
-    <footer>
+
+
+  <footer>
     <div class="container">
       <div class="row text-center align-items-center">
         <div class="col-12 col-sm-6 col-md-4 text-sm-left">
@@ -210,7 +258,29 @@
     </div>
   </footer>
 
-  </body>
+</body>
+
+<!-- add question modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </html>
 
- 
+
