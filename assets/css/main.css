@@ -6651,6 +6651,11 @@ body {
   max-width: 100%;
   height: auto;
   max-height: 8em; }
+.list-group-item .btn-link {
+  border: 1px solid transparent;
+  color: inherit; }
+  .list-group-item .btn-link:hover {
+    color: inherit; }
 
 .modal .modal-content {
   border-top-width: 0.5em;

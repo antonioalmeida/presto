@@ -22,6 +22,16 @@
 		    max-height: 8em;
 	}
 
+	// Make a button look and behave like a link
+	.btn-link {
+		border: $btn-border-width solid transparent;
+		color: inherit;
+
+		@include hover {
+			color: inherit;
+		}
+	}
+
 }
 
 .modal {
