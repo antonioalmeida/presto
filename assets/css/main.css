@@ -6720,4 +6720,26 @@ body {
 .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
   color: #777; }
 
+#search-input input[type=search] {
+  width: 15px;
+  padding-left: 10px;
+  color: transparent;
+  cursor: pointer; }
+
+#search-input input[type=search]:hover {
+  background-color: #fff; }
+
+#search-input input[type=search]:focus {
+  width: 130px;
+  padding-left: 32px;
+  color: #000;
+  background-color: #fff;
+  cursor: auto; }
+
+#search-input input:-moz-placeholder {
+  color: transparent; }
+
+#search-input input::-webkit-input-placeholder {
+  color: transparent; }
+
 /*# sourceMappingURL=main.css.map */
