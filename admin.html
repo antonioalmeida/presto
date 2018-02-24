@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="favicon.ico">
+
+    <title>Presto</title>
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/offcanvas.css" />
+
+    <!-- Bootstrap core JS -->
+    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- Fontawesome pro -->
+    <script defer src="assets/js/fontawesome-all.min.js"></script>
+
+    <!-- Offcanvas -->
+    <script defer src="assets/js/offcanvas.js"></script>
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="index.html"><h4>Presto</h4></a>
+        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
+            <ul class="mr-auto">
+            </ul>
+            <ul class="navbar-nav align-items-end">
+            <li class="nav-item pr-2 dropdown">
+                <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Cenas</a>
+                </div>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="index.html">Logout</a>
+                </div>
+            </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
+
+<main role="main">
+
+    <div class="container">
+        <h1 class="mt-3">Users</h1>
+        <hr>
+
+        <section class="pb-3">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <div class="input-group">
+                        <label for="userName" class="sr-only">Search Users</label>
+                        <input type="text" id="userName" class="form-control" placeholder="Search for users" required="" autofocus="">
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row px-3 py-3 table-responsive">
+                <table class="table table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>António Almeida</td>
+                        <td>antonio@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>Joana Lima</td>
+                        <td>joana@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-user"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">3</th>
+                        <td>Cyril Damas</td>
+                        <td>paulo@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">4</th>
+                        <td>Diogo Torres</td>
+                        <td>rita@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">5</th>
+                        <td>Joaquim Santos</td>
+                        <td>joaquim@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-user"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">6</th>
+                        <td>Manuel Teixeira</td>
+                        <td>manuel@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-user"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">7</th>
+                        <td>Rita Abreu</td>
+                        <td>abreu@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-secondary" type="submit"><i class="fas fa-user"></i></button>
+                        </td>        </tr>
+                    <tr>
+                        <th scope="row">8</th>
+                        <td>Bruno Piedade</td>
+                        <td>pedrosa@mail.com</td>
+                        <td>
+                            <button class="btn btn-danger" type="submit"><i class="fas fa-ban"></i></button>
+                            <button class="btn btn-warning" type="submit"><i class="fas fa-edit" style="color: white"></i></button>
+                            <button class="btn btn-primary" type="submit"><i class="fas fa-user-plus"></i></button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </section>
+
+        <hr>
+    </div>
+
+</main><!-- /.container -->
+
+<footer>
+    <div class="container">
+        <div class="row text-center align-items-center">
+            <div class="col-12 col-sm-6 col-md-4 text-sm-left">
+                <h5>Presto</h5>
+                <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
+                © 2018 Presto
+            </div>
+
+            <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
+                <a href="about.html">About</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+
+</html>
