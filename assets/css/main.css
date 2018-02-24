@@ -41,6 +41,7 @@
   box-sizing: border-box; }
 
 html {
+  height: 100%;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -54,6 +55,10 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
   display: block; }
 
 body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 1.063rem;
@@ -6528,6 +6533,10 @@ blockquote {
 footer {
   font-size: 0.875em; }
 
+main {
+  flex: 1;
+}
+
 .lead {
   color: #868e96;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
@@ -6639,8 +6648,8 @@ body {
 	border-top-color: $primary;
 
 	.card-header {
-		padding-top: 0.5em; 
-		padding-bottom: 0.5em; 
+		padding-top: 0.5em;
+		padding-bottom: 0.5em;
 		font-size: $font-size-base*0.8
 	}
 
