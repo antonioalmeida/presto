@@ -6724,4 +6724,15 @@ footer {
 .bootstrap-tagsinput.form-control input::-webkit-input-placeholder {
   color: #777; }
 
+.admin-table thead tr th {
+  font-weight: lighter;
+  font-size: 0.8504rem;
+  text-transform: uppercase; }
+.admin-table .admin-actions a, .admin-table .admin-actions {
+  color: #f8f9fa; }
+.admin-table tr:hover .admin-actions {
+  color: #343a40; }
+  .admin-table tr:hover .admin-actions a {
+    color: body-color; }
+
 /*# sourceMappingURL=main.css.map */

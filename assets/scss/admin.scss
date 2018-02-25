@@ -1,0 +1,19 @@
+.admin-table {
+	thead tr th {
+		font-weight: lighter;
+		font-size: 0.8*$font-size-base;
+		text-transform: uppercase;
+	}
+
+	.admin-actions a, .admin-actions {
+		color: $gray-100;
+	}
+
+	tr:hover .admin-actions {
+		color: $body-color;
+
+		a {
+			color: body-color;
+		}
+	}
+}
