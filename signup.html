@@ -7,6 +7,8 @@
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
+  <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
+
   <title>Sign up | Presto</title>
 
   <link rel="stylesheet" href="assets/css/main.css" />
@@ -16,6 +18,10 @@
   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!-- google platform -->
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
 
   <!-- Fontawesome pro -->
   <script defer src="assets/js/fontawesome-all.min.js"></script>
@@ -27,6 +33,18 @@
 </head>
 
 <body>
+
+  <!-- facebook sdk -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+
 
   <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <div class="container">
@@ -50,17 +68,25 @@
   <main role="main">
 
     <section class="container">
-     <div class="card">
+
+     <div class="card my-5 py-5">
       <div class="card-body">
         <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">Join Presto.</h1>
+            <p class="lead">Create an account to access your personalized feed, follow your favorite writers and help contribute to the world's knowledge.</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
 
-        <div class="col-sm-6">
-          <button class="btn btn-outline btn-google"><i class="fab fa-google"></i> Sign Up with Google</button>
+        <div class="col-md-6 col-lg-4 offset-lg-2 d-flex flex-column align-items-center mb-5">
+          <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
 
-          <button class="btn btn-outline btn-facebook"><i class="fab fa-facebook-f"></i> Sign Up with Facebook</button>
+          <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center">
 
           <form method="post" action="#">
             <div class="input-group mb-2">
@@ -96,7 +122,6 @@
             </div>
           </form>
 
-        </div>
         </div>
       </div>
     </div>
@@ -179,3 +204,24 @@
 
 </body>
 </html>
+
+  <!-- google sign in -->
+ <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 200,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
