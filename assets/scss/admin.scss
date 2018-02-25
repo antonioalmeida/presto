@@ -11,9 +11,9 @@
 
 	tr:hover .admin-actions {
 		color: $body-color;
+	}
 
-		a {
-			color: body-color;
-		}
+	tr:hover .admin-actions a {
+		color: $body-color;
 	}
 }

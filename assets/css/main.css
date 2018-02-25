@@ -6732,7 +6732,7 @@ footer {
   color: #f8f9fa; }
 .admin-table tr:hover .admin-actions {
   color: #343a40; }
-  .admin-table tr:hover .admin-actions a {
-    color: body-color; }
+.admin-table tr:hover .admin-actions a {
+  color: #343a40; }
 
 /*# sourceMappingURL=main.css.map */
