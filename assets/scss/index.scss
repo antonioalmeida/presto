@@ -34,3 +34,11 @@ body {
 	background-color: $gray-100;
 }
 
+footer {
+	background-color: $white;
+	padding: 1em;
+
+	border: 1px solid rgba(0, 0, 0, 0.1);
+    border-width: 1px 0 0 0;
+}
+
