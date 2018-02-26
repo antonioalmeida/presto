@@ -6663,12 +6663,13 @@ footer {
 	}
 
 }*/
-.list-group-item .answer-preview {
-  max-height: 9em; }
 .list-group-item .answer-image-preview img {
   max-width: 100%;
   height: auto;
   max-height: 8em; }
+@media (max-width: 768px) {
+  .list-group-item .user-preview {
+    display: none; } }
 .list-group-item .btn-link {
   border: 1px solid transparent;
   color: inherit; }
@@ -6685,6 +6686,17 @@ footer {
   border: none; }
   .modal .main-question:focus {
     outline: none; }
+
+.nav-tabs {
+  border-bottom: 0; }
+  .nav-tabs .nav-item {
+    border-top-width: 0.25em; }
+    .nav-tabs .nav-item:hover {
+      border-top-color: #20c997; }
+  .nav-tabs .nav-link {
+    color: #868e96; }
+    .nav-tabs .nav-link:hover {
+      color: #343a40; }
 
 .bootstrap-tagsinput {
   display: inline-block;

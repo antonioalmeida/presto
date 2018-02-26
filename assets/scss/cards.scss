@@ -13,13 +13,18 @@
 
 .list-group-item {
 	.answer-preview {
-		max-height: 9em;
 	}
 
 	.answer-image-preview img {
 		    max-width: 100%;
 		    height: auto;
 		    max-height: 8em;
+	}
+
+	@media (max-width: 768px) {
+		.user-preview {
+			display: none;
+		}
 	}
 
 	// Make a button look and behave like a link
@@ -51,5 +56,25 @@
 		}
 
 
+	}
+}
+
+.nav-tabs {
+	border-bottom: 0;
+
+	.nav-item {
+		border-top-width: 0.25em;
+
+		&:hover {
+			border-top-color: $primary;
+		}
+	}
+
+	.nav-link {
+		color: $gray-600;
+
+		&:hover {
+			color: $body-color;
+		}
 	}
 }
