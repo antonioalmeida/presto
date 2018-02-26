@@ -104,86 +104,153 @@
 
       <!-- content -->
       <section class="container">
-            <h2>Top Answers</h2>
         <div class="row">
-          <div class="col-md-3">
-            <br>
-            <h4>Op  tions</h4>
-            <ul>
-              <li>Option</li>
-              <li>Option</li>
-              <li>Option</li>
-              <li>Option</li>
-            </ul>
+          <div class="col-md-2 text-right side-menu">
+                <h6 class="pt-4">Trending Topics</h6>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">Cras justo odio</li>
+                  <li class="list-group-item">Dapibus ac facilisis in</li>
+                  <li class="list-group-item">Morbi leo risus</li>
+                  <li class="list-group-item">Porta ac consectetur ac</li>
+                  <li class="list-group-item">Vestibulum at eros</li>
+                </ul>
         </div>
-        <div class="col-md-9">
-
-
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
-                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                <!-- Questions go here -->
-                <br>
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">What is the meaning of life?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">How can I pass LBAW first try?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-question"></i> António Almeida <span class="text-muted">asked...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Is is true that JAS codes in Word?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-              </div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                <!-- answers go here -->
-                <br>
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted"> answered</span> João Damas' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">How did I pass RCOM?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted">answered</span> Diogo Torres' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Why didn't I get the Teaching Assistant job?</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-                <div class="card border-secondary mb-3">
-                  <div class="card-header"> <i class="far fa-pencil-alt"></i> António Almeida <span class="text-muted">answered</span> Diogo Torres' <span class="text-muted">question...</span></div>
-                  <div class="card-body">
-                    <h4 class="card-title">Primary card title</h4>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  </div>
-                </div>
-
-              </div>
+        <div class="col-md-7">
+          <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
+              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
             </div>
+          </nav>
+          <div class="tab-content mb-5" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+              <!-- Questions go here -->
 
+              <div class="list-group">
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                    <h4 class="mb-1">What is Maths?</h4>
+                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                  </div>
+                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+                </a>
+
+
+              </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+              <!-- answers go here --> 
+              <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                    <h4 class="mb-3">Where has Math been invented?</h4>
+                    <div class="d-flex">
+                      <div>
+                        <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                      </div>
+                      <h6><span class="btn-link">António Almeida</span><br>
+                      <small class="text-muted">answered 23h ago</small></h6> 
+                    </div>
+                </div>
+                <p class="mb-1 text-justify">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+
+              </a>
+
+              <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between mb-2">
+                  <h4>Where has Math been invented?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">António Almeida</span> <span class="text-muted">answered</span></small>
+                </div>
+                <div class="row answer-preview">
+                  <div class="answer-text-preview col-sm-8 mb-1">
+                    <p class="text-justify">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                  </div>
+                  <div class="answer-image-preview col-sm-4">
+                    <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
+                  </div>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+
+              </a>
+
+              <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h4 class="mb-1">Where has Math been invented?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">António Almeida</span> <span class="text-muted">answered</span></small>
+                </div>
+                <div class="row answer-preview">
+                  <div class="answer-text-preview col-sm mb-1">
+                    <p>The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                  </div>
+                  <div class="answer-image-preview col-sm-4">
+                    <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
+                  </div>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+
+              </a>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-3 side-menu">
+          <div class="card">
+            <div class="card-body">
+            <h6><i class="far fa-tags"></i> Trending</h6>
+            <ul>
+              <li>Science</li>
+              <li>Science</li>
+              <li>Science</li>
+              <li>Science</li>
+              <li>Science</li>
+            </ul>
+            </div>
+          </div>
         </div>
       </div>
 
