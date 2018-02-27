@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
-  <title>Notifications | Presto</title>
+  <title>Settings | Presto</title>
 
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="stylesheet" href="assets/css/offcanvas.css" />
@@ -30,7 +30,7 @@
 
 <body>
 
-  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" href="#"><h4>Presto</h4></a>
       <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
@@ -55,10 +55,13 @@
           <li class="nav-item pr-2 dropdown">
             <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
-              <a class="dropdown-item" href="profile.html">Profile</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="profile.html"> <i class="far fa-question"> </i> <strong>3 New Question(s)</strong></a>
+			  <a class="dropdown-item" href="profile.html"> <i class="far fa-book"> </i> <strong>5 New Answer(s)</strong></a>
+			  <a class="dropdown-item" href="profile.html"> <i class="far fa-comment"> </i> <strong>3 New Question(s)</strong></a>
+			  <a class="dropdown-item" href="profile.html"> <i class="fas fa-users"> </i> <strong>2 New Community Update(s)</strong></a>
+			  <a class="dropdown-item" href="profile.html"> <i class="far fa-thumbs-up"> </i> <strong>5 New Upvote(s)</strong></a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Cenas</a>
+              <a class="dropdown-item" href="notifications.html">See All Notifications</a>
             </div>
           </li>
 
@@ -67,8 +70,8 @@
               <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="profile.html">Profile</a>
+              <a class="dropdown-item" href="#">Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">Logout</a>
             </div>
@@ -80,83 +83,53 @@
   </nav>
 
   <main role="main">
+    <br>
 	<div class="container">
 	   <div class="row">
-	      <div class="col-md-3">
-			   <br>
-		      <h4>Notifications </h4>
-			  <div class="dropdown-divider"></div>
-			  <br>
-			  <ul>
-				<li><strong>All</strong></li>
-				<li>Questions</li>
-				<li>Answers</li>
-				<li>Comments</li>
-				<li>People</li>
-				<li>Upvotes</li>
-			  </ul>
-			  <br>
-			  <h4>By time</h4>
-			  <ul>
-			     <li><strong>All Time</strong></li>
-				 <li>Past Hour</li>
-				 <li>Past Day</li>
-				 <li>Past Week</li>
-				 <li>Past Month</li>
-				 <li>Past Year</li>
-			  <ul>
-		   </div>
-		   <div class="col-md-9">
-		       <br>
-		       <div class="list-group ">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p> <span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <strong>answered</strong> your question <span class="btn-link"> <strong>"When did the French Revolution begin?"</strong></span>. </p>
-					    <span class="text-muted">Sat</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p> <span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Bruno Piedade</span> <strong>upvoted</strong> your comment.</p>
-			            <span class="text-muted">Sat</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas </span> <strong>commented</strong> your answer to the question  <span class="btn-link"> <strong>"When did the French Revolution begin?"</strong></span>.</p>
-					    <span class="text-muted">Thu</span>
-					 </div>
-				 </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</span> started <strong>following</strong> you.</p>
-			            <span class="text-muted">Tue</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Jon Doe</span> <strong>asked</strong> <span class="btn-link"> <strong>"What is the meaning of life?"</strong></span>.</p>
-			            <span class="text-muted">Mon</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-					    <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Some Guy</span> <strong>messaged</strong> you.</p>
-						<span class="text-muted">Last Week</span>
-					</div>
-				  </a>
-			   </div>
-		   </div>
+	      <div class="col-md-12">
+		     <h4>Account</h4>
+			 <div class="dropdown-divider"></div>
+			 <div class="row">
+			   <div class="col-md-3">
+			      <h6>Primary Email</h6>
+			    </div>
+			    <div class="col-md-9">
+			      <p>antonioalmeida@gmail.com</p>
+				  <a class="btn btn-sm btn-primary">Add Another Email</a>
+			    </div>
+		     </div>
+			 <br>
+			 <div class="dropdown-divider"></div>
+			 <div class="row">
+			   <div class="col-md-3">
+			      <h6>Password</h6>
+			    </div>
+			    <div class="col-md-9">
+			      <a class="btn btn-sm btn-primary" data-toggle="modal" data-target="#changePasswordModal"> Change Password</a>
+			    </div>
+		     </div>
+			 <br><br>
+			 <h4>Connected Accounts</h4>
+			 <div class="dropdown-divider"></div>
+			 <div class="row">
+			   <div class="col-md-3">
+			      <span> <i class="fab fa-google" aria-hidden="true"></i> <strong>Google</strong></span>
+			    </div>
+			    <div class="col-md-9">
+				  <span> antonioalmeida@gmail.com <span class="text-muted">(Disconnect)</span></span>
+			    </div>
+		     </div>
+			 <br>
+			 <div class="dropdown-divider"></div>
+			 <div class="row">
+			   <div class="col-md-3">
+			      <span> <i class="fab fa-facebook-f" aria-hidden="true"></i> <strong>Facebook</strong></span>
+			    </div>
+			    <div class="col-md-9">
+				  <a class="btn btn-sm btn-primary">Connect Facebook Account</a>
+			    </div>
+		     </div>
+		  </div>  
 	   </div>
 	</div>
   </main><!-- /.container -->
@@ -202,6 +175,32 @@
         <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-primary">Submit</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- change password modal -->
+<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+	   <form>
+          <div class="modal-body">
+             <div class="form-group">
+                <label for="currentPassword">Enter current password</label>
+				<input type="password" class="form-control" id="currentPassword" placeholder="password">
+		        <br>
+			</div>
+			<div class="form-group">
+		        <label for="newPassword">Enter new password</label>
+				<input type="password" class="form-control" id="newPassword" placeholder="password">
+             </div>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-primary">Submit</button>
+           </div>
+	   <form>
     </div>
   </div>
 </div>
