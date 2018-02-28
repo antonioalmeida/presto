@@ -50,8 +50,8 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif !defa
   }
 
   &-facebook {
-    border-color: #3B5998; // facebook official blue
-    color: #3B5998; // facebook official blue
+    background-color: #3B5998; // facebook official blue
+    color: $white; 
   }
 
   &-google {
@@ -77,6 +77,10 @@ footer {
 .lead {
   color: $gray-600;
   font-family: $font-family-sans-serif;
+}
+
+.text-facebook {
+  color: #3B5998;
 }
 
 // Tables ======================================================================
