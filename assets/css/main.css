@@ -6655,6 +6655,9 @@ footer {
 .no-bullets {
   list-style: none; }
 
+.who-follow .list-group-item {
+  padding: 0.75em 0.25em; }
+
 /*
 .card {
 	border-top-width: 0.5em;
