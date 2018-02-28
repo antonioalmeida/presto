@@ -82,19 +82,23 @@
   <main role="main">
 	<div class="container">
 	   <div class="row">
-	      <div class="col-md-3">
-			   <br>
-		      <h4>Notifications </h4>
-			  <div class="dropdown-divider"></div>
-			  <br>
-			  <ul>
-				<li><strong>All</strong></li>
-				<li>Questions</li>
-				<li>Answers</li>
-				<li>Comments</li>
-				<li>People</li>
-				<li>Upvotes</li>
-			  </ul>
+
+
+	      <div class="col-2 offset-1">
+        <div class="mt-4">
+              <h4 class="pt-4">Notifications</h4>
+                <div class="dropdown-divider"></div>
+              <ul class="no-bullets pl-0">
+                <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-light badge-pill">1</span></div></li>
+                <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-light badge-pill">10</span></div></li>
+                <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-light badge-pill">21</span></div></li>
+                <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-light badge-pill">19</span></div></li>
+                <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-light badge-pill">14</span></div></li>
+
+              </ul>
+      </div>
+
+
 			  <br>
 			  <h4>By time</h4>
 			  <ul>
@@ -106,59 +110,58 @@
 				 <li>Past Year</li>
 			  <ul>
 		   </div>
-		   <div class="col-md-9">
-		       <br>
-		       <div class="list-group ">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p> <span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <strong>answered</strong> your question <span class="btn-link"> <strong>"When did the French Revolution begin?"</strong></span>. </p>
-					    <span class="text-muted">Sat</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p> <span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Bruno Piedade</span> <strong>upvoted</strong> your comment.</p>
-			            <span class="text-muted">Sat</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas </span> <strong>commented</strong> your answer to the question  <span class="btn-link"> <strong>"When did the French Revolution begin?"</strong></span>.</p>
-					    <span class="text-muted">Thu</span>
-					 </div>
-				 </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</span> started <strong>following</strong> you.</p>
-			            <span class="text-muted">Tue</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-				        <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Jon Doe</span> <strong>asked</strong> <span class="btn-link"> <strong>"What is the meaning of life?"</strong></span>.</p>
-			            <span class="text-muted">Mon</span>
-					 </div>
-				  </a>
-			   </div>
-			   <div class="list-group">
-			      <a href="#" class="list-group-item">
-				     <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-					    <p><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Some Guy</span> <strong>messaged</strong> you.</p>
-						<span class="text-muted">Last Week</span>
-					</div>
-				  </a>
+       <div class="col-md-9 mt-4">
+         <br>
+         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+           <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+             <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span>
+               <span class="text-muted">answered your question </span>
+               <span class="btn-link">"When did the French Revolution begin?" .</span>
+             </small>
+               <span class="mb-1 text-muted"><small>Sat</small></span>
+             </div>
+           </a>
+
+           <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+             <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+               <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span>
+                 <span class="text-muted">commented your answer to the question </span>
+                 <span class="btn-link">"When did the French Revolution begin?" .</span>
+               </small>
+                 <span class="mb-1 text-muted"><small>Thu</small></span>
+               </div>
+             </a>
+
+             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+               <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                 <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</span>
+                   <span class="text-muted">started following you.</span>
+                   </small>
+                   <span class="mb-1 text-muted"><small>Tue</small></span>
+                 </div>
+               </a>
+
+               <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                 <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                   <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Jonh Doe</span>
+                     <span class="text-muted">asked </span>
+                     <span class="btn-link">"What is the meaning of life?" .</span>
+                   </small>
+                     <span class="mb-1 text-muted"><small>Mon</small></span>
+                   </div>
+                 </a>
+
+                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                   <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                     <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Some Guy</span>
+                       <span class="text-muted">messaged you.</span>
+                     </small>
+                       <span class="mb-1 text-muted"><small>Last Week</small></span>
+                     </div>
+                   </a>
 			   </div>
 		   </div>
 	   </div>
-	</div>
   </main><!-- /.container -->
 
 
