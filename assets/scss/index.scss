@@ -30,8 +30,12 @@ main {
 	flex: 1;
 }
 
-body {
+.grey-background {
 	background-color: $gray-100;
+}
+
+.white-background {
+	background-color: $white;
 }
 
 footer {
@@ -50,9 +54,11 @@ footer {
 	list-style: none;
 }
 
-.who-follow {
+.short-padding {
 	.list-group-item {
 		padding: 0.75em 0.25em;
 	}
 }
+
+
 

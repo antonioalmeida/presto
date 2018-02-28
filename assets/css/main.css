@@ -6640,8 +6640,11 @@ body {
 main {
   flex: 1; }
 
-body {
+.grey-background {
   background-color: #f8f9fa; }
+
+.white-background {
+  background-color: #fff; }
 
 footer {
   background-color: #fff;
@@ -6655,7 +6658,7 @@ footer {
 .no-bullets {
   list-style: none; }
 
-.who-follow .list-group-item {
+.short-padding .list-group-item {
   padding: 0.75em 0.25em; }
 
 /*
