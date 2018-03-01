@@ -7,7 +7,7 @@
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
 
-  <title>Notifications | Presto</title>
+  <title>Messages | Presto</title>
 
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="stylesheet" href="assets/css/offcanvas.css" />
@@ -52,7 +52,7 @@
           <li class="nav-item pr-2">
             <a class="nav-link" href="#"><i class="far fa-search"></i></a>
           </li>
-          <li class="nav-item pr-2 dropdown">
+	      <li class="nav-item pr-2 dropdown">
             <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
               <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
@@ -63,17 +63,17 @@
               <a class="dropdown-item" href="notifications.html">See All Notifications</a>
             </div>
           </li>
-
+		 
           <li class="nav-item dropdown">
             <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="profile.html">Profile</a>
-              <a class="dropdown-item" href="messages.html">Messages</a>
-			  <a class="dropdown-item" href="settings.html">Settings</a>
+              <a class="dropdown-item" href="#">Messages</a>
+			  <a class="dropdown-item" href="profilesettings.html">Settings</a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Logout</a>
+              <a class="dropdown-item" href="index.html">Logout</a>
             </div>
           </li>
         </ul>
@@ -86,83 +86,55 @@
 	<div class="container">
 	   <div class="row">
 
-
-	      <div class="col-2 offset-1">
-        <div class="mt-4">
-              <h4 class="pt-4">Notifications</h4>
+		<div class="col-4 mt-4">
+              <h4 class="pt-4">Messages</h4>
               <div class="dropdown-divider"></div>
-              <ul class="no-bullets pl-0">
-                <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-light badge-pill">1</span></div></li>
-                <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-light badge-pill">10</span></div></li>
-                <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-light badge-pill">21</span></div></li>
-                <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-light badge-pill">19</span></div></li>
-                <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-light badge-pill">14</span></div></li>
-
-              </ul>
+				
+			  
+		      <div class="pre-scrollable">
+		         <div class="list-group">
+				   <button class="list-group-item list-group-item-action d-flex justify-content-between"><span class="btn-link"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span><span class="badge badge-light badge-pill">1</span></button>
+                   <button class="list-group-item list-group-item-action d-flex justify-content-between"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</span><span class="badge badge-light badge-pill">1</span></button>
+                   <button class="list-group-item list-group-item-action d-flex justify-content-between"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Bruno Piedade</span><span class="badge badge-light badge-pill">1</span></button>
+				 </div>
+		      </div>
+			  
+			  <button class="btn btn-primary">Add User</button>
       </div>
-
-
-			  <br>
-			  <h4>By time</h4>
-			  <ul>
-			     <li><strong>All Time</strong></li>
-				 <li>Past Hour</li>
-				 <li>Past Day</li>
-				 <li>Past Week</li>
-				 <li>Past Month</li>
-				 <li>Past Year</li>
-			  <ul>
-		   </div>
-       <div class="col-md-9 mt-4">
+       <div class="col-md-8 mt-4">
          <br>
-         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-           <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-             <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span>
-               <span class="text-muted">answered your question </span>
-               <span class="btn-link">"When did the French Revolution begin?" .</span>
-             </small>
-               <span class="mb-1 text-muted"><small>Sat</small></span>
-             </div>
-           </a>
+		 <div class="pre-scrollable">
+            <div class="list-group-item d-flex flex-column align-items-start">
+                <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas, <span class="text-muted">Sat</span></span></small>
+				<span>hi dude!</span>
+            </div>
 
-           <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-             <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-               <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span>
-                 <span class="text-muted">commented your answer to the question </span>
-                 <span class="btn-link">"When did the French Revolution begin?" .</span>
-               </small>
-                 <span class="mb-1 text-muted"><small>Thu</small></span>
-               </div>
-             </a>
+            <div class="list-group-item d-flex flex-column justify-content-start align-items-end">
+                <small class="pb-1"><span class="btn-link"><span class="text-muted">Sat</span></span></small>
+				<span>soup</span>
+            </div>
 
-             <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-               <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                 <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</span>
-                   <span class="text-muted">started following you.</span>
-                   </small>
-                   <span class="mb-1 text-muted"><small>Tue</small></span>
-                 </div>
-               </a>
+            <div class="list-group-item d-flex flex-column align-items-start">
+                <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas, <span class="text-muted">Sat</span></span></small>
+				<span>gotta say that post was swood, really gnarly</span>
+            </div>
 
-               <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                 <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                   <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Jonh Doe</span>
-                     <span class="text-muted">asked </span>
-                     <span class="btn-link">"What is the meaning of life?" .</span>
-                   </small>
-                     <span class="mb-1 text-muted"><small>Mon</small></span>
-                   </div>
-                 </a>
+             <div class="list-group-item d-flex flex-column justify-content-start align-items-end">
+                <small class="pb-1"><span class="btn-link"><span class="text-muted">Sat</span></span></small>
+				<span>ty</span>
+            </div>
 
-                 <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                   <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                     <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Some Guy</span>
-                       <span class="text-muted">messaged you.</span>
-                     </small>
-                       <span class="mb-1 text-muted"><small>Last Week</small></span>
-                     </div>
-                   </a>
+             <div class="list-group-item d-flex flex-column justify-content-start align-items-end">
+                <small class="pb-1"><span class="btn-link"><span class="text-muted">Sat</span></span></small>
+				<span>xD</span>
+            </div>
+			</div>
+			<form>
+			   <div class="form-group">
+			      <input type="text" class="form-control" placeholder="> Message">
 			   </div>
+			</form>
+			</div>
 		   </div>
 	   </div>
   </main><!-- /.container -->
