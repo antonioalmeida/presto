@@ -6620,13 +6620,17 @@ table,
     .profile-header .bio .table td, .profile-header .bio .table th {
       border: 0; }
 
-.sign-up-card .social-buttons div {
-  margin: 0 1em 0.5em 1em; }
-
 .navbar-nav .profile-photo {
   margin-bottom: 0.25em; }
 .navbar-nav .nav-link {
   font-size: 1.3819rem; }
+
+.jumbotron {
+  background-image: url("../img/background.svg"); }
+  .jumbotron h1 {
+    color: #fff; }
+  .jumbotron h2 {
+    color: #ddd; }
 
 html {
   height: 100%; }
@@ -6645,6 +6649,9 @@ main {
 
 .white-background {
   background-color: #fff; }
+
+.img-background {
+  background-image: url("../img/background.svg"); }
 
 footer {
   background-color: #fff;
