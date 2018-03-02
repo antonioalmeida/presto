@@ -1,111 +1,125 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-    <title>Log in | Presto</title>
+  <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
 
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/offcanvas.css" />
+  <title>Login | Presto</title>
 
-   <!-- Bootstrap core JS -->
-   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/offcanvas.css" />
 
-   <!-- Fontawesome pro -->
-   <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- Bootstrap core JS -->
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-   <!-- Offcanvas -->
-   <script defer src="assets/js/offcanvas.js"></script>
+  <!-- google platform -->
+  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+
+   <!-- facebook sdk -->
+  <div id="fb-root"></div>
+  <script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));</script>
+
+  <!-- Fontawesome pro -->
+  <script defer src="assets/js/fontawesome-all.min.js"></script>
+
+  <!-- Offcanvas -->
+  <script defer src="assets/js/offcanvas.js"></script>
+
+</head>
+
+<body class="img-background">
 
 
-  </head>
+  <main role="main">
 
-  <body class="img-background">
+    <section class="container">
 
-    <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="index.html"><h4>Presto</h4></a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
-
-          </ul>
-          <div class="my-2 my-lg-0">
-            <a href='login.html'><button class="btn btn-link my-2 my-sm-0">Login</button></a>
-            <a href='signup.html'><button class="btn btn-primary my-2 my-sm-0">Sign Up</button></a>
+     <div class="card py-5 my-5">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h1 class="text-center">Welcome back.</h1>
+            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.</p>
           </div>
         </div>
       </div>
-    </nav>
+      <div class="row">
 
-    <main role="main">
-        <section class="container mt-4 pb-3">
-          <h1>Log in</h1>
-		  <hr>
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-5">
-            <div class="card sign-up-card">
-              <div class="card-body">
-                <form method="post" action="loggedindex.html">
+        <div class="col-md-6 col-lg-4 offset-lg-2 d-flex flex-column align-items-center mb-5">
+          <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
 
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="far fa-at"></i></div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
-                  </div>
+          <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+        </div>
 
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="far fa-key"></i></div>
-                    </div>
-                    <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
-                  </div>
+        <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center">
 
-                  <div class="d-flex justify-content-center">
-                     <button class="btn btn-primary">Log in</button>
-				  </div>
-              </form>
-              <br />
-              <div class="d-flex align-items-center flex-column social-buttons">
-                <a href='profile.html'><div class="btn btn-outline btn-google m-1"><i class="fab fa-google"></i> Log in with Google</div></a>
-                <a href='profile.html'><div class="btn btn-outline btn-facebook m-1"><i class="fab fa-facebook-f"></i> Log in with Facebook</div></a>
+          <form method="post" action="loggedindex.html">
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="far fa-user"></i></div>
               </div>
-              </div>
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Name">
             </div>
-          </div>
-          </div>
-        </section>
 
-    </main><!-- /.container -->
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="far fa-at"></i></div>
+              </div>
+              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+            </div>
 
-    <footer>
-    <div class="container">
-      <div class="row text-center align-items-center">
-        <div class="col-12 col-sm-6 col-md-4 text-sm-left">
-          <h5>Presto</h5>
-          <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
-        </div>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="far fa-key"></i></div>
+              </div>
+              <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+            </div>
 
-        <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
-          © 2018 Presto
-        </div>
+            <div class="d-flex justify-content-center">
+              <a href='profile.html'><button class="btn btn-primary">Login</button></a>
+            </div>
+          </form>
 
-        <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
-          <a href="about.html">About</a>
         </div>
       </div>
     </div>
-  </footer>
+  </section>
 
-  </body>
+</main><!-- /.container -->
+
+</body>
 </html>
+
+  <!-- google sign in -->
+ <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 200,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>

@@ -6610,16 +6610,6 @@ table,
 .list-group {
   font-size: 0.875em; }
 
-.profile-header {
-  padding-top: 2em; }
-  .profile-header .profile-info {
-    padding-top: 1em; }
-  .profile-header .bio {
-    padding-left: 0;
-    padding-top: 1em; }
-    .profile-header .bio .table td, .profile-header .bio .table th {
-      border: 0; }
-
 .navbar-nav .profile-photo {
   margin-bottom: 0.25em; }
 .navbar-nav .nav-link {
@@ -6629,8 +6619,21 @@ table,
   background-image: url("../img/background.svg"); }
   .jumbotron h1 {
     color: #fff; }
-  .jumbotron h2 {
-    color: #ddd; }
+  .jumbotron h3 {
+    color: #fff;
+    font-weight: normal; }
+
+.profile-jumbotron {
+  background-image: url("../img/background.svg"); }
+  .profile-jumbotron .bio {
+    color: #fff; }
+  .profile-jumbotron h4 {
+    color: #fff;
+    font-weight: normal; }
+  .profile-jumbotron small {
+    font-weight: normal; }
+  .profile-jumbotron .lead {
+    color: #fff; }
 
 html {
   height: 100%; }
@@ -6701,6 +6704,8 @@ footer {
   font-size: 1.5945rem;
   padding: 0.5em;
   border: none; }
+  .modal .main-question::placeholder {
+    color: #ddd; }
   .modal .main-question:focus {
     outline: none; }
 
