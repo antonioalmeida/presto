@@ -6685,6 +6685,10 @@ footer {
 .edit-profile .input-h5 {
   font-size: 1.32875rem; }
 
+@media (max-width: 768px) {
+  .text-collapse {
+    display: none; } }
+
 /*
 .card {
 	border-top-width: 0.5em;
