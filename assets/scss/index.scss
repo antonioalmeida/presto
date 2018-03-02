@@ -12,8 +12,28 @@
 	background-image: url('../img/background.svg');
 	h1 {
 		color: $white; }
-	h2 {
-		color: $gray-300; }
+
+	h3  {
+		color: $white; 
+		font-weight: normal;
+	}
+}
+
+.profile-jumbotron {
+	background-image: url('../img/background.svg');
+
+	.bio {
+		color: $white; }
+
+	h4 {
+		color: $white;
+		font-weight: normal; }
+	
+	small {
+		font-weight: normal; }
+
+	.lead {
+		color: $white; }
 }
 
 
