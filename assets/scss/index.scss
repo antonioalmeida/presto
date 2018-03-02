@@ -10,13 +10,13 @@
 
 .jumbotron {
 	background-image: url('../img/background.svg');
+
 	h1 {
 		color: $white; }
 
 	h3  {
 		color: $white; 
-		font-weight: normal;
-	}
+		font-weight: normal; }
 }
 
 .profile-jumbotron {
@@ -38,9 +38,8 @@
 
 
 
-html{
-	height: 100%;
-}
+html {
+	height: 100%; }
 
 body {
 	height: 100%;
@@ -87,5 +86,26 @@ footer {
 	}
 }
 
+.edit-profile {
+	input {
+		border: none;
+		padding-left: 0.2em;
+	}
+	.input-h1 {
+		font-size: $h1-font-size; }
+
+	.input-h2 {
+		font-size: $h2-font-size; }
+
+	.input-h3 {
+		font-size: $h3-font-size; }
+	
+	.input-h4 {
+		font-size: $h4-font-size; }
+
+	.input-h5 {
+		font-size: $h5-font-size; }
+
+}
 
 

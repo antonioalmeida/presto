@@ -6671,6 +6671,20 @@ footer {
 .short-padding .list-group-item {
   padding: 0.75em 0.25em; }
 
+.edit-profile input {
+  border: none;
+  padding-left: 0.2em; }
+.edit-profile .input-h1 {
+  font-size: 2.6575rem; }
+.edit-profile .input-h2 {
+  font-size: 2.126rem; }
+.edit-profile .input-h3 {
+  font-size: 1.86025rem; }
+.edit-profile .input-h4 {
+  font-size: 1.5945rem; }
+.edit-profile .input-h5 {
+  font-size: 1.32875rem; }
+
 /*
 .card {
 	border-top-width: 0.5em;
@@ -6721,6 +6735,9 @@ footer {
     color: #868e96; }
     .nav-tabs .nav-link:hover {
       color: #343a40; }
+
+.transparent-input {
+  background-color: transparent; }
 
 .bootstrap-tagsinput {
   display: inline-block;

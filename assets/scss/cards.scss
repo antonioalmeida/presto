@@ -59,8 +59,6 @@
 		&:focus{
 			outline: none;
 		}
-
-
 	}
 }
 
@@ -82,4 +80,8 @@
 			color: $body-color;
 		}
 	}
+}
+
+.transparent-input {
+	background-color: transparent;
 }
