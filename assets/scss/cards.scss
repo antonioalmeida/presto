@@ -12,7 +12,8 @@
 }*/
 
 .list-group-item {
-	.answer-preview {
+	.notifications-card a {
+		color: $body-color !important;
 	}
 
 	.answer-image-preview img {

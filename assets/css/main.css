@@ -6683,6 +6683,8 @@ footer {
 	}
 
 }*/
+.list-group-item .notifications-card a {
+  color: #343a40 !important; }
 .list-group-item .answer-image-preview img {
   max-width: 100%;
   height: auto;
