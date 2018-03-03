@@ -80,20 +80,63 @@
 
     <main role="main">
 
-      <section class="container mt-5">
+      <section class="container wrapper mt-4">
         <div class="row">
-          <div class=" col-sm-3 mt-2">
+          <div class="sidebar col-sm-3 mt-2">
+		  
+		     <div>
                 <h4 class="pt-4">Type</h4>
                 <div class="dropdown-divider"></div>
                 <ul class="no-bullets pl-0">
-                  <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Results</strong></a> <div></div></li>
-                  <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div></div></li>
-                  <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div></div></li>
-                  <li class="d-flex justify-content-between"><a href="" class="text-muted">Users</a> <div></div></li>
+                    <li class="d-flex justify-content-between "><a href="#" class="text-muted"><strong>All Types</strong></a></li>
+                    <li class="d-flex justify-content-between"><a href="#" class="text-muted">Questions</a></li>
+                    <li class="d-flex justify-content-between"><a href="#" class="text-muted">Answers</a></li>
+					<li class="d-flex justify-content-between"><a href="#" class="text-muted">Topics</a></li>
+                    <li class="d-flex justify-content-between"><a href="#" class="text-muted">Users</a></li>
                 </ul>
+		     </div>
+				
+			 <div>
+                <h4 class="pt-4">Topics</h4>
+                <div class="dropdown-divider"></div>
+                <ul class="no-bullets pl-0">
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Topics</strong></a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Followed Topics</a></li>
+                </ul>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Select Topic">
+				</div>
+		     </div>
+				
+			 <div>
+                <h4 class="pt-4">Author</h4>
+                <div class="dropdown-divider"></div>
+                <ul class="no-bullets pl-0">
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All People</strong></a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Followed People</a></li>
+                </ul>
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Find People">
+				</div>
+		     </div>
+			 
+			 <div>
+                <h4 class="pt-4">Time</h4>
+                <div class="dropdown-divider"></div>
+                <ul class="no-bullets pl-0">
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Time</strong></a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Hour</a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Day</a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Week</a></li>
+					<li class="d-flex justify-content-between"><a href="" class="text-muted">Past Month</a></li>
+                    <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Year</a></li>
+                </ul>
+		     </div>
         </div>
 
           <div class="col-sm-8">
+		  
+			<button type="button" id="sidebarCollapse" class="btn btn-info btn-sm"><i class="fas fa-align-left"></i></button>
             <h3><small class="text-muted">Search results for </small> Maths</h3>
 
             <br>
@@ -211,3 +254,12 @@
 
   </body>
 </html>
+
+<script>
+  let sideBar = document.querySelector(".sidebar");
+  let sidebarCollapse = document.querySelector("#sidebarCollapse");
+   
+  sidebarCollapse.addEventListener('click',function(){
+		sideBar.classList.toggle('active');
+  });
+</script>

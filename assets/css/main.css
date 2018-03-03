@@ -6685,9 +6685,44 @@ footer {
 .edit-profile .input-h5 {
   font-size: 1.32875rem; }
 
+#sidebarCollapse{
+	display:none;
+}
+
+#sidebarClose{
+	display: none;
+}
+
+.sidebar {
+	min-width: 250px;
+	max-width: 250px;
+	min-height: 100vh;
+	transition: all 0.25s ease-in;
+}
+
+.sidebar.active {
+    margin-left: -250px;
+}
+
 @media (max-width: 768px) {
   .text-collapse {
-    display: none; } }
+    display: none; } 
+	 
+	.sidebar {
+        margin-left: -250px;
+    }
+    .sidebar.active {
+        margin-left: 0;
+    }
+	
+	#sidebarCollapse{
+		display: initial;
+	}
+	
+	#sidebarClose{
+		display: initial;
+	}
+}
 
 /*
 .card {
