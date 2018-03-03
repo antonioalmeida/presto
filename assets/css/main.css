@@ -6685,43 +6685,9 @@ footer {
 .edit-profile .input-h5 {
   font-size: 1.32875rem; }
 
-#sidebarCollapse{
-	display:none;
-}
-
-#sidebarClose{
-	display: none;
-}
-
-.sidebar {
-	min-width: 250px;
-	max-width: 250px;
-	min-height: 100vh;
-	transition: all 0.25s ease-in;
-}
-
-.sidebar.active {
-    margin-left: -250px;
-}
-
 @media (max-width: 768px) {
   .text-collapse {
-    display: none; } 
-	 
-	.sidebar {
-        margin-left: -250px;
-    }
-    .sidebar.active {
-        margin-left: 0;
-    }
-	
-	#sidebarCollapse{
-		display: initial;
-	}
-	
-	#sidebarClose{
-		display: initial;
-	}
+    display: none; }
 }
 
 /*
@@ -6826,5 +6792,67 @@ footer {
   color: #343a40; }
 .admin-table tr:hover .admin-actions a {
   color: #343a40; }
+
+  /* MANUALLY INSERTED  BEGIN*/
+  .solved-tag {
+    font-size: 75%;
+    border: 0.05em solid #02B875; /* Green */
+    border-radius: 0.1em;
+    background-color: #02B875; /* Green */
+    padding-right: 0.1em;
+    padding-left: 0.1em;
+  }
+
+  .accepted-answer {
+    border-radius: 0.1em;
+    border: 0.05em solid #02B875; /* Green */
+    padding: 0.5em;
+    background-color: #ddd; /* Grey 300 */
+  }
+
+  /* Used for downvote button (created it because wanted to have a button whose background only showed on hover but had no outline)*/
+  .downvote:hover {
+    background-color: #d9534f; /* red */
+    border-color: red;
+  }
+
+  /* By Kubix */
+  #sidebarCollapse{
+  	display:none;
+  }
+
+  #sidebarClose{
+  	display: none;
+  }
+
+  .sidebar {
+  	min-width: 250px;
+  	max-width: 250px;
+  	min-height: 100vh;
+  	transition: all 0.25s ease-in;
+  }
+
+  .sidebar.active {
+      margin-left: -250px;
+  }
+
+  @media (max-width: 768px) {
+    .sidebar {
+          margin-left: -250px;
+      }
+      .sidebar.active {
+          margin-left: 0;
+      }
+
+  	#sidebarCollapse{
+  		display: initial;
+  	}
+
+  	#sidebarClose{
+  		display: initial;
+  	}
+  }
+
+  /* MANUALLY INSERTED END */
 
 /*# sourceMappingURL=main.css.map */
