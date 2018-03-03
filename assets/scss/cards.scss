@@ -2,13 +2,11 @@
 .card {
 	border-top-width: 0.5em;
 	border-top-color: $primary;
-
 	.card-header {
 		padding-top: 0.5em;
 		padding-bottom: 0.5em;
 		font-size: $font-size-base*0.8
 	}
-
 }*/
 
 .list-group-item {
@@ -74,7 +72,7 @@
 	}
 
 	.nav-link {
- 			color: $gray-600;
+		color: $gray-600;
 
 		&:hover {
 			color: $body-color;
