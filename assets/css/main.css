@@ -6851,6 +6851,26 @@ footer {
   	#sidebarClose{
   		display: initial;
   	}
+	
+	#nav-search-bar.open {
+	    visibility: visible;
+		padding: 4px 8.8px;
+		width: 100px;
+    }
+  }
+  
+  
+  #nav-search-bar {
+	visibility: hidden;
+	width: 0;
+	padding: 0;
+	transition: all 0.5s ease-in-out;
+}
+
+  #nav-search-bar.open {
+	visibility: visible;
+	padding: 8px 17.6px;
+	width: 500px;
   }
 
   /* MANUALLY INSERTED END */

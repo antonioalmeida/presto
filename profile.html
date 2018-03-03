@@ -45,7 +45,10 @@
         </ul>
         <ul class="navbar-nav align-items-end">
           <li class="nav-item pr-2">
-            <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+            <div class="input-group">
+				<input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="Recipient's username" aria-describedby="basic-addon2">
+				<a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+			</div>
           </li>
           <li class="nav-item pr-2 dropdown">
             <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
@@ -332,3 +335,16 @@
 </div>
 
 </html>
+
+
+
+<script defer>
+	let searchBar = document.getElementById('nav-search-bar');
+	let searchBtn = document.getElementById('nav-search-btn');
+	
+	searchBtn.addEventListener('click', function(){
+		searchBar.classList.toggle('open');
+		console.log('Clicked');
+	});
+</script>
+	
