@@ -13,31 +13,6 @@
   /* green */
   border-color: green; }
 
-/* MANUALLY INSERTED  BEGIN*/
-.solved-tag {
-  font-size: 75%;
-  border: 0.05em solid #02B875;
-  /* Green */
-  border-radius: 0.1em;
-  background-color: #02B875;
-  /* Green */
-  padding-right: 0.1em;
-  padding-left: 0.1em; }
-
-.accepted-answer {
-  border-radius: 0.1em;
-  border: 0.05em solid #02B875;
-  /* Green */
-  padding: 0.5em;
-  background-color: #ddd;
-  /* Grey 300 */ }
-
-/* Used for downvote button (created it because wanted to have a button whose background only showed on hover but had no outline)*/
-.downvote:hover {
-  background-color: #d9534f;
-  /* red */
-  border-color: red; }
-
 /* By Kubix */
 #sidebarCollapse {
   display: none; }
