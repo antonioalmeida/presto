@@ -12,7 +12,8 @@ body {
     position: fixed;
     top: 56px; /* Height of navbar */
     bottom: 0;
-    width: 80%;
+    left: 0;
+    min-width: 17.5rem;
     padding-right: 1rem;
     padding-left: 3rem;
     overflow-y: auto;
@@ -20,14 +21,13 @@ body {
     transition: -webkit-transform .3s ease-in-out;
     transition: transform .3s ease-in-out;
     transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
-    -webkit-transform: translateX(-200%);
-    transform: translateX(-200%);
+    -webkit-transform: translateX(-150%);
+    transform: translateX(-150%);
     z-index: 1030;
   }
 
   .offcanvas-collapse.open {
-    -webkit-transform: translateX(-1rem);
-    transform: translateX(-1rem); /* Account for horizontal padding on navbar */
-    left: 0;
+    -webkit-transform: translateX(-2rem);
+    transform: translateX(-2rem); /* Account for horizontal padding on navbar */
   }
 }
