@@ -66,8 +66,8 @@
 
         <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center">
 
-          <form method="post" action="loggedindex.html">
-        
+          <form id="signupForm" method="post" action="loggedindex.html">
+
 
 			<div class="input-group mb-2">
               <div class="input-group-prepend">
@@ -94,10 +94,10 @@
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="far fa-key"></i></div>
               </div>
-              <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+              <input type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
               <div class="input-group-prepend">
                 <!-- <div class="input-group-text"><i class="fal fa-square"></i></div> -->
-                <div class="input-group-text"><i class="fal fa-check-square"></i></div>
+                <div class="input-group-text"><input type="checkbox" id="showPassword" /></div>
               </div>
             </div>
 
@@ -123,6 +123,20 @@
 
 </body>
 </html>
+
+  <script defer>
+  /*
+   * Toggle password showing on signup
+   */
+
+    let passwordInput = document.querySelector("#signupForm input[name='password']");
+    showPassword.onclick = function(event) {
+      if(showPassword.checked)
+        passwordInput.type = 'text';
+      else
+        passwordInput.type = 'password';
+    }
+  </script>
 
   <!-- google sign in -->
  <script>

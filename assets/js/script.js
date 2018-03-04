@@ -1,3 +1,6 @@
+ /*
+  * Eliminating navbar dropdowns when screen is too small
+  */
 let navbar_avatar = document.getElementById("navbarDropdown");
 let notifications_button = document.getElementById("notificationsDropdown");
 
