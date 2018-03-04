@@ -1,360 +1,360 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-    <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
+  <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
 
-    <title>Presto</title>
+  <title>Presto</title>
 
-    <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
 
-   <!-- Bootstrap core JS -->
-   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Bootstrap core JS -->
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-   <!-- google platform -->
+  <!-- google platform -->
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
   <!-- google sign in -->
   <script>
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-      console.log(error);
-    }
-    function renderButton() {
-      gapi.signin2.render('my-signin2', {
-        'scope': 'profile email',
-        'width': 100,
-        'height': 50,
-        'longtitle': true,
-        'theme': 'dark',
-        'onsuccess': onSuccess,
-        'onfailure': onFailure
-      });
-    }
+      function onSuccess(googleUser) {
+          console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      }
+      function onFailure(error) {
+          console.log(error);
+      }
+      function renderButton() {
+          gapi.signin2.render('my-signin2', {
+              'scope': 'profile email',
+              'width': 100,
+              'height': 50,
+              'longtitle': true,
+              'theme': 'dark',
+              'onsuccess': onSuccess,
+              'onfailure': onFailure
+          });
+      }
   </script>
 
   <!-- facebook sdk -->
   <div id="fb-root"></div>
   <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
-    fjs.parentNode.insertBefore(js, fjs);
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
+      fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));</script>
 
-   <!-- Fontawesome pro -->
-   <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- Fontawesome pro -->
+  <script defer src="assets/js/fontawesome-all.min.js"></script>
 
-   <!-- Offcanvas -->
-   <script defer src="assets/js/offcanvas.js"></script>
+  <!-- Offcanvas -->
+  <script defer src="assets/js/offcanvas.js"></script>
 
-  </head>
+</head>
 
-  <body class="grey-background">
+<body class="grey-background">
 
-    <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="index.html"><h4>Presto</h4></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+  <div class="container">
+    <a class="navbar-brand" href="index.html"><h4>Presto</h4></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <div class="navbar-collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
+    <div class="navbar-collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav mr-auto">
 
-          </ul>
-          <div class="my-2 my-lg-0">
-            <a href='login.html'><button class="btn btn-link my-2 my-sm-0">Login</button></a>
-            <a href='signup.html'><button class="btn btn-primary my-2 my-sm-0">Sign Up</button></a>
-          </div>
-        </div>
+      </ul>
+      <div class="my-2 my-lg-0">
+        <a href='login.html'><button class="btn btn-link my-2 my-sm-0">Login</button></a>
+        <a href='signup.html'><button class="btn btn-primary my-2 my-sm-0">Sign Up</button></a>
       </div>
-    </nav>
+    </div>
+  </div>
+</nav>
 
-    <main class="mt-5" role="main">
+<main class="mt-5" role="main">
 
-      <section class="jumbotron">
-        <div class="container">
-          <div class="row">
-            <div class="col-sm-7 align-self-center my-3">
-              <h1>Be a part of the knowledge community.</h1>
-              <h3><small>Join <strong>Presto</strong> and help grow the world's knowledge.</small></32>
-            </div>
-            <div class="col-sm-5 align-self-center">
-            <div class="card sign-up-card">
-              <div class="card-body">
-                <div class="d-flex align-items-center flex-column">
-                    <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
+  <section class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-7 align-self-center my-3">
+          <h1>Be a part of the knowledge community.</h1>
+          <h3><small>Join <strong>Presto</strong> and help grow the world's knowledge.</small></32>
+        </div>
+        <div class="col-sm-5 align-self-center">
+          <div class="card sign-up-card">
+            <div class="card-body">
+              <div class="d-flex align-items-center flex-column">
+                <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
 
-                    <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+                <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <h6 class="text-muted"><small>OR</small></h6>
+              </div>
+
+              <form method="post" action="loggedindex.html">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="far fa-user"></i></div>
+                  </div>
+                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Name">
                 </div>
 
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="far fa-at"></i></div>
+                  </div>
+                  <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+                </div>
+
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="far fa-key"></i></div>
+                  </div>
+                  <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                </div>
                 <div class="d-flex justify-content-center">
-                  <h6 class="text-muted"><small>OR</small></h6>
+                  <button class="btn btn-primary">Sign Up</button>
                 </div>
-
-                <form method="post" action="loggedindex.html">
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="far fa-user"></i></div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Name">
-                  </div>
-
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="far fa-at"></i></div>
-                    </div>
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
-                  </div>
-
-                  <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="far fa-key"></i></div>
-                    </div>
-                    <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
-                  </div>
-                  <div class="d-flex justify-content-center">
-                    <button class="btn btn-primary">Sign Up</button>
-                  </div>
-                </form>
-              </div>
+              </form>
             </div>
-
           </div>
 
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- content -->
+  <section class="container">
+    <div class="row">
+      <div class="col-md-2 text-right side-menu">
+        <h6 class="">Trending Topics</h6>
+        <ul class="no-bullets">
+          <li><a href="" class="text-muted">Science</a></li>
+          <li><a href="" class="text-muted">Education</a></li>
+          <li><a href="" class="text-muted">Sports</a></li>
+          <li><a href="" class="text-muted">Design</a></li>
+          <li><a href="" class="text-muted">Entertainment</a></li>
+          <li><a href="" class="text-muted">Bodybuilding</a></li>
+        </ul>
+      </div>
+      <div class="col-md-7">
+        <nav>
+          <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
           </div>
-        </div>
-      </section>
+        </nav>
+        <div class="tab-content mb-5" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            <!-- Questions go here -->
 
-      <!-- content -->
-      <section class="container">
-        <div class="row">
-          <div class="col-md-2 text-right side-menu">
-                <h6 class="">Trending Topics</h6>
-                <ul class="no-bullets">
-                  <li><a href="" class="text-muted">Science</a></li>
-                  <li><a href="" class="text-muted">Education</a></li>
-                  <li><a href="" class="text-muted">Sports</a></li>
-                  <li><a href="" class="text-muted">Design</a></li>
-                  <li><a href="" class="text-muted">Entertainment</a></li>
-                  <li><a href="" class="text-muted">Bodybuilding</a></li>
-                </ul>
-        </div>
-        <div class="col-md-7">
-          <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-              <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
-              <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
-            </div>
-          </nav>
-          <div class="tab-content mb-5" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-              <!-- Questions go here -->
+            <div class="list-group">
 
-              <div class="list-group">
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                    <h4 class="mb-1">What is Maths?</h4>
-                    <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                </a>
-
-
-              </div>
-
-
-            </div>
-            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-              <!-- answers go here -->
-              <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                    <h4 class="mb-3">Where has Math been invented?</h4>
-                    <div class="d-flex">
-                      <div>
-                        <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                      </div>
-                      <h6><span class="btn-link">António Almeida</span><br>
-                      <small class="text-muted">answered 23h ago</small></h6>
-                    </div>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
                 </div>
-                <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
                 <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-
               </a>
 
-              <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                  <h4 class="mb-3">Where has Math been invented?</h4>
-                  <div class="d-flex">
-                    <div>
-                      <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                    </div>
-                    <h6><span class="btn-link">António Almeida</span><br>
-                      <small class="text-muted">answered 23h ago</small></h6>
-                    </div>
-                  </div>
-                  <div class="row answer-preview">
-                    <div class="answer-text-preview col-sm mb-1">
-                      <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                    </div>
-                    <div class="answer-image-preview col-sm-4">
-                      <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
-                    </div>
-                  </div>
-                  <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              </a>
 
-                </a>
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              </a>
+
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              </a>
+
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              </a>
+
+              <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                  <h4 class="mb-1">What is Maths?</h4>
+                  <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+                </div>
+                <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+              </a>
 
 
-                <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                  <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                    <h4 class="mb-3">Where has Math been invented?</h4>
-                    <div class="d-flex">
-                      <div>
-                        <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                      </div>
-                      <h6><span class="btn-link">António Almeida</span><br>
-                        <small class="text-muted">answered 23h ago</small></h6>
-                      </div>
-                    </div>
-                    <div class="row answer-preview">
-                      <div class="answer-text-preview col-sm mb-1">
-                        <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                      </div>
-                      <div class="answer-image-preview col-sm-4">
-                        <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
-                      </div>
-                    </div>
-                    <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                  </a>
             </div>
-          </div>
 
+
+          </div>
+          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            <!-- answers go here -->
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+
+            </a>
+
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <div class="row answer-preview">
+                <div class="answer-text-preview col-sm mb-1">
+                  <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                </div>
+                <div class="answer-image-preview col-sm-4">
+                  <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
+                </div>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+
+            </a>
+
+
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <div class="row answer-preview">
+                <div class="answer-text-preview col-sm mb-1">
+                  <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                </div>
+                <div class="answer-image-preview col-sm-4">
+                  <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
+                </div>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+          </div>
         </div>
 
-        <div class="col-md-3 side-menu">
-          <div class="card">
-            <div class="card-body">
-              <h6>Top Users</h6>
-              <div class="list-group list-group-flush short-padding">
-                <div class="list-group-item d-flex justify-content-begin">
-                  <div class="align-self-center">
-                    <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
-                  </div>
-                  <div>
-                    <span class="btn-link">António Almeida<br></span>
-                      <span class="text-muted">@antonioalmeida</span>
-                    </div>
-                  </div>
-                  <div class="list-group-item d-flex justify-content-begin">
-                    <div class="align-self-center">
-                      <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man2.jpeg">
-                    </div>
-                    <div>
-                      <span class="btn-link">João Damas</span>
-                        <span class="text-muted">@cyrilico</span>
-                      </div>
-                    </div>
-                    <div class="list-group-item d-flex justify-content-begin">
-                      <div class="align-self-center">
-                        <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
-                      </div>
-                      <div>
-                        <span class="btn-link">Diogo Torres<br></span>
-                          <span class="text-muted">@diogotorres97</span>
-                        </div>
-                      </div>
-                      <div class="list-group-item d-flex justify-content-begin"> <div class="align-self-center">
-                        <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man2.jpeg">
-                      </div>
-                      <div>
-                        <span class="btn-link">Bruno Piedade</span>
-                        <span class="text-muted">@kubix20</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+      </div>
+
+      <div class="col-md-3 side-menu">
+        <div class="card">
+          <div class="card-body">
+            <h6>Top Users</h6>
+            <div class="list-group list-group-flush short-padding">
+              <div class="list-group-item d-flex justify-content-begin">
+                <div class="align-self-center">
+                  <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
+                </div>
+                <div>
+                  <span class="btn-link">António Almeida<br></span>
+                  <span class="text-muted">@antonioalmeida</span>
+                </div>
+              </div>
+              <div class="list-group-item d-flex justify-content-begin">
+                <div class="align-self-center">
+                  <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man2.jpeg">
+                </div>
+                <div>
+                  <span class="btn-link">João Damas</span>
+                  <span class="text-muted">@cyrilico</span>
+                </div>
+              </div>
+              <div class="list-group-item d-flex justify-content-begin">
+                <div class="align-self-center">
+                  <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
+                </div>
+                <div>
+                  <span class="btn-link">Diogo Torres<br></span>
+                  <span class="text-muted">@diogotorres97</span>
+                </div>
+              </div>
+              <div class="list-group-item d-flex justify-content-begin"> <div class="align-self-center">
+                <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man2.jpeg">
+              </div>
+                <div>
+                  <span class="btn-link">Bruno Piedade</span>
+                  <span class="text-muted">@kubix20</span>
                 </div>
               </div>
             </div>
-      </div>
-
-      </section>
-
-    </main><!-- /.container -->
-
-    <footer>
-    <div class="container">
-      <div class="row text-center align-items-center">
-        <div class="col-12 col-sm-6 col-md-4 text-sm-left">
-          <h5>Presto</h5>
-          <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
-        </div>
-
-        <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
-          © 2018 Presto
-        </div>
-
-        <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
-          <a href="about.html">About</a>
+          </div>
         </div>
       </div>
     </div>
-  </footer>
+    </div>
 
-  </body>
+  </section>
+
+</main><!-- /.container -->
+
+<footer>
+  <div class="container">
+    <div class="row text-center align-items-center">
+      <div class="col-12 col-sm-6 col-md-4 text-sm-left">
+        <h5>Presto</h5>
+        <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
+      </div>
+
+      <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
+        © 2018 Presto
+      </div>
+
+      <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
+        <a href="about.html">About</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
 
 </html>

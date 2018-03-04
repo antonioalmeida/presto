@@ -1,4 +1,4 @@
- .bootstrap-tagsinput {
+.bootstrap-tagsinput {
   display: inline-block;
 
   padding: 1em;
@@ -18,8 +18,8 @@
     max-width: inherit;
 
     &:focus {
-        border: none;
-        box-shadow: none;
+      border: none;
+      box-shadow: none;
     }
   }
 
@@ -31,9 +31,9 @@
       cursor: pointer;
 
       &:after {
-          padding: 0px 4px;
-          border-radius:50%;
-          font-size:13px
+        padding: 0px 4px;
+        border-radius:50%;
+        font-size:13px
       }
     }
   }
