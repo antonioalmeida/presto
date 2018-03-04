@@ -9,22 +9,6 @@
 		color: $body-color;
 	}
 
-	.admin-ban:hover {
-	background-color: $red;
-	/* red */
-	border-color: red; }
-
-	.admin-edit:hover {
-	background-color: $yellow;
-	/* yellow */
-	border-color: yellow; }
-
-	.admin-promote:hover {
-	background-color: $green;
-	/* green */
-	border-color: green; }
-
-
 	// .admin-actions a, .admin-actions {
 	// 	color: $gray-100;
 	// }
@@ -37,3 +21,18 @@
 	// 	color: $body-color;
 	// }
 }
+
+.admin-ban:hover {
+background-color: $red;
+/* red */
+border-color: red; }
+
+.admin-edit:hover {
+background-color: $yellow;
+/* yellow */
+border-color: yellow; }
+
+.admin-promote:hover {
+background-color: $green;
+/* green */
+border-color: green; }

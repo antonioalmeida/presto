@@ -105,25 +105,28 @@
 	  <section class="container">
 		<div class="row">
 		   <div class="col-md-3">
-		      <h4>Order By </h4>
-			  <ul>
-				<li><strong>Most recent</strong></li>
-				<li>Top</li>
-				<li>Most answers</li>
-			  </ul>
-			  <br>
-			  <h4>By time</h4>
-			  <ul>
-			     <li><strong>All Time</strong></li>
-				 <li>Past Hour</li>
-				 <li>Past Day</li>
-				 <li>Past Week</li>
-				 <li>Past Month</li>
-				 <li>Past Year</li>
-			  <ul>
+	          <div>
+                   <h4 class="pt-4">Time</h4>
+                   <div class="dropdown-divider"></div>
+                   <ul class="no-bullets pl-0">
+                       <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Time</strong></a></li>
+                       <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Hour</a></li>
+                       <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Day</a></li>
+                       <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Week</a></li>
+             <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Month</a></li>
+                       <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Year</a></li>
+                   </ul>
+            </div>
 		   </div>
 		   <div class="col-md-9">
-			  <div class="list-group">
+         <nav class="nav accepted-answer mb-2 mt-4">
+           <span class="ml-2"><strong>Sort results by:</strong></span>
+           <a class=" btn-link ml-2" href="#">Most Recent</a>
+           <a class=" btn-link ml-2" href="#">Most Rated</a>
+           <a class=" active btn-link ml-2" href="#">Most answered</a>
+         </nav>
+
+			  <div class="list-group mb-2">
 			    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
                   <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
                     <h4 class="mb-1">When did the French revolution begin?</h4>

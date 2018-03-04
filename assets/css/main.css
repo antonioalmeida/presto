@@ -6783,12 +6783,23 @@ footer {
   font-weight: lighter;
   font-size: 0.8504rem;
   text-transform: uppercase; }
- .admin-table .admin-actions a, .admin-table .admin-actions {
+.admin-table .admin-actions a, .admin-table .admin-actions {
   color: #343a40; }
-/* .admin-table tr:hover .admin-actions {
-  color: #343a40; }
-.admin-table tr:hover .admin-actions a {
-  color: #343a40; } */
+
+.admin-ban:hover {
+  background-color: #d9534f;
+  /* red */
+  border-color: red; }
+
+.admin-edit:hover {
+  background-color: #f0ad4e;
+  /* yellow */
+  border-color: yellow; }
+
+.admin-promote:hover {
+  background-color: #02B875;
+  /* green */
+  border-color: green; }
 
 /* MANUALLY INSERTED  BEGIN*/
 .solved-tag {
@@ -6814,21 +6825,6 @@ footer {
   background-color: #d9534f;
   /* red */
   border-color: red; }
-
-.admin-ban:hover {
-background-color: #d9534f;
-/* red */
-border-color: red; }
-
-.admin-edit:hover {
-background-color: #f4ee42;
-/* red */
-border-color: yellow; }
-
-.admin-promote:hover {
-background-color: #41f471 ;
-/* red */
-border-color: green; }
 
 /* By Kubix */
 #sidebarCollapse {
