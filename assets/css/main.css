@@ -6687,20 +6687,17 @@ footer {
 
 @media (max-width: 768px) {
   .text-collapse {
-    display: none; }
-}
+    display: none; } }
 
 /*
 .card {
 	border-top-width: 0.5em;
 	border-top-color: $primary;
-
 	.card-header {
 		padding-top: 0.5em;
 		padding-bottom: 0.5em;
 		font-size: $font-size-base*0.8
 	}
-
 }*/
 .list-group-item .notifications-card a {
   color: #343a40 !important; }
@@ -6793,86 +6790,75 @@ footer {
 .admin-table tr:hover .admin-actions a {
   color: #343a40; }
 
-  /* MANUALLY INSERTED  BEGIN*/
-  .solved-tag {
-    font-size: 75%;
-    border: 0.05em solid #02B875; /* Green */
-    border-radius: 0.1em;
-    background-color: #02B875; /* Green */
-    padding-right: 0.1em;
-    padding-left: 0.1em;
-  }
+/* MANUALLY INSERTED  BEGIN*/
+.solved-tag {
+  font-size: 75%;
+  border: 0.05em solid #02B875;
+  /* Green */
+  border-radius: 0.1em;
+  background-color: #02B875;
+  /* Green */
+  padding-right: 0.1em;
+  padding-left: 0.1em; }
 
-  .accepted-answer {
-    border-radius: 0.1em;
-    border: 0.05em solid #02B875; /* Green */
-    padding: 0.5em;
-    background-color: #ddd; /* Grey 300 */
-  }
+.accepted-answer {
+  border-radius: 0.1em;
+  border: 0.05em solid #02B875;
+  /* Green */
+  padding: 0.5em;
+  background-color: #ddd;
+  /* Grey 300 */ }
 
-  /* Used for downvote button (created it because wanted to have a button whose background only showed on hover but had no outline)*/
-  .downvote:hover {
-    background-color: #d9534f; /* red */
-    border-color: red;
-  }
+/* Used for downvote button (created it because wanted to have a button whose background only showed on hover but had no outline)*/
+.downvote:hover {
+  background-color: #d9534f;
+  /* red */
+  border-color: red; }
 
-  /* By Kubix */
-  #sidebarCollapse{
-  	display:none;
-  }
+/* By Kubix */
+#sidebarCollapse {
+  display: none; }
 
-  #sidebarClose{
-  	display: none;
-  }
+#sidebarClose {
+  display: none; }
 
+.sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  min-height: 100vh;
+  transition: all 0.25s ease-in; }
+
+.sidebar.active {
+  margin-left: -250px; }
+
+@media (max-width: 768px) {
   .sidebar {
-  	min-width: 250px;
-  	max-width: 250px;
-  	min-height: 100vh;
-  	transition: all 0.25s ease-in;
-  }
+    margin-left: -250px; }
 
   .sidebar.active {
-      margin-left: -250px;
-  }
+    margin-left: 0; }
 
-  @media (max-width: 768px) {
-    .sidebar {
-          margin-left: -250px;
-      }
-      .sidebar.active {
-          margin-left: 0;
-      }
+  #sidebarCollapse {
+    display: initial; }
 
-  	#sidebarCollapse{
-  		display: initial;
-  	}
-
-  	#sidebarClose{
-  		display: initial;
-  	}
-	
-	#nav-search-bar.open {
-	    visibility: visible;
-		padding: 4px 8.8px;
-		width: 100px;
-    }
-  }
-  
-  
-  #nav-search-bar {
-	visibility: hidden;
-	width: 0;
-	padding: 0;
-	transition: all 0.5s ease-in-out;
-}
+  #sidebarClose {
+    display: initial; }
 
   #nav-search-bar.open {
-	visibility: visible;
-	padding: 8px 17.6px;
-	width: 500px;
-  }
+    visibility: visible;
+    padding: 4px 8.8px;
+    width: 100px; } }
+#nav-search-bar {
+  visibility: hidden;
+  width: 0;
+  padding: 0;
+  transition: all 0.5s ease-in-out; }
 
-  /* MANUALLY INSERTED END */
+#nav-search-bar.open {
+  visibility: visible;
+  padding: 8px 17.6px;
+  width: 500px; }
+
+/* MANUALLY INSERTED END */
 
 /*# sourceMappingURL=main.css.map */
