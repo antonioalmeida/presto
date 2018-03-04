@@ -7,7 +7,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>Presto</title>
+    <title>Admin | Presto</title>
 
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/offcanvas.css" />
@@ -37,7 +37,7 @@
 
       <div class="navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav ml-auto align-items-end">
-        
+
         </ul>
         <ul class="navbar-nav align-items-end">
           <li class="nav-item pr-2 dropdown">
@@ -68,117 +68,290 @@
 
     <main role="main">
         <div class="container">
-            <h1 class="mt-5">Users</h1>
 
-            <section class="pb-3">
-                <div class="d-flex justify-content-center">
-                    <div class="">
-                        <div class="input-group">
-                            <label for="userName" class="sr-only">Search Users</label>
-                            <input type="text" id="userName" class="form-control" placeholder="Search for users" required="" autofocus="">
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+          <div class="row">
+          <div class="col-md-12 pt-5">
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Users Table</a>
+                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Flagged Users</a>
+                <a class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab" href="#nav-recommended" role="tab" aria-controls="nav-recommended" aria-selected="false">Banned Users</a>
+              </div>
+            </nav>
+          </div>
+
+            <div class="col-md-12 tab-content mb-5" id="nav-tabContent">
+
+              <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <!-- Questions go here -->
+
+                <!-- <h1 class="mt-5">Users</h1> -->
+
+                <section class="pb-3">
+                    <div class="d-flex justify-content-center">
+                        <div class="">
+                            <div class="input-group">
+                                <label for="userName" class="sr-only">Search Users</label>
+                                <input type="text" id="userName" class="form-control" placeholder="Search for users" required="" autofocus="">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="my-3 table-responsive">
+                        <table class="table table-hover admin-table">
+                          <thead class="thead-dark">
+                            <tr>
+                              <th scope="col">Username</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Email</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>antonioalmeida</td>
+                              <td>António Almeida</td>
+                              <td>antonio@presto.com</td>
+                              <td class="admin-actions">
+                                <a href="" class="admin-edit"><i class="fal fa-edit"></i> Edit</a> |
+                                <a href="" class="admin-ban"><i class="fal fa-ban"></i> Ban</a> |
+                                <a href="" class="admin-promote"><i class="fal fa-id-badge"></i> Promote</a>
+                              </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="my-3">
-                    <table class="table table-hover admin-table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Username</th>
-                          <th scope="col">Name</th>
-                          <th scope="col">Email</th>
-                          <th scope="col">Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>antonioalmeida</td>
-                          <td>António Almeida</td>
-                          <td>antonio@presto.com</td>
-                          <td class="admin-actions">
-                            <a href=""><i class="fal fa-edit"></i> Edit</a> |
-                            <a href=""><i class="fal fa-ban"></i> Ban</a> |
-                            <a href=""><i class="fal fa-id-badge"></i> Promote</a>
-                          </td>
-                        </tr>
+
+      <div class="col-md-6 offset-md-3 d-flex justify-content-center">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </section>
+              </div>
+
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                  <div class="mt-4">
+                    <br>
+                    <div class="list-group">
+                      <div class="list-group-item flex-column align-items-start">
+                        <div class="notifications-card d-flex w-100 justify-content-between flex-wrap-reverse">
+                         <div>
+                           <a href="" class="pb-1"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
+                           <span class="text-muted">flagged</span>
+                            <a href="">António Almeida</a> <span class="text-muted"> on </span>
+                            <a href="">Diogo Torres' question</a>
+                            <span class="text-muted"> for "sleeping without working".</span>
+                         </div>
+
+                         <div class="ml-auto">
+                           <a href="#" class="admin-ban"><i class="far fa-ban"></i> Ban</a>
+                           <a href="#" class="admin-promote"><i class="far fa-minus-square"></i> Dismiss</a>
+                         </div>
+                       </div>
+                     </div>
+
+                     <div class="list-group-item flex-column align-items-start">
+                       <div class="notifications-card d-flex w-100 justify-content-between flex-wrap-reverse">
+                        <div>
+                          <a href="" class="pb-1"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
+                          <span class="text-muted">flagged</span>
+                           <a href="">António Almeida</a> <span class="text-muted"> on </span>
+                           <a href="">Diogo Torres' question</a>
+                           <span class="text-muted"> for "sleeping without working".</span>
+                        </div>
+
+                        <div class="ml-auto">
+                          <a href="#" class="admin-ban"><i class="far fa-ban"></i> Ban</a>
+                          <a href="#" class="admin-promote"><i class="far fa-minus-square"></i> Dismiss</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="list-group-item flex-column align-items-start">
+                      <div class="notifications-card d-flex w-100 justify-content-between flex-wrap-reverse">
+                       <div>
+                         <a href="" class="pb-1"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
+                         <span class="text-muted">flagged</span>
+                          <a href="">António Almeida</a> <span class="text-muted"> on </span>
+                          <a href="">Diogo Torres' question</a>
+                          <span class="text-muted"> for "sleeping without working".</span>
+                       </div>
+
+                       <div class="ml-auto">
+                         <a href="#" class="admin-ban"><i class="far fa-ban"></i> Ban</a>
+                         <a href="#" class="admin-promote"><i class="far fa-minus-square"></i> Dismiss</a>
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="list-group-item flex-column align-items-start">
+                     <div class="notifications-card d-flex w-100 justify-content-between flex-wrap-reverse">
+                      <div>
+                        <a href="" class="pb-1"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
+                        <span class="text-muted">flagged</span>
+                         <a href="">António Almeida</a> <span class="text-muted"> on </span>
+                         <a href="">Diogo Torres' question</a>
+                         <span class="text-muted"> for "sleeping without working".</span>
+                      </div>
+
+                      <div class="ml-auto">
+                        <a href="#" class="admin-ban"><i class="far fa-ban"></i> Ban</a>
+                        <a href="#" class="admin-promote"><i class="far fa-minus-square"></i> Dismiss</a>
+                      </div>
+                    </div>
+                  </div>
 
 
-                    </tbody>
-                </table>
-            </div>
+                      </div>
+
+                      <div class="col-md-6 offset-md-3 d-flex justify-content-center pt-4">
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+           			   </div>
+           	   </div>
+
+               <div class="tab-pane fade" id="nav-recommended" role="tabpanel" aria-labelledby="nav-recommended-tab">
+                 <section class="pb-3">
+                   <div class="d-flex justify-content-center">
+                     <div class="">
+                       <div class="input-group">
+                         <label for="userName" class="sr-only">Search Users</label>
+                         <input type="text" id="userName" class="form-control" placeholder="Search for users" required="" autofocus="">
+                         <div class="input-group-append">
+                           <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+
+                   <div class="my-3 table-responsive">
+                     <table class="table table-hover admin-table">
+                       <thead class="thead-dark">
+                         <tr>
+                           <th scope="col">Username</th>
+                           <th scope="col">Name</th>
+                           <th scope="col">Email</th>
+                         </tr>
+                       </thead>
+                       <tbody>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
+                         <tr>
+                           <td>antonioalmeida</td>
+                           <td>António Almeida</td>
+                           <td>antonio@presto.com</td>
+                         </tr>
 
 
-  <div class="col-md-6 offset-md-3 d-flex justify-content-center">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-center">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Previous</a>
-            </li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Next</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-</section>
+                       </tbody>
+                     </table>
+                   </div>
 
-</div>
+                 </div>
+               </div>
+             </div>
 
 </main><!-- /.container -->
 
