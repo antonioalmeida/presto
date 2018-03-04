@@ -13,9 +13,9 @@ body {
     top: 56px; /* Height of navbar */
     bottom: 0;
     left: 0;
-    min-width: 17.5rem;
+    width: 16.5rem;
     padding-right: 1rem;
-    padding-left: 3rem;
+    padding-left: 3.5rem;
     overflow-y: auto;
     background-color: white;
     transition: -webkit-transform .3s ease-in-out;
