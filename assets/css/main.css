@@ -6688,6 +6688,10 @@ footer {
   .text-collapse {
     display: none; } }
 
+@media (min-width: 768px) {
+  .text-mobile {
+    display: none; } }
+
 /*
 .card {
 	border-top-width: 0.5em;
@@ -6730,8 +6734,8 @@ footer {
   border-bottom: 0; }
   .nav-tabs .nav-item {
     border-top-width: 0.25em; }
-    .nav-tabs .nav-item:hover {
-      border-top-color: #20c997; }
+  .nav-tabs .active {
+    border-top-color: #20c997 !important; }
   .nav-tabs .nav-link {
     color: #868e96; }
     .nav-tabs .nav-link:hover {
