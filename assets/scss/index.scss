@@ -15,7 +15,7 @@
 		color: $white; }
 
 	h3  {
-		color: $white; 
+		color: $white;
 		font-weight: normal; }
 }
 
@@ -28,7 +28,7 @@
 	h4 {
 		color: $white;
 		font-weight: normal; }
-	
+
 	small {
 		font-weight: normal; }
 
@@ -69,7 +69,7 @@ footer {
 	padding: 1em;
 
 	border: 1px solid rgba(0, 0, 0, 0.1);
-    border-width: 1px 0 0 0;
+	border-width: 1px 0 0 0;
 }
 
 .side-menu {
@@ -99,7 +99,7 @@ footer {
 
 	.input-h3 {
 		font-size: $h3-font-size; }
-	
+
 	.input-h4 {
 		font-size: $h4-font-size; }
 
@@ -110,7 +110,7 @@ footer {
 
 .text-collapse {
 	@media (max-width: 768px){
-		display: none;	
+		display: none;
 	}
 }
 
