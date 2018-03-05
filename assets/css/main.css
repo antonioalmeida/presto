@@ -6789,23 +6789,15 @@ footer {
   font-weight: lighter;
   font-size: 0.8504rem;
   text-transform: uppercase; }
-.admin-table .admin-actions a, .admin-table .admin-actions {
+
+.panel-options a {
   color: #343a40; }
-
-.admin-ban:hover {
-  background-color: #d9534f;
-  /* red */
-  border-color: red; }
-
-.admin-edit:hover {
-  background-color: #f0ad4e;
-  /* yellow */
-  border-color: yellow; }
-
-.admin-promote:hover {
-  background-color: #02B875;
-  /* green */
-  border-color: green; }
+  .panel-options a .text-icon {
+    color: #868e96; }
+.panel-options a.active {
+  color: #20c997; }
+  .panel-options a.active .text-icon {
+    color: #20c997; }
 
 #nav-search-bar {
   width: 0;
@@ -6819,22 +6811,5 @@ footer {
   width: 10em;
   padding: 0.25em;
   height: 2em; }
-
-.admin-ban:hover {
-  background-color: #d9534f;
-  /* red */
-  border-color: red; }
-
-.admin-edit:hover {
-  background-color: #f0ad4e;
-  /* yellow */
-  border-color: yellow; }
-
-.admin-promote:hover {
-  background-color: #02B875;
-  /* green */
-  border-color: green; }
-
-/* MANUALLY INSERTED END */
 
 /*# sourceMappingURL=main.css.map */
