@@ -29,9 +29,6 @@
 <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
-    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-      <span class="navbar-toggler-icon"></span>
-    </button>
 
     <div class="navbar-collapse" id="navbarsExampleDefault">
       <ul class="navbar-nav ml-auto align-items-end">
@@ -46,8 +43,8 @@
       <ul class="navbar-nav align-items-end">
         <li class="nav-item pr-2">
           <div class="input-group">
-            <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="Recipient's username" aria-describedby="basic-addon2">
             <a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+            <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
           </div>
         </li>
         <li class="nav-item pr-2 dropdown">
@@ -336,15 +333,18 @@
 
 </html>
 
-
-
 <script defer>
     let searchBar = document.getElementById('nav-search-bar');
     let searchBtn = document.getElementById('nav-search-btn');
+    let counter = 0;
 
     searchBtn.addEventListener('click', function(){
         searchBar.classList.toggle('open');
-        console.log('Clicked');
+
+        if(searchBar.classList.contains('open'))
+          searchBar.focus();
+        else
+          searchBar.blur();
     });
 </script>
 	
