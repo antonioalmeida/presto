@@ -1,211 +1,239 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-
-    <title>Follows | Presto</title>
-
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/offcanvas.css" />
-
-    <!-- Bootstrap core JS -->
-    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <!-- Fontawesome pro -->
-    <script defer src="assets/js/fontawesome-all.min.js"></script>
-
-    <!-- Offcanvas -->
-    <script defer src="assets/js/offcanvas.js"></script>
-
-    <!-- bootstrap tags input -->
-    <script defer src="assets/js/tagsinput.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+  <title>Follows | Presto</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/offcanvas.css" />
+  <!-- Bootstrap core JS -->
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Fontawesome pro -->
+  <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- Offcanvas -->
+  <script defer src="assets/js/offcanvas.js"></script>
+  <!-- bootstrap tags input -->
+  <script defer src="assets/js/tagsinput.js"></script>
 </head>
 
 <body class="grey-background">
-
-<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+  <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav ml-auto align-items-end">
-                <li class="nav-item pr-2">
-                    <a class="nav-link">
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
-                        </button>
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav align-items-end">
-                <li class="nav-item pr-2">
-                    <a class="nav-link" href="#"><i class="far fa-search"></i></a>
-                </li>
-                <li class="nav-item pr-2 dropdown">
-                    <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">upvoted your answer to</span> Where has Math been invented?</a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="notifications.html">See All Notifications</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto align-items-end">
+          <li class="nav-item pr-2">
+            <a class="nav-link">
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
+              </button>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav align-items-end">
+          <li class="nav-item pr-2">
+            <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+          </li>
+          <li class="nav-item pr-2 dropdown">
+            <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">upvoted your answer to</span> Where has Math been invented?</a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="notifications.html">See All Notifications</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
-                        <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
-                        <a class="dropdown-item" href="#"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
-                        <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
+              <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
+              <a class="dropdown-item" href="#"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
+              <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
-
-<main role="main">
-
+  </nav>
+  <main role="main">
     <!-- content -->
     <section class="small-container">
-        <div class="container mt-4">
-
-            <h3>Follows</h3>
-            <!-- <hr> -->
-
-            <nav>
-                <div class="nav nav-tabs mt-4" id="nav-tab" role="tablist">
-                    <a class="nav-item nav-link active" id="nav-followers-tab" data-toggle="tab" href="#nav-followers" role="tab" aria-controls="nav-home" aria-selected="true">Followers</a>
-                    <a class="nav-item nav-link" id="nav-following-tab" data-toggle="tab" href="#nav-following" role="tab" aria-controls="nav-profile" aria-selected="false">Following</a>
-                    <a class="nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">Topics</a>
+      <div class="container mt-4">
+        <h3>Follows</h3>
+        <!-- <hr> -->
+        <nav>
+          <div class="nav nav-tabs mt-4" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-followers-tab" data-toggle="tab" href="#nav-followers" role="tab" aria-controls="nav-home" aria-selected="true">Followers</a>
+            <a class="nav-item nav-link" id="nav-following-tab" data-toggle="tab" href="#nav-following" role="tab" aria-controls="nav-profile" aria-selected="false">Following</a>
+            <a class="nav-item nav-link" id="nav-topics-tab" data-toggle="tab" href="#nav-topics" role="tab" aria-controls="nav-profile" aria-selected="false">Topics</a>
+          </div>
+        </nav>
+        <div class="tab-content mb-5" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="nav-followers" role="tabpanel" aria-labelledby="nav-followers-tab">
+            <div class="list-group">
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap">
+                  <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
                 </div>
-            </nav>
-            <div class="tab-content mb-5" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="nav-followers" role="tabpanel" aria-labelledby="nav-followers-tab">
-
-                    <div class="list-group">
-
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap">
-                                <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap">
-                                <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Diogo Torres</a>
-                            </div>
-                        </div>
-
-                        <div class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap">
-                                <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Bruno Piedade</a>
-                            </div>
-                        </div>
-
-                    </div>
+              </div>
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap">
+                  <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Diogo Torres</a>
                 </div>
-
-                <div class="tab-pane fade" id="nav-following" role="tabpanel" aria-labelledby="nav-following-tab">
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Some Guy</a>
-                            <button class="btn btn-md btn-primary">Unfollow</span>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Jon Doe</a>
-                            <button class="btn btn-md btn-primary">Unfollow</span>
-                        </div>
-                    </div>
+              </div>
+              <div class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between flex-wrap">
+                  <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Bruno Piedade</a>
                 </div>
-
-                <div class="tab-pane fade" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/history.jpg">History</a>
-                            <button class="btn btn-md btn-primary">Unfollow</span>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Science</a>
-                            <button class="btn btn-md btn-primary">Unfollow</span>
-                        </div>
-                    </div>
-
-                    <div class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/presto-default.png">Education</a>
-                            <button class="btn btn-md btn-primary">Unfollow</span>
-                        </div>
-                    </div>
-                </div>
+              </div>
             </div>
-
+            <div class="card-deck">
+              <div class="card">
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <img class="user-preview rounded-circle pr-2" width="64px" heigth="64px" src="assets/img/portrait-man2.jpeg">
+                    </div>
+                    <div>
+                      <h5>Bruno Piedade<br><small class="text-muted">@kubix20</small></h5>
+                    </div>
+                  </div>
+                  <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum.</p>
+                  <p class="card-text"><small class="text-muted">@kubix20</small></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <img class="user-preview rounded-circle pr-1" width="64px" heigth="64px" src="assets/img/portrait-man2.jpeg">
+                    </div>
+                    <div>
+                      <h5>Bruno Piedade</h5>
+                    </div>
+                  </div>
+                  <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum.</p>
+                  <p class="card-text"><small class="text-muted">@kubix20</small></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <img class="user-preview rounded-circle pr-1" width="64px" heigth="64px" src="assets/img/portrait-man2.jpeg">
+                    </div>
+                    <div>
+                      <h5>Bruno Piedade</h5>
+                    </div>
+                  </div>
+                  <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum.</p>
+                  <p class="card-text"><small class="text-muted">@kubix20</small></p>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-body d-flex flex-column">
+                  <div class="d-flex align-items-center">
+                    <div>
+                      <img class="user-preview rounded-circle pr-1" width="64px" heigth="64px" src="assets/img/portrait-man2.jpeg">
+                    </div>
+                    <div>
+                      <h5>Bruno Piedade</h5>
+                    </div>
+                  </div>
+                  <p class="card-text">Lorem ipsum lorem ipsum lorem ipsum.</p>
+                  <p class="card-text"><small class="text-muted">@kubix20</small></p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-following" role="tabpanel" aria-labelledby="nav-following-tab">
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Some Guy</a>
+                <button class="btn btn-md btn-primary">Unfollow</span>
+              </div>
+            </div>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Jon Doe</a>
+                <button class="btn btn-md btn-primary">Unfollow</span>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane fade" id="nav-topics" role="tabpanel" aria-labelledby="nav-topics-tab">
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/history.jpg">History</a>
+                <button class="btn btn-md btn-primary">Unfollow</span>
+              </div>
+            </div>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Science</a>
+                <button class="btn btn-md btn-primary">Unfollow</span>
+              </div>
+            </div>
+            <div class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <a href="topic.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">Education</a>
+                <button class="btn btn-md btn-primary">Unfollow</span>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
-
-
-</main><!-- /.container -->
-
-<footer>
+  </main>
+  <!-- /.container -->
+  <footer>
     <div class="container">
-        <div class="row text-center align-items-center">
-            <div class="col-12 col-sm-6 col-md-4 text-sm-left">
-                <h5>Presto</h5>
-                <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
-            </div>
-
-            <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
-                © 2018 Presto
-            </div>
-
-            <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
-                <a href="about.html">About</a>
-            </div>
+      <div class="row text-center align-items-center">
+        <div class="col-12 col-sm-6 col-md-4 text-sm-left">
+          <h5>Presto</h5>
+          <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
         </div>
+        <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
+          © 2018 Presto
+        </div>
+        <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
+          <a href="about.html">About</a>
+        </div>
+      </div>
     </div>
-</footer>
-
+  </footer>
 </body>
-
 <!-- add question modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <div>
-                    <input placeholder="How old is the universe?" type="text" class="main-question">
-                    <input type="text" value="Science,Physics" data-role="tagsinput">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary">Submit</button>
-            </div>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <input placeholder="How old is the universe?" type="text" class="main-question">
+          <input type="text" value="Science,Physics" data-role="tagsinput">
         </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
     </div>
+  </div>
 </div>
+
 </html>
