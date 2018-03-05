@@ -10,12 +10,15 @@
   <title>Admin | Presto</title>
   <link rel="stylesheet" href="assets/css/main.css" />
   <link rel="stylesheet" href="assets/css/offcanvas.css" />
+
   <!-- Bootstrap core JS -->
   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ 
   <!-- Fontawesome pro -->
   <script defer src="assets/js/fontawesome-all.min.js"></script>
+  
   <!-- Offcanvas -->
   <script defer src="assets/js/offcanvas.js"></script>
 </head>
@@ -194,7 +197,86 @@
             </section>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <div class="mt-4">
+            <div class="d-flex justify-content-center">
+              <div class="">
+                <div class="input-group">
+                  <label for="userName" class="sr-only">Search Users</label>
+                  <input type="text" id="userName" class="form-control" placeholder="Search for users" required="" autofocus="">
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="my-3 table-responsive">
+              <table class="table table-hover admin-table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">Reported username</th>
+                    <th scope="col">Moderator</th>
+                    <th scope="col">Reason</th>
+                    <th scope="col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>antonioalmeida</td>
+                    <td>António Almeida</td>
+                    <td>"Slept too much"</td>
+                    <td class="admin-actions">
+                      <a href="" class="text-danger">Ban</a> |
+                      <a href="" class="text-info">Dismiss</a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--<div class="mt-4">
               <br>
               <div class="list-group">
                 <div class="list-group-item flex-column align-items-start">
@@ -273,7 +355,7 @@
                   </ul>
                 </nav>
               </div>
-            </div>
+            </div>-->
           </div>
           <div class="tab-pane fade" id="nav-recommended" role="tabpanel" aria-labelledby="nav-recommended-tab">
             <section class="pb-3">

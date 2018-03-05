@@ -16,6 +16,8 @@
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!-- Fontawesome pro -->
   <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- bootstrap tags input -->
+  <script defer src="assets/js/tagsinput.js"></script>
   <!-- Offcanvas -->
   <script defer src="assets/js/offcanvas.js"></script>
 </head>
@@ -59,6 +61,7 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
               <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
+			  <a class="dropdown-item" href="follows.html"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
               <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
@@ -248,7 +251,8 @@
         </div>
     </section>
   </main>
-  <!-- /.container -->
+ 
+ <!-- /.container -->
   <footer>
     <div class="container">
       <div class="row text-center align-items-center">
@@ -266,5 +270,23 @@
     </div>
   </footer>
 </body>
+
+<!-- add question modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <input placeholder="Write your question" type="text" class="main-question">
+          <input type="text" value="Science,Physics" data-role="tagsinput">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </html>
