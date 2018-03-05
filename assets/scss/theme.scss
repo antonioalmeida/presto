@@ -199,7 +199,8 @@ table,
 }
 
 .badge {
-  vertical-align: bottom;
+  //vertical-align: bottom;
+  top: 0px;
 
   &-secondary,
   &-warning {

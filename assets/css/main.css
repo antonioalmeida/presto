@@ -3259,9 +3259,9 @@ tbody.collapse.show {
 
 .badge {
   display: inline-block;
-  padding: 0.6em 1.2em;
+  padding: 0.25em 0.4em;
   font-size: 75%;
-  font-weight: normal;
+  font-weight: 700;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
@@ -3271,8 +3271,7 @@ tbody.collapse.show {
     display: none; }
 
 .btn .badge {
-  position: relative;
-  top: -1px; }
+  position: relative; }
 
 .badge-pill {
   padding-right: 0.6em;
@@ -6600,7 +6599,7 @@ table,
     color: #343a40; }
 
 .badge {
-  vertical-align: bottom; }
+  top: 0px; }
   .badge-secondary, .badge-warning {
     color: #fff; }
 
@@ -6623,6 +6622,12 @@ table,
     color: #fff;
     font-weight: normal; }
 
+.text-shadow {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important; }
+
+.text-white {
+  color: #fff; }
+
 .profile-jumbotron {
   background-image: url("../img/background.svg"); }
   .profile-jumbotron .bio {
@@ -6642,7 +6647,8 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 100vh; }
+  min-height: 100vh;
+  padding-top: 56px; }
 
 main {
   flex: 1; }
@@ -6689,6 +6695,10 @@ footer {
   .text-collapse {
     display: none; } }
 
+@media (min-width: 768px) {
+  .text-mobile {
+    display: none; } }
+
 /*
 .card {
 	border-top-width: 0.5em;
@@ -6731,8 +6741,8 @@ footer {
   border-bottom: 0; }
   .nav-tabs .nav-item {
     border-top-width: 0.25em; }
-    .nav-tabs .nav-item:hover {
-      border-top-color: #20c997; }
+  .nav-tabs .active {
+    border-top-color: #20c997 !important; }
   .nav-tabs .nav-link {
     color: #868e96; }
     .nav-tabs .nav-link:hover {
@@ -6783,93 +6793,27 @@ footer {
   font-weight: lighter;
   font-size: 0.8504rem;
   text-transform: uppercase; }
-.admin-table .admin-actions a, .admin-table .admin-actions {
+
+.panel-options a {
   color: #343a40; }
+  .panel-options a .text-icon {
+    color: #868e96; }
+.panel-options a.active {
+  color: #20c997; }
+  .panel-options a.active .text-icon {
+    color: #20c997; }
 
-.admin-ban:hover {
-  background-color: #d9534f;
-  /* red */
-  border-color: red; }
-
-.admin-edit:hover {
-  background-color: #f0ad4e;
-  /* yellow */
-  border-color: yellow; }
-
-.admin-promote:hover {
-  background-color: #02B875;
-  /* green */
-  border-color: green; }
-
-/* MANUALLY INSERTED  BEGIN*/
-.solved-tag {
-  font-size: 75%;
-  border: 0.05em solid #02B875;
-  /* Green */
-  border-radius: 0.1em;
-  background-color: #02B875;
-  /* Green */
-  padding-right: 0.1em;
-  padding-left: 0.1em; }
-
-.accepted-answer {
-  border-radius: 0.1em;
-  border: 0.05em solid #02B875;
-  /* Green */
-  padding: 0.5em;
-  background-color: #ddd;
-  /* Grey 300 */ }
-
-/* Used for downvote button (created it because wanted to have a button whose background only showed on hover but had no outline)*/
-.downvote:hover {
-  background-color: #d9534f;
-  /* red */
-  border-color: red; }
-
-/* By Kubix */
-#sidebarCollapse {
-  display: none; }
-
-#sidebarClose {
-  display: none; }
-
-.sidebar {
-  min-width: 250px;
-  max-width: 250px;
-  min-height: 100vh;
-  transition: all 0.25s ease-in; }
-
-.sidebar.active {
-  margin-left: -250px; }
-
-@media (max-width: 768px) {
-  .sidebar {
-    margin-left: -250px; }
-
-  .sidebar.active {
-    margin-left: 0; }
-
-  #sidebarCollapse {
-    display: initial; }
-
-  #sidebarClose {
-    display: initial; }
-
-  #nav-search-bar.open {
-    visibility: visible;
-    padding: 4px 8.8px;
-    width: 100px; } }
 #nav-search-bar {
-  visibility: hidden;
   width: 0;
+  height: 0;
   padding: 0;
-  transition: all 0.5s ease-in-out; }
+  margin-top: 0.5em;
+  border: 0;
+  transition: width 0.5s ease-in-out; }
 
 #nav-search-bar.open {
-  visibility: visible;
-  padding: 8px 17.6px;
-  width: 500px; }
-
-/* MANUALLY INSERTED END */
+  width: 10em;
+  padding: 0.25em;
+  height: 2em; }
 
 /*# sourceMappingURL=main.css.map */

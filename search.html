@@ -1,272 +1,292 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
-
-    <title>Search | Presto</title>
-
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="assets/css/offcanvas.css" />
-
-    <!-- Bootstrap core JS -->
-    <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-    <!-- Fontawesome pro -->
-    <script defer src="assets/js/fontawesome-all.min.js"></script>
-
-    <!-- Offcanvas -->
-    <script defer src="assets/js/offcanvas.js"></script>
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+  <title>Search | Presto</title>
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/offcanvas.css" />
+  <!-- Bootstrap core JS -->
+  <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <!-- Fontawesome pro -->
+  <script defer src="assets/js/fontawesome-all.min.js"></script>
+  <!-- bootstrap tags input -->
+  <script defer src="assets/js/tagsinput.js"></script>
+  <!-- Offcanvas -->
+  <script defer src="assets/js/offcanvas.js"></script>
 </head>
 
 <body class="grey-background">
-
-<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
+  <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
     <div class="container">
-        <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
-        <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav ml-auto align-items-end">
-                <li class="nav-item pr-2">
-                    <a class="nav-link">
-                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                            <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
-                        </button>
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav align-items-end">
-                <li class="nav-item pr-2">
-                    <a class="nav-link" href="#"><i class="far fa-search"></i></a>
-                </li>
-                <li class="nav-item pr-2 dropdown">
-                    <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">upvoted your answer to</span> Where has Math been invented?</a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="notifications.html">See All Notifications</a>
-                    </div>
-                </li>
-
-                <li class="nav-item dropdown">
-                    <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
+      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav ml-auto align-items-end">
+          <li class="nav-item pr-2">
+            <a class="nav-link">
+              <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
+              </button>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav align-items-end">
+          <li class="nav-item pr-2">
+            <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+          </li>
+          <li class="nav-item pr-2 dropdown">
+            <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">upvoted your answer to</span> Where has Math been invented?</a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <a class="dropdown-item" href="profile.html"> <img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg"> </i> Diogo Torres <span class="text-muted">started following you.</span></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="notifications.html">See All Notifications</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <img src="assets/img/portrait-man.jpeg" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">
                     </a>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
-                        <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
-                        <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
+              <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
+			  <a class="dropdown-item" href="follows.html"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
+              <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-</nav>
-
-<main role="main">
-
+  </nav>
+  <main role="main">
     <section class="container wrapper mt-4">
-        <div class="row">
-            <div class="sidebar col-sm-3 mt-2">
-
-                <div>
-                    <h4 class="pt-4">Type</h4>
-                    <div class="dropdown-divider"></div>
-                    <ul class="no-bullets pl-0">
-                        <li class="d-flex justify-content-between "><a href="#" class="text-muted"><strong>All Types</strong></a></li>
-                        <li class="d-flex justify-content-between"><a href="#" class="text-muted">Questions</a></li>
-                        <li class="d-flex justify-content-between"><a href="#" class="text-muted">Answers</a></li>
-                        <li class="d-flex justify-content-between"><a href="#" class="text-muted">Topics</a></li>
-                        <li class="d-flex justify-content-between"><a href="#" class="text-muted">Users</a></li>
-                    </ul>
+      <div class="row">
+        <div class="col-md-3 mt-2">
+          <div class="offcanvas-collapse" id="navbarsExampleDefault">
+            <div>
+              <h4 class="pt-4">Type</h4>
+              <div class="dropdown-divider"></div>
+              <div class="typeFilter">
+                <div class="form-check">
+                  <input id="checkAll" class="form-check-input" type="checkbox" id="typeFilterAll">
+                  <label class="form-check-label text-muted btn-link" for="typeFilterAll">
+                    <strong>All Types</strong>
+                  </label>
                 </div>
-
-                <div>
-                    <h4 class="pt-4">Topics</h4>
-                    <div class="dropdown-divider"></div>
-                    <ul class="no-bullets pl-0">
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Topics</strong></a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Followed Topics</a></li>
-                    </ul>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Select Topic">
-                    </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="typeFilter0">
+                  <label class="form-check-label text-muted btn-link" for="typeFilter0">
+                    Questions
+                  </label>
                 </div>
-
-                <div>
-                    <h4 class="pt-4">Author</h4>
-                    <div class="dropdown-divider"></div>
-                    <ul class="no-bullets pl-0">
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All People</strong></a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Followed People</a></li>
-                    </ul>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Find People">
-                    </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="typeFilter1">
+                  <label class="form-check-label text-muted btn-link" for="typeFilter1">
+                    Answers
+                  </label>
                 </div>
-
-                <div>
-                    <h4 class="pt-4">Time</h4>
-                    <div class="dropdown-divider"></div>
-                    <ul class="no-bullets pl-0">
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted"><strong>All Time</strong></a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Hour</a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Day</a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Week</a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Month</a></li>
-                        <li class="d-flex justify-content-between"><a href="" class="text-muted">Past Year</a></li>
-                    </ul>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="typeFilter2">
+                  <label class="form-check-label text-muted btn-link" for="typeFilter2">
+                    Topics
+                  </label>
                 </div>
-            </div>
-
-            <div class="col-sm-8">
-
-                <button type="button" id="sidebarCollapse" class="btn btn-info btn-sm"><i class="fas fa-align-left"></i></button>
-                <h3><small class="text-muted">Search results for </small> Maths</h3>
-
-
-                <nav class="nav accepted-answer mb-2 mt-4">
-                    <span class="ml-2"><strong>Sort results by:</strong></span>
-                    <a class=" btn-link ml-2" href="#">Newest</a>
-                    <a class=" btn-link ml-2" href="#">Oldest</a>
-                    <a class=" active btn-link ml-2" href="#">Rating</a>
-                </nav>
-
-                <div class="list-group">
-
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <h4 class="mb-1">What is Maths?</h4>
-                            <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                        </div>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                    </a>
-
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <h4 class="mb-1">What is Maths?</h4>
-                            <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                        </div>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                    </a>
-
-                    <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                            <h4 class="mb-3">Where has Math been invented?</h4>
-                            <div class="d-flex">
-                                <div>
-                                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                </div>
-                                <h6><span class="btn-link">António Almeida</span><br>
-                                    <small class="text-muted">answered 23h ago</small></h6>
-                            </div>
-                        </div>
-                        <div class="row answer-preview">
-                            <div class="answer-text-preview col-sm mb-1">
-                                <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                            </div>
-                            <div class="answer-image-preview col-sm-4">
-                                <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
-                            </div>
-                        </div>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-
-                    </a>
-
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                            <h4 class="mb-1">What is Maths?</h4>
-                            <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
-                        </div>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                    </a>
-
-                    <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                            <h4 class="mb-3">Where has Math been invented?</h4>
-                            <div class="d-flex">
-                                <div>
-                                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                </div>
-                                <h6><span class="btn-link">António Almeida</span><br>
-                                    <small class="text-muted">answered 23h ago</small></h6>
-                            </div>
-                        </div>
-                        <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-
-                    </a>
-
-                    <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                            <h4 class="mb-3">Where has Math been invented?</h4>
-                            <div class="d-flex">
-                                <div>
-                                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                </div>
-                                <h6><span class="btn-link">António Almeida</span><br>
-                                    <small class="text-muted">answered 23h ago</small></h6>
-                            </div>
-                        </div>
-                        <div class="row answer-preview">
-                            <div class="answer-text-preview col-sm mb-1">
-                                <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                            </div>
-                            <div class="answer-image-preview col-sm-4">
-                                <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
-                            </div>
-                        </div>
-                        <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
-                    </a>
-
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="typeFilter3">
+                  <label class="form-check-label text-muted btn-link" for="typeFilter3">
+                    Users
+                  </label>
                 </div>
+              </div>
             </div>
-    </section>
-
-</main><!-- /.container -->
-
-<footer>
-    <div class="container">
-        <div class="row text-center align-items-center">
-            <div class="col-12 col-sm-6 col-md-4 text-sm-left">
-                <h5>Presto</h5>
-                <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
+            <div>
+              <h4 class="pt-4">Author</h4>
+              <div class="dropdown-divider"></div>
+              <div class="input-group">
+                <input type="text" class="form-control" placeholder="Find People">
+              </div>
             </div>
-
-            <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
-                © 2018 Presto
+            <div>
+              <h4 class="pt-4">Time</h4>
+              <div class="dropdown-divider"></div>
+              <div class="typeFilter">
+                <div class="form-check">
+                  <input id="checkAll" class="form-check-input" type="checkbox" id="timeFilterAll">
+                  <label class="form-check-label text-muted btn-link" for="timeFilterAll">
+                    <strong>All Time</strong>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="timeFilter0">
+                  <label class="form-check-label text-muted btn-link" for="timeFilter0">
+                    Past Day
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="timeFilter1">
+                  <label class="form-check-label text-muted btn-link" for="timeFilter1">
+                    Past Week
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="timeFilter2">
+                  <label class="form-check-label text-muted btn-link" for="timeFilter2">
+                    Past Month
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="timeFilter3">
+                  <label class="form-check-label text-muted btn-link" for="timeFilter3">
+                    Past Year
+                  </label>
+                </div>
+              </div>
             </div>
-
-            <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
-                <a href="about.html">About</a>
-            </div>
+          </div>
         </div>
+        <div class="col-md-8">
+          <div class="d-flex justify-content-between flex-wrap">
+            <h3><small class="text-muted">Results for </small> Maths</h3>
+            <button class="btn btn-link text-mobile" type="button" data-toggle="offcanvas">
+              <i class="far fa-fw fa-filter"></i> Filter
+            </button>
+          </div>
+          <div class="nav nav-tabs mt-3">
+            <a class="nav-item nav-link active" href="#">Newest</a>
+            <a class="nav-item nav-link" href="#">Oldest</a>
+            <a class="nav-item nav-link" href="#">Rating</a>
+          </div>
+          <div class="list-group">
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <h4 class="mb-1">What is Maths?</h4>
+                <small class="pb-1"><span class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <h4 class="mb-1">What is Maths?</h4>
+                <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <div class="row answer-preview">
+                <div class="answer-text-preview col-sm mb-1">
+                  <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                </div>
+                <div class="answer-image-preview col-sm-4">
+                  <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
+                </div>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
+                <h4 class="mb-1">What is Maths?</h4>
+                <small><span class="btn-link"><img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</span> <span class="text-muted">asked</span></small>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+            <a href="" class="list-group-item list-group-item-action flex-column align-items-start">
+              <div class="d-flex w-100 justify-content-between flex-column mb-1">
+                <h4 class="mb-3">Where has Math been invented?</h4>
+                <div class="d-flex">
+                  <div>
+                    <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                  </div>
+                  <h6><span class="btn-link">António Almeida</span><br>
+                                    <small class="text-muted">answered 23h ago</small></h6>
+                </div>
+              </div>
+              <div class="row answer-preview">
+                <div class="answer-text-preview col-sm mb-1">
+                  <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
+                </div>
+                <div class="answer-image-preview col-sm-4">
+                  <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
+                </div>
+              </div>
+              <small class="text-muted"><i class="far fa-tags"></i> <span class="btn-link text-muted">Science</span>, <span class="btn-link">Education</span></small>
+            </a>
+          </div>
+        </div>
+    </section>
+  </main>
+ 
+ <!-- /.container -->
+  <footer>
+    <div class="container">
+      <div class="row text-center align-items-center">
+        <div class="col-12 col-sm-6 col-md-4 text-sm-left">
+          <h5>Presto</h5>
+          <!--<img alt="image" src="./imgs/img_logo.png" height="40">-->
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 mt-4 mt-sm-0 text-center text-sm-right text-md-center">
+          © 2018 Presto
+        </div>
+        <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
+          <a href="about.html">About</a>
+        </div>
+      </div>
     </div>
-</footer>
-
+  </footer>
 </body>
+
+<!-- add question modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <input placeholder="Write your question" type="text" class="main-question">
+          <input type="text" value="Science,Physics" data-role="tagsinput">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </html>
-
-<script>
-    let sideBar = document.querySelector(".sidebar");
-    let sidebarCollapse = document.querySelector("#sidebarCollapse");
-
-    sidebarCollapse.addEventListener('click',function(){
-        sideBar.classList.toggle('active');
-    });
-</script>

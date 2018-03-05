@@ -4,35 +4,23 @@
 		font-size: 0.8*$font-size-base;
 		text-transform: uppercase;
 	}
-
-	.admin-actions a, .admin-actions {
-		color: $body-color;
-	}
-
-	// .admin-actions a, .admin-actions {
-	// 	color: $gray-100;
-	// }
-	//
-	// tr:hover .admin-actions {
-	// 	color: $body-color;
-	// }
-	//
-	// tr:hover .admin-actions a {
-	// 	color: $body-color;
-	// }
 }
 
-.admin-ban:hover {
-	background-color: $red;
-	/* red */
-	border-color: red; }
+.panel-options {
+	a {
+		color: $body-color; 
 
-.admin-edit:hover {
-	background-color: $yellow;
-	/* yellow */
-	border-color: yellow; }
+		.text-icon {
+			color: $gray-600;
+		}
+	}
 
-.admin-promote:hover {
-	background-color: $green;
-	/* green */
-	border-color: green; }
+	a.active {
+		color: $primary;
+
+		.text-icon {
+			color: $primary;
+		}
+	}
+
+}

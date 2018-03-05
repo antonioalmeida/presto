@@ -11,7 +11,6 @@
   <title>Question | Presto</title>
 
   <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="stylesheet" href="assets/css/offcanvas.css" />
 
   <!-- Bootstrap core JS -->
   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -20,9 +19,9 @@
 
   <!-- Fontawesome pro -->
   <script defer src="assets/js/fontawesome-all.min.js"></script>
-
-  <!-- Offcanvas -->
-  <script defer src="assets/js/offcanvas.js"></script>
+  
+  <!-- bootstrap tags input -->
+  <script defer src="assets/js/tagsinput.js"></script>
 
   <!-- summernote -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
@@ -32,7 +31,7 @@
 
 </head>
 
-<body class="grey-background">
+<body>
 
 <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
   <div class="container">
@@ -71,6 +70,7 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
             <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
+			<a class="dropdown-item" href="follows.html"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
             <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
@@ -87,49 +87,45 @@
   <section class="container pt-5">
     <div class="row">
       <div class="offset-md-2 col-md-8">
-        <h1><span class="solved-tag">SOLVED</span> Where has Math been invented?</h1>
+        <h3><span class="badge badge-primary"><i class="far fa-fw fa-check"></i>Solved</span></h3>
+        <h1>Where has Math been invented? </h1>
         <h4><small>This is the question's description.</small></h4>
         <h5><small class="text-muted"><i class="far fa-fw fa-tags"></i> <a class="text-muted" href="">Education</a>, <a class="text-muted" href="">Science</a></small></h5>
 
-        <div class="d-flex justify-content-between">
-          <div>
-            <a href="" class="btn btn-outline-primary mt-2"><i class="far fa-fw fa-arrow-up"></i> Upvote <b>16</b></a>
-            <a href="" class="btn downvote mt-2"><i class="far fa-fw fa-arrow-down"></i> Downvote <b>19</b></a>
-          </div>
-          <div>
-            <a class="btn btn-outline-primary mt-2" href="question.html" role="button">
-              Reopen Question
-            </a>
-            <a class="btn btn-link mt-2" data-toggle="collapse" href="#commentCollapse" role="button" aria-expanded="false" aria-controls="commentCollapse">
+        <div class="d-flex justify-content-start flex-wrap mt-2">
+            <a href="" class="btn"><i class="far fa-fw fa-arrow-up text-lighter"></i> Upvote <span class="badge badge-primary">19</span> <span class="sr-only">upvote number</span></a>
+            <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">9</span> <span class="sr-only">downvote number</span></a>
+            <a href="" class="btn">
               <i class="far fa-fw fa-comment"></i> Comment
             </a>
-          </div>
+            <a class="ml-md-auto mr-md-2 btn" href="question.html" role="button">
+              <i class="far fa-unlock-alt"></i> Reopen 
+            </a>
         </div>
 
         <h4 class="mt-3">2 Answers</h4>
         <hr>
 
-        <div class="accepted-answer">
-          <h5>Top answer</h5>
-          <div class="mt-4">
+        <div class="card card-body border-primary">
 
-            <div class="d-flex">
-              <div>
-                <img class="rounded-circle mr-2" width="64px" heigth="64px" src="assets/img/portrait-man.jpeg">
+          <h5><span class="badge badge-primary">Top Answer</span></h5>
+          <div class="mt-2">
+            <div class="d-flex flex-wrap">
+              <div class="align-self-center">
+                <img class="rounded-circle mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
               </div>
               <div class="ml-1">
-                <h4>António Almeida</h4>
+                <h5>António Almeida</h5>
                 <h6><small class="text-muted">answered 23h ago</small></h6>
               </div>
               <div class="ml-3">
-                <a href=""><i class="far fa-user-plus"></i> Follow</a>
+                <a href="" class="btn btn-sm btn-outline-primary"><i class="far fa-user-plus"></i> <span class="text-collapse">Follow</span></a>
               </div>
-              <div class="ml-3">
-                <a href="#"><i class="far fa-ban"></i> Flag</a>
-              </div>
-              <div class="ml-auto">
-                <a href="#"><i class="far fa-edit"></i> Edit</a>
-                <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+              <div class="ml-auto ">
+                <small>
+                  <a href="#" class="text-muted">Edit</a> | 
+                  <a href="#" class="text-danger">Delete</a>
+                </small>
               </div>
             </div>
 
@@ -167,16 +163,12 @@
 
               <div class="d-flex">
                 <div>
-                  <a href="" class="btn btn-outline-primary"><i class="far fa-fw fa-arrow-up"></i> Upvote 16</a>
+                  <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote <span class="badge badge-primary">19</span> <span class="sr-only">upvote number</span></a>
+                  <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">9</span> <span class="sr-only">downvote number</span></a>
+                  <a href="" class="btn">
+                    <i class="far fa-fw fa-comment"></i> Comment
+                  </a>
                 </div>
-
-                <div>
-                  <a href="" class="btn downvote"><i class="far fa-fw fa-arrow-down"></i> Downvote 19</a>
-                </div>
-
-                <a class="btn btn-link" data-toggle="collapse" href="#commentCollapse" role="button" aria-expanded="false" aria-controls="commentCollapse">
-                  <i class="far fa-fw fa-comment"></i> Comment
-                </a>
               </div>
 
             </div>
@@ -188,7 +180,7 @@
                   <div class="list-group-item">
                     <div class="d-flex flex-column">
                       <div class="ml-1">
-                        <div class="d-flex">
+                        <div class="d-flex flex-wrap">
                           <div class="align-self-center">
                             <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
                           </div>
@@ -196,18 +188,24 @@
                             <span><strong>António Almeida</strong></span>
                             <span class="text-muted">5h ago</span>
                           </div>
-                          <div class="ml-3">
-                            <a href="#"><i class="far fa-ban"></i> Flag</a>
-                          </div>
                           <div class="ml-auto">
-                            <a href="#"><i class="far fa-edit"></i> Edit</a>
-                            <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+                            <small>
+                              <a href="#" class="text-muted">Edit</a> | 
+                              <a href="#" class="text-danger">Delete</a>
+                            </small>
                           </div>
                         </div>
                       </div>
                       <div class="pl-2 mt-1">
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                        <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                        </div>
                       </div>
 
                       <a class="btn btn-lg btn-link" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
@@ -221,7 +219,7 @@
                     <div class="list-group-item">
                       <div class="d-flex flex-column">
                         <div class="ml-1">
-                          <div class="d-flex">
+                          <div class="d-flex flex-wrap">
                             <div class="align-self-center">
                               <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
                             </div>
@@ -229,18 +227,24 @@
                               <span><strong>António Almeida</strong></span>
                               <span class="text-muted">5h ago</span>
                             </div>
-                            <div class="ml-3">
-                              <a href="#"><i class="far fa-ban"></i> Flag</a>
-                            </div>
                             <div class="ml-auto">
-                              <a href="#"><i class="far fa-edit"></i> Edit</a>
-                              <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+                              <small>
+                                <a href="#" class="text-muted">Edit</a> | 
+                                <a href="#" class="text-danger">Delete</a>
+                              </small>
                             </div>
                           </div>
                         </div>
                         <div class="pl-2 mt-1">
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                          <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -248,7 +252,7 @@
                     <div class="list-group-item">
                       <div class="d-flex flex-column">
                         <div class="ml-1">
-                          <div class="d-flex">
+                          <div class="d-flex flex-wrap">
                             <div class="align-self-center">
                               <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
                             </div>
@@ -256,32 +260,31 @@
                               <span><strong>António Almeida</strong></span>
                               <span class="text-muted">5h ago</span>
                             </div>
-                            <div class="ml-3">
-                              <a href="#"><i class="far fa-ban"></i> Flag</a>
-                            </div>
                             <div class="ml-auto">
-                              <a href="#"><i class="far fa-edit"></i> Edit</a>
-                              <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+                              <small>
+                                <a href="#" class="text-muted">Edit</a> | 
+                                <a href="#" class="text-danger">Delete</a>
+                              </small>
                             </div>
                           </div>
                         </div>
                         <div class="pl-2 mt-1">
                           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                          <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                          </div>
 
                         </div>
-
                       </div>
                     </div>
-
-
                   </div>
-
-
                 </div>
-
               </div>
-
             </div>
 
           </div>
@@ -290,25 +293,24 @@
         <!-- answer two -->
         <div class="mt-5">
 
-          <div class="d-flex">
-            <div>
-              <img class="rounded-circle mr-2" width="64px" heigth="64px" src="assets/img/portrait-man.jpeg">
+            <div class="d-flex flex-wrap">
+              <div class="align-self-center">
+                <img class="rounded-circle mr-2 ml-1" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
+              </div>
+              <div class="ml-1">
+                <h5>António Almeida</h5>
+                <h6><small class="text-muted">answered 23h ago</small></h6>
+              </div>
+              <div class="ml-3">
+                <a href="" class="btn btn-sm btn-primary"><span class="text-mobile"><i class="far fa-user-times"></i></span> <span class="text-collapse"><i class="far fa-user"></i> Following</span></a>
+              </div>
+              <div class="ml-auto mr-2">
+                <small>
+                  <a href="#" class="text-muted">Edit</a> | 
+                  <a href="#" class="text-danger">Delete</a>
+                </small>
+              </div>
             </div>
-            <div class="ml-1">
-              <h4>António Almeida</h4>
-              <h6><small class="text-muted">answered 23h ago</small></h6>
-            </div>
-            <div class="ml-3">
-              <a href=""><i class="far fa-user-plus"></i> Follow</a>
-            </div>
-            <div class="ml-3">
-              <a href="#"><i class="far fa-ban"></i> Flag</a>
-            </div>
-            <div class="ml-auto">
-              <a href="#"><i class="far fa-edit"></i> Edit</a>
-              <a href="#"><i class="far fa-minus-square"></i> Remove</a>
-            </div>
-          </div>
 
           <hr>
           <div>
@@ -341,112 +343,129 @@
 
             <div class="d-flex">
               <div>
-                <a href="" class="btn btn-outline-primary"><i class="far fa-fw fa-arrow-up"></i> Upvote 16</a>
+                <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote <span class="badge badge-primary">19</span> <span class="sr-only">upvote number</span></a>
+                <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">9</span> <span class="sr-only">downvote number</span></a>
+                <a href="" class="btn">
+                  <i class="far fa-fw fa-comment"></i> Comment
+                </a>
               </div>
-
-              <div>
-                <a href="" class="btn downvote"><i class="far fa-fw fa-arrow-down"></i> Downvote 19</a>
-              </div>
-
-              <a class="btn btn-link" data-toggle="collapse" href="#commentCollapse" role="button" aria-expanded="false" aria-controls="commentCollapse">
-                <i class="far fa-fw fa-comment"></i> Comment
-              </a>
             </div>
 
           </div>
 
-          <div class="card my-3">
-            <div class="card-body">
-              <h6><small>3 Comments</small></h6>
-              <div class="d-flex list-group list-group-flush short-padding">
-                <div class="list-group-item">
-                  <div class="d-flex flex-column">
-                    <div class="ml-1">
-                      <div class="d-flex">
-                        <div class="align-self-center">
-                          <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                        </div>
-                        <div class="d-flex flex-column">
-                          <span><strong>António Almeida</strong></span>
-                          <span class="text-muted">5h ago</span>
-                        </div>
-                        <div class="ml-3">
-                          <a href="#"><i class="far fa-ban"></i> Flag</a>
-                        </div>
-                        <div class="ml-auto">
-                          <a href="#"><i class="far fa-edit"></i> Edit</a>
-                          <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+            <div class="card my-3">
+              <div class="card-body">
+                <h6><small>3 Comments</small></h6>
+                <div class="d-flex list-group list-group-flush short-padding">
+                  <div class="list-group-item">
+                    <div class="d-flex flex-column">
+                      <div class="ml-1">
+                        <div class="d-flex flex-wrap">
+                          <div class="align-self-center">
+                            <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                          </div>
+                          <div class="d-flex flex-column">
+                            <span><strong>António Almeida</strong></span>
+                            <span class="text-muted">5h ago</span>
+                          </div>
+                          <div class="ml-auto">
+                            <small>
+                              <a href="#" class="text-muted">Edit</a> | 
+                              <a href="#" class="text-danger">Delete</a>
+                            </small>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="pl-2 mt-1">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                      <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                      <div class="pl-2 mt-1">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                        </div>
+                      </div>
+
+                      <a class="btn btn-lg btn-link" data-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample2">
+                        View More
+                      </a>
                     </div>
                   </div>
-                </div>
 
+                  <div class="collapse" id="collapseExample2">
 
-                <div class="list-group-item">
-                  <div class="d-flex flex-column">
-                    <div class="ml-1">
-                      <div class="d-flex">
-                        <div class="align-self-center">
-                          <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                    <div class="list-group-item">
+                      <div class="d-flex flex-column">
+                        <div class="ml-1">
+                          <div class="d-flex flex-wrap">
+                            <div class="align-self-center">
+                              <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                            </div>
+                            <div class="d-flex flex-column">
+                              <span><strong>António Almeida</strong></span>
+                              <span class="text-muted">5h ago</span>
+                            </div>
+                            <div class="ml-auto">
+                              <small>
+                                <a href="#" class="text-muted">Edit</a> | 
+                                <a href="#" class="text-danger">Delete</a>
+                              </small>
+                            </div>
+                          </div>
                         </div>
-                        <div class="d-flex flex-column">
-                          <span><strong>António Almeida</strong></span>
-                          <span class="text-muted">5h ago</span>
-                        </div>
-                        <div class="ml-3">
-                          <a href="#"><i class="far fa-ban"></i> Flag</a>
-                        </div>
-                        <div class="ml-auto">
-                          <a href="#"><i class="far fa-edit"></i> Edit</a>
-                          <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+                        <div class="pl-2 mt-1">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div class="pl-2 mt-1">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                      <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
-                    </div>
-                  </div>
-                </div>
 
-                <div class="list-group-item">
-                  <div class="d-flex flex-column">
-                    <div class="ml-1">
-                      <div class="d-flex">
-                        <div class="align-self-center">
-                          <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                    <div class="list-group-item">
+                      <div class="d-flex flex-column">
+                        <div class="ml-1">
+                          <div class="d-flex flex-wrap">
+                            <div class="align-self-center">
+                              <img class="rounded-circle mr-2" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                            </div>
+                            <div class="d-flex flex-column">
+                              <span><strong>António Almeida</strong></span>
+                              <span class="text-muted">5h ago</span>
+                            </div>
+                            <div class="ml-auto">
+                              <small>
+                                <a href="#" class="text-muted">Edit</a> | 
+                                <a href="#" class="text-danger">Delete</a>
+                              </small>
+                            </div>
+                          </div>
                         </div>
-                        <div class="d-flex flex-column">
-                          <span><strong>António Almeida</strong></span>
-                          <span class="text-muted">5h ago</span>
-                        </div>
-                        <div class="ml-3">
-                          <a href="#"><i class="far fa-ban"></i> Flag</a>
-                        </div>
-                        <div class="ml-auto">
-                          <a href="#"><i class="far fa-edit"></i> Edit</a>
-                          <a href="#"><i class="far fa-minus-square"></i> Remove</a>
+                        <div class="pl-2 mt-1">
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
+                          <div class="d-flex justify-content-between">
+                            <div>
+                              <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+                            </div>
+                            <div class="ml-auto">
+                              <a href="#" class="text-muted"><small>Report</small></a>
+                            </div>
+                          </div>
+
                         </div>
                       </div>
                     </div>
-                    <div class="pl-2 mt-1">
-                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
-                      <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
-
-                    </div>
-
                   </div>
                 </div>
               </div>
-
             </div>
-
-          </div>
 
         </div>
       </div>
@@ -487,7 +506,7 @@
     <div class="modal-content">
       <div class="modal-body">
         <div>
-          <input placeholder="How old is the universe?" type="text" class="main-question">
+          <input placeholder="Write your question" type="text" class="main-question">
           <input type="text" value="Science,Physics" data-role="tagsinput">
         </div>
       </div>
