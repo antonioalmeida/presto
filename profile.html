@@ -339,12 +339,13 @@
     searchBtn.addEventListener('click', function(){
         searchBar.classList.toggle('open');
 
-        if(searchBar.classList.contains('open')) {
-          searchBtn.href = "search.html";
-          event.preventDefault();
+        if(searchBar.classList.contains('open'))
           searchBar.focus();
+        else {
+          if(searchBar.value !== "")
+            searchBtn.href = "search.html";
+          else
+            searchBar.blur();
         }
-        else
-          searchBar.blur();
     });
 </script>
