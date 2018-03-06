@@ -6689,6 +6689,8 @@ footer {
   font-size: 1.5945rem; }
 .edit-profile .input-h5 {
   font-size: 1.32875rem; }
+.edit-profile .input-h6 {
+  font-size: 1.063rem; }
 
 @media (max-width: 768px) {
   .text-collapse {
