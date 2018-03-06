@@ -6616,7 +6616,7 @@ table,
 
 .jumbotron {
   background-image: url("../img/background.svg"); }
-  .jumbotron h1 {
+  .jumbotron h1, .jumbotron h2, .jumbotron h4, .jumbotron h5 {
     color: #fff; }
   .jumbotron h3 {
     color: #fff;
@@ -6697,6 +6697,31 @@ footer {
 @media (min-width: 768px) {
   .text-mobile {
     display: none; } }
+
+@media (max-width: 768px) {
+  .h2-adapt {
+    font-size: 1.86025rem; } }
+
+@media (max-width: 768px) {
+  .h4-adapt {
+    font-size: 1.32875rem; } }
+
+@media (max-width: 768px) {
+  .h5-adapt {
+    font-size: 1.063rem; } }
+
+@media (max-width: 768px) {
+  .lead-adapt {
+    font-size: 1.063rem; } }
+
+@media (max-width: 768px) {
+  .profile-pic {
+    max-width: 100px;
+    max-height: 100px; } }
+
+@media (max-width: 768px) {
+  .mobile-center {
+    text-align: center; } }
 
 .list-group-item-action:hover {
   cursor: pointer; }

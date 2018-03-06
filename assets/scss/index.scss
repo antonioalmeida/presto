@@ -11,7 +11,7 @@
 .jumbotron {
 	background-image: url('../img/background.svg');
 
-	h1 {
+	h1, h2, h4, h5 {
 		color: $white; }
 
 	h3  {
@@ -127,6 +127,43 @@ footer {
 .text-mobile {
 	@media (min-width: 768px){
 		display: none;
+	}
+}
+
+.h2-adapt {
+	@media (max-width: 768px){
+		font-size: $h3-font-size;
+	}
+}
+
+.h4-adapt {
+	@media (max-width: 768px){
+		font-size: $h5-font-size;
+	}
+}
+
+.h5-adapt {
+	@media (max-width: 768px){
+		font-size: $h6-font-size;
+	}
+}
+
+.lead-adapt {
+	@media (max-width: 768px){
+		font-size: $font-size-base;
+	}
+}
+
+.profile-pic {
+	@media (max-width: 768px){
+		max-width: 100px;
+		max-height: 100px;
+	}
+}
+
+.mobile-center {
+	@media (max-width: 768px){
+		text-align: center;
 	}
 }
 
