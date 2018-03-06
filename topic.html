@@ -10,7 +10,6 @@
   <title>History | Presto</title>
 
   <link rel="stylesheet" href="assets/css/main.css" />
-  <link rel="stylesheet" href="assets/css/offcanvas.css" />
 
   <!-- Bootstrap core JS -->
   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -22,7 +21,6 @@
 
   <!-- bootstrap tags input -->
   <script defer src="assets/js/tagsinput.js"></script>
-  <script defer src="assets/js/offcanvas.js"></script>
 
 </head>
 
@@ -87,7 +85,7 @@
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-2 col-sm-4 ">
-            <img class="img-fluid rounded-circle" src="assets/img/portrait-man.jpeg"/>
+            <img class="img-fluid rounded-circle" src="assets/img/history.jpg"/>
           </div>
 
           <div class="col-md-6 col-sm-8 text-shadow">
@@ -99,15 +97,39 @@
                 <h5 class="p-2">632k <small>followers</small></h5>
               </div>
               <p class="lead">
-                The study of the past.
+                The study of the past as it is described in written documents.
               </p>
+              <a href="" class="btn btn-outline-light"><i class="far fa-user-plus fa-fw"></i> Follow</a>
 
             </div>
 
           </div>
 
-          <div class="col-md-2 offset-md-1 mb-5 pb-4">
-              <button class="btn btn-light btn-lg">Follow</button>
+          <div class="col-md-3 mt-3">
+            <div class="card card-body">
+              <h5 class="">Stats</h5>
+              <div class="dropdown-divider"></div>
+              <div class="d-flex flex-column justify-content-around flex-wrap">
+                <div class="d-flex p-1">
+                  <div class="mx-2">
+                    <i class="far fa-fw fa-eye"></i>
+                  </div>
+                  <h6>1.2M <small class="text-muted">answer views</small></h6>
+                </div>
+                <div class="d-flex p-1">
+                  <div class="mx-2">
+                    <i class="far fa-fw fa-question"></i>
+                  </div>
+                  <h6>456 <small class="text-muted">questions</small></h6>
+                </div>
+                <div class="d-flex p-1">
+                  <div class="mx-2">
+                    <i class="far fa-fw fa-book"></i>
+                  </div>
+                  <h6>845 <small class="text-muted">answers</small></h6>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -116,93 +138,21 @@
   </section>
 
   <!-- content -->
-  <section class="container wrapper mt-5 mb-2">
+  <section class="container wrapper mt-4 mb-2">
     <div class="row">
-      <div class="col-md-3 mt-2">
-        <div class="offcanvas-collapse" id="navbarsExampleDefault">
-          <div>
-            <h4 class="pt-4">Type</h4>
-            <div class="dropdown-divider"></div>
-            <div class="typeFilter">
-              <div class="form-check">
-                <input id="checkAll" class="form-check-input" type="checkbox" id="typeFilterAll">
-                <label class="form-check-label text-muted btn-link" for="typeFilterAll">
-                  <strong>All Types</strong>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="typeFilter0">
-                <label class="form-check-label text-muted btn-link" for="typeFilter0">
-                  Questions
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="typeFilter1">
-                <label class="form-check-label text-muted btn-link" for="typeFilter1">
-                  Answers
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="typeFilter3">
-                <label class="form-check-label text-muted btn-link" for="typeFilter3">
-                  Users
-                </label>
-              </div>
-            </div>
-          </div>
-          <div>
-            <h4 class="pt-4">Author</h4>
-            <div class="dropdown-divider"></div>
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Find People">
-            </div>
-          </div>
-          <div>
-            <h4 class="pt-4">Time</h4>
-            <div class="dropdown-divider"></div>
-            <div class="typeFilter">
-              <div class="form-check">
-                <input id="checkAll" class="form-check-input" type="checkbox" id="timeFilterAll">
-                <label class="form-check-label text-muted btn-link" for="timeFilterAll">
-                  <strong>All Time</strong>
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="timeFilter0">
-                <label class="form-check-label text-muted btn-link" for="timeFilter0">
-                  Past Day
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="timeFilter1">
-                <label class="form-check-label text-muted btn-link" for="timeFilter1">
-                  Past Week
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="timeFilter2">
-                <label class="form-check-label text-muted btn-link" for="timeFilter2">
-                  Past Month
-                </label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="timeFilter3">
-                <label class="form-check-label text-muted btn-link" for="timeFilter3">
-                  Past Year
-                </label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <div class="d-flex justify-content-between flex-wrap">
 
-          <button class="btn btn-link text-mobile" type="button" data-toggle="offcanvas">
-            <i class="far fa-fw fa-filter"></i> Filter
-          </button>
-        </div>
-        <div class="nav nav-tabs mt-3">
+      <div class="col-md-2 text-right text-collapse side-menu">
+        <h6 class="">Related Topics</h6>
+        <ul class="no-bullets">
+          <li><a href="" class="text-muted">French History</a></li>
+          <li><a href="" class="text-muted">Prehistory</a></li>
+          <li><a href="" class="text-muted">Science</a></li>
+          <li><a href="" class="text-muted">Napoleon</a></li>
+        </ul>
+      </div>
+
+      <div class="col-md-8">
+        <div class="nav nav-tabs">
           <a class="nav-item nav-link active" href="#">Newest</a>
           <a class="nav-item nav-link" href="#">Oldest</a>
           <a class="nav-item nav-link" href="#">Rating</a>
