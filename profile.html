@@ -339,8 +339,11 @@
     searchBtn.addEventListener('click', function(){
         searchBar.classList.toggle('open');
 
-        if(searchBar.classList.contains('open'))
+        if(searchBar.classList.contains('open')) {
+          searchBtn.href = "search.html";
+          event.preventDefault();
           searchBar.focus();
+        }
         else
           searchBar.blur();
     });
