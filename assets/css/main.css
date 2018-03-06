@@ -6698,16 +6698,9 @@ footer {
   .text-mobile {
     display: none; } }
 
-/*
-.card {
-	border-top-width: 0.5em;
-	border-top-color: $primary;
-	.card-header {
-		padding-top: 0.5em;
-		padding-bottom: 0.5em;
-		font-size: $font-size-base*0.8
-	}
-}*/
+.list-group-item-action:hover {
+  cursor: pointer; }
+
 .list-group-item .notifications-card a {
   color: #343a40 !important; }
 .list-group-item .answer-image-preview img {
