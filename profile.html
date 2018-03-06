@@ -341,7 +341,11 @@
 
         if(searchBar.classList.contains('open'))
           searchBar.focus();
-        else
-          searchBar.blur();
+        else {
+          if(searchBar.value !== "")
+            searchBtn.href = "search.html";
+          else
+            searchBar.blur();
+        }
     });
 </script>
