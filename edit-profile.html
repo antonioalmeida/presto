@@ -22,31 +22,33 @@
   <!-- bootstrap tags input -->
   <script defer src="assets/js/tagsinput.js"></script>
 
+  <!-- custom script -->
+  <script defer src="assets/js/script.js"></script>
+
 </head>
 
 <body class="grey-background">
 
-<nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+<nav class="navbar navbar-expand fixed-top navbar-light bg-light">
   <div class="container">
-    <a class="navbar-brand" href="#"><h4>Presto</h4></a>
-    <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+    <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
 
-    <div class="navbar-collapse offcanvas-collapse" id="navbarsExampleDefault">
-      <ul class="mr-auto">
-      </ul>
-
-      <ul class="navbar-nav align-items-end">
+    <div class="navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav ml-auto align-items-end">
         <li class="nav-item pr-2">
           <a class="nav-link">
             <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-              <i class="far fa-plus"></i> Add Question
+              <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
             </button>
           </a>
         </li>
+      </ul>
+      <ul class="navbar-nav align-items-end">
         <li class="nav-item pr-2">
-          <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+          <div class="input-group">
+            <a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+            <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+          </div>
         </li>
         <li class="nav-item pr-2 dropdown">
           <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
@@ -67,37 +69,44 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
             <a class="dropdown-item" href="messages.html"><i class="far text-muted fa-fw fa-envelope"></i> Messages</a>
-			<a class="dropdown-item" href="follows.html"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
+            <a class="dropdown-item" href="follows.html"><i class="far text-muted fa-fw fa-user-plus"></i> Follows</a>
             <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
           </div>
         </li>
       </ul>
-    </div>
+    </div> 
 
   </div>
 </nav>
 
 <main role="main">
-
   <section>
     <div class="jumbotron profile-jumbotron">
       <div class="container">
         <div class="row align-items-center">
           <div class="col-md-2 col-sm-4 ">
-            <img class="img-fluid rounded-circle" src="assets/img/portrait-man.jpeg"/>
+            <img class="img-fluid rounded-circle" src="assets/img/portrait-man.jpeg" />
+            <span class="fa-layers fa-fw fa-2x">
+              <i class="fas fa-circle text-shadow" style="color:white"></i>
+              <a href="" data-toggle="tooltip" data-placement="bottom" title="Update your avatar"><i class="fa-inverse fa-fw fas fa-pencil-alt text-muted" data-fa-transform="shrink-8"></i></a>
+            </span>
           </div>
 
-          <div class="col-md-6 col-sm-8 card card-body edit-profile">
+          <div class="col-md-6 col-sm-8 text-shadow edit-profile">
             <input type="text" class="form-control input-h1" id="exampleFormControlInput1" placeholder="António Almeida">
             <input type="text" class="form-control input-h4 mt-2" id="exampleFormControlInput1" placeholder="@antonioalmeida">
 
-            <input type="text" class="form-control input-h5 mt-2" id="exampleFormControlInput1" placeholder="This platform is awesome, the best I've ever seen.">
+            <!-- bio -->
+            <div class="bio mt-3">
+              <input type="text" class="form-control input-h5 mt-2" id="exampleFormControlInput1" placeholder="This platform is awesome, the best I've ever seen.">
 
-            <div class="ml-1 mt-3">
-              <a href="profile.html" class="btn btn-outline-primary">Save</a>
-              <a href="profile.html" class="btn btn-link text-danger">Cancel</a>
+
+              <div class="ml-1 mt-3">
+                <a href="profile.html" class="btn btn-light">Save</a>
+                <a href="profile.html" class="btn btn-danger">Cancel</a>
+              </div>
             </div>
 
           </div>

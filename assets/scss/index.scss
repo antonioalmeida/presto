@@ -52,7 +52,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
-	padding-top: 56px;
 }
 
 main {
@@ -97,6 +96,10 @@ footer {
 	input {
 		border: none;
 		padding-left: 0.2em;
+
+		&:focus {
+
+		}
 	}
 	.input-h1 {
 		font-size: $h1-font-size; }
