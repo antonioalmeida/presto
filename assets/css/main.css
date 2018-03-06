@@ -6833,4 +6833,8 @@ footer {
   padding: 0.25em;
   height: 2em; }
 
+@media (max-width: 768px) {
+  #nav-search-bar.open {
+    width: 5.5em; } }
+
 /*# sourceMappingURL=main.css.map */
