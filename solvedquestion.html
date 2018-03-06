@@ -28,6 +28,9 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
   <script defer src="assets/js/summernote.js"></script>
 
+  <!-- Search bar input and redirect-->
+  <script defer src="assets/js/searchbar.js"></script>
+
 
 </head>
 
@@ -52,7 +55,10 @@
       </ul>
       <ul class="navbar-nav align-items-end">
         <li class="nav-item pr-2">
-          <a class="nav-link" href="#"><i class="far fa-search"></i></a>
+          <div class="input-group">
+            <a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+            <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+          </div>
         </li>
         <li class="nav-item pr-2 dropdown">
           <a class="nav-link" ref="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
