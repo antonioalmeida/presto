@@ -1,113 +1,100 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
   <link rel="icon" href="favicon.ico">
-
   <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
-
   <title>Login | Presto</title>
-
   <link rel="stylesheet" href="assets/css/main.css" />
-
   <!-- Bootstrap core JS -->
   <script defer src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
   <!-- google platform -->
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
-
   <!-- facebook sdk -->
   <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
-      fjs.parentNode.insertBefore(js, fjs);
-  }(document, 'script', 'facebook-jssdk'));</script>
-
+  <script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.12&appId=197095890882205&autoLogAppEvents=1';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+  </script>
   <!-- Fontawesome pro -->
   <script defer src="assets/js/fontawesome-all.min.js"></script>
-
 </head>
 
 <body class="img-background">
-
-
-<main role="main" class="mt-5">
-
-  <section class="container">
-
-    <div class="card py-5 my-5">
-      <div class="card-body">
+  <main role="main" class="mt-5">
+    <section class="container">
+      <div class="card py-5 my-5">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <h1 class="text-center">Welcome back.</h1>
+              <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.</p>
+            </div>
+          </div>
+        </div>
         <div class="row">
-          <div class="col-md-6 offset-md-3">
-            <h1 class="text-center">Welcome back.</h1>
-            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.</p>
+          <div class="col-md-6 offset-lg-2 col-lg-4 d-flex flex-column align-items-center">
+            <form>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="far fa-at"></i></div>
+                </div>
+                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+              </div>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="far fa-key"></i></div>
+                </div>
+                <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+              </div>
+              <div class="d-flex justify-content-center">
+                <a href="loggedindex.html" class="btn btn-primary">Login</a>
+              </div>
+            </form>
+          </div>
+          <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center mb-5">
+            <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
+            <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
           </div>
         </div>
       </div>
-      <div class="row">
-
-        <div class="col-md-6 col-lg-4 offset-lg-2 d-flex flex-column align-items-center mb-5">
-          <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
-
-          <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
-        </div>
-
-        <div class="col-md-6 col-lg-4 d-flex mx-2 flex-column align-items-center">
-          <form>
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><i class="far fa-at"></i></div>
-              </div>
-              <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
-            </div>
-
-            <div class="input-group mb-2">
-              <div class="input-group-prepend">
-                <div class="input-group-text"><i class="far fa-key"></i></div>
-              </div>
-              <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
-            </div>
-
-            <div class="d-flex justify-content-center">
-              <a href="loggedindex.html" class="btn btn-primary">Login</a>
-            </div>
-          </form>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-</main><!-- /.container -->
-
+    </section>
+  </main>
+  <!-- /.container -->
 </body>
-</html>
 
+</html>
 <!-- google sign in -->
 <script>
-    function onSuccess(googleUser) {
-        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
-    }
-    function onFailure(error) {
-        console.log(error);
-    }
-    function renderButton() {
-        gapi.signin2.render('my-signin2', {
-            'scope': 'profile email',
-            'width': 200,
-            'height': 50,
-            'longtitle': true,
-            'theme': 'dark',
-            'onsuccess': onSuccess,
-            'onfailure': onFailure
-        });
-    }
+function onSuccess(googleUser) {
+  console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+}
+
+function onFailure(error) {
+  console.log(error);
+}
+
+function renderButton() {
+  gapi.signin2.render('my-signin2', {
+    'scope': 'profile email',
+    'width': 200,
+    'height': 50,
+    'longtitle': true,
+    'theme': 'dark',
+    'onsuccess': onSuccess,
+    'onfailure': onFailure
+  });
+}
 </script>
