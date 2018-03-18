@@ -47,7 +47,7 @@ CREATE TABLE flag (
 -- R05 follow_member
 CREATE TABLE follow_member (
     follower_id INTEGER NOT NULL, --PK FK
-    following_id INTEGER NOT NULL CHECK following_id <> follower_id --PK FK
+    following_id INTEGER NOT NULL --PK FK
 );
 
 -- R06 notification
@@ -79,7 +79,7 @@ CREATE TABLE question (
     title text NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    views INTEGER NOT NULL CHECK views >= 0,
+    views INTEGER NOT NULL,
     solved BOOLEAN NOT NULL,
     author_id INTEGER NOT NULL --FK
 );
@@ -103,4 +103,55 @@ CREATE TABLE comment (
     question_id INTEGER, --FK
     answer_id INTEGER, --FK
     author_id INTEGER NOT NULL --FK
+);
+
+-- R12 question_topic
+CREATE TABLE question_topic (
+    question_id INTEGER NOT NULL, --PK FK
+    topic_id INTEGER NOT NULL --PK FK
+);
+
+-- R13 question_rating
+CREATE TABLE question_rating (
+    question_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    rate INTEGER NOT NULL
+);
+
+-- R14 answer_rating
+CREATE TABLE answer_rating (
+    answer_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    rate INTEGER NOT NULL
+);
+
+-- R15 comment_rating
+CREATE TABLE comment_rating (
+    comment_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    rate INTEGER NOT NULL
+);
+
+-- R16 question_report
+CREATE TABLE question_report (
+    question_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    reason text NOT NULL
+);
+
+-- R17 answer_report
+CREATE TABLE answer_report (
+    answer_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    reason text NOT NULL
+);
+
+-- R18 comment_report
+CREATE TABLE comment_report (
+    comment_id INTEGER NOT NULL, --PK FK
+    member_id INTEGER NOT NULL, --PK FK
+    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    reason text NOT NULL
 );
