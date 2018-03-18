@@ -1,5 +1,25 @@
+DROP TABLE IF EXISTS admin CASCADE;
+DROP TABLE IF EXISTS answer_rating CASCADE;
+DROP TABLE IF EXISTS answer_report CASCADE;
+DROP TABLE IF EXISTS comment_rating CASCADE;
+DROP TABLE IF EXISTS comment_report CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
+DROP TABLE IF EXISTS answer CASCADE;
+DROP TABLE IF EXISTS question CASCADE;
+DROP TABLE IF EXISTS question_rating CASCADE;
+DROP TABLE IF EXISTS question_report CASCADE;
+DROP TABLE IF EXISTS member CASCADE;
+DROP TABLE IF EXISTS topic CASCADE;
+DROP TABLE IF EXISTS follow_member CASCADE;
+DROP TABLE IF EXISTS follow_topic CASCADE;
+DROP TABLE IF EXISTS question_topic CASCADE;
+DROP TABLE IF EXISTS notification CASCADE;
+DROP TABLE IF EXISTS country CASCADE;
+DROP TABLE IF EXISTS flag CASCADE;
+DROP TYPE IF EXISTS notification_origin CASCADE;
+
 -- NotificationOrigin enum
-CREATE Type NotificationOrigin AS ENUM (
+CREATE TYPE notification_origin AS ENUM (
     'Question',
     'Answer',
     'Comment',
@@ -48,13 +68,13 @@ CREATE TABLE flag (
 CREATE TABLE follow_member (
     follower_id INTEGER NOT NULL, --FK
     following_id INTEGER NOT NULL, --FK
-    CONSTRAINT follow_member_ck CHECK follower_id <> following_id
+    CONSTRAINT follow_member_ck CHECK (follower_id <> following_id)
 );
 
 -- R06 notification
 CREATE TABLE notification (
     id SERIAL NOT NULL,
-    type NotificationOrigin NOT NULL,
+    type notification_origin NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     content text NOT NULL,
     member_id INTEGER NOT NULL --FK
@@ -80,7 +100,7 @@ CREATE TABLE question (
     title text NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    views INTEGER NOT NULL CHECK views >= 0,
+    views INTEGER NOT NULL CHECK (views >= 0),
     solved BOOLEAN NOT NULL,
     author_id INTEGER NOT NULL --FK
 );
@@ -90,7 +110,7 @@ CREATE TABLE answer (
     id SERIAL NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    views INTEGER NOT NULL CHECK views >= 0,
+    views INTEGER NOT NULL CHECK (views >= 0),
     question_id INTEGER NOT NULL, --FK
     author_id INTEGER NOT NULL --FK
 );
@@ -169,7 +189,7 @@ ALTER TABLE ONLY country
   ADD CONSTRAINT country_pk PRIMARY KEY (id);
 
 ALTER TABLE ONLY country
-  ADD CONSTRAINT country_uk PRIMARY KEY (name);
+  ADD CONSTRAINT country_uk UNIQUE (name);
 
 ALTER TABLE ONLY member
   ADD CONSTRAINT member_pk PRIMARY KEY (id);
