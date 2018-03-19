@@ -102,7 +102,7 @@ CREATE TABLE question (
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0),
     solved BOOLEAN NOT NULL,
-    author_id INTEGER NOT NULL --FK
+    author_id INTEGER NOT NULL
 );
 
 -- R10 answer
@@ -111,8 +111,8 @@ CREATE TABLE answer (
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0),
-    question_id INTEGER NOT NULL, --FK
-    author_id INTEGER NOT NULL --FK
+    question_id INTEGER NOT NULL,
+    author_id INTEGER NOT NULL
 );
 
 -- R11 comment
@@ -120,59 +120,59 @@ CREATE TABLE comment (
     id SERIAL NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    --TODO: Correct this if needed
-    question_id INTEGER, --FK
-    answer_id INTEGER, --FK
-    author_id INTEGER NOT NULL --FK
+    question_id INTEGER,
+    answer_id INTEGER,
+    author_id INTEGER NOT NULL,
+    CONSTRAINT comment_ck CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL))
 );
 
 -- R12 question_topic
 CREATE TABLE question_topic (
-    question_id INTEGER NOT NULL, --FK
-    topic_id INTEGER NOT NULL --FK
+    question_id INTEGER NOT NULL,
+    topic_id INTEGER NOT NULL
 );
 
 -- R13 question_rating
 CREATE TABLE question_rating (
-    question_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    question_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1)
 );
 
 -- R14 answer_rating
 CREATE TABLE answer_rating (
-    answer_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    answer_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1)
 );
 
 -- R15 comment_rating
 CREATE TABLE comment_rating (
-    comment_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    comment_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1)
 );
 
 -- R16 question_report
 CREATE TABLE question_report (
-    question_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    question_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     reason text NOT NULL
 );
 
 -- R17 answer_report
 CREATE TABLE answer_report (
-    answer_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    answer_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     reason text NOT NULL
 );
 
 -- R18 comment_report
 CREATE TABLE comment_report (
-    comment_id INTEGER NOT NULL, --FK
-    member_id INTEGER NOT NULL, --FK
+    comment_id INTEGER NOT NULL,
+    member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     reason text NOT NULL
 );
@@ -269,8 +269,62 @@ ALTER TABLE ONLY follow_topic
 ALTER TABLE ONLY follow_topic
   ADD CONSTRAINT follow_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id);
 
+ALTER TABLE ONLY question
+  ADD CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id);
 
+ALTER TABLE ONLY answer
+  ADD CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
 
+ALTER TABLE ONLY answer
+  ADD CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id);
+
+ALTER TABLE ONLY comment
+  ADD CONSTRAINT comment_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+
+ALTER TABLE ONLY comment
+  ADD CONSTRAINT comment_member_fk FOREIGN KEY (author_id) REFERENCES member (id);
+
+ALTER TABLE ONLY comment
+  ADD CONSTRAINT comment_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+
+ALTER TABLE ONLY question_topic
+  ADD CONSTRAINT question_topic_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+
+ALTER TABLE ONLY question_topic
+  ADD CONSTRAINT question_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id);
+
+ALTER TABLE ONLY question_rating
+  ADD CONSTRAINT question_rating_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+
+ALTER TABLE ONLY question_rating
+  ADD CONSTRAINT question_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY answer_rating
+  ADD CONSTRAINT answer_rating_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+
+ALTER TABLE ONLY answer_rating
+  ADD CONSTRAINT answer_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
 
 ALTER TABLE ONLY comment_rating
-  ADD CONSTRAINT comment_rating_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
+  ADD CONSTRAINT comment_rating_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
+
+ALTER TABLE ONLY comment_rating
+  ADD CONSTRAINT comment_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY question_report
+  ADD CONSTRAINT question_report_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+
+ALTER TABLE ONLY question_report
+  ADD CONSTRAINT question_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY answer_report
+  ADD CONSTRAINT answer_report_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+
+ALTER TABLE ONLY answer_report
+  ADD CONSTRAINT answer_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY comment_report
+  ADD CONSTRAINT comment_report_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
+
+ALTER TABLE ONLY comment_report
+  ADD CONSTRAINT comment_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
