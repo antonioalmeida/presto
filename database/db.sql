@@ -1,9 +1,9 @@
 DROP TABLE IF EXISTS admin CASCADE;
+DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS answer_rating CASCADE;
 DROP TABLE IF EXISTS answer_report CASCADE;
 DROP TABLE IF EXISTS comment_rating CASCADE;
 DROP TABLE IF EXISTS comment_report CASCADE;
-DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS answer CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
 DROP TABLE IF EXISTS question_rating CASCADE;
@@ -53,21 +53,21 @@ CREATE TABLE member (
     score INTEGER NOT NULL,
     isBanned BOOLEAN NOT NULL,
     isModerator BOOLEAN NOT NULL,
-    country_id INTEGER NOT NULL --FK
+    country_id INTEGER NOT NULL
 );
 
 -- R04 flag
 CREATE TABLE flag (
-    member_id INTEGER NOT NULL, --FK
-    moderator_id INTEGER NOT NULL, --FK
+    member_id INTEGER NOT NULL,
+    moderator_id INTEGER NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     reason text NOT NULL
 );
 
 -- R05 follow_member
 CREATE TABLE follow_member (
-    follower_id INTEGER NOT NULL, --FK
-    following_id INTEGER NOT NULL, --FK
+    follower_id INTEGER NOT NULL,
+    following_id INTEGER NOT NULL,
     CONSTRAINT follow_member_ck CHECK (follower_id <> following_id)
 );
 
@@ -77,7 +77,7 @@ CREATE TABLE notification (
     type notification_origin NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     content text NOT NULL,
-    member_id INTEGER NOT NULL --FK
+    member_id INTEGER NOT NULL
 );
 
 -- R07 topic
@@ -90,8 +90,8 @@ CREATE TABLE topic (
 
 -- R08 follow_topic
 CREATE TABLE follow_topic (
-    member_id INTEGER NOT NULL, --FK
-    topic_id INTEGER NOT NULL --FK
+    member_id INTEGER NOT NULL,
+    topic_id INTEGER NOT NULL
 );
 
 -- R09 question
@@ -178,7 +178,6 @@ CREATE TABLE comment_report (
 );
 
 -- Primary keys and unique constraints
--- Foreign keys constraints
 ALTER TABLE ONLY admin
   ADD CONSTRAINT admin_pk PRIMARY KEY (id);
 
@@ -244,3 +243,34 @@ ALTER TABLE ONLY answer_report
 
 ALTER TABLE ONLY comment_report
   ADD CONSTRAINT comment_report_pk PRIMARY KEY (comment_id, member_id);
+
+-- Foreign keys constraints
+ALTER TABLE ONLY member
+  ADD CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id);
+
+ALTER TABLE ONLY flag
+  ADD CONSTRAINT flag_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY flag
+  ADD CONSTRAINT flag_moderator_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY follow_member
+  ADD CONSTRAINT follow_member_follower_fk FOREIGN KEY (follower_id) REFERENCES member (id);
+
+ALTER TABLE ONLY follow_member
+  ADD CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id);
+
+ALTER TABLE ONLY notification
+  ADD CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY follow_topic
+  ADD CONSTRAINT follow_topic_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+
+ALTER TABLE ONLY follow_topic
+  ADD CONSTRAINT follow_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id);
+
+
+
+
+ALTER TABLE ONLY comment_rating
+  ADD CONSTRAINT comment_rating_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
