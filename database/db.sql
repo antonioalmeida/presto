@@ -31,23 +31,23 @@ CREATE TYPE notification_origin AS ENUM (
 -- R01 admin
 CREATE TABLE admin (
     id SERIAL NOT NULL,
-    email text NOT NULL,
-    password text NOT NULL
+    email VARCHAR(40) NOT NULL,
+    password VARCHAR(35) NOT NULL
 );
 
 -- R02 country
 CREATE TABLE country (
     id SERIAL NOT NULL,
-    name text NOT NULL
+    name VARCHAR(30) NOT NULL
 );
 
 -- R03 member
 CREATE TABLE member (
     id SERIAL NOT NULL,
-    username text NOT NULL,
-    email text NOT NULL,
-    password text NOT NULL,
-    name text NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    email VARCHAR(40) NOT NULL,
+    password VARCHAR(35) NOT NULL,
+    name VARCHAR(35) NOT NULL,
     bio text,
     profilePic text,
     score INTEGER NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE notification (
 -- R07 topic
 CREATE TABLE topic (
     id SERIAL NOT NULL,
-    name text NOT NULL,
+    name VARCHAR(25) NOT NULL,
     description text,
     picture text
 );
