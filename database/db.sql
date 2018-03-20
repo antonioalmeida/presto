@@ -123,7 +123,7 @@ CREATE TABLE comment (
     question_id INTEGER,
     answer_id INTEGER,
     author_id INTEGER NOT NULL,
-    CONSTRAINT comment_ck CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL))
+    CONSTRAINT comment_ck CHECK ((question_id IS NULL AND answer_id IS NOT NULL) OR (question_id IS NOT NULL AND answer_id IS NULL)) --XOR
 );
 
 -- R12 question_topic
@@ -246,85 +246,85 @@ ALTER TABLE ONLY comment_report
 
 -- Foreign keys constraints
 ALTER TABLE ONLY member
-  ADD CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id);
+  ADD CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 ALTER TABLE ONLY flag
-  ADD CONSTRAINT flag_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT flag_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY flag
-  ADD CONSTRAINT flag_moderator_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT flag_moderator_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY follow_member
-  ADD CONSTRAINT follow_member_follower_fk FOREIGN KEY (follower_id) REFERENCES member (id);
+  ADD CONSTRAINT follow_member_follower_fk FOREIGN KEY (follower_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY follow_member
-  ADD CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id);
+  ADD CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY notification
-  ADD CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY follow_topic
-  ADD CONSTRAINT follow_topic_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT follow_topic_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY follow_topic
-  ADD CONSTRAINT follow_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id);
+  ADD CONSTRAINT follow_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question
-  ADD CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id);
+  ADD CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer
-  ADD CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+  ADD CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer
-  ADD CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id);
+  ADD CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment
-  ADD CONSTRAINT comment_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+  ADD CONSTRAINT comment_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment
-  ADD CONSTRAINT comment_member_fk FOREIGN KEY (author_id) REFERENCES member (id);
+  ADD CONSTRAINT comment_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment
-  ADD CONSTRAINT comment_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+  ADD CONSTRAINT comment_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_topic
-  ADD CONSTRAINT question_topic_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+  ADD CONSTRAINT question_topic_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_topic
-  ADD CONSTRAINT question_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id);
+  ADD CONSTRAINT question_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_rating
-  ADD CONSTRAINT question_rating_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+  ADD CONSTRAINT question_rating_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_rating
-  ADD CONSTRAINT question_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT question_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer_rating
-  ADD CONSTRAINT answer_rating_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+  ADD CONSTRAINT answer_rating_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer_rating
-  ADD CONSTRAINT answer_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT answer_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment_rating
-  ADD CONSTRAINT comment_rating_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
+  ADD CONSTRAINT comment_rating_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment_rating
-  ADD CONSTRAINT comment_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT comment_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_report
-  ADD CONSTRAINT question_report_question_fk FOREIGN KEY (question_id) REFERENCES question (id);
+  ADD CONSTRAINT question_report_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY question_report
-  ADD CONSTRAINT question_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT question_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer_report
-  ADD CONSTRAINT answer_report_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id);
+  ADD CONSTRAINT answer_report_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY answer_report
-  ADD CONSTRAINT answer_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT answer_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment_report
-  ADD CONSTRAINT comment_report_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id);
+  ADD CONSTRAINT comment_report_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 ALTER TABLE ONLY comment_report
-  ADD CONSTRAINT comment_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT comment_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE;
