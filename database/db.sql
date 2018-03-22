@@ -55,8 +55,8 @@ CREATE TABLE member (
     bio text,
     profilePic text,
     score INTEGER NOT NULL,
-    isBanned BOOLEAN NOT NULL,
-    isModerator BOOLEAN NOT NULL,
+    is_banned BOOLEAN NOT NULL DEFAULT false,
+    is_moderator BOOLEAN NOT NULL,
     country_id INTEGER NOT NULL,
     CONSTRAINT member_pk PRIMARY KEY (id),
     CONSTRAINT member_username_uk UNIQUE (username),
@@ -93,6 +93,7 @@ CREATE TABLE notification (
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     content text NOT NULL,
     member_id INTEGER NOT NULL,
+    read BOOLEAN NOT NULL DEFAULT false,
     CONSTRAINT notification_pk PRIMARY KEY (id),
     CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id)
 );
@@ -123,7 +124,7 @@ CREATE TABLE question (
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0),
-    solved BOOLEAN NOT NULL,
+    solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
     CONSTRAINT question_pk PRIMARY KEY (id),
     CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
