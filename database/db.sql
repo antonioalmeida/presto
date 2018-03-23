@@ -28,7 +28,6 @@ CREATE TYPE notification_origin AS ENUM (
     'Mention'
 );
 
--- R01 admin
 CREATE TABLE admin (
     id SERIAL NOT NULL,
     email VARCHAR(40) NOT NULL,
@@ -37,7 +36,6 @@ CREATE TABLE admin (
     CONSTRAINT admin_uk UNIQUE (email)
 );
 
--- R02 country
 CREATE TABLE country (
     id SERIAL NOT NULL,
     name VARCHAR(30) NOT NULL,
@@ -45,7 +43,6 @@ CREATE TABLE country (
     CONSTRAINT country_uk UNIQUE (name)
 );
 
--- R03 member
 CREATE TABLE member (
     id SERIAL NOT NULL,
     username VARCHAR(20) NOT NULL,
@@ -64,7 +61,6 @@ CREATE TABLE member (
     CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
--- R04 flag
 CREATE TABLE flag (
     member_id INTEGER NOT NULL,
     moderator_id INTEGER NOT NULL,
@@ -76,7 +72,6 @@ CREATE TABLE flag (
 
 );
 
--- R05 follow_member
 CREATE TABLE follow_member (
     follower_id INTEGER NOT NULL,
     following_id INTEGER NOT NULL,
@@ -86,7 +81,6 @@ CREATE TABLE follow_member (
     CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R06 notification
 CREATE TABLE notification (
     id SERIAL NOT NULL,
     type notification_origin NOT NULL,
@@ -98,7 +92,6 @@ CREATE TABLE notification (
     CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id)
 );
 
--- R07 topic
 CREATE TABLE topic (
     id SERIAL NOT NULL,
     name VARCHAR(25) NOT NULL,
@@ -107,7 +100,6 @@ CREATE TABLE topic (
     CONSTRAINT topic_pk PRIMARY KEY (id)
 );
 
--- R08 follow_topic
 CREATE TABLE follow_topic (
     member_id INTEGER NOT NULL,
     topic_id INTEGER NOT NULL,
@@ -117,7 +109,6 @@ CREATE TABLE follow_topic (
 
 );
 
--- R09 question
 CREATE TABLE question (
     id SERIAL NOT NULL,
     title text NOT NULL,
@@ -130,7 +121,6 @@ CREATE TABLE question (
     CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R10 answer
 CREATE TABLE answer (
     id SERIAL NOT NULL,
     content text NOT NULL,
@@ -143,7 +133,6 @@ CREATE TABLE answer (
     CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)
 );
 
--- R11 comment
 CREATE TABLE comment (
     id SERIAL NOT NULL,
     content text NOT NULL,
@@ -158,7 +147,6 @@ CREATE TABLE comment (
     CONSTRAINT comment_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R12 question_topic
 CREATE TABLE question_topic (
     question_id INTEGER NOT NULL,
     topic_id INTEGER NOT NULL,
@@ -167,7 +155,6 @@ CREATE TABLE question_topic (
     CONSTRAINT question_topic_topic_fk FOREIGN KEY (topic_id) REFERENCES topic (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R13 question_rating
 CREATE TABLE question_rating (
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -177,7 +164,6 @@ CREATE TABLE question_rating (
     CONSTRAINT question_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R14 answer_rating
 CREATE TABLE answer_rating (
     answer_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -187,7 +173,6 @@ CREATE TABLE answer_rating (
     CONSTRAINT answer_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R15 comment_rating
 CREATE TABLE comment_rating (
     comment_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -197,7 +182,6 @@ CREATE TABLE comment_rating (
     CONSTRAINT comment_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R16 question_report
 CREATE TABLE question_report (
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -208,7 +192,6 @@ CREATE TABLE question_report (
     CONSTRAINT question_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R17 answer_report
 CREATE TABLE answer_report (
     answer_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -219,7 +202,6 @@ CREATE TABLE answer_report (
     CONSTRAINT answer_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
--- R18 comment_report
 CREATE TABLE comment_report (
     comment_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
@@ -229,3 +211,129 @@ CREATE TABLE comment_report (
     CONSTRAINT comment_report_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT comment_report_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
+
+-- Triggers
+-- User cannot rate his own questions
+CREATE FUNCTION member_question_rating() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN question_rating ON member.id = question_rating.member_id INNER JOIN question ON question_rating.question_id = question.id WHERE question.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot rate his own questions';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_question_rating
+  BEFORE INSERT OR UPDATE ON question_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_question_rating();
+
+-- User cannot rate his own answers
+CREATE FUNCTION member_answer_rating() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN answer_rating ON member.id = answer_rating.member_id INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot rate his own answers';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_answer_rating
+  BEFORE INSERT OR UPDATE ON answer_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_answer_rating();
+
+-- User cannot rate his own comments
+CREATE FUNCTION member_comment_rating() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN comment_rating ON member.id = comment_rating.member_id INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot rate his own comments';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_comment_rating
+  BEFORE INSERT OR UPDATE ON comment_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_comment_rating();
+
+-- User cannot report his own questions
+CREATE FUNCTION member_question_report() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN question_report ON member.id = question_report.member_id INNER JOIN question ON question_report.question_id = question.id WHERE question.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot report his own questions';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_question_report
+  BEFORE INSERT OR UPDATE ON question_report
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_question_report();
+
+-- User cannot rate his own answers
+CREATE FUNCTION member_answer_report() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN answer_report ON member.id = answer_report.member_id INNER JOIN answer ON answer_report.answer_id = answer.id WHERE answer.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot report his own answers';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_answer_report
+  BEFORE INSERT OR UPDATE ON answer_report
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_answer_report();
+
+-- User cannot rate his own comments
+CREATE FUNCTION member_comment_report() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS (SELECT id FROM member INNER JOIN comment_report ON member.id = comment_report.member_id INNER JOIN comment ON comment_report.comment_id = comment.id WHERE comment.author_id = member.id) THEN
+    RAISE EXCEPTION 'A member cannot report his own comments';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER member_comment_report
+  BEFORE INSERT OR UPDATE ON comment_report
+  FOR EACH ROW
+    EXECUTE PROCEDURE member_comment_report();
+
+--Unique email between admins and members
+CREATE FUNCTION admin_member_email() RETURNS TRIGGER AS $$
+BEGIN
+  IF EXISTS(SELECT * FROM admin INNER JOIN member ON admin.email = member.email)
+    RAISE EXCEPTION 'Email must be unique';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER admin_email
+  BEFORE INSERT OR UPDATE ON admin
+  FOR EACH ROW
+    EXECUTE PROCEDURE admin_member_email();
+
+CREATE TRIGGER member_email
+  BEFORE INSERT OR UPDATE ON member
+  FOR EACH ROW
+    EXECUTE PROCEDURE admin_member_email();
+
+-- A question must always have at least 1 topic associated with it
+CREATE FUNCTION question_topic() RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id)
+    RAISE EXCEPTION 'Question must have at least 1 topic associated';
+  END IF;
+  RETURN OLD;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER question_topic
+  BEFORE DELETE ON question_topic
+  FOR EACH ROW
+    EXECUTE PROCEDURE question_topic();
