@@ -18,6 +18,30 @@ DROP TABLE IF EXISTS member CASCADE;
 DROP TABLE IF EXISTS country CASCADE;
 DROP TYPE IF EXISTS notification_origin CASCADE;
 
+DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
+DROP TRIGGER IF EXISTS member_answer_rating ON answer_rating;
+DROP TRIGGER IF EXISTS member_comment_rating ON comment_rating;
+DROP TRIGGER IF EXISTS member_question_report ON question_report;
+DROP TRIGGER IF EXISTS member_answer_report ON answer_report;
+DROP TRIGGER IF EXISTS member_comment_report ON comment_report;
+DROP TRIGGER IF EXISTS admin_email ON admin;
+DROP TRIGGER IF EXISTS member_email ON member;
+DROP TRIGGER IF EXISTS question_topic ON question_topic;
+DROP TRIGGER IF EXISTS answer_date ON answer;
+DROP TRIGGER IF EXISTS comment_date ON comment;
+DROP TRIGGER IF EXISTS moderator_flag ON flag;
+DROP FUNCTION IF EXISTS member_question_rating();
+DROP FUNCTION IF EXISTS member_answer_rating();
+DROP FUNCTION IF EXISTS member_comment_rating();
+DROP FUNCTION IF EXISTS member_question_report();
+DROP FUNCTION IF EXISTS member_answer_report();
+DROP FUNCTION IF EXISTS member_comment_report();
+DROP FUNCTION IF EXISTS admin_member_email();
+DROP FUNCTION IF EXISTS question_topic();
+DROP FUNCTION IF EXISTS answer_date();
+DROP FUNCTION IF EXISTS comment_date();
+DROP FUNCTION IF EXISTS moderator_flag();
+
 -- NotificationOrigin enum
 CREATE TYPE notification_origin AS ENUM (
     'Question',
@@ -273,7 +297,7 @@ CREATE TRIGGER member_question_report
   FOR EACH ROW
     EXECUTE PROCEDURE member_question_report();
 
--- User cannot rate his own answers
+-- User cannot report his own answers
 CREATE FUNCTION member_answer_report() RETURNS TRIGGER AS $$
 BEGIN
   IF EXISTS (SELECT id FROM member INNER JOIN answer_report ON member.id = answer_report.member_id INNER JOIN answer ON answer_report.answer_id = answer.id WHERE answer.author_id = member.id) THEN
@@ -288,7 +312,7 @@ CREATE TRIGGER member_answer_report
   FOR EACH ROW
     EXECUTE PROCEDURE member_answer_report();
 
--- User cannot rate his own comments
+-- User cannot report his own comments
 CREATE FUNCTION member_comment_report() RETURNS TRIGGER AS $$
 BEGIN
   IF EXISTS (SELECT id FROM member INNER JOIN comment_report ON member.id = comment_report.member_id INNER JOIN comment ON comment_report.comment_id = comment.id WHERE comment.author_id = member.id) THEN
@@ -306,7 +330,7 @@ CREATE TRIGGER member_comment_report
 --Unique email between admins and members
 CREATE FUNCTION admin_member_email() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS(SELECT * FROM admin INNER JOIN member ON admin.email = member.email)
+  IF EXISTS(SELECT * FROM admin INNER JOIN member ON admin.email = member.email) THEN
     RAISE EXCEPTION 'Email must be unique';
   END IF;
   RETURN NEW;
@@ -326,7 +350,7 @@ CREATE TRIGGER member_email
 -- A question must always have at least 1 topic associated with it
 CREATE FUNCTION question_topic() RETURNS TRIGGER AS $$
 BEGIN
-  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id)
+  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id) THEN
     RAISE EXCEPTION 'Question must have at least 1 topic associated';
   END IF;
   RETURN OLD;
@@ -337,3 +361,55 @@ CREATE TRIGGER question_topic
   BEFORE DELETE ON question_topic
   FOR EACH ROW
     EXECUTE PROCEDURE question_topic();
+
+-- Answers' dates must be consistent
+CREATE FUNCTION answer_date() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.date > (SELECT "date" FROM question INNER JOIN answer ON answer.question_id = question.id) THEN
+    RAISE EXCEPTION 'Answer date must be further than its associated question';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER answer_date
+  BEFORE INSERT OR UPDATE OF "date" ON answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE answer_date();
+
+-- Comment' dates must be consistent
+CREATE FUNCTION comment_date() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.question_id IS NULL THEN --Comment is associated to an answer
+    IF NEW.date > (SELECT "date" FROM answer INNER JOIN comment ON comment.answer_id = answer.id) THEN
+      RAISE EXCEPTION 'Comment date must be further than its associated answer';
+    END IF;
+  END IF;
+  IF NEW.answer_id IS NULL THEN --Comment is associated to a question
+    IF NEW.date > (SELECT "date" FROM question INNER JOIN comment ON comment.question_id = question.id) THEN
+      RAISE EXCEPTION 'Comment date must be further than its associated question';
+    END IF;
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER comment
+  BEFORE INSERT OR UPDATE OF "date" ON comment
+  FOR EACH ROW
+    EXECUTE PROCEDURE comment_date();
+
+-- Only moderators can flag members
+CREATE FUNCTION moderator_flag() RETURNS TRIGGER AS $$
+BEGIN
+  IF NOT EXISTS (SELECT * FROM member INNER JOIN flag ON flag.moderator_id = member.id WHERE member.is_moderator = true) THEN
+    RAISE EXCEPTION 'Only moderators can flag members';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER moderator_flag
+  BEFORE INSERT OR UPDATE OF moderator_id ON flag
+  FOR EACH ROW
+    EXECUTE PROCEDURE moderator_flag();
