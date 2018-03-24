@@ -345,12 +345,12 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER admin_email
-  BEFORE INSERT OR UPDATE ON admin
+  BEFORE INSERT OR UPDATE OF email ON admin
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
 CREATE TRIGGER member_email
-  BEFORE INSERT OR UPDATE ON member
+  BEFORE INSERT OR UPDATE OF email ON member
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
@@ -372,7 +372,7 @@ CREATE TRIGGER question_topic
 -- Answers' dates must be consistent
 CREATE FUNCTION answer_date() RETURNS TRIGGER AS $$
 BEGIN
-  IF NEW.date > (SELECT "date" FROM question INNER JOIN answer ON answer.question_id = question.id) THEN
+  IF NEW.date > (SELECT "date" FROM question INNER JOIN answer ON answer.question_id = question.id WHERE answer.id = NEW.id) THEN
     RAISE EXCEPTION 'Answer date must be further than its associated question';
   END IF;
   RETURN NEW;
@@ -388,12 +388,12 @@ CREATE TRIGGER answer_date
 CREATE FUNCTION comment_date() RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.question_id IS NULL THEN --Comment is associated to an answer
-    IF NEW.date > (SELECT "date" FROM answer INNER JOIN comment ON comment.answer_id = answer.id) THEN
+    IF NEW.date > (SELECT "date" FROM answer INNER JOIN comment ON comment.answer_id = answer.id WHERE comment.id = NEW.id) THEN
       RAISE EXCEPTION 'Comment date must be further than its associated answer';
     END IF;
   END IF;
   IF NEW.answer_id IS NULL THEN --Comment is associated to a question
-    IF NEW.date > (SELECT "date" FROM question INNER JOIN comment ON comment.question_id = question.id) THEN
+    IF NEW.date > (SELECT "date" FROM question INNER JOIN comment ON comment.question_id = question.id WHERE comment.id = NEW.id) THEN
       RAISE EXCEPTION 'Comment date must be further than its associated question';
     END IF;
   END IF;
@@ -409,7 +409,7 @@ CREATE TRIGGER comment
 -- Only moderators can flag members
 CREATE FUNCTION moderator_flag() RETURNS TRIGGER AS $$
 BEGIN
-  IF NOT EXISTS (SELECT * FROM member INNER JOIN flag ON flag.moderator_id = member.id WHERE member.is_moderator = true) THEN
+  IF NOT EXISTS (SELECT * FROM member INNER JOIN flag ON flag.moderator_id = member.id WHERE member.is_moderator = true AND flag.moderator_id = NEW.moderator_id) THEN
     RAISE EXCEPTION 'Only moderators can flag members';
   END IF;
   RETURN NEW;
@@ -452,9 +452,9 @@ BEGIN
   question_votes := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question.author_id = user_id);
   answer_votes := (SELECT COUNT(*) FROM answer_rating INNER JOIN answer ON answer_rating.question_id = answer.id WHERE answer.author_id = user_id);
   comment_votes := (SELECT COUNT(*) FROM comment_rating INNER JOIN comment ON comment_rating.question_id = comment.id WHERE comment.author_id = user_id);
-  nr_questions := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE on_rating.rate = 1 AND question.author_id = user_id);
-  nr_answers := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
-  nr_comments := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
+  nr_questions := (SELECT COUNT(*) FROM question WHERE question.author_id = user_id);
+  nr_answers := (SELECT COUNT(*) FROM answer WHERE answer.author_id = user_id);
+  nr_comments := (SELECT COUNT(*) FROM comment WHERE comment.author_id = user_id);
   UPDATE member
   SET score = round(
                     (1+(question_upvotes+answer_upvotes+comment_upvotes)/(1+question_votes+answer_votes+comment_votes))*(0.45*nr_questions+0.45*nr_answers+0.1*nr_comments)
