@@ -30,6 +30,12 @@ DROP TRIGGER IF EXISTS question_topic ON question_topic;
 DROP TRIGGER IF EXISTS answer_date ON answer;
 DROP TRIGGER IF EXISTS comment_date ON comment;
 DROP TRIGGER IF EXISTS moderator_flag ON flag;
+DROP TRIGGER IF EXISTS update_score_question ON question;
+DROP TRIGGER IF EXISTS update_score_answer ON answer;
+DROP TRIGGER IF EXISTS update_score_comment ON comment;
+DROP TRIGGER IF EXISTS update_score_question_rating ON question_rating;
+DROP TRIGGER IF EXISTS update_score_answer_rating ON answer_rating;
+DROP TRIGGER IF EXISTS update_score_comment_rating ON comment_rating;
 DROP FUNCTION IF EXISTS member_question_rating();
 DROP FUNCTION IF EXISTS member_answer_rating();
 DROP FUNCTION IF EXISTS member_comment_rating();
@@ -41,6 +47,7 @@ DROP FUNCTION IF EXISTS question_topic();
 DROP FUNCTION IF EXISTS answer_date();
 DROP FUNCTION IF EXISTS comment_date();
 DROP FUNCTION IF EXISTS moderator_flag();
+DROP FUNCTION IF EXISTS update_score();
 
 -- NotificationOrigin enum
 CREATE TYPE notification_origin AS ENUM (
@@ -413,3 +420,76 @@ CREATE TRIGGER moderator_flag
   BEFORE INSERT OR UPDATE OF moderator_id ON flag
   FOR EACH ROW
     EXECUTE PROCEDURE moderator_flag();
+
+-- A user's score is updated when there is new activity from him (posts) or on his content (ratings)
+CREATE FUNCTION update_score() RETURNS TRIGGER AS $$
+DECLARE
+  user_id int;
+  question_upvotes int;
+  answer_upvotes int;
+  comment_upvotes int;
+  question_votes int;
+  answer_votes int;
+  comment_votes int;
+  nr_questions int;
+  nr_answers int;
+  nr_comments int;
+BEGIN
+  IF TG_TABLE_NAME = 'question' OR TG_TABLE_NAME = 'answer' OR TG_TABLE_NAME = 'comment' THEN
+    user_id = NEW.author_id;
+  ELSIF TG_TABLE_NAME = 'question_rating' THEN
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'answer_rating' THEN
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
+    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.comment_id);
+  ELSE
+    RAISE EXCEPTION 'Invalid operation triggering score update';
+  END IF;
+  question_upvotes := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
+  answer_upvotes := (SELECT COUNT(*) FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.rate = 1 AND answer.author_id = user_id);
+  comment_upvotes := (SELECT COUNT(*) FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.rate = 1 AND comment.author_id = user_id);
+  question_votes := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question.author_id = user_id);
+  answer_votes := (SELECT COUNT(*) FROM answer_rating INNER JOIN answer ON answer_rating.question_id = answer.id WHERE answer.author_id = user_id);
+  comment_votes := (SELECT COUNT(*) FROM comment_rating INNER JOIN comment ON comment_rating.question_id = comment.id WHERE comment.author_id = user_id);
+  nr_questions := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE on_rating.rate = 1 AND question.author_id = user_id);
+  nr_answers := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
+  nr_comments := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
+  UPDATE member
+  SET score = round(
+                    (1+(question_upvotes+answer_upvotes+comment_upvotes)/(1+question_votes+answer_votes+comment_votes))*(0.45*nr_questions+0.45*nr_answers+0.1*nr_comments)
+                    )
+  WHERE member.id = user_id;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER update_score_question
+  AFTER INSERT OR DELETE ON question
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
+
+CREATE TRIGGER update_score_answer
+  AFTER INSERT OR DELETE ON answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
+
+CREATE TRIGGER update_score_comment
+  AFTER INSERT OR DELETE ON comment
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
+
+CREATE TRIGGER update_score_question_rating
+  AFTER INSERT OR UPDATE OF rate OR DELETE ON question_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
+
+CREATE TRIGGER update_score_answer_rating
+  AFTER INSERT OR UPDATE OF rate OR DELETE ON answer_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
+
+CREATE TRIGGER update_score_comment_rating
+  AFTER INSERT OR UPDATE OF rate OR DELETE ON comment_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score();
