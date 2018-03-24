@@ -148,6 +148,8 @@ CREATE TABLE question (
     views INTEGER NOT NULL CHECK (views >= 0),
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
+    search_title text,
+    search_content text,
     CONSTRAINT question_pk PRIMARY KEY (id),
     CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -159,6 +161,7 @@ CREATE TABLE answer (
     views INTEGER NOT NULL CHECK (views >= 0),
     question_id INTEGER NOT NULL,
     author_id INTEGER NOT NULL,
+    search text,
     CONSTRAINT answer_pk PRIMARY KEY (id),
     CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)
@@ -493,3 +496,39 @@ CREATE TRIGGER update_score_comment_rating
   AFTER INSERT OR UPDATE OF rate OR DELETE ON comment_rating
   FOR EACH ROW
     EXECUTE PROCEDURE update_score();
+
+-- Columns subject to full text search must keep their ts_vectors updated
+CREATE FUNCTION question_search_update() RETURNS TRIGGER AS $$
+BEGIN
+ IF TG_OP = 'INSERT' THEN
+   NEW.search_title = plainto_tsvector('english', NEW.title);
+   NEW.search_content = plainto_ts_vector('english', NEW.content);
+ END IF;
+ IF TG_OP = 'UPDATE' THEN
+     IF NEW.title <> OLD.title THEN
+       NEW.search_title = plainto_tsvector('english', NEW.title);
+     END IF;
+     IF NEW.content <> OLD.content THEN
+       NEW.search_content = plainto_tsvector('english', NEW.content);
+     END IF;
+ END IF;
+ RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER question_function
+  AFTER INSERT OR UPDATE ON question
+  FOR EACH ROW
+    EXECUTE PROCEDURE question_search_update();
+
+CREATE FUNCTION answer_search_update() RETURNS TRIGGER AS $$
+BEGIN
+   NEW.search = plainto_tsvector('english', NEW.content);
+ RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER question_function
+  AFTER INSERT OR UPDATE OF content ON answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE answer_search_update();
