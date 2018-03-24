@@ -81,10 +81,10 @@ CREATE TABLE member (
     password VARCHAR(35) NOT NULL,
     name VARCHAR(35) NOT NULL,
     bio text,
-    profilePic text,
+    profile_picture text,
     score INTEGER NOT NULL,
     is_banned BOOLEAN NOT NULL DEFAULT false,
-    is_moderator BOOLEAN NOT NULL,
+    is_moderator BOOLEAN NOT NULL DEFAULT false,
     country_id INTEGER NOT NULL,
     CONSTRAINT member_pk PRIMARY KEY (id),
     CONSTRAINT member_username_uk UNIQUE (username),
@@ -145,7 +145,7 @@ CREATE TABLE question (
     title text NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    views INTEGER NOT NULL CHECK (views >= 0),
+    views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
     search_title text,
@@ -532,3 +532,53 @@ CREATE TRIGGER question_function
   AFTER INSERT OR UPDATE OF content ON answer
   FOR EACH ROW
     EXECUTE PROCEDURE answer_search_update();
+
+-- A member is notified when someone else answers his question
+CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
+    INSERT INTO notification (type, "date", content, member_id) VALUES ('Answer', now(),
+      (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id) || ' answered your question: ' || (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
+      (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id));
+  END IF;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_answer
+  AFTER INSERT ON answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE notify_on_answer();
+
+-- A member is notified when someone else comments his question
+CREATE FUNCTION notify_on_comment_question() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
+    INSERT INTO notification (type, "date", content, member_id) VALUES ('Comment', now(),
+      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your question: ' || (SELECT title FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id),
+      (SELECT member.id FROM question INNER JOIN comment ON question.id = comment.question_id INNER JOIN member ON question.author_id = member.id WHERE comment.id = NEW.id));
+  END IF;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_comment_question
+  AFTER INSERT ON answer
+  FOR EACH ROW
+  WHEN NEW.question_id IS NOT NULL
+    EXECUTE PROCEDURE notify_on_comment_question();
+
+-- A member is notified when someone else comments his question
+CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
+    INSERT INTO notification (type, "date", content, member_id) VALUES ('Comment', now(),
+      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer: ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id),
+      (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id));
+  END IF;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_comment_answer
+  AFTER INSERT ON answer
+  FOR EACH ROW
+  WHEN NEW.answer_id IS NOT NULL
+    EXECUTE PROCEDURE notify_on_comment_answer();
