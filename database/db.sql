@@ -82,6 +82,12 @@ CREATE TABLE member (
     name VARCHAR(35) NOT NULL,
     bio text,
     profile_picture text,
+    -- redundant data (for better performance on score update)
+    positive_votes INTEGER NOT NULL DEFAULT 0,
+    total_votes INTEGER NOT NULL DEFAULT 0,
+    nr_questions INTEGER NOT NULL DEFAULT 0,
+    nr_answers INTEGER NOT NULL DEFAULT 0,
+    --
     score INTEGER NOT NULL,
     is_banned BOOLEAN NOT NULL DEFAULT false,
     is_moderator BOOLEAN NOT NULL DEFAULT false,
@@ -423,78 +429,165 @@ CREATE TRIGGER moderator_flag
   FOR EACH ROW
     EXECUTE PROCEDURE moderator_flag();
 
--- A user's score is updated when there is new activity from him (posts) or on his content (ratings)
-CREATE FUNCTION update_score() RETURNS TRIGGER AS $$
-DECLARE
-  user_id int;
-  question_upvotes int;
-  answer_upvotes int;
-  comment_upvotes int;
-  question_votes int;
-  answer_votes int;
-  comment_votes int;
-  nr_questions int;
-  nr_answers int;
-  nr_comments int;
+-- A user's score is updated when there is new activity from him (posts)
+CREATE FUNCTION update_score_post() RETURNS TRIGGER AS $$
 BEGIN
-  IF TG_TABLE_NAME = 'question' OR TG_TABLE_NAME = 'answer' OR TG_TABLE_NAME = 'comment' THEN
-    user_id = NEW.author_id;
-  ELSIF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id);
-  ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
-  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
-    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.comment_id);
-  ELSE
-    RAISE EXCEPTION 'Invalid operation triggering score update';
+  IF TG_TABLE_NAME = 'question' THEN
+    IF TG_OP = 'INSERT' THEN
+      UPDATE member
+      SET nr_questions = nr_questions + 1
+      WHERE id = NEW.author_id;
+    ELSIF TG_OP = 'DELETE' THEN
+      UPDATE member
+      SET nr_questions = nr_questions - 1
+      WHERE id = OLD.author_id;
+    END IF;
+  ELSIF TG_TABLE_NAME = 'answer' THEN
+    IF TG_OP = 'INSERT' THEN
+      UPDATE member
+      SET nr_answers = nr_answers + 1
+      WHERE id = NEW.author_id;
+    ELSIF TG_OP = 'DELETE' THEN
+      UPDATE member
+      SET nr_answers = nr_answers - 1
+      WHERE id = OLD.author_id;
+    END IF;
   END IF;
-  question_upvotes := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.rate = 1 AND question.author_id = user_id);
-  answer_upvotes := (SELECT COUNT(*) FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.rate = 1 AND answer.author_id = user_id);
-  comment_upvotes := (SELECT COUNT(*) FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.rate = 1 AND comment.author_id = user_id);
-  question_votes := (SELECT COUNT(*) FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question.author_id = user_id);
-  answer_votes := (SELECT COUNT(*) FROM answer_rating INNER JOIN answer ON answer_rating.question_id = answer.id WHERE answer.author_id = user_id);
-  comment_votes := (SELECT COUNT(*) FROM comment_rating INNER JOIN comment ON comment_rating.question_id = comment.id WHERE comment.author_id = user_id);
-  nr_questions := (SELECT COUNT(*) FROM question WHERE question.author_id = user_id);
-  nr_answers := (SELECT COUNT(*) FROM answer WHERE answer.author_id = user_id);
-  nr_comments := (SELECT COUNT(*) FROM comment WHERE comment.author_id = user_id);
+
   UPDATE member
-  SET score = round(
-                    (1+(question_upvotes+answer_upvotes+comment_upvotes)/(1+question_votes+answer_votes+comment_votes))*(0.45*nr_questions+0.45*nr_answers+0.1*nr_comments)
-                    )
-  WHERE member.id = user_id;
-  RETURN NEW;
+  SET score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+  WHERE id = NEW.author_id;
 END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER update_score_question
-  AFTER INSERT OR DELETE ON question
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+AFTER INSERT OR DELETE ON question
+FOR EACH ROW
+  EXECUTE PROCEDURE update_score_post();
 
 CREATE TRIGGER update_score_answer
-  AFTER INSERT OR DELETE ON answer
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+AFTER INSERT OR DELETE ON answer
+FOR EACH ROW
+  EXECUTE PROCEDURE update_score_post();
 
-CREATE TRIGGER update_score_comment
-  AFTER INSERT OR DELETE ON comment
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+-- A member's score is updated when there is activity on his content
+CREATE FUNCTION update_score_new_rating() RETURNS TRIGGER AS $$
+DECLARE
+  user_id int;
+BEGIN
+  IF TG_TABLE_NAME = 'question_rating' THEN
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'answer_rating' THEN
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
+    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.member_id);
+  ELSE
+    RAISE EXCEPTION 'Invalid operation triggering score update';
+  END IF;
+  IF NEW.rate = 1 THEN
+    UPDATE member
+    SET positive_votes = positive_votes + 1
+    WHERE id = user_id;
+  END IF;
 
-CREATE TRIGGER update_score_question_rating
-  AFTER INSERT OR UPDATE OF rate OR DELETE ON question_rating
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+  UPDATE member
+  SET total_votes = total_votes + 1, score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+  WHERE id = user_id;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER update_score_answer_rating
-  AFTER INSERT OR UPDATE OF rate OR DELETE ON answer_rating
+CREATE TRIGGER update_score_new_question_rating
+  AFTER INSERT ON question_rating
   FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+    EXECUTE PROCEDURE update_score_new_rating();
 
-CREATE TRIGGER update_score_comment_rating
-  AFTER INSERT OR UPDATE OF rate OR DELETE ON comment_rating
+CREATE TRIGGER update_score_new_answer_rating
+  AFTER INSERT ON answer_rating
   FOR EACH ROW
-    EXECUTE PROCEDURE update_score();
+    EXECUTE PROCEDURE update_score_new_rating();
+
+CREATE TRIGGER update_score_new_comment_rating
+  AFTER INSERT ON comment_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_new_rating();
+
+CREATE FUNCTION update_score_update_rating() RETURNS TRIGGER AS $$
+DECLARE
+  user_id int;
+BEGIN
+  IF TG_TABLE_NAME = 'question_rating' THEN
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'answer_rating' THEN
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
+  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
+    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.member_id);
+  ELSE
+    RAISE EXCEPTION 'Invalid operation triggering score update';
+  END IF;
+
+  UPDATE member
+  SET positive_votes = positive_votes + NEW.rate, score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+  WHERE id = user_id;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER update_score_update_question_rating
+  AFTER UPDATE OF rate ON question_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_update_rating();
+
+CREATE TRIGGER update_score_update_answer_rating
+  AFTER UPDATE OF rate ON answer_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_update_rating();
+
+CREATE TRIGGER update_score_update_comment_rating
+  AFTER UPDATE OF rate ON comment_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_update_rating();
+
+CREATE FUNCTION update_score_delete_rating() RETURNS TRIGGER AS $$
+DECLARE
+  user_id int;
+BEGIN
+  IF TG_TABLE_NAME = 'question_rating' THEN
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  OLD.member_id);
+  ELSIF TG_TABLE_NAME = 'answer_rating' THEN
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = OLD.member_id);
+  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
+    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = OLD.member_id);
+  ELSE
+    RAISE EXCEPTION 'Invalid operation triggering score update';
+  END IF;
+  IF OLD.rate = 1 THEN
+    UPDATE member
+    SET positive_votes = positive_votes - 1
+    WHERE id = user_id;
+  END IF;
+
+  UPDATE member
+  SET total_votes = total_votes - 1, score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+  WHERE id = user_id;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER update_score_delete_question_rating
+  AFTER DELETE ON question_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_delete_rating();
+
+CREATE TRIGGER update_score_delete_answer_rating
+  AFTER DELETE ON answer_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_delete_rating();
+
+CREATE TRIGGER update_score_update_comment_rating
+  AFTER DELETE ON comment_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE update_score_delete_rating();
 
 -- Columns subject to full text search must keep their ts_vectors updated
 CREATE FUNCTION question_search_update() RETURNS TRIGGER AS $$
