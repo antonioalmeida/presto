@@ -148,8 +148,7 @@ CREATE TABLE question (
     views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
-    search_title text,
-    search_content text,
+    search text,
     CONSTRAINT question_pk PRIMARY KEY (id),
     CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -500,24 +499,13 @@ CREATE TRIGGER update_score_comment_rating
 -- Columns subject to full text search must keep their ts_vectors updated
 CREATE FUNCTION question_search_update() RETURNS TRIGGER AS $$
 BEGIN
- IF TG_OP = 'INSERT' THEN
-   NEW.search_title = plainto_tsvector('english', NEW.title);
-   NEW.search_content = plainto_ts_vector('english', NEW.content);
- END IF;
- IF TG_OP = 'UPDATE' THEN
-     IF NEW.title <> OLD.title THEN
-       NEW.search_title = plainto_tsvector('english', NEW.title);
-     END IF;
-     IF NEW.content <> OLD.content THEN
-       NEW.search_content = plainto_tsvector('english', NEW.content);
-     END IF;
- END IF;
+   NEW.search = plainto_tsvector('english', NEW.title);
  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER question_function
-  AFTER INSERT OR UPDATE ON question
+  AFTER INSERT OR UPDATE OF title ON question
   FOR EACH ROW
     EXECUTE PROCEDURE question_search_update();
 
