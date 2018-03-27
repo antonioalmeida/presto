@@ -18,6 +18,7 @@ DROP TABLE IF EXISTS member CASCADE;
 DROP TABLE IF EXISTS country CASCADE;
 DROP TYPE IF EXISTS notification_origin CASCADE;
 
+-- Have to review these drops, some are missing, some do not apply anymore
 DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS member_answer_rating ON answer_rating;
 DROP TRIGGER IF EXISTS member_comment_rating ON comment_rating;
@@ -255,7 +256,7 @@ CREATE TABLE comment_report (
 -- User cannot rate his own questions
 CREATE FUNCTION member_question_rating() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN question_rating ON member.id = question_rating.member_id INNER JOIN question ON question_rating.question_id = question.id WHERE question.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id) THEN
     RAISE EXCEPTION 'A member cannot rate his own questions';
   END IF;
   RETURN NEW;
@@ -270,7 +271,7 @@ CREATE TRIGGER member_question_rating
 -- User cannot rate his own answers
 CREATE FUNCTION member_answer_rating() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN answer_rating ON member.id = answer_rating.member_id INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id) THEN
     RAISE EXCEPTION 'A member cannot rate his own answers';
   END IF;
   RETURN NEW;
@@ -285,7 +286,7 @@ CREATE TRIGGER member_answer_rating
 -- User cannot rate his own comments
 CREATE FUNCTION member_comment_rating() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN comment_rating ON member.id = comment_rating.member_id INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id INNER JOIN member ON comment.author_id = member.id WHERE comment.id = NEW.comment_id) THEN
     RAISE EXCEPTION 'A member cannot rate his own comments';
   END IF;
   RETURN NEW;
@@ -479,8 +480,6 @@ BEGIN
     user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
     user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
-  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
-    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.member_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -507,11 +506,6 @@ CREATE TRIGGER update_score_new_answer_rating
   FOR EACH ROW
     EXECUTE PROCEDURE update_score_new_rating();
 
-CREATE TRIGGER update_score_new_comment_rating
-  AFTER INSERT ON comment_rating
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score_new_rating();
-
 CREATE FUNCTION update_score_update_rating() RETURNS TRIGGER AS $$
 DECLARE
   user_id int;
@@ -520,8 +514,6 @@ BEGIN
     user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
     user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
-  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
-    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = NEW.member_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -543,11 +535,6 @@ CREATE TRIGGER update_score_update_answer_rating
   FOR EACH ROW
     EXECUTE PROCEDURE update_score_update_rating();
 
-CREATE TRIGGER update_score_update_comment_rating
-  AFTER UPDATE OF rate ON comment_rating
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score_update_rating();
-
 CREATE FUNCTION update_score_delete_rating() RETURNS TRIGGER AS $$
 DECLARE
   user_id int;
@@ -556,8 +543,6 @@ BEGIN
     user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  OLD.member_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
     user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = OLD.member_id);
-  ELSIF TG_TABLE_NAME = 'comment_rating' THEN
-    user_id = (SELECT comment.author_id FROM comment_rating INNER JOIN comment ON comment_rating.comment_id = comment.id WHERE comment_rating.comment_id = OLD.member_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -581,11 +566,6 @@ CREATE TRIGGER update_score_delete_question_rating
 
 CREATE TRIGGER update_score_delete_answer_rating
   AFTER DELETE ON answer_rating
-  FOR EACH ROW
-    EXECUTE PROCEDURE update_score_delete_rating();
-
-CREATE TRIGGER update_score_update_comment_rating
-  AFTER DELETE ON comment_rating
   FOR EACH ROW
     EXECUTE PROCEDURE update_score_delete_rating();
 
@@ -647,7 +627,7 @@ CREATE TRIGGER notify_on_comment_question
   WHEN NEW.question_id IS NOT NULL
     EXECUTE PROCEDURE notify_on_comment_question();
 
--- A member is notified when someone else comments his question
+-- A member is notified when someone else comments his answer
 CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
