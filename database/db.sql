@@ -476,9 +476,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id =  NEW.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = NEW.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -510,9 +510,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  NEW.member_id);
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id = NEW.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = NEW.member_id);
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = NEW.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -539,9 +539,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.member_id =  OLD.member_id);
+    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id = OLD.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.member_id = OLD.member_id);
+    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = OLD.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
