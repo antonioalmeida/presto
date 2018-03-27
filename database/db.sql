@@ -301,7 +301,7 @@ CREATE TRIGGER member_comment_rating
 -- User cannot report his own questions
 CREATE FUNCTION member_question_report() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN question_report ON member.id = question_report.member_id INNER JOIN question ON question_report.question_id = question.id WHERE question.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM question_report INNER JOIN question ON question_report.question_id = question.id INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id) THEN
     RAISE EXCEPTION 'A member cannot report his own questions';
   END IF;
   RETURN NEW;
@@ -316,7 +316,7 @@ CREATE TRIGGER member_question_report
 -- User cannot report his own answers
 CREATE FUNCTION member_answer_report() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN answer_report ON member.id = answer_report.member_id INNER JOIN answer ON answer_report.answer_id = answer.id WHERE answer.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM answer_report INNER JOIN answer ON answer_report.answer_id = answer.id INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id) THEN
     RAISE EXCEPTION 'A member cannot report his own answers';
   END IF;
   RETURN NEW;
@@ -331,7 +331,7 @@ CREATE TRIGGER member_answer_report
 -- User cannot report his own comments
 CREATE FUNCTION member_comment_report() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS (SELECT id FROM member INNER JOIN comment_report ON member.id = comment_report.member_id INNER JOIN comment ON comment_report.comment_id = comment.id WHERE comment.author_id = member.id) THEN
+  IF NEW.member_id = (SELECT id FROM comment_report INNER JOIN comment ON comment_report.comment_id = comment.id INNER JOIN member ON comment.author_id = member.id WHERE comment.id = NEW.comment_id) THEN
     RAISE EXCEPTION 'A member cannot report his own comments';
   END IF;
   RETURN NEW;
