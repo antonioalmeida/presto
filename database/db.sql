@@ -381,7 +381,7 @@ CREATE TRIGGER question_topic
 -- Answers' dates must be consistent
 CREATE FUNCTION answer_date() RETURNS TRIGGER AS $$
 BEGIN
-  IF NEW.date > (SELECT "date" FROM question INNER JOIN answer ON answer.question_id = question.id WHERE answer.id = NEW.id) THEN
+  IF NEW.date < (SELECT question.date FROM question INNER JOIN answer ON answer.question_id = question.id WHERE answer.id = NEW.id) THEN
     RAISE EXCEPTION 'Answer date must be further than its associated question';
   END IF;
   RETURN NEW;
@@ -397,12 +397,11 @@ CREATE TRIGGER answer_date
 CREATE FUNCTION comment_date() RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.question_id IS NULL THEN --Comment is associated to an answer
-    IF NEW.date > (SELECT "date" FROM answer INNER JOIN comment ON comment.answer_id = answer.id WHERE comment.id = NEW.id) THEN
+    IF NEW.date < (SELECT answer.date FROM answer INNER JOIN comment ON comment.answer_id = answer.id WHERE comment.id = NEW.id) THEN
       RAISE EXCEPTION 'Comment date must be further than its associated answer';
     END IF;
-  END IF;
-  IF NEW.answer_id IS NULL THEN --Comment is associated to a question
-    IF NEW.date > (SELECT "date" FROM question INNER JOIN comment ON comment.question_id = question.id WHERE comment.id = NEW.id) THEN
+  ELSE --Comment is associated to a question
+    IF NEW.date < (SELECT question.date FROM question INNER JOIN comment ON comment.question_id = question.id WHERE comment.id = NEW.id) THEN
       RAISE EXCEPTION 'Comment date must be further than its associated question';
     END IF;
   END IF;
@@ -410,7 +409,7 @@ BEGIN
 END
 $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER comment
+CREATE TRIGGER comment_date
   BEFORE INSERT OR UPDATE OF "date" ON comment
   FOR EACH ROW
     EXECUTE PROCEDURE comment_date();
