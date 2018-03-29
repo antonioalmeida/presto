@@ -358,7 +358,7 @@ CREATE TRIGGER member_comment_report
 --Unique email between admins and members
 CREATE FUNCTION admin_member_email() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS(SELECT * FROM admin INNER JOIN member ON admin.email = member.email) THEN
+  IF EXISTS(SELECT member.email FROM admin INNER JOIN member ON admin.email = member.email) THEN
     RAISE EXCEPTION 'Email must be unique';
   END IF;
   RETURN NEW;
@@ -378,7 +378,7 @@ CREATE TRIGGER member_email
 -- A question must always have at least 1 topic associated with it
 CREATE FUNCTION question_topic() RETURNS TRIGGER AS $$
 BEGIN
-  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id WHERE question.id = OLD.question_id) THEN
+  IF NOT EXISTS (SELECT question.id FROM question_topic INNER JOIN question ON question.id = question_topic.question_id WHERE question.id = OLD.question_id) THEN
     RAISE EXCEPTION 'Question must have at least 1 topic associated';
   END IF;
   RETURN OLD;
@@ -466,9 +466,14 @@ BEGIN
     END IF;
   END IF;
 
-  UPDATE member
-  SET score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
-  WHERE id = NEW.author_id;
+  IF TG_OP = 'INSERT' THEN
+    UPDATE member
+    SET score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+    WHERE id = NEW.author_id;
+  ELSE
+    UPDATE member
+    SET score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
+    WHERE id = OLD.author_id;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -488,9 +493,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id =  NEW.question_id);
+    user_id = (SELECT question.author_id FROM question WHERE question.id =  NEW.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = NEW.answer_id);
+    user_id = (SELECT answer.author_id FROM answer WHERE answer.id = NEW.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -522,9 +527,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id = NEW.question_id);
+    user_id = (SELECT question.author_id FROM question WHERE question.id = NEW.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = NEW.answer_id);
+    user_id = (SELECT answer.author_id FROM answer WHERE answer.id = NEW.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
@@ -551,9 +556,9 @@ DECLARE
   user_id int;
 BEGIN
   IF TG_TABLE_NAME = 'question_rating' THEN
-    user_id = (SELECT question.author_id FROM question_rating INNER JOIN question ON question_rating.question_id = question.id WHERE question_rating.question_id = OLD.question_id);
+    user_id = (SELECT question.author_id FROM question WHERE question.id = OLD.question_id);
   ELSIF TG_TABLE_NAME = 'answer_rating' THEN
-    user_id = (SELECT answer.author_id FROM answer_rating INNER JOIN answer ON answer_rating.answer_id = answer.id WHERE answer_rating.answer_id = OLD.answer_id);
+    user_id = (SELECT answer.author_id FROM answer WHERE answer.id = OLD.answer_id);
   ELSE
     RAISE EXCEPTION 'Invalid operation triggering score update';
   END IF;
