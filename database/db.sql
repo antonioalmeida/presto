@@ -713,3 +713,9 @@ insert into member (username, email, password, name, bio, profile_picture, is_mo
 insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('sromanetm', 'sromanetm@goo.gl', 'ClPxl8M1l01J', 'Suzann Romanet', 'VP Accounting', 'https://robohash.org/minimaimpeditest.png?size=200x200&set=set1', false, 2);
 insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('dcollyn', 'dcollyn@slate.com', 'zIPvmTQ', 'Daron Colly', 'Operator', 'https://robohash.org/molestiasplaceatrerum.png?size=200x200&set=set1', false, 6);
 insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('aalvaradoo', 'aalvaradoo@diigo.com', 'G0KAF5kWr2eo', 'Amanda Alvarado', 'Budget/Accounting Analyst IV', 'https://robohash.org/etsimiliquevoluptas.png?size=200x200&set=set1', true, 8);
+
+insert into flag (member_id, moderator_id, reason, "date") values (24, 25, 'Rude language', '2017-09-01 18:17:33');
+insert into flag (member_id, moderator_id, reason, "date") values (2, 25, 'Unecessary vocabulary', '2017-06-26 11:06:11');
+insert into flag (member_id, moderator_id, reason, "date") values (21, 25, 'Racist comments', '2017-04-23 09:28:44');
+insert into flag (member_id, moderator_id, reason, "date") values (24, 10, 'Constant off topic content', '2017-10-25 15:15:15');
+insert into flag (member_id, moderator_id, reason, "date") values (24, 20, 'Slept too much', '2017-08-23 04:05:42');
