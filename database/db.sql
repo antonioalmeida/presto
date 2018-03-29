@@ -690,6 +690,20 @@ CREATE TRIGGER notify_on_answer_rating
   WHEN (NEW.rate = 1)
     EXECUTE PROCEDURE notify_on_answer_rating();
 
+-- A member is notified when someone else follows him
+CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO notification (type, "date", content, member_id) VALUES ('Follow', now(),
+    (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE member.id = NEW.follower_id) || ' followed you',
+    NEW.following_id);
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_follow
+  AFTER INSERT ON follow_member
+  FOR EACH ROW
+    EXECUTE PROCEDURE notify_on_follow();
+
 --Indexes
 CREATE INDEX idx_question_author_id ON question USING hash (author_id);
 CREATE INDEX idx_answer_author_id ON answer USING hash (author_id);
