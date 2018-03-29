@@ -41,6 +41,9 @@ DROP TRIGGER IF EXISTS answer_search_update ON answer;
 DROP TRIGGER IF EXISTS notify_on_answer ON answer;
 DROP TRIGGER IF EXISTS notify_on_comment_question ON comment;
 DROP TRIGGER IF EXISTS notify_on_comment_answer ON comment;
+DROP TRIGGER IF EXISTS notify_on_question_rating ON question_rating;
+DROP TRIGGER IF EXISTS notify_on_answer_rating ON answer_rating;
+DROP TRIGGER IF EXISTS notify_on_follow ON follow_member;
 DROP FUNCTION IF EXISTS member_question_rating();
 DROP FUNCTION IF EXISTS member_answer_rating();
 DROP FUNCTION IF EXISTS member_comment_rating();
@@ -61,6 +64,9 @@ DROP FUNCTION IF EXISTS answer_search_update();
 DROP FUNCTION IF EXISTS notify_on_answer();
 DROP FUNCTION IF EXISTS notify_on_comment_question();
 DROP FUNCTION IF EXISTS notify_on_comment_answer();
+DROP FUNCTION IF EXISTS notify_on_question_rating();
+DROP FUNCTION IF EXISTS notify_on_answer_rating();
+DROP FUNCTION IF EXISTS notify_on_follow();
 
 -- NotificationOrigin enum
 CREATE TYPE notification_origin AS ENUM (
