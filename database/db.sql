@@ -417,7 +417,7 @@ CREATE TRIGGER comment_date
 -- Only moderators can flag members
 CREATE FUNCTION moderator_flag() RETURNS TRIGGER AS $$
 BEGIN
-  IF NOT EXISTS (SELECT * FROM member INNER JOIN flag ON flag.moderator_id = member.id WHERE member.is_moderator = true AND flag.moderator_id = NEW.moderator_id) THEN
+  IF (SELECT is_moderator FROM flag INNER JOIN member ON flag.moderator_id = member.id WHERE flag.moderator_id = NEW.moderator_id AND flag.member_id = NEW.member_id) = false THEN
     RAISE EXCEPTION 'Only moderators can flag members';
   END IF;
   RETURN NEW;
