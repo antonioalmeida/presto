@@ -264,7 +264,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_question_rating
-  BEFORE INSERT OR UPDATE ON question_rating
+  BEFORE INSERT OR UPDATE OF member_id, question_id ON question_rating
   FOR EACH ROW
     EXECUTE PROCEDURE member_question_rating();
 
@@ -279,7 +279,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_answer_rating
-  BEFORE INSERT OR UPDATE ON answer_rating
+  BEFORE INSERT OR UPDATE OF member_id, answer_id ON answer_rating
   FOR EACH ROW
     EXECUTE PROCEDURE member_answer_rating();
 
@@ -294,7 +294,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_comment_rating
-  BEFORE INSERT OR UPDATE ON comment_rating
+  BEFORE INSERT OR UPDATE OF member_id, comment_id ON comment_rating
   FOR EACH ROW
     EXECUTE PROCEDURE member_comment_rating();
 
@@ -309,7 +309,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_question_report
-  BEFORE INSERT OR UPDATE ON question_report
+  BEFORE INSERT OR UPDATE OF member_id, question_id ON question_report
   FOR EACH ROW
     EXECUTE PROCEDURE member_question_report();
 
@@ -324,7 +324,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_answer_report
-  BEFORE INSERT OR UPDATE ON answer_report
+  BEFORE INSERT OR UPDATE OF member_id, answer_id ON answer_report
   FOR EACH ROW
     EXECUTE PROCEDURE member_answer_report();
 
@@ -339,7 +339,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER member_comment_report
-  BEFORE INSERT OR UPDATE ON comment_report
+  BEFORE INSERT OR UPDATE OF member_id, comment_id ON comment_report
   FOR EACH ROW
     EXECUTE PROCEDURE member_comment_report();
 
