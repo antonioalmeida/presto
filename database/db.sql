@@ -571,13 +571,13 @@ CREATE TRIGGER update_score_delete_answer_rating
 -- Columns subject to full text search must keep their ts_vectors updated
 CREATE FUNCTION question_search_update() RETURNS TRIGGER AS $$
 BEGIN
-   NEW.search = plainto_tsvector('english', NEW.title);
+   NEW.search = setweight(to_tsvector('english', NEW.title), 'A') || setweight(to_tsvector('english', NEW.content), 'B');
  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER question_function
-  AFTER INSERT OR UPDATE OF title ON question
+  AFTER INSERT OR UPDATE OF title, content ON question
   FOR EACH ROW
     EXECUTE PROCEDURE question_search_update();
 
