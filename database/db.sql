@@ -655,7 +655,7 @@ CREATE TRIGGER notify_on_comment_answer
   WHEN (NEW.answer_id IS NOT NULL)
     EXECUTE PROCEDURE notify_on_comment_answer();
 
--- A member if notified when someone else upvotes his question
+-- A member is notified when someone else upvotes his question
 CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
 BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
@@ -667,7 +667,23 @@ $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER notify_on_question_rating
   AFTER INSERT ON question_rating
   FOR EACH ROW
+  WHEN (NEW.rate = 1)
     EXECUTE PROCEDURE notify_on_question_rating();
+
+-- A member is notified when someone else upvotes his answer
+CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
+    (SELECT name FROM answer_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
+    (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id));
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_answer_rating
+  AFTER INSERT ON answer_rating
+  FOR EACH ROW
+  WHEN (NEW.rate = 1)
+    EXECUTE PROCEDURE notify_on_answer_rating();
 
 --Indexes
 CREATE INDEX idx_question_author_id ON question USING hash (author_id);
