@@ -18,7 +18,6 @@ DROP TABLE IF EXISTS member CASCADE;
 DROP TABLE IF EXISTS country CASCADE;
 DROP TYPE IF EXISTS notification_origin CASCADE;
 
--- Have to review these drops, some are missing, some do not apply anymore
 DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS member_answer_rating ON answer_rating;
 DROP TRIGGER IF EXISTS member_comment_rating ON comment_rating;
@@ -33,10 +32,15 @@ DROP TRIGGER IF EXISTS comment_date ON comment;
 DROP TRIGGER IF EXISTS moderator_flag ON flag;
 DROP TRIGGER IF EXISTS update_score_question ON question;
 DROP TRIGGER IF EXISTS update_score_answer ON answer;
-DROP TRIGGER IF EXISTS update_score_comment ON comment;
 DROP TRIGGER IF EXISTS update_score_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS update_score_answer_rating ON answer_rating;
-DROP TRIGGER IF EXISTS update_score_comment_rating ON comment_rating;
+DROP TRIGGER IF EXISTS update_score_delete_question_rating ON question_rating;
+DROP TRIGGER IF EXISTS update_score_delete_answer_rating ON answer_rating;
+DROP TRIGGER IF EXISTS question_search_update ON question;
+DROP TRIGGER IF EXISTS answer_search_update ON answer;
+DROP TRIGGER IF EXISTS notify_on_answer ON answer;
+DROP TRIGGER IF EXISTS notify_on_comment_question ON comment;
+DROP TRIGGER IF EXISTS notify_on_comment_answer ON comment;
 DROP FUNCTION IF EXISTS member_question_rating();
 DROP FUNCTION IF EXISTS member_answer_rating();
 DROP FUNCTION IF EXISTS member_comment_rating();
@@ -48,7 +52,15 @@ DROP FUNCTION IF EXISTS question_topic();
 DROP FUNCTION IF EXISTS answer_date();
 DROP FUNCTION IF EXISTS comment_date();
 DROP FUNCTION IF EXISTS moderator_flag();
-DROP FUNCTION IF EXISTS update_score();
+DROP FUNCTION IF EXISTS update_score_post();
+DROP FUNCTION IF EXISTS update_score_new_rating();
+DROP FUNCTION IF EXISTS update_score_update_rating();
+DROP FUNCTION IF EXISTS update_score_delete_rating();
+DROP FUNCTION IF EXISTS question_search_update();
+DROP FUNCTION IF EXISTS answer_search_update();
+DROP FUNCTION IF EXISTS notify_on_answer();
+DROP FUNCTION IF EXISTS notify_on_comment_question();
+DROP FUNCTION IF EXISTS notify_on_comment_answer();
 
 -- NotificationOrigin enum
 CREATE TYPE notification_origin AS ENUM (
@@ -576,7 +588,7 @@ BEGIN
 END
 $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER question_function
+CREATE TRIGGER question_search_update
   AFTER INSERT OR UPDATE OF title, content ON question
   FOR EACH ROW
     EXECUTE PROCEDURE question_search_update();
@@ -588,7 +600,7 @@ BEGIN
 END
 $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER question_function
+CREATE TRIGGER answer_search_update
   AFTER INSERT OR UPDATE OF content ON answer
   FOR EACH ROW
     EXECUTE PROCEDURE answer_search_update();
@@ -623,7 +635,7 @@ $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER notify_on_comment_question
   AFTER INSERT ON comment
   FOR EACH ROW
-  WHEN NEW.question_id IS NOT NULL
+  WHEN (NEW.question_id IS NOT NULL)
     EXECUTE PROCEDURE notify_on_comment_question();
 
 -- A member is notified when someone else comments his answer
@@ -640,5 +652,5 @@ $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER notify_on_comment_answer
   AFTER INSERT ON comment
   FOR EACH ROW
-  WHEN NEW.answer_id IS NOT NULL
+  WHEN (NEW.answer_id IS NOT NULL)
     EXECUTE PROCEDURE notify_on_comment_answer();
