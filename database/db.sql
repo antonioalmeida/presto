@@ -643,7 +643,7 @@ CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
 BEGIN
   IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
     INSERT INTO notification (type, "date", content, member_id) VALUES ('Comment', now(),
-      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer: ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id),
+      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer to the question ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN question ON answer.question_id = question.id WHERE comment.id = NEW.id),
       (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id));
   END IF;
 END
@@ -654,6 +654,20 @@ CREATE TRIGGER notify_on_comment_answer
   FOR EACH ROW
   WHEN (NEW.answer_id IS NOT NULL)
     EXECUTE PROCEDURE notify_on_comment_answer();
+
+-- A member if notified when someone else upvotes his question
+CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
+    (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question.id = NEW.question_id),
+    (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id));
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER notify_on_question_rating
+  AFTER INSERT ON question_rating
+  FOR EACH ROW
+    EXECUTE PROCEDURE notify_on_question_rating();
 
 --Indexes
 CREATE INDEX idx_question_author_id ON question USING hash (author_id);
