@@ -621,7 +621,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER notify_on_comment_question
-  AFTER INSERT ON answer
+  AFTER INSERT ON comment
   FOR EACH ROW
   WHEN NEW.question_id IS NOT NULL
     EXECUTE PROCEDURE notify_on_comment_question();
@@ -638,7 +638,7 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER notify_on_comment_answer
-  AFTER INSERT ON answer
+  AFTER INSERT ON comment
   FOR EACH ROW
   WHEN NEW.answer_id IS NOT NULL
     EXECUTE PROCEDURE notify_on_comment_answer();
