@@ -366,7 +366,7 @@ CREATE TRIGGER member_email
 -- A question must always have at least 1 topic associated with it
 CREATE FUNCTION question_topic() RETURNS TRIGGER AS $$
 BEGIN
-  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id) THEN
+  IF NOT EXISTS(SELECT * FROM question_topic INNER JOIN question ON question.id = question_topic.question_id WHERE question.id = OLD.question_id) THEN
     RAISE EXCEPTION 'Question must have at least 1 topic associated';
   END IF;
   RETURN OLD;
