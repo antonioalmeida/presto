@@ -669,5 +669,21 @@ CREATE INDEX question_search_index ON question USING GIST (search);
 CREATE INDEX answer_search_index ON answer USING GIST (search);
 
 --Populate
-INSERT INTO admin (email, password) VALUES ('dcrosston0@omniture.com', 'GPPAJfDFsN');
-INSERT INTO admin (email, password) VALUES ('hlangston1@yelp.com', 'oKYrN768SX');
+INSERT INTO admin (email, password) VALUES ('admin1@presto.com', 'GPPAJfDFsN');
+INSERT INTO admin (email, password) VALUES ('admin2@presto.com', 'oKYrN768SX');
+
+INSERT INTO country (name) VALUES ('Falkland Islands');
+INSERT INTO country (name) VALUES ('Nicaragua');
+INSERT INTO country (name) VALUES ('Colombia');
+INSERT INTO country (name) VALUES ('Austria');
+INSERT INTO country (name) VALUES ('Tonga');
+INSERT INTO country (name) VALUES ('Lebanon');
+INSERT INTO country (name) VALUES ('Sierra Leone');
+INSERT INTO country (name) VALUES ('Bouvet Island');
+INSERT INTO country (name) VALUES ('Costa Rica');
+INSERT INTO country (name) VALUES ('Suriname');
+INSERT INTO country (name) VALUES ('Wallis and Futuna');
+INSERT INTO country (name) VALUES ('Lesotho');
+INSERT INTO country (name) VALUES ('Estonia');
+INSERT INTO country (name) VALUES ('Djibouti');
+INSERT INTO country (name) VALUES ('New Zealand');
