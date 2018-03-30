@@ -676,7 +676,7 @@ CREATE TRIGGER notify_on_comment_answer
 CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
 BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
-    (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question.id = NEW.question_id),
+    (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE question_rating.question_id = NEW.question_id AND member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id AND question.id = NEW.question_id),
     (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id));
   RETURN NEW;
 END
@@ -692,7 +692,7 @@ CREATE TRIGGER notify_on_question_rating
 CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
 BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
-    (SELECT name FROM answer_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
+    (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
     (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id));
   RETURN NEW;
 END
@@ -1689,3 +1689,94 @@ insert into question_topic (question_id, topic_id) values (38, 13);
 insert into question_topic (question_id, topic_id) values (36, 30);
 insert into question_topic (question_id, topic_id) values (26, 7);
 insert into question_topic (question_id, topic_id) values (30, 20);
+
+insert into question_rating (question_id, member_id, rate) values (17, 19, 1);
+insert into question_rating (question_id, member_id, rate) values (18, 16, -1);
+insert into question_rating (question_id, member_id, rate) values (3, 18, -1);
+insert into question_rating (question_id, member_id, rate) values (37, 22, 1);
+insert into question_rating (question_id, member_id, rate) values (20, 1, 1);
+insert into question_rating (question_id, member_id, rate) values (27, 11, -1);
+insert into question_rating (question_id, member_id, rate) values (38, 14, -1);
+insert into question_rating (question_id, member_id, rate) values (13, 22, 1);
+insert into question_rating (question_id, member_id, rate) values (18, 6, 1);
+insert into question_rating (question_id, member_id, rate) values (28, 3, 1);
+insert into question_rating (question_id, member_id, rate) values (28, 8, -1);
+insert into question_rating (question_id, member_id, rate) values (38, 17, 1);
+insert into question_rating (question_id, member_id, rate) values (19, 13, -1);
+insert into question_rating (question_id, member_id, rate) values (25, 9, -1);
+insert into question_rating (question_id, member_id, rate) values (39, 1, -1);
+insert into question_rating (question_id, member_id, rate) values (21, 10, -1);
+insert into question_rating (question_id, member_id, rate) values (39, 7, -1);
+insert into question_rating (question_id, member_id, rate) values (37, 18, -1);
+insert into question_rating (question_id, member_id, rate) values (2, 1, -1);
+insert into question_rating (question_id, member_id, rate) values (32, 11, -1);
+insert into question_rating (question_id, member_id, rate) values (18, 21, 1);
+insert into question_rating (question_id, member_id, rate) values (18, 2, 1);
+insert into question_rating (question_id, member_id, rate) values (22, 17, -1);
+insert into question_rating (question_id, member_id, rate) values (9, 22, 1);
+insert into question_rating (question_id, member_id, rate) values (17, 11, 1);
+insert into question_rating (question_id, member_id, rate) values (27, 6, 1);
+insert into question_rating (question_id, member_id, rate) values (24, 25, 1);
+insert into question_rating (question_id, member_id, rate) values (39, 17, 1);
+insert into question_rating (question_id, member_id, rate) values (28, 7, -1);
+insert into question_rating (question_id, member_id, rate) values (4, 8, 1);
+insert into question_rating (question_id, member_id, rate) values (40, 5, 1);
+insert into question_rating (question_id, member_id, rate) values (16, 22, 1);
+insert into question_rating (question_id, member_id, rate) values (6, 6, -1);
+insert into question_rating (question_id, member_id, rate) values (5, 12, 1);
+insert into question_rating (question_id, member_id, rate) values (6, 11, 1);
+insert into question_rating (question_id, member_id, rate) values (11, 6, 1);
+insert into question_rating (question_id, member_id, rate) values (5, 6, 1);
+insert into question_rating (question_id, member_id, rate) values (2, 4, -1);
+insert into question_rating (question_id, member_id, rate) values (37, 4, -1);
+insert into question_rating (question_id, member_id, rate) values (11, 4, 1);
+insert into question_rating (question_id, member_id, rate) values (6, 2, -1);
+insert into question_rating (question_id, member_id, rate) values (8, 24, -1);
+insert into question_rating (question_id, member_id, rate) values (2, 11, 1);
+
+insert into answer_rating (answer_id, member_id, rate) values (22, 17, -1);
+insert into answer_rating (answer_id, member_id, rate) values (82, 3, 1);
+insert into answer_rating (answer_id, member_id, rate) values (72, 12, -1);
+insert into answer_rating (answer_id, member_id, rate) values (53, 9, 1);
+insert into answer_rating (answer_id, member_id, rate) values (7, 9, 1);
+insert into answer_rating (answer_id, member_id, rate) values (25, 1, 1);
+insert into answer_rating (answer_id, member_id, rate) values (45, 15, 1);
+insert into answer_rating (answer_id, member_id, rate) values (68, 23, -1);
+insert into answer_rating (answer_id, member_id, rate) values (53, 6, 1);
+insert into answer_rating (answer_id, member_id, rate) values (10, 21, -1);
+insert into answer_rating (answer_id, member_id, rate) values (96, 8, 1);
+insert into answer_rating (answer_id, member_id, rate) values (9, 10, 1);
+insert into answer_rating (answer_id, member_id, rate) values (32, 3, 1);
+insert into answer_rating (answer_id, member_id, rate) values (30, 22, 1);
+insert into answer_rating (answer_id, member_id, rate) values (34, 25, -1);
+insert into answer_rating (answer_id, member_id, rate) values (95, 22, 1);
+insert into answer_rating (answer_id, member_id, rate) values (67, 10, -1);
+insert into answer_rating (answer_id, member_id, rate) values (85, 22, -1);
+insert into answer_rating (answer_id, member_id, rate) values (52, 8, -1);
+insert into answer_rating (answer_id, member_id, rate) values (32, 2, 1);
+insert into answer_rating (answer_id, member_id, rate) values (74, 17, 1);
+insert into answer_rating (answer_id, member_id, rate) values (63, 22, 1);
+insert into answer_rating (answer_id, member_id, rate) values (68, 22, -1);
+insert into answer_rating (answer_id, member_id, rate) values (25, 13, -1);
+insert into answer_rating (answer_id, member_id, rate) values (35, 3, 1);
+insert into answer_rating (answer_id, member_id, rate) values (96, 10, 1);
+insert into answer_rating (answer_id, member_id, rate) values (54, 23, 1);
+insert into answer_rating (answer_id, member_id, rate) values (79, 6, 1);
+insert into answer_rating (answer_id, member_id, rate) values (74, 3, -1);
+insert into answer_rating (answer_id, member_id, rate) values (25, 18, -1);
+insert into answer_rating (answer_id, member_id, rate) values (50, 19, 1);
+insert into answer_rating (answer_id, member_id, rate) values (7, 14, 1);
+insert into answer_rating (answer_id, member_id, rate) values (15, 17, 1);
+insert into answer_rating (answer_id, member_id, rate) values (53, 3, -1);
+insert into answer_rating (answer_id, member_id, rate) values (86, 17, -1);
+insert into answer_rating (answer_id, member_id, rate) values (97, 7, 1);
+insert into answer_rating (answer_id, member_id, rate) values (28, 10, -1);
+insert into answer_rating (answer_id, member_id, rate) values (7, 5, -1);
+insert into answer_rating (answer_id, member_id, rate) values (79, 20, -1);
+insert into answer_rating (answer_id, member_id, rate) values (20, 6, -1);
+insert into answer_rating (answer_id, member_id, rate) values (10, 11, -1);
+insert into answer_rating (answer_id, member_id, rate) values (4, 9, -1);
+insert into answer_rating (answer_id, member_id, rate) values (46, 7, -1);
+insert into answer_rating (answer_id, member_id, rate) values (47, 6, 1);
+insert into answer_rating (answer_id, member_id, rate) values (8, 19, -1);
+insert into answer_rating (answer_id, member_id, rate) values (6, 5, 1);
