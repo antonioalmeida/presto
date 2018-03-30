@@ -1806,3 +1806,10 @@ insert into comment_rating (comment_id, member_id, rate) values (93, 15, 1);
 insert into comment_rating (comment_id, member_id, rate) values (116, 19, -1);
 insert into comment_rating (comment_id, member_id, rate) values (117, 14, -1);
 insert into comment_rating (comment_id, member_id, rate) values (57, 13, -1);
+
+insert into question_report (question_id, member_id, "date", reason) values (40, 2, '2017-12-27 03:05:35', 'Off context');
+insert into question_report (question_id, member_id, "date", reason) values (30, 23, '2018-02-18 22:24:56', 'Offensive language');
+insert into answer_report (answer_id, member_id, "date", reason) values (54, 14, '2017-10-22 01:41:43', 'Racist comments');
+insert into answer_report (answer_id, member_id, "date", reason) values (100, 19, '2018-03-29 14:15:39', 'Avoids the question entirely');
+insert into comment_report (comment_id, member_id, "date", reason) values (96, 12, '2018-03-25 21:08:09', 'Self promoting instead of giving feedback');
+insert into comment_report (comment_id, member_id, "date", reason) values (83, 18, '2017-11-16 20:46:32', 'Just a laugh');
