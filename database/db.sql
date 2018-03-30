@@ -480,6 +480,7 @@ BEGIN
     UPDATE member
     SET score = round((1+positive_votes/(1+total_votes))*(0.4*nr_questions+0.6*nr_answers))
     WHERE id = OLD.author_id;
+  END IF;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -624,6 +625,7 @@ BEGIN
       (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id) || ' answered your question: ' || (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
       (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id));
   END IF;
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -640,6 +642,7 @@ BEGIN
       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your question: ' || (SELECT title FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id),
       (SELECT member.id FROM question INNER JOIN comment ON question.id = comment.question_id INNER JOIN member ON question.author_id = member.id WHERE comment.id = NEW.id));
   END IF;
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -657,6 +660,7 @@ BEGIN
       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer to the question ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN question ON answer.question_id = question.id WHERE comment.id = NEW.id),
       (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id));
   END IF;
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -672,6 +676,7 @@ BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
     (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question.id = NEW.question_id),
     (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id));
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -687,6 +692,7 @@ BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Rating', now(),
     (SELECT name FROM answer_rating INNER JOIN member ON question_rating.member_id = member.id WHERE member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
     (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id));
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -700,8 +706,9 @@ CREATE TRIGGER notify_on_answer_rating
 CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
 BEGIN
   INSERT INTO notification (type, "date", content, member_id) VALUES ('Follow', now(),
-    (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE member.id = NEW.follower_id) || ' followed you',
+    (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id) || ' followed you',
     NEW.following_id);
+  RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
@@ -904,3 +911,96 @@ insert into follow_member (follower_id, following_id) values (9, 22);
 insert into follow_member (follower_id, following_id) values (3, 8);
 insert into follow_member (follower_id, following_id) values (24, 10);
 insert into follow_member (follower_id, following_id) values (14, 9);
+
+insert into topic (name) values ('Outdoors');
+insert into topic (name) values ('Sports');
+insert into topic (name) values ('Computers');
+insert into topic (name) values ('Electronics');
+insert into topic (name) values ('Tools');
+insert into topic (name) values ('Toys');
+insert into topic (name) values ('Programming');
+insert into topic (name) values ('Industrial');
+insert into topic (name) values ('Baby');
+insert into topic (name) values ('Books');
+insert into topic (name) values ('Jewelery');
+insert into topic (name) values ('Movies');
+insert into topic (name) values ('Music');
+insert into topic (name) values ('College');
+insert into topic (name) values ('Education');
+insert into topic (name) values ('Home');
+insert into topic (name) values ('Children');
+insert into topic (name) values ('Garden');
+insert into topic (name) values ('Hardware');
+insert into topic (name) values ('Grocery');
+insert into topic (name) values ('Automotive');
+insert into topic (name) values ('Cinema');
+insert into topic (name) values ('Life');
+insert into topic (name) values ('Scheme');
+insert into topic (name) values ('Games');
+insert into topic (name) values ('Chores');
+insert into topic (name) values ('Kids');
+insert into topic (name) values ('Shoes');
+insert into topic (name) values ('Shopping');
+insert into topic (name) values ('SQL');
+insert into topic (name) values ('Java');
+insert into topic (name) values ('Databases');
+insert into topic (name) values ('Automotive');
+insert into topic (name) values ('PC Gaming');
+insert into topic (name) values ('Sex');
+insert into topic (name) values ('PostgreSQL');
+insert into topic (name) values ('Health');
+insert into topic (name) values ('SQLite');
+insert into topic (name) values ('C++');
+insert into topic (name) values ('Home Stuff');
+insert into topic (name) values ('Piracy');
+
+insert into follow_topic (topic_id, member_id) values (9, 17);
+insert into follow_topic (topic_id, member_id) values (29, 3);
+insert into follow_topic (topic_id, member_id) values (8, 20);
+insert into follow_topic (topic_id, member_id) values (33, 10);
+insert into follow_topic (topic_id, member_id) values (19, 14);
+insert into follow_topic (topic_id, member_id) values (37, 8);
+insert into follow_topic (topic_id, member_id) values (8, 4);
+insert into follow_topic (topic_id, member_id) values (3, 22);
+insert into follow_topic (topic_id, member_id) values (38, 3);
+insert into follow_topic (topic_id, member_id) values (3, 7);
+insert into follow_topic (topic_id, member_id) values (28, 6);
+insert into follow_topic (topic_id, member_id) values (36, 9);
+insert into follow_topic (topic_id, member_id) values (22, 2);
+insert into follow_topic (topic_id, member_id) values (3, 23);
+insert into follow_topic (topic_id, member_id) values (1, 24);
+insert into follow_topic (topic_id, member_id) values (19, 5);
+insert into follow_topic (topic_id, member_id) values (25, 10);
+insert into follow_topic (topic_id, member_id) values (34, 12);
+insert into follow_topic (topic_id, member_id) values (25, 9);
+insert into follow_topic (topic_id, member_id) values (36, 22);
+insert into follow_topic (topic_id, member_id) values (28, 10);
+insert into follow_topic (topic_id, member_id) values (36, 24);
+insert into follow_topic (topic_id, member_id) values (31, 14);
+insert into follow_topic (topic_id, member_id) values (16, 12);
+insert into follow_topic (topic_id, member_id) values (14, 5);
+insert into follow_topic (topic_id, member_id) values (1, 1);
+insert into follow_topic (topic_id, member_id) values (11, 23);
+insert into follow_topic (topic_id, member_id) values (29, 23);
+insert into follow_topic (topic_id, member_id) values (27, 12);
+insert into follow_topic (topic_id, member_id) values (28, 12);
+insert into follow_topic (topic_id, member_id) values (5, 18);
+insert into follow_topic (topic_id, member_id) values (31, 18);
+insert into follow_topic (topic_id, member_id) values (11, 21);
+insert into follow_topic (topic_id, member_id) values (22, 18);
+insert into follow_topic (topic_id, member_id) values (12, 13);
+insert into follow_topic (topic_id, member_id) values (10, 20);
+insert into follow_topic (topic_id, member_id) values (2, 6);
+insert into follow_topic (topic_id, member_id) values (1, 6);
+insert into follow_topic (topic_id, member_id) values (9, 2);
+insert into follow_topic (topic_id, member_id) values (37, 21);
+insert into follow_topic (topic_id, member_id) values (33, 8);
+insert into follow_topic (topic_id, member_id) values (27, 16);
+insert into follow_topic (topic_id, member_id) values (41, 14);
+insert into follow_topic (topic_id, member_id) values (27, 7);
+insert into follow_topic (topic_id, member_id) values (17, 24);
+insert into follow_topic (topic_id, member_id) values (29, 21);
+insert into follow_topic (topic_id, member_id) values (37, 6);
+insert into follow_topic (topic_id, member_id) values (7, 15);
+insert into follow_topic (topic_id, member_id) values (38, 6);
+insert into follow_topic (topic_id, member_id) values (4, 7);
