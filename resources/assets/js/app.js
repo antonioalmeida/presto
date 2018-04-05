@@ -6,3 +6,5 @@
  */
 
 require('./bootstrap');
+require('./fontawesome-all.min.js');
+require('./temp.js');

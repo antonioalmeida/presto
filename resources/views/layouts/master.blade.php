@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/milligram.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script type="text/javascript">
         // Fix for Firefox autofocus CSS bug
@@ -20,17 +19,12 @@
     <script type="text/javascript" src={{ asset('js/app.js') }} defer>
 </script>
   </head>
+
   <body>
-    <main>
-      <header>
-        <h1><a href="{{ url('/cards') }}">Thingy!</a></h1>
-        @if (Auth::check())
-        <a class="button" href="{{ url('/logout') }}"> Logout </a> <span>{{ Auth::user()->name }}</span>
-        @endif
-      </header>
-      <section id="content">
-        @yield('content')
-      </section>
-    </main>
+     @include('includes.nav')
+
+     @yield('content')
+
+     @include('layouts.footer')
   </body>
 </html>

@@ -16,7 +16,7 @@ DROP TABLE IF EXISTS question CASCADE;
 DROP TABLE IF EXISTS topic CASCADE;
 DROP TABLE IF EXISTS member CASCADE;
 DROP TABLE IF EXISTS country CASCADE;
-DROP TYPE IF EXISTS notification_origin CASCADE;
+-- DROP TYPE IF EXISTS notification_origin CASCADE;
 
 DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS member_answer_rating ON answer_rating;
@@ -69,14 +69,14 @@ DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
 
 -- NotificationOrigin enum
-CREATE TYPE notification_origin AS ENUM (
-    'Question',
-    'Answer',
-    'Comment',
-    'Rating',
-    'Follow',
-    'Mention'
-);
+-- CREATE TYPE notification_origin AS ENUM (
+--     'Question',
+--     'Answer',
+--     'Comment',
+--     'Rating',
+--     'Follow',
+--     'Mention'
+-- );
 
 CREATE TABLE admin (
     id SERIAL NOT NULL,
@@ -139,7 +139,7 @@ CREATE TABLE follow_member (
 
 CREATE TABLE notification (
     id SERIAL NOT NULL,
-    type notification_origin NOT NULL,
+    type text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     content text NOT NULL,
     member_id INTEGER NOT NULL,
