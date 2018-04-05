@@ -1,0 +1,173 @@
+.navbar-nav {
+	.profile-photo {
+		margin-bottom: 0.25em;
+	}
+
+	.nav-link {
+		font-size: $font-size-base*1.3;
+	}
+}
+
+.jumbotron {
+	background-image: url('../img/background.svg');
+
+	h1, h2, h4, h5 {
+		color: $white; }
+
+	h3  {
+		color: $white;
+		font-weight: normal; }
+}
+
+.text-shadow {
+	text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+}
+
+.text-white {
+	color: $white;
+}
+
+.profile-jumbotron {
+	background-image: url('../img/background.svg');
+
+	.bio {
+		color: $white; }
+
+	h4 {
+		color: $white;
+		font-weight: normal; }
+
+	small {
+		font-weight: normal; }
+
+	.lead {
+		color: $white; }
+}
+
+html {
+	height: 100%; }
+
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+main {
+	flex: 1;
+}
+
+.grey-background {
+	background-color: $gray-100;
+}
+
+.white-background {
+	background-color: $white;
+}
+
+.img-background {
+	background-image: url('../img/background.svg');
+}
+
+footer {
+	background-color: $white;
+	padding: 1em;
+
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-width: 1px 0 0 0;
+}
+
+.side-menu {
+	margin-top: 2.45em;
+}
+
+.no-bullets {
+	list-style: none;
+}
+
+.short-padding {
+	.list-group-item {
+		padding: 0.75em 0.25em;
+	}
+}
+
+.edit-profile {
+	input {
+		border: none;
+		padding-left: 0.2em;
+
+		&:focus {
+
+		}
+	}
+	.input-h1 {
+		font-size: $h1-font-size; }
+
+	.input-h2 {
+		font-size: $h2-font-size; }
+
+	.input-h3 {
+		font-size: $h3-font-size; }
+
+	.input-h4 {
+		font-size: $h4-font-size; }
+
+	.input-h5 {
+		font-size: $h5-font-size; }
+
+	.input-h6 {
+		font-size: $h6-font-size; }
+
+}
+
+.text-collapse {
+	@media (max-width: 768px){
+		display: none;
+	}
+}
+
+.text-mobile {
+	@media (min-width: 768px){
+		display: none;
+	}
+}
+
+.h2-adapt {
+	@media (max-width: 768px){
+		font-size: $h3-font-size;
+	}
+}
+
+.h4-adapt {
+	@media (max-width: 768px){
+		font-size: $h5-font-size;
+	}
+}
+
+.h5-adapt {
+	@media (max-width: 768px){
+		font-size: $h6-font-size;
+	}
+}
+
+.lead-adapt {
+	@media (max-width: 768px){
+		font-size: $font-size-base;
+	}
+}
+
+.profile-pic {
+	@media (max-width: 768px){
+		max-width: 100px;
+		max-height: 100px;
+	}
+}
+
+.mobile-center {
+	@media (max-width: 768px){
+		text-align: center;
+	}
+}
+
+
