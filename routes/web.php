@@ -12,8 +12,12 @@
 */
 
 Route::get('/', function () {
-    return redirect('login');
+    return redirect('index');
 });
+
+//Index
+Route::get('index', 'IndexController@show')->middleware('guest');
+Route::get('home', 'LoggedIndexController@show')->middleware('auth');
 
 // Cards
 Route::get('cards', 'CardController@list');
@@ -36,4 +40,4 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');

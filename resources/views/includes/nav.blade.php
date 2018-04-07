@@ -5,6 +5,17 @@
      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
        <span class="navbar-toggler-icon"></span>
      </button>
+     @guest
+       <div class="navbar-collapse navbar-collapse" id="navbarsExampleDefault">
+         <ul class="navbar-nav mr-auto">
+
+         </ul>
+         <div>
+           <a href={{Route('login')}}><button class="btn btn-link">Login</button></a>
+           <a href={{Route('register')}}><button class="btn btn-primary">Sign Up</button></a>
+         </div>
+       </div>
+       @else
      <div class="navbar-collapse" id="navbarsExampleDefault">
        <ul class="navbar-nav ml-auto align-items-end">
          <li class="nav-item pr-2">
@@ -38,11 +49,30 @@
              <a class="dropdown-item" href="profile.html"><i class="far text-muted fa-fw fa-user"></i> Profile</a>
              <a class="dropdown-item" href="profilesettings.html"><i class="far text-muted fa-fw fa-cog"></i> Settings</a>
              <div class="dropdown-divider"></div>
-             <a class="dropdown-item" href="index.html"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
+             <a class="dropdown-item" href="{{Route('logout')}}"><i class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
            </div>
          </li>
        </ul>
      </div>
+       @endguest
    </div>
 </nav>
 </header>
+
+<!-- add question modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div>
+          <input placeholder="Write your question" type="text" class="main-question">
+          <input type="text" value="Science,Physics" data-role="tagsinput">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
