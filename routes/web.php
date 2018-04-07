@@ -20,14 +20,21 @@ Route::get('index', 'HomeController@index')->name('index');
 Route::get('about', 'HomeController@about')->name('about');
 Route::get('search', 'HomeController@search')->name('search');
 
-
-
 //Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
 Route::get('profile/{id}/followers', 'ProfileController@followers')->name('followers');
 Route::get('profile/{id}/following', 'ProfileController@following')->name('following');
 Route::get('profile/{id}/edit', 'ProfileController@edit')->name('edit');
 Route::get('settings', 'ProfileController@settings')->name('settings');
+
+// Question
+Route::get('questions/{id}', 'QuestionController@show');
+
+// Answer
+Route::get('questions/{idq}/answers/{ida}', 'AnswerController@show');
+
+// Topic
+Route::get('topic/{id}', 'TopicController@show');
 
 // Cards
 Route::get('cards', 'CardController@list');
