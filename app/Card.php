@@ -13,7 +13,7 @@ class Card extends Model
    * The user this card belongs to
    */
   public function user() {
-    return $this->belongsTo('App\User');
+    return $this->belongsTo('App\Member');
   }
 
   /**

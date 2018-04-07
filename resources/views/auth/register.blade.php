@@ -27,25 +27,25 @@ Sign up | Presto
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-user"></i></div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Nickname">
+                <input name="username" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Nickname" required>
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-at"></i></div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+                <input name="email" type="email" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com" required>
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-key"></i></div>
                 </div>
-                <input type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                <input name="password" type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password" required>
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="fas fa-key"></i></div>
                 </div>
-                <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Confirm Password">
+                <input name="password_confirmation" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Confirm Password" required>
               </div>
               <div class="form-check mb-2 mx-1">
                 <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -54,8 +54,11 @@ Sign up | Presto
                 </label>
               </div>
               <div class="d-flex justify-content-center">
-                <button class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Sign Up</button>
               </div>
+
+              @include ('includes.errors')
+
             </form>
           </div>
           <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center mb-5">

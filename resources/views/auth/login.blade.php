@@ -26,17 +26,21 @@ Login | Presto
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-at"></i></div>
                 </div>
-                <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+                <input name="email" type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com" required>
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-key"></i></div>
                 </div>
-                <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                <input name="password" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password" required>
               </div>
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary">Login</button>
               </div>
+
+
+              @include ('includes.errors')
+
             </form>
           </div>
           <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center mb-5">
