@@ -16,8 +16,7 @@ Route::get('/', function () {
 });
 
 //Index
-Route::get('index', 'IndexController@show')->middleware('guest');
-Route::get('home', 'LoggedIndexController@show')->middleware('auth');
+Route::get('index', 'IndexController@show');
 
 // Cards
 Route::get('cards', 'CardController@list');
