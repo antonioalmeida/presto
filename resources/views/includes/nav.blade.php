@@ -1,7 +1,7 @@
 <header>
 <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
    <div class="container">
-     <a class="navbar-brand" href="loggedindex.html"><h4>Presto</h4></a>
+     <a class="navbar-brand" href="{{Route('index')}}"><h4>Presto</h4></a>
      <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">
        <span class="navbar-toggler-icon"></span>
      </button>
