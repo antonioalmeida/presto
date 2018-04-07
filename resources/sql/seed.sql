@@ -81,7 +81,7 @@ DROP FUNCTION IF EXISTS notify_on_follow();
 CREATE TABLE admin (
     id SERIAL NOT NULL,
     email VARCHAR(40) NOT NULL,
-    password VARCHAR(35) NOT NULL,
+    password VARCHAR(60) NOT NULL,
     CONSTRAINT admin_pk PRIMARY KEY (id),
     CONSTRAINT admin_uk UNIQUE (email)
 );
@@ -97,8 +97,9 @@ CREATE TABLE member (
     id SERIAL NOT NULL,
     username VARCHAR(20) NOT NULL,
     email VARCHAR(40) NOT NULL,
-    password VARCHAR(35) NOT NULL,
-    name VARCHAR(35) NOT NULL,
+    password VARCHAR(60) NOT NULL,
+    remember_token VARCHAR(100),
+    name VARCHAR(35), --NOT NULL,
     bio text,
     profile_picture text,
     -- redundant data (for better performance on score update)
@@ -110,7 +111,7 @@ CREATE TABLE member (
     score INTEGER NOT NULL DEFAULT 0,
     is_banned BOOLEAN NOT NULL DEFAULT false,
     is_moderator BOOLEAN NOT NULL DEFAULT false,
-    country_id INTEGER NOT NULL,
+    country_id INTEGER, --NOT NULL,
     CONSTRAINT member_pk PRIMARY KEY (id),
     CONSTRAINT member_username_uk UNIQUE (username),
     CONSTRAINT member_email_uk UNIQUE (email),

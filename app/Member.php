@@ -2,7 +2,8 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * @property int $id
@@ -28,7 +29,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property AnswerReport[] $answerReports
  * @property CommentReport[] $commentReports
  * @property Flag[] $flags
- * @property Flag[] $flags
  * @property Question[] $questions
  * @property Answer[] $answers
  * @property Comment[] $comments
@@ -36,8 +36,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property AnswerRating[] $answerRatings
  * @property Member[] $members
  */
-class Member extends Model
+class Member extends Authenticatable
 {
+    use Notifiable;
+
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
      * 
@@ -49,6 +54,15 @@ class Member extends Model
      * @var array
      */
     protected $fillable = ['country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password', 'remember_token'
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -117,10 +131,10 @@ class Member extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function flags()
-    {
-        return $this->hasMany('App\Flag');
-    }
+//    public function flags()
+//    {
+//        return $this->hasMany('App\Flag');
+//    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
