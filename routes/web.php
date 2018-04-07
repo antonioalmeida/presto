@@ -16,7 +16,11 @@ Route::get('/', function () {
 });
 
 //Index
-Route::get('index', 'IndexController@show');
+Route::get('index', 'HomeController@index')->name('index');
+Route::get('about', 'HomeController@about')->name('about');
+Route::get('search', 'HomeController@search')->name('search');
+
+
 
 //Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
