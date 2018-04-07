@@ -64,6 +64,10 @@ class Member extends Authenticatable
         'password', 'remember_token'
     ];
 
+    public function getRouteKeyName(){
+        return 'username';
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
