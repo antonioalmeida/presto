@@ -38,7 +38,6 @@ Login | Presto
                 <button type="submit" class="btn btn-primary">Login</button>
               </div>
 
-
               @include ('includes.errors')
 
             </form>

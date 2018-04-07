@@ -8,3 +8,6 @@
 require('./bootstrap');
 require('./fontawesome-all.min.js');
 require('./temp.js');
+require('./tagsinput');
+require('./script');
+require('./searchbar');
