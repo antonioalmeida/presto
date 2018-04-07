@@ -18,6 +18,13 @@ Route::get('/', function () {
 //Index
 Route::get('index', 'IndexController@show');
 
+//Profile
+Route::get('profile/{id}', 'ProfileController@show')->name('profile');
+Route::get('profile/{id}/followers', 'ProfileController@followers')->name('followers');
+Route::get('profile/{id}/following', 'ProfileController@following')->name('following');
+Route::get('profile/{id}/edit', 'ProfileController@edit')->name('edit');
+Route::get('settings', 'ProfileController@settings')->name('settings');
+
 // Cards
 Route::get('cards', 'CardController@list');
 Route::get('cards/{id}', 'CardController@show');
