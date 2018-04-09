@@ -29,4 +29,8 @@ class ProfileController extends Controller
     public function settings(){
         return view('pages.profile.settings');
     }
+
+    public function notifications(){
+        return view('pages.profile.notifications');
+    }
 }

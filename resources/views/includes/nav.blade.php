@@ -38,7 +38,7 @@
            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
              <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a>
              <div class="dropdown-divider"></div>
-             <a class="dropdown-item" href="notifications.html">See All Notifications</a>
+             <a class="dropdown-item" href="{{Route('notifications')}}">See All Notifications</a>
            </div>
          </li>
          <li class="nav-item dropdown">
