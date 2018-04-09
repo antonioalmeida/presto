@@ -36,4 +36,6 @@
      @yield('content')
 
      @include('includes.footer')
+
+     @include('includes.question_modal')
 </html>

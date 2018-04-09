@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::get('index', 'HomeController@index')->name('index');
 Route::get('about', 'HomeController@about')->name('about');
 Route::get('search', 'HomeController@search')->name('search');
+Route::get('404', 'HomeController@error')->name('404');
 
 //Profile
 Route::get('profile/{id}', 'ProfileController@show')->name('profile');
@@ -26,7 +27,10 @@ Route::get('profile/{id}/followers', 'ProfileController@followers')->name('follo
 Route::get('profile/{id}/following', 'ProfileController@following')->name('following');
 Route::get('profile/{id}/edit', 'ProfileController@edit')->name('edit');
 Route::get('settings', 'ProfileController@settings')->name('settings');
+Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
+//Admin
+Route::get('admin', 'AdminController@show')->name('admin');
 // Question
 Route::get('questions/{id}', 'QuestionController@show');
 

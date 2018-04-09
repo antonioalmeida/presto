@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'about']);
+        $this->middleware('auth')->except(['index', 'about', 'error']);
     }
 
     /**
@@ -34,5 +34,10 @@ class HomeController extends Controller
     public function about(){
 
         return view('pages.about');
+    }
+
+    public function error(){
+
+        return view('pages.404');
     }
 }
