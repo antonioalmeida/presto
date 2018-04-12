@@ -43,78 +43,34 @@
                                         <a href="{{Route('topic', $topic->name)}}" class="btn-link">{{$topic->name}}</a>,  
                                         @endforeach
                                         </small>
-                                        
                                     </div>
                                 @endforeach
-
-
-                                   
-
                                 </div>
 
 
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <!-- answers go here -->
-                                <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
+                                @foreach($member->answers as $answer)
+                                <div onclick="location.assign('/answer/{{$answer->id}}');" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                                        <h4 class="mb-3">Where has Math been invented?</h4>
+                                        <h4 class="mb-3">{{$answer->question->title}}</h4>
                                         <div class="d-flex">
                                             <div>
-                                                <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
+                                                <img class="rounded-circle pr-1" width="36px" heigth="36px" src="{{$answer->member->profile_picture}}">
                                             </div>
-                                            <h6><a href="profile.html" class="btn-link">António Almeida</a><br>
+                                            <h6><a href="profile.html" class="btn-link">{{$answer->member->name}}</a><br>
                                                 <small class="text-muted">answered 23h ago</small></h6>
                                         </div>
                                     </div>
-                                    <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
-                                    <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
+                                    <p class="mb-1">{{substr($answer->content, 0, 169)}}... <span class="btn-link text-primary">(read more)</span></p>
+                                    <small class="text-muted"><i class="far fa-tags"></i> 
+                                    @foreach($answer->question->topics as $topic)
+                                        <a href="{{Route('topic', $topic->name)}}" class="btn-link">{{$topic->name}}</a>,  
+                                        @endforeach
+                                    </small>
                                 </div>
-
-                                <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                                        <h4 class="mb-3">Where has Math been invented?</h4>
-                                        <div class="d-flex">
-                                            <div>
-                                                <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                            </div>
-                                            <h6><a href="profile.html" class="btn-link">António Almeida</a><br>
-                                                <small class="text-muted">answered 23h ago</small></h6>
-                                        </div>
-                                    </div>
-                                    <div class="row answer-preview">
-                                        <div class="answer-text-preview col-sm mb-1">
-                                            <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                                        </div>
-                                        <div class="answer-image-preview col-sm-4">
-                                            <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
-                                        </div>
-                                    </div>
-                                    <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                </div>
-
-                                <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                                        <h4 class="mb-3">Where has Math been invented?</h4>
-                                        <div class="d-flex">
-                                            <div>
-                                                <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                            </div>
-                                            <h6><a href="profile.html" class="btn-link">António Almeida</a><br>
-                                                <small class="text-muted">answered 23h ago</small></h6>
-                                        </div>
-                                    </div>
-                                    <div class="row answer-preview">
-                                        <div class="answer-text-preview col-sm mb-1">
-                                            <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                                        </div>
-                                        <div class="answer-image-preview col-sm-4">
-                                            <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
-                                        </div>
-                                    </div>
-                                    <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                </div>
-
+                                @endforeach
                             </div>
                         </div>
 
