@@ -26,6 +26,10 @@ class Topic extends Model
      */
     protected $fillable = ['name', 'description', 'picture'];
 
+    public function getRouteKeyName(){
+        return 'name';
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

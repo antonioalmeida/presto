@@ -32,13 +32,13 @@ Route::get('notifications', 'ProfileController@notifications')->name('notificati
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 // Question
-Route::get('questions/{id}', 'QuestionController@show');
+Route::get('questions/{id}', 'QuestionController@show')->name('question');
 
 // Answer
-Route::get('questions/{idq}/answers/{ida}', 'AnswerController@show');
+Route::get('questions/{idq}/answers/{ida}', 'AnswerController@show')->name('answer');
 
 // Topic
-Route::get('topic/{id}', 'TopicController@show');
+Route::get('topic/{name}', 'TopicController@show')->name('topic');
 
 // Cards
 Route::get('cards', 'CardController@list');

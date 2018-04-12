@@ -31,55 +31,24 @@
                                 <!-- Questions go here -->
 
                                 <div class="list-group">
-
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
+                                @foreach($member->questions as $question)
+                                    <div onclick="location.assign('/question/{{$question->id}}');" class="list-group-item list-group-item-action flex-column align-items-start">
                                         <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
+                                            <h4 class="mb-1">{{$question->title}}</h4>
+                                            <small class="pb-1"><a href="{{Route('profile', $question->member->username)}}" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="{{$question->member->profile_picture}}">{{$question->member->name}}</a> <span class="text-muted">asked</span></small>
                                         </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
+                                        
+                                        <small class="text-muted"><i class="far fa-tags"></i>
+                                        @foreach($question->topics as $topic)
+                                        <a href="{{Route('topic', $topic->name)}}" class="btn-link">{{$topic->name}}</a>,  
+                                        @endforeach
+                                        </small>
+                                        
                                     </div>
+                                @endforeach
 
 
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                                        </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                    </div>
-
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                                        </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                    </div>
-
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                                        </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                    </div>
-
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                                        </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                    </div>
-
-                                    <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                        <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                            <h4 class="mb-1">How is Maths taught?</h4>
-                                            <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                                        </div>
-                                        <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                                    </div>
+                                   
 
                                 </div>
 
