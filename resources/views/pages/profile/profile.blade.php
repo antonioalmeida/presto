@@ -3,24 +3,24 @@
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-2 text-center">
-                    <img class="profile-pic img-fluid rounded-circle m-2" src="assets/img/portrait-man.jpeg"/>
+                    <img class="profile-pic img-fluid rounded-circle m-2" src="{{$member->profile_picture}}"/>
                 </div>
 
                 <div class="col-md-6 text-shadow mobile-center">
-                    <h2 class="h2-adapt">António Almeida</h2>
-                    <h4 class="h4-adapt">@antonioalmeida</h4>
+                    <h2 class="h2-adapt">{{$member->name}}</h2>
+                    <h4 class="h4-adapt">&#64;{{$member->username}}</h4>
 
                     <!-- bio -->
                     <div class="bio mt-3">
                         <div class="d-flex justify-content-sm-start justify-content-around">
-                            <a href="{{Route('followers', 'antonioalmeida')}}"><h5 class="p-2 h5-adapt">632 <small>followers</small></h5></a>
-                            <a href="{{Route('following', 'antonioalmeida')}}"><h5 class="p-2 h5-adapt">190 <small>following</small></h5></a>
+                            <a href={{Route('followers', $member)}}><h5 class="p-2 h5-adapt">{{$member->getNumFollowers()}} <small>followers</small></h5></a>
+                            <a href={{Route('following', $member)}}><h5 class="p-2 h5-adapt">{{$member->getNumFollowings()}} <small>following</small></h5></a>
                         </div>
                         <p class="lead lead-adapt">
-                            This platform is awesome, the best I've ever seen.
+                        {{$member->bio}}
                         </p>
                         @auth
-                        <a href="{{Route('edit', 'antonioalmeida')}}" class="btn btn-outline-light">Edit Profile</a>
+                        <a href={{Route('edit', $member)}} class="btn btn-outline-light">Edit Profile</a>
                         @endauth
                     </div>
 

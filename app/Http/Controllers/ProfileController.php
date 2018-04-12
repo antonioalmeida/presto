@@ -4,26 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use \App\Member;
+
 class ProfileController extends Controller
 {
     public function __construct(){
         $this->middleware('auth')->except(['show','followers','following']);
     }
 
-    public function show($id){
-        return view('pages.profile.show');
+    public function show(Member $member){
+        return view('pages.profile.show', compact('member'));
     }
 
-    public function edit($id){
-        return view('pages.profile.edit');
+    public function edit(Member $member){
+        return view('pages.profile.edit', compact('member'));
     }
 
-    public function followers($id){
-        return view('pages.profile.followers');
+    public function followers(Member $member){
+        return view('pages.profile.followers', compact('member'));
     }
 
-    public function following($id){
-        return view('pages.profile.following');
+    public function following(Member $member){
+        return view('pages.profile.following', compact('member'));
     }
 
     public function settings(){
