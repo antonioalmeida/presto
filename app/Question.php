@@ -35,6 +35,21 @@ class Question extends Model
     protected $fillable = ['author_id', 'title', 'content', 'date', 'views', 'solved', 'search'];
 
     /**
+     * Queries
+     */
+
+    public static function getTopics($id){
+        return static::select('name')
+		->from('topic')
+		->join('question_topic', function($join) {
+			$join->on('topic.id', '=', 'question_topic.topic_id');
+			})
+		->where('question_topic.question_id', '=', $id)
+		->get();
+    }
+
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function member()

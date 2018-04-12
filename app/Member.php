@@ -73,30 +73,9 @@ class Member extends Authenticatable
      * Queries
      */
 
-     public function getNumFollowers(){
-        $query = DB::table('follow_member')
-        ->addSelect(DB::raw('count(*)'))
-		->join('member', function($join) {
-			$join->on('follow_member.follower_id', '=', 'member.id');
-			})
-		->where('follow_member.following_id', '=', $this->id)
-        ->first();
-        
-        return $query->count;
+     public function getAnswerViews() {
+        return $this->answers->sum('views');
      }
-
-     public function getNumFollowings(){
-        $query = DB::table('follow_member')
-        ->addSelect(DB::raw('count(*)'))
-		->join('member', function($join) {
-			$join->on('follow_member.following_id', '=', 'member.id');
-			})
-		->where('follow_member.follower_id', '=', $this->id)
-        ->first();
-        
-        return $query->count;
-     }
-
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -213,8 +192,24 @@ class Member extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function members()
+    // public function members()
+    // {
+    //     return $this->belongsToMany('App\Member', 'follow_member', 'following_id', 'follower_id');
+    // }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
     {
-        return $this->belongsToMany('App\Member', 'follow_member', 'following_id', 'follower_id');
+        return $this->belongsToMany(Member::class, 'follow_member', 'following_id', 'follower_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followings()
+    {
+        return $this->belongsToMany(Member::class, 'follow_member', 'follower_id', 'following_id');
     }
 }
