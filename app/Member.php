@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -67,6 +68,35 @@ class Member extends Authenticatable
     public function getRouteKeyName(){
         return 'username';
     }
+
+    /**
+     * Queries
+     */
+
+     public function getNumFollowers(){
+        $query = DB::table('follow_member')
+        ->addSelect(DB::raw('count(*)'))
+		->join('member', function($join) {
+			$join->on('follow_member.follower_id', '=', 'member.id');
+			})
+		->where('follow_member.following_id', '=', $this->id)
+        ->first();
+        
+        return $query->count;
+     }
+
+     public function getNumFollowings(){
+        $query = DB::table('follow_member')
+        ->addSelect(DB::raw('count(*)'))
+		->join('member', function($join) {
+			$join->on('follow_member.following_id', '=', 'member.id');
+			})
+		->where('follow_member.follower_id', '=', $this->id)
+        ->first();
+        
+        return $query->count;
+     }
+
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

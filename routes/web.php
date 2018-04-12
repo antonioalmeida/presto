@@ -22,10 +22,10 @@ Route::get('search', 'HomeController@search')->name('search');
 Route::get('404', 'HomeController@error')->name('404');
 
 //Profile
-Route::get('profile/{id}', 'ProfileController@show')->name('profile');
-Route::get('profile/{id}/followers', 'ProfileController@followers')->name('followers');
-Route::get('profile/{id}/following', 'ProfileController@following')->name('following');
-Route::get('profile/{id}/edit', 'ProfileController@edit')->name('edit');
+Route::get('profile/{member}', 'ProfileController@show')->name('profile');
+Route::get('profile/{member}/followers', 'ProfileController@followers')->name('followers');
+Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
+Route::get('profile/{member}/edit', 'ProfileController@edit')->name('edit');
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
