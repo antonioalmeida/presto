@@ -20,6 +20,21 @@ class ProfileController extends Controller
         return view('pages.profile.edit', compact('member'));
     }
 
+    public function update(Member $member){
+         
+        $this->validate(request(), [
+       
+        ]);
+
+        $member->name = request('name');
+        $member->username = request('username');
+        $member->bio = request('bio');
+
+        $member->save();
+
+        return redirect()->route('profile', $member);
+    }
+        
     public function followers(Member $member){
         return view('pages.profile.followers', compact('member'));
     }
