@@ -17,7 +17,7 @@
                     <h4><small>{{ $question->content }}</small></h4>
                     <h5><small class="text-muted"><i class="far fa-fw fa-tags"></i>
                         @foreach ($question->topics as $topic)
-                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a> 
+                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>, 
                         @endforeach
                     </small>
                     </h5>
