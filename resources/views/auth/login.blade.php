@@ -1,12 +1,12 @@
 @extends('layouts.master_aux')
 
 @section('title')
-Login | Presto
+  Login | Presto
 @endsection
 
 @section('content')
 
-<body class="img-background">
+  <body class="img-background">
   <main role="main" class="mt-5">
     <section class="container">
       <div class="card py-5 my-5">
@@ -21,7 +21,7 @@ Login | Presto
         <div class="row">
           <div class="col-md-6 offset-lg-2 col-lg-4 d-flex flex-column align-items-center">
             <form method="POST" action="/login">
-                {{ csrf_field() }}
+              {{ csrf_field() }}
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-at"></i></div>
@@ -51,6 +51,6 @@ Login | Presto
     </section>
   </main>
   <!-- /.container -->
-</body>
+  </body>
 
 @endsection

@@ -1,12 +1,12 @@
 @extends('layouts.master_aux')
 
 @section('title')
-Sign up | Presto
+  Sign up | Presto
 @endsection
 
 @section('content')
 
-<body class="img-background">
+  <body class="img-background">
   <main role="main" class="mt-5">
     <section class="container">
       <div class="card my-3 py-3">
@@ -70,6 +70,6 @@ Sign up | Presto
     </section>
   </main>
   <!-- /.container -->
-</body>
+  </body>
 
 @endsection

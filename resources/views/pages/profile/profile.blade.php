@@ -13,13 +13,13 @@
                     <!-- bio -->
                     <div class="bio mt-3">
                         <div class="d-flex justify-content-sm-start justify-content-around">
-                        <a href={{Route('followers', $member)}}><h5 class="p-2 h5-adapt">{{count($member->followers)}} <small>followers</small></h5></a>
+                            <a href={{Route('followers', $member)}}><h5 class="p-2 h5-adapt">{{count($member->followers)}} <small>followers</small></h5></a>
                             <a href={{Route('following', $member)}}><h5 class="p-2 h5-adapt">{{count($member->followings)}} <small>following</small></h5></a>                        </div>
                         <p class="lead lead-adapt">
-                        {{$member->bio}}
+                            {{$member->bio}}
                         </p>
                         @auth
-                        <a href={{Route('edit', $member)}} class="btn btn-outline-light">Edit Profile</a>
+                            <a href={{Route('profile.edit', $member)}} class="btn btn-outline-light">Edit Profile</a>
                         @endauth
                     </div>
 

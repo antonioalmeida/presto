@@ -11,7 +11,7 @@
 
     @include('pages.profile.profile')
 
-        <!-- content -->
+    <!-- content -->
         <section class="container my-4">
             <h3>Following</h3>
             <div class="card-deck mt-md-4">
