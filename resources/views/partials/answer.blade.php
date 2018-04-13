@@ -1,4 +1,4 @@
-
+<div class="mt-5">
 <div class="d-flex flex-wrap">
     <div class="align-self-center">
         <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="{{ $answer->member->profile_picture }}">
@@ -39,7 +39,7 @@
                     @include('partials.comment', ['comment' => $comment])
                 @endforeach
 
-            <div class="collapse" id="collapseExample">
+            <div class="collapse" id="commentCollapse{{ $answer->id}}">
 
                 <!-- add extra comments -->
                 @foreach ($answer->comments as $comment)
@@ -48,7 +48,7 @@
 
             </div>
 
-            <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#commentCollapse{{ $answer->id}}" role="button" aria-expanded="false" aria-controls="commentCollapse{{ $answer->id}}">
                 View More
             </a>
 
