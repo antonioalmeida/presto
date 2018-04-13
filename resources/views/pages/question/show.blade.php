@@ -7,7 +7,7 @@
 @section('content')
 
 
-    <body class="grey-background">
+    <body>
     <main role="main" class="mt-5">
 
         <section class="container pt-5">
@@ -59,9 +59,9 @@
 
 
                     <h4 class="mt-4">{{ $question->getNumAnswers() }} Answer(s)</h4>
-                    <hr>
 
-                    <div class="mt-4">
+                    <div class="">
+                        <hr>
                         @foreach ($question->answers as $answer)
                         @include('partials.answer', ['answer' => $answer])
                         @endforeach
