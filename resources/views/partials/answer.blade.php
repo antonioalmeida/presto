@@ -1,10 +1,10 @@
 
 <div class="d-flex flex-wrap">
     <div class="align-self-center">
-        <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="assets/img/portrait-man.jpeg">
+        <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="{{ $answer->member->profile_picture }}">
     </div>
     <div class="ml-1">
-        <h5>António Almeida</h5>
+        <h5>{{ $answer->member->name }}</h5>
         <h6><small class="text-muted">answered 23h ago</small></h6>
     </div>
     <div class="ml-3">
@@ -15,30 +15,7 @@
 <hr>
 <div>
     <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper. Phasellus eu orci quis erat rhoncus feugiat eget congue leo. Cras aliquam purus felis, sit amet accumsan purus dapibus ac. Praesent volutpat imperdiet mattis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Proin in ex eu arcu maximus efficitur. Etiam ac lectus eu ipsum sodales lobortis et sit amet magna. Ut venenatis purus non risus tempor malesuada.
-    </p>
-
-    <p>
-        Nullam nunc eros, pharetra eu felis sit amet, hendrerit pretium enim. Etiam malesuada leo tortor, in rutrum justo feugiat ac. Ut dapibus neque et ante semper, in pellentesque sapien consequat. Integer lacinia magna vitae felis ultricies dapibus. In semper semper sollicitudin. Pellentesque varius dictum odio, vel iaculis dolor efficitur vitae. Ut quam dui, dapibus sit amet ante varius, scelerisque aliquam metus. Suspendisse vitae lacus ut eros sagittis blandit. Praesent accumsan justo nec odio sodales, in finibus tellus egestas. Aliquam nec placerat metus, a imperdiet risus. Aliquam malesuada, nunc ac suscipit bibendum, velit ex interdum diam, id viverra ipsum nisl eu magna.
-    </p>
-
-    <div class="row">
-        <div class="col-md-6"><img class="rounded img-fluid" src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Kapitolinischer_Pythagoras_adjusted.jpg">
-        </div>
-
-        <div class="col-md-6">
-            <p>
-                In tristique luctus enim, vitae porttitor augue rutrum ut. Mauris non gravida turpis, mollis porta augue. Pellentesque et ultrices leo. Proin cursus dapibus risus sed commodo. Etiam non bibendum tortor, a ultrices massa. Suspendisse ut mi a mi suscipit sagittis sit amet tristique magna. Duis egestas varius massa, eu ultrices sem convallis vitae. Sed ultrices iaculis lacus vitae viverra.
-            </p>
-
-            <p>
-                In tristique luctus enim, vitae porttitor augue rutrum ut. Mauris non gravida turpis, mollis porta augue. Pellentesque et ultrices leo. Proin cursus dapibus risus sed commodo. Etiam non bibendum tortor, a ultrices massa. Suspendisse ut mi a mi suscipit sagittis sit amet tristique magna. Duis egestas varius massa, eu ultrices sem convallis vitae. Sed ultrices iaculis lacus vitae viverra.
-            </p>
-        </div>
-    </div>
-
-    <p>
-        In tristique luctus enim, vitae porttitor augue rutrum ut. Mauris non gravida turpis, mollis porta augue. Pellentesque et ultrices leo. Proin cursus dapibus risus sed commodo. Etiam non bibendum tortor, a ultrices massa. Suspendisse ut mi a mi suscipit sagittis sit amet tristique magna. Duis egestas varius massa, eu ultrices sem convallis vitae. Sed ultrices iaculis lacus vitae viverra.
+        {{ $answer->content }}
     </p>
 
     <div class="d-flex">

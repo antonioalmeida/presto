@@ -38,16 +38,17 @@ class Question extends Model
      * Queries
      */
 
-    public static function getTopics($id){
-        return static::select('name')
-		->from('topic')
-		->join('question_topic', function($join) {
-			$join->on('topic.id', '=', 'question_topic.topic_id');
-			})
-		->where('question_topic.question_id', '=', $id)
-		->get();
+    public function getTopics() {
+        return $this->topics;
     }
 
+    public function getAnswers() {
+        return $this->answers;
+    }
+
+    public function getNumAnswers() {
+        return count($this->answers);
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

@@ -6,15 +6,23 @@
 
 @section('content')
 
+
     <body class="grey-background">
     <main role="main" class="mt-5">
 
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
-                    <h1>Where has Math been invented?</h1>
-                    <h4><small>This is the question's description.</small></h4>
-                    <h5><small class="text-muted"><i class="far fa-fw fa-tags"></i> <a class="text-muted" href="">Education</a>, <a class="text-muted" href="">Science</a></small></h5>
+                    <h1>{{ $question->title }}</h1>
+                    <h4><small>{{ $question->content }}</small></h4>
+                    <h5><small class="text-muted"><i class="far fa-fw fa-tags"></i>
+                        @foreach ($question->topics as $topic)
+                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a> 
+                        @endforeach
+                    </small>
+                    </h5>
+
+
                     <div class="d-flex justify-content-between flex-wrap">
 
                         <div class="mt-2">
@@ -50,12 +58,13 @@
                     </div>
 
 
-                    <h4 class="mt-4">2 Answers</h4>
+                    <h4 class="mt-4">{{ $question->getNumAnswers() }} Answer(s)</h4>
                     <hr>
 
                     <div class="mt-4">
-                        @include('partials.answer')
-
+                        @foreach ($question->answers as $answer)
+                        @include('partials.answer', ['answer' => $answer])
+                        @endforeach
                     </div>
                 </div>
             </div>
