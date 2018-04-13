@@ -32,7 +32,7 @@ Route::get('notifications', 'ProfileController@notifications')->name('notificati
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 // Question
-Route::get('questions/{id}', 'QuestionController@show')->name('question');
+Route::get('questions/{question}', 'QuestionController@show')->name('question');
 
 // Answer
 Route::get('questions/{idq}/answers/{ida}', 'AnswerController@show')->name('answer');
