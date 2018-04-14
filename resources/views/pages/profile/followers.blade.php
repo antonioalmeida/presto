@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <p class="text-collapse">{{$follower->bio}}</p>
-                        @include('partials.follow', ['member' => $member, 'follower' => $follower])
+                        @include('partials.follow', ['follower' => $follower])
                     </div>
                 </div>
                 @endforeach

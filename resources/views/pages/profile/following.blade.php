@@ -32,7 +32,7 @@
                                     </div>
                                 </div>
                                 <p class="text-collapse">{{$following->bio}}</p>
-                                @include('partials.follow', ['member' => $member, 'follower' => $following])
+                                @include('partials.follow', ['follower' => $following])
 
                             </div>
                         </div>

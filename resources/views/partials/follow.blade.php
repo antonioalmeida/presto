@@ -1,5 +1,5 @@
 <p class="align-self-center">
-@if($member->isFollowing($follower))
+@if(Auth::user()->isFollowing($follower))
     <form method="POST" action="{{Route('api.unFollow', $follower)}}">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}

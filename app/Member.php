@@ -243,7 +243,10 @@ class Member extends Authenticatable
      */
     public function follow(Member $member)
     {
+        if (! $this->isFollowing($member) && $this->id != $member->id)
+        {
             $this->followings()->attach($member);
+        }
     }
 
     /**
