@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 use \App\Member;
 
@@ -16,7 +17,8 @@ class ProfileController extends Controller
         return view('pages.profile.show', compact('member'));
     }
 
-    public function edit(Member $member){
+    public function edit(){
+        $member = Auth::user();
         return view('pages.profile.edit', compact('member'));
     }
 

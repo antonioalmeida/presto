@@ -19,7 +19,7 @@
                             {{$member->bio}}
                         </p>
                         @auth
-                            <a href={{Route('profile.edit', $member)}} class="btn btn-outline-light">Edit Profile</a>
+                            <a href={{Route('profile.edit')}} class="btn btn-outline-light">Edit Profile</a>
                         @endauth
                     </div>
 
