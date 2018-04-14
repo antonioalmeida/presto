@@ -12,7 +12,7 @@
           </ul>
           <div>
             <a href={{Route('login')}}><button class="btn btn-link">Login</button></a>
-            <a href={{Route('register')}}><button class="btn btn-primary">Sign Up</button></a>
+            <a href={{Route('signup')}}><button class="btn btn-primary">Sign Up</button></a>
           </div>
         </div>
       @else

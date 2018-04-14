@@ -29,30 +29,41 @@
                                     <h6 class="text-muted"><small>OR</small></h6>
                                 </div>
 
-                                <form method="post" action="loggedindex.html">
+                                <form id="indexSignupForm" method="POST" action="{{Route('signup')}}">
+                                    {{ csrf_field() }}
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="far fa-user"></i></div>
                                         </div>
-                                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Name">
+                                        <input name="username" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Username">
                                     </div>
 
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="far fa-at"></i></div>
                                         </div>
-                                        <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
+                                        <input name="email" type="text" class="form-control" id="inlineFormInputGroup" placeholder="your@email.com">
                                     </div>
 
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text"><i class="far fa-key"></i></div>
                                         </div>
-                                        <input type="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
+                                        <input name="password" type="password" class="form-control" id="passwordForm" placeholder="Password">
+                                        <input name="password_confirmation" type="hidden" id="passwordFormConfirmed">
+                                    </div>
+                                    <div class="form-check mb-2 mx-1">
+                                        <input name="terms" class="form-check-input" type="checkbox" id="defaultCheck1" required>
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            <small>I accept Presto's <a href="">Terms and Conditions</a>.</small>
+                                        </label>
                                     </div>
                                     <div class="d-flex justify-content-center">
-                                        <button class="btn btn-primary">Sign Up</button>
+                                        <button type="submit" class="btn btn-primary">Sign Up</button>
                                     </div>
+
+                                    @include ('includes.errors')
+
                                 </form>
                             </div>
                         </div>
