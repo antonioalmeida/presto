@@ -14,19 +14,19 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center ">
-                            <img class="profile-pic img-fluid rounded-circle m-2" src="assets/img/history.jpg"/>
+                            <img class="profile-pic img-fluid rounded-circle m-2" src="{{$topic->picture}}"/>
                         </div>
 
                         <div class="col-md-6 mobile-center text-shadow">
-                            <h1>History</h1>
+                            <h1>{{$topic->name}}</h1>
 
                             <!-- bio -->
                             <div class="bio mt-3">
                                 <div class="d-flex justify-content-sm-start justify-content-around">
-                                    <h5 class="p-2">632k <small>followers</small></h5>
+                                    <h5 class="p-2">{{$topic->getNumFollowers()}} <small>followers</small></h5>
                                 </div>
                                 <p class="lead lead-adapt">
-                                    The study of the past as it is described in written documents.
+                                    {{$topic->description}}
                                 </p>
                                 <a href="" class="btn btn-outline-light"><i class="far fa-user-plus fa-fw"></i> Follow</a>
 
@@ -49,7 +49,7 @@
                                         <div class="mx-2">
                                             <i class="far fa-fw fa-question"></i>
                                         </div>
-                                        <h6>456 <small class="text-muted">questions</small></h6>
+                                        <h6>{{$topic->questions->count()}} <small class="text-muted">questions</small></h6>
                                     </div>
                                     <div class="d-flex p-1">
                                         <div class="mx-2">

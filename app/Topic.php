@@ -30,6 +30,10 @@ class Topic extends Model
         return 'name';
     }
 
+    public function getNumFollowers(){
+        return $this->members->count();
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
