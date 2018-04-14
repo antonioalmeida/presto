@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 /**
  * @property int $id
@@ -16,7 +17,7 @@ class Topic extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'topic';
@@ -34,6 +35,18 @@ class Topic extends Model
         return $this->members->count();
     }
 
+    public function getAnswersStats(){
+        $no_answers = 0.0;
+        $no_views = 0.0;
+
+        foreach ($this->questions as $question){
+            $no_answers += $question->answers->count();
+            $no_views += $question->answers->sum('views');
+        }
+
+        return ['number' => $no_answers, 'views' => $no_views];
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -49,4 +62,5 @@ class Topic extends Model
     {
         return $this->belongsToMany('App\Question');
     }
+
 }
