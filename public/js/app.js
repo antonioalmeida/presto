@@ -31832,10 +31832,13 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 36 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function (d, s, id) {
-  var js,
+  var js = void 0,
       fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s);
@@ -31860,6 +31863,18 @@ function renderButton() {
     'onsuccess': onSuccess,
     'onfailure': onFailure
   });
+}
+
+var indexSignupForm = document.getElementById('indexSignupForm');
+indexSignupForm.addEventListener('submit', addSignupHandler);
+
+function addSignupHandler() {
+  //get the input elements from HTML DOM
+  var password = document.getElementById("passwordForm");
+  var password_confirmed = document.getElementById("passwordFormConfirmed");
+
+  //Assign the value of textOne textbox to textTwo textbox
+  password_confirmed.value = password.value;
 }
 
 /***/ }),
