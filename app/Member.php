@@ -5,8 +5,9 @@ namespace App;
 use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+require app_path().'/Utils.php';
 
-/**
+/** 
  * @property int $id
  * @property int $country_id
  * @property string $username
@@ -74,7 +75,7 @@ class Member extends Authenticatable
      */
 
      public function getAnswerViews() {
-        return $this->answers->sum('views');
+        return print_number_count($this->answers->sum('views'));
      }
 
     /**
