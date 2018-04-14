@@ -12,33 +12,33 @@
     @include('pages.profile.profile')
 
     <!-- content -->
-        <section class="container my-4">
-            <h3>Following</h3>
-            <div class="card-deck mt-md-4">
-            @foreach($member->followings as $following)
-                @if($loop->index % 4 == 0 && !$loop->first && !$loop->last)
-                    </div>
-                    <div class="card-deck mt-md-4">
-                @endif
-                        <div class="card">
-                            <div class="card-body d-flex flex-wrap justify-content-between">
-                                <div class="d-flex align-items-center">
-                                    <div>
-                                        <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="{{$following->profile_picture}}">
-                                    </div>
-                                    <div>
-                                        <a class="text-dark" href="{{Route('profile', $following->username)}}"><h5>{{ $following->name}}</h5></a>
-                                        <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i>{{$following->score}} points</small></h6>
-                                    </div>
-                                </div>
-                                <p class="text-collapse">{{$following->bio}}</p>
-                                @include('partials.follow', ['follower' => $following])
+    <section class="container">
 
-                            </div>
-                        </div>
-            @endforeach
+        <div class="list-group offset-md-3 col-md-7">
+            <h4 class="mb-4">{{ $member->name }} is following</h4>
+            @foreach($member->followings as $following)
+                <div onclick="location.assign('{{Route('profile', $following->username)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
+                  <div class="d-flex w-100 justify-content-begin">
+
+                    <div class="align-self-center">
+                       <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{$following->profile_picture}}">
+                   </div>
+                    <div class="d-flex flex-column">
+                        <h6 class="mb-1">{{ $following->name }}</h6>
+                        <h6 class="text-collapse"><small>{{ $following->bio }}</small></h6>
+                        <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> {{$following->score}} points</small></h6>
                     </div>
-        </section>
+
+                    <div class="ml-auto align-self-center flex-wrap">
+                    @include('partials.follow', ['follower' => $following])
+                    </div>
+
+                  </div>
+
+                </div>
+            @endforeach
+        </div>
+    </section>
     </main>
 
     <!-- /.container -->
