@@ -1,3 +1,4 @@
+@auth
 <p class="align-self-center">
 @if(Auth::user()->id != $follower->id)
 @if(Auth::user()->isFollowing($follower))
@@ -14,3 +15,4 @@
 @endif
 @endif
 </p>
+@endauth
