@@ -45,6 +45,17 @@ class ProfileController extends Controller
         return view('pages.profile.following', compact('member'));
     }
 
+    public function follow(Member $follower) {
+        Auth::user()->follow($follower);
+        return back();
+    }
+
+    public function unFollow(Member $follower) {
+        Auth::user()->unFollow($follower);
+        return back();
+
+    }
+
     public function settings(){
         return view('pages.profile.settings');
     }

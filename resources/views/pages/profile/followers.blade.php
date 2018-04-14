@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    Follows | Presto
+    Followers | Presto
 @endsection
 
 @section('content')
@@ -15,285 +15,29 @@
     <!-- content -->
         <section class="container my-4">
             <h3>Followers</h3>
+
             <div class="card-deck mt-md-4">
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
+                @foreach($member->followers as $follower)
+                    @if($loop->index % 4 == 0 && !$loop->first && !$loop->last)
             </div>
             <div class="card-deck mt-md-4">
+                @endif
                 <div class="card">
                     <div class="card-body d-flex flex-wrap justify-content-between">
                         <div class="d-flex align-items-center">
                             <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
+                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="{{$follower->profile_picture}}">
                             </div>
                             <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
+                                <a class="text-dark" href="{{Route('profile', $follower->username)}}"><h5>{{ $follower->name}}</h5></a>
+                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i>{{$follower->score}} points</small></h6>
                             </div>
                         </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
+                        <p class="text-collapse">{{$follower->bio}}</p>
+                        @include('partials.follow', ['member' => $member, 'follower' => $follower])
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-deck mt-md-4">
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="card-deck mt-md-4">
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-primary"><i class="far fa-user"></i> Following</button>
-                        </p>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body d-flex flex-wrap justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div>
-                                <img class="user-preview rounded-circle pr-2" width="60px" heigth="60px" src="assets/img/portrait-man.jpeg">
-                            </div>
-                            <div>
-                                <a class="text-dark" href=""><h5>Bruno Piedade</h5></a>
-                                <h6><small class="text-muted"><i class="fas fa-gem text-primary"></i> 200 points</small></h6>
-                            </div>
-                        </div>
-                        <p class="text-collapse">Lorem ipsum lorem ipsum lorem ipsum.</p>
-                        <p class="align-self-center">
-                            <button class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> Follow</button>
-                        </p>
-                    </div>
-                </div>
+                @endforeach
             </div>
         </section>
     </main>
