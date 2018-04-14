@@ -1,5 +1,7 @@
+'use strict';
+
 (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
+  let js, fjs = d.getElementsByTagName(s)[0];
   if (d.getElementById(id)) return;
   js = d.createElement(s);
   js.id = id;
@@ -23,4 +25,17 @@ function renderButton() {
     'onsuccess': onSuccess,
     'onfailure': onFailure
   });
+}
+
+
+let indexSignupForm = document.getElementById('indexSignupForm');
+indexSignupForm.addEventListener('submit', addSignupHandler);
+
+function addSignupHandler() {
+    //get the input elements from HTML DOM
+    let password = document.getElementById("passwordForm");
+    let password_confirmed = document.getElementById("passwordFormConfirmed");
+
+    //Assign the value of textOne textbox to textTwo textbox
+    password_confirmed.value = password.value;
 }

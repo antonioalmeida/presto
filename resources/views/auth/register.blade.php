@@ -27,7 +27,7 @@
                 <div class="input-group-prepend">
                   <div class="input-group-text"><i class="far fa-user"></i></div>
                 </div>
-                <input name="username" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Nickname" required>
+                <input name="username" type="text" class="form-control" id="inlineFormInputGroup" placeholder="Your Username" required>
               </div>
               <div class="input-group mb-2">
                 <div class="input-group-prepend">
@@ -48,7 +48,7 @@
                 <input name="password_confirmation" type="password" class="form-control" id="inlineFormInputGroup" placeholder="Confirm Password" required>
               </div>
               <div class="form-check mb-2 mx-1">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <input name="terms" class="form-check-input" type="checkbox" id="defaultCheck1" required>
                 <label class="form-check-label" for="defaultCheck1">
                   <small>I accept Presto's <a href="">Terms and Conditions</a>.</small>
                 </label>
