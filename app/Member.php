@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 require app_path().'/Utils.php';
 
-/** 
+/**
  * @property int $id
  * @property int $country_id
  * @property string $username

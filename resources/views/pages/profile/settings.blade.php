@@ -20,7 +20,7 @@
                         <h6>Email</h6>
                     </div>
                     <div class="col-md-9 col-sm-6 py-2">
-                        <span>antonioalmeida@gmail.com</span>
+                        <span>{{Auth::User()->email}}</span>
                         <br>
                         <a href="">Change Email</a>
                     </div>
@@ -50,7 +50,7 @@
         <strong>Google</strong></span>
                     </div>
                     <div class="col-md-9 col-sm-6 py-2">
-                        <span> antonioalmeida@gmail.com <a href="" class="text-muted">(Disconnect)</a></span>
+                        <button class="btn btn-google"><i class="fab fa-fw fa-google"></i> Connect Google</button>
                     </div>
                 </div>
                 <br>
