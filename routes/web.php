@@ -30,6 +30,10 @@ Route::put('profile/{member}', 'ProfileController@update')->name('profile.update
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
+//Follows
+Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
+Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
+
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 

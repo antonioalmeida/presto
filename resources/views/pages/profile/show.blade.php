@@ -64,7 +64,7 @@ use Carbon\Carbon;
                                                 <div>
                                                     <img class="rounded-circle pr-1" width="36px" heigth="36px" src="{{$answer->member->profile_picture}}">
                                                 </div>
-                                                <h6><a href="profile.html" class="btn-link">{{$answer->member->name}}</a><br>
+                                                <h6><a href="{{Route('profile', $answer->member->username)}}" class="btn-link">{{$answer->member->name}}</a><br>
                                                     <small class="text-muted">answered {{Carbon::parse($answer->date)->diffForHumans(Carbon::now(), true)}} ago</small></h6>
                                             </div>
                                         </div>

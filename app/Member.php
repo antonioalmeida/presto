@@ -212,4 +212,49 @@ class Member extends Authenticatable
     {
         return $this->belongsToMany(Member::class, 'follow_member', 'follower_id', 'following_id');
     }
+
+    /**
+     * Check if a given user is following this user.
+     *
+     * @param Member $member
+     * @return bool
+     */
+    public function isFollowing(Member $member)
+    {
+        return !! $this->followings()->where('following_id', $member->id)->count();
+    }
+
+    /**
+     * Check if a given user is being followed by this user.
+     *
+     * @param Member $member
+     * @return bool
+     */
+    public function isFollowedBy(Member $member)
+    {
+        return !! $this->followers()->where('follower_id', $member->id)->count();
+    }
+
+    /**
+     * Follow the given user.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function follow(Member $member)
+    {
+            $this->followings()->attach($member);
+    }
+
+    /**
+     * Unfollow the given user.
+     *
+     * @param User $user
+     * @return mixed
+     */
+    public function unFollow(Member $member)
+    {
+        return $this->followings()->detach($member);
+    }
+
 }
