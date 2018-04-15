@@ -10393,6 +10393,10 @@ footer {
   }
 }
 
+.max-w-70 {
+  max-width: 70%;
+}
+
 .list-group-item-action:hover {
   cursor: pointer;
 }
