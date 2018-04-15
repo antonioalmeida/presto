@@ -36,7 +36,17 @@ class ProfileController extends Controller
 
         return redirect()->route('profile', $member);
     }
-        
+ 
+    public function editProfilePicture() {
+        $member = Auth::user(); 
+
+        $url = request('profile-pic-url');
+        $member->profile_picture = $url;
+        $member->save();
+
+        return redirect()->route('profile.edit', $member);
+    }
+           
     public function followers(Member $member){
         return view('pages.profile.followers', compact('member'));
     }
@@ -53,7 +63,6 @@ class ProfileController extends Controller
     public function unFollow(Member $follower) {
         Auth::user()->unFollow($follower);
         return back();
-
     }
 
     public function settings(){
