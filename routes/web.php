@@ -45,7 +45,7 @@ Route::get('questions/{question}', 'QuestionController@show')->name('question');
 
 
 // Topic
-Route::get('topic/{name}', 'TopicController@show')->name('topic');
+Route::get('topic/{topic}', 'TopicController@show')->name('topic');
 
 // Cards
 Route::get('cards', 'CardController@list');
