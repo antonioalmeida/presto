@@ -29,9 +29,7 @@ Route::get('profile/{member}/following', 'ProfileController@following')->name('f
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
-
-//Profile edit
-Route::post('api/member/edit-profile-pic', 'ProfileController@editProfilePicture')->name('api.edit-profile-pic');
+Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
 
 //Follows
 Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');

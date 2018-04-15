@@ -60,12 +60,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <form method="POST" action="{{ Route('api.edit-profile-pic')}}">
+                    {{ method_field('PATCH') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <div>
                             <h6><label for="profile-pic-url">Change your photo</label></h6>
                             <div class="input-group">
-                                <input type="text" name="profile-pic-url" class="form-control" placeholder="New URL" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                                <input type="text" name="profile-pic-url" class="form-control" placeholder="New URL" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
                             </div>
                         </div>
                     </div>
