@@ -23,7 +23,6 @@ class ProfileController extends Controller
     }
 
     public function update(Member $member){
-         
         $this->validate(request(), [
        
         ]);
@@ -37,11 +36,14 @@ class ProfileController extends Controller
         return redirect()->route('profile', $member);
     }
  
-    public function editProfilePicture() {
+    public function updatePicture(Request $request) {
         $member = Auth::user(); 
 
-        $url = request('profile-pic-url');
-        $member->profile_picture = $url;
+        $request->validate([
+            'profile-pic-url' => 'required|url'
+        ]);
+
+        $member->profile_picture = request('profile-pic-url');
         $member->save();
 
         return redirect()->route('profile.edit', $member);
