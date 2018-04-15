@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main role="main" class="mt-5">
+    <main role="main" class="my-5">
 
     @include('pages.profile.profile')
 
@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="ml-auto align-self-center flex-wrap">
-                    @include('partials.follow', ['follower' => $following])
+                    @include('partials.follow', ['followTarget' => $following])
                     </div>
 
                   </div>
