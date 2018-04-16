@@ -76,10 +76,9 @@
                 <div class="col-md-2 text-right text-collapse side-menu">
                     <h6 class="">Related Topics</h6>
                     <ul class="no-bullets">
-                        <li><a href="" class="text-muted">French History</a></li>
-                        <li><a href="" class="text-muted">Prehistory</a></li>
-                        <li><a href="" class="text-muted">Science</a></li>
-                        <li><a href="" class="text-muted">Napoleon</a></li>
+                    @foreach($topic->getRelatedTopics() as $r_topic)
+                        <li><a href="/topic/{{$r_topic->name}}" class="text-muted">{{$r_topic->name}}</a></li>
+                    @endforeach
                     </ul>
                 </div>
 
