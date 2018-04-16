@@ -33,7 +33,7 @@ class Topic extends Model
     }
 
     public function getNumFollowers(){
-        return $this->members->count();
+        return $this->followers->count();
     }
 
     public function getAnswersStats(){
@@ -70,10 +70,10 @@ class Topic extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function members()
-    {
-        return $this->belongsToMany('App\Member', 'follow_topic');
-    }
+    // public function members()
+    // {
+    //     return $this->belongsToMany('App\Member', 'follow_topic');
+    // }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -83,4 +83,14 @@ class Topic extends Model
         return $this->belongsToMany('App\Question');
     }
 
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function followers()
+    {
+        return $this->belongsToMany(Member::class, 'follow_topic', 'topic_id', 'member_id');
+    }
+
+   
 }
