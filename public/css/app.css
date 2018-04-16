@@ -10394,7 +10394,28 @@ footer {
 }
 
 .max-w-70 {
-  max-width: 70%;
+  max-width: 72.5%;
+}
+
+.btn-unfollow .after {
+  display: none;
+}
+
+.btn-unfollow:hover,
+.btn-unfollow:active {
+  border-color: #d9534f !important;
+  background-color: #d9534f;
+  color: #fff;
+}
+
+.btn-unfollow:hover .after,
+.btn-unfollow:active .after {
+  display: inline-block;
+}
+
+.btn-unfollow:hover .before,
+.btn-unfollow:active .before {
+  display: none;
 }
 
 .list-group-item-action:hover {

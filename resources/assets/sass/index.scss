@@ -174,4 +174,23 @@ footer {
 	max-width: 72.5%;
 }
 
+.btn-unfollow {
+	.after {
+		display: none;
+	}
+
+	&:hover, &:active {
+		border-color: $danger !important;
+		background-color: $danger;
+		color: $white;
+
+		.after {
+			display: inline-block;
+		}
+
+		.before {
+			display: none;
+		}
+	}
+}
 
