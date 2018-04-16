@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+require_once app_path().'/Utils.php';
 
 /**
  * @property int $id
@@ -44,7 +45,7 @@ class Topic extends Model
             $no_views += $question->answers->sum('views');
         }
 
-        return ['number' => $no_answers, 'views' => $no_views];
+        return ['number' => $no_answers, 'views' => print_number_count($no_views)];
     }
 
     public function getRelatedTopics(){

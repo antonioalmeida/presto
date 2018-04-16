@@ -5,7 +5,7 @@ namespace App;
 use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-require app_path().'/Utils.php';
+require_once app_path().'/Utils.php';
 
 /**
  * @property int $id
