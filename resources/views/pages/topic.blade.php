@@ -83,17 +83,34 @@
                 </div>
 
                 <div class="col-md-8">
-                    <div class="nav nav-tabs">
-                        <a class="nav-item nav-link active" href="#">Newest</a>
-                        <a class="nav-item nav-link" href="#">Oldest</a>
-                        <a class="nav-item nav-link" href="#">Rating</a>
-                    </div>
 
-                    <div class="list-group">
-                        @foreach($topic->questions as $question)
-                            @include('partials.question-card', ['question' => $question])
-                        @endforeach
-                    </div>
+                         <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
+                                <a class="nav-item nav-link" id="nav-oldest-tab" data-toggle="tab" href="#nav-oldest" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
+                                <a class="nav-item nav-link" id="nav-rating-tab" data-toggle="tab" href="#nav-rating" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
+                            </div>
+                        </nav>
+                        
+                        <div class="tab-content mb-5" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-newest" role="tabpanel" aria-labelledby="nav-newest-tab">
+                                <div class="list-group">
+                                @foreach($topic->questions->sortBy('date') as $question)
+                                    @include('partials.question-card', ['question' => $question])
+                                @endforeach
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
+                                @foreach($topic->questions->sortByDesc('date') as $question)
+                                    @include('partials.question-card', ['question' => $question])
+                                @endforeach
+                            </div>
+                            <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
+                                
+                            </div>
+                        </div>
+
+
                 </div>
             </div>
         </section>
