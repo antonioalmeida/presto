@@ -31,8 +31,8 @@
                                 <p class="lead lead-adapt">
                                     {{$topic->description}}
                                 </p>
-                                <a href="" class="btn btn-outline-light"><i class="far fa-user-plus fa-fw"></i> Follow</a>
-
+                                <!-- <a href="" class="btn btn-outline-light"><i class="far fa-user-plus fa-fw"></i> Follow</a> -->
+                                @include('partials.follow-topic', ['topic' => $topic])
                             </div>
 
                         </div>

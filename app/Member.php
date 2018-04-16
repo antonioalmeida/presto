@@ -5,6 +5,8 @@ namespace App;
 use DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use \App\Topic;
+
 require_once app_path().'/Utils.php';
 
 /**
@@ -97,10 +99,10 @@ class Member extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function topics()
-    {
-        return $this->belongsToMany('App\Topic', 'follow_topic');
-    }
+    // public function topics()
+    // {
+    //     return $this->belongsToMany('App\Topic', 'follow_topic');
+    // }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -261,4 +263,32 @@ class Member extends Authenticatable
         return $this->followings()->detach($member);
     }
 
+
+    //topics
+
+      /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function topics()
+    {
+        return $this->belongsToMany('App\Topic', 'follow_topic', 'member_id', 'topic_id');
+    }
+
+    public function isFollowingTopic(Topic $topic)
+    {
+        return !! $this->topics()->where('topic_id', $topic->id)->count();
+    }
+   
+    public function followTopic(Topic $topic)
+    {
+        if (! $this->isFollowingTopic($topic))
+        {
+            $this->topics()->attach($topic);
+        }
+    }
+
+    public function unFollowTopic(Topic $topic)
+    {
+        return $this->topics()->detach($topic);
+    }
 }

@@ -35,6 +35,12 @@ Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->
 Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
 Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
 
+//Follows Topic
+//Follows
+Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('api.followTopic');
+Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
+
+
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 
