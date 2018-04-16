@@ -47,6 +47,25 @@ class Topic extends Model
         return ['number' => $no_answers, 'views' => $no_views];
     }
 
+    public function getRelatedTopics(){
+        $sub_query = DB::table('question_topic')
+                        ->where('topic_id', $this->id)
+                        ->pluck('question_id');
+
+         $query = DB::table('topic')
+		 ->select(DB::raw('count(*) as nrTimes, name'))
+		 ->join('question_topic', function($join) {
+		 	$join->on('topic.id', '=', 'question_topic.topic_id');
+		 	})
+		 ->whereIn('question_id', $sub_query)
+		 ->where('topic_id', '<>', $this->id)
+         ->groupBy('name')
+         ->orderByRaw('nrTimes DESC')
+         ->limit(5)
+         ->get();
+        
+        return $query;
+    }
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
