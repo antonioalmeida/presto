@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 use \App\Member;
+use App\Notification;
 
 class ProfileController extends Controller
 {
@@ -100,6 +102,11 @@ class ProfileController extends Controller
     }
 
     public function notifications(){
-        return view('pages.profile.notifications');
+        $notifications_p = Notification::where('member_id', Auth::user()->id)->paginate(7);
+        $notifications = Auth()->user()->notifications;
+
+
+        return view('pages.profile.notifications', ['notifications' => $notifications, 'notifications_p' => $notifications_p]);
     }
+
 }
