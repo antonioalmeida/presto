@@ -5,7 +5,6 @@
  * application frontend using useful Laravel and JavaScript libraries.
  */
 
-require('./bootstrap');
 require('./fontawesome-all.min.js');
 require('./temp.js');
 require('./tagsinput');
