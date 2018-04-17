@@ -14,29 +14,21 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Report extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'question_report';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['date', 'reason'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function question()
     {
         return $this->belongsTo('App\Question');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function member()
     {
         return $this->belongsTo('App\Member');

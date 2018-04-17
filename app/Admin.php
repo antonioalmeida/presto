@@ -11,16 +11,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Admin extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'admin';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['email', 'password'];
 
 }

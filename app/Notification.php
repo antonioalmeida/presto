@@ -15,21 +15,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Notification extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+    
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'notification';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['member_id', 'type', 'date', 'content', 'read'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function member()
     {
         return $this->belongsTo('App\Member');
