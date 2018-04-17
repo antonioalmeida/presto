@@ -67,16 +67,16 @@ DROP FUNCTION IF EXISTS notify_on_comment_answer();
 DROP FUNCTION IF EXISTS notify_on_question_rating();
 DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
+DROP TYPE IF EXISTS notification_origin;
 
--- NotificationOrigin enum
--- CREATE TYPE notification_origin AS ENUM (
---     'Question',
---     'Answer',
---     'Comment',
---     'Rating',
---     'Follow',
---     'Mention'
--- );
+CREATE TYPE notification_origin AS ENUM (
+    'Question',
+    'Answer',
+    'Comment',
+    'Rating',
+    'Follow',
+    'Mention'
+);
 
 CREATE TABLE admin (
     id SERIAL NOT NULL,
@@ -140,7 +140,7 @@ CREATE TABLE follow_member (
 
 CREATE TABLE notification (
     id SERIAL NOT NULL,
-    type text NOT NULL,
+    type notification_origin NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     content text NOT NULL,
     member_id INTEGER NOT NULL,
