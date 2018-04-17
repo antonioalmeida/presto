@@ -110,9 +110,9 @@ CREATE TABLE member (
     score INTEGER NOT NULL DEFAULT 0,
     is_banned BOOLEAN NOT NULL DEFAULT false,
     is_moderator BOOLEAN NOT NULL DEFAULT false,
+    is_certified BOOLEAN NOT NULL DEFAULT false,
     country_id INTEGER,
     CONSTRAINT member_pk PRIMARY KEY (id),
-    CONSTRAINT member_username_uk UNIQUE (username),
     CONSTRAINT member_email_uk UNIQUE (email),
     CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
@@ -153,7 +153,8 @@ CREATE TABLE topic (
     name VARCHAR(25) NOT NULL,
     description text,
     picture text,
-    CONSTRAINT topic_pk PRIMARY KEY (id)
+    CONSTRAINT topic_pk PRIMARY KEY (id),
+    CONSTRAINT topic_uk UNIQUE (name)
 );
 
 CREATE TABLE follow_topic (
@@ -725,6 +726,7 @@ CREATE INDEX idx_answer_author_id ON answer USING btree (author_id);
 CREATE INDEX idx_answer_question_id ON answer USING btree (question_id);
 CREATE INDEX idx_comment_author_id ON comment USING btree (author_id);
 CREATE INDEX idx_member_score ON member USING btree (score);
+CREATE UNIQUE INDEX idx_member_username ON member USING btree (lower(username));
 CREATE INDEX idx_comment_question_id ON comment USING btree (question_id);
 CREATE INDEX idx_comment_answer_id ON comment USING btree (answer_id);
 CREATE INDEX idx_question_date ON question USING btree ("date");
@@ -945,7 +947,7 @@ insert into topic (name) values ('Shopping');
 insert into topic (name) values ('SQL');
 insert into topic (name) values ('Java');
 insert into topic (name) values ('Databases');
-insert into topic (name) values ('Automotive');
+insert into topic (name) values ('RCOM');
 insert into topic (name) values ('PC Gaming');
 insert into topic (name) values ('Sex');
 insert into topic (name) values ('PostgreSQL');
