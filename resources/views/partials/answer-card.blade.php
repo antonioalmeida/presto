@@ -15,8 +15,10 @@ use Carbon\Carbon;
                                         </div>
                                         <p class="mb-1">{{substr($answer->content, 0, 169)}}{{(strlen($answer->content)>169 ? '...' : '')}}<span href="/questions/{{$answer->question->id}}/answers/{{$answer->id}}" class="btn-link text-primary">(read more)</span></p>
                                         <small class="text-muted"><i class="far fa-tags"></i>
-                                            @foreach($answer->question->topics as $topic)
-                                                <a href="{{Route('topic', $topic->name)}}" class="btn-link">{{$topic->name}}</a>{{$loop->last ? '' : ','}}
-                                            @endforeach
+                                            @forelse ($answer->question->topics as $topic)
+                                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}
+                                            @empty
+                                            <span class="text-muted">No topics</span>
+                                            @endforelse
                                         </small>
                                     </div>
