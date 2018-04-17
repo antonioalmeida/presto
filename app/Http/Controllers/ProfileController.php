@@ -22,7 +22,9 @@ class ProfileController extends Controller
         return view('pages.profile.edit', compact('member'));
     }
 
-    public function update(Member $member){
+    public function update(){
+        $member = Auth::user();
+
         $this->validate(request(), [
        
         ]);
