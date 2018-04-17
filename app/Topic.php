@@ -21,14 +21,9 @@ class Topic extends Model
 
     /**
      * The table associated with the model.
-     *
-     * @var string
      */
     protected $table = 'topic';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['name', 'description', 'picture'];
 
     public function getRouteKeyName(){

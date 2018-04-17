@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use App\Presto\Follow;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use \App\Topic;
@@ -42,7 +43,7 @@ require_once app_path().'/Utils.php';
  */
 class Member extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Follow;
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
@@ -74,7 +75,7 @@ class Member extends Authenticatable
      }
 
     /*
-    * Relationships
+    * Relations
     */
 
      public function country()
@@ -147,76 +148,9 @@ class Member extends Authenticatable
         return $this->belongsToMany(Member::class, 'follow_member', 'follower_id', 'following_id');
     }
 
-    /**
-     * Check if a given user is following this user.
-     *
-     * @param Member $member
-     * @return bool
-     */
-    public function isFollowing(Member $member)
-    {
-        return !! $this->followings()->where('following_id', $member->id)->count();
-    }
-
-    /**
-     * Check if a given user is being followed by this user.
-     *
-     * @param Member $member
-     * @return bool
-     */
-    public function isFollowedBy(Member $member)
-    {
-        return !! $this->followers()->where('follower_id', $member->id)->count();
-    }
-
-    /**
-     * Follow the given user.
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function follow(Member $member)
-    {
-        if (! $this->isFollowing($member) && $this->id != $member->id)
-        {
-            $this->followings()->attach($member);
-        }
-    }
-
-    /**
-     * Unfollow the given user.
-     *
-     * @param User $user
-     * @return mixed
-     */
-    public function unFollow(Member $member)
-    {
-        return $this->followings()->detach($member);
-    }
-
-
-    //topics
-
     public function topics()
     {
         return $this->belongsToMany('App\Topic', 'follow_topic', 'member_id', 'topic_id');
     }
 
-    public function isFollowingTopic(Topic $topic)
-    {
-        return !! $this->topics()->where('topic_id', $topic->id)->count();
-    }
-   
-    public function followTopic(Topic $topic)
-    {
-        if (! $this->isFollowingTopic($topic))
-        {
-            $this->topics()->attach($topic);
-        }
-    }
-
-    public function unFollowTopic(Topic $topic)
-    {
-        return $this->topics()->detach($topic);
-    }
 }
