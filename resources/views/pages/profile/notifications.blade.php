@@ -45,7 +45,7 @@ use Carbon\Carbon;
                                     </div>
 
                                 <div>
-                                    <span class="mb-1 text-muted"><small>{{Carbon::parse($notification->date)->diffForHumans(Carbon::now(), true)}}</small></span>
+                                    <span class="mb-1 text-muted"><small>{{Carbon::parse($notification->date)->diffForHumans(Carbon::now(), true)}} ago</small></span>
                                 </div>
                             </div>
                         </div>
