@@ -17,6 +17,5 @@ mix.sass('resources/assets/sass/app.scss', 'public/css').scripts([
     'resources/assets/js/script.js',
     'resources/assets/js/searchbar.js',
     'resources/assets/js/offcanvas.js',
-    'resources/assets/js/tagsinput.js',
-    'resources/assets/js/temp.js'
+    'resources/assets/js/tagsinput.js'
 ], 'public/js/app.js');
