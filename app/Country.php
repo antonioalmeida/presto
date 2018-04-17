@@ -11,21 +11,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Country extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'country';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['name'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function members()
     {
         return $this->hasMany('App\Member');

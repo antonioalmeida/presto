@@ -22,6 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
      * 
@@ -51,48 +54,33 @@ class Question extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * Relations
      */
     public function member()
     {
         return $this->belongsTo('App\Member', 'author_id');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function questionReports()
     {
         return $this->hasMany('App\QuestionReport');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function topics()
     {
         return $this->belongsToMany('App\Topic');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function answers()
     {
         return $this->hasMany('App\Answer');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function comments()
     {
         return $this->hasMany('App\Comment');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
     public function questionRatings()
     {
         return $this->hasMany('App\QuestionRating');

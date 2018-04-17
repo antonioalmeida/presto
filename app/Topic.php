@@ -16,6 +16,9 @@ require_once app_path().'/Utils.php';
  */
 class Topic extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
      *
@@ -67,30 +70,15 @@ class Topic extends Model
         
         return $query;
     }
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
-    // public function members()
-    // {
-    //     return $this->belongsToMany('App\Member', 'follow_topic');
-    // }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function questions()
     {
         return $this->belongsToMany('App\Question');
     }
 
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
-     */
     public function followers()
     {
         return $this->belongsToMany(Member::class, 'follow_topic', 'topic_id', 'member_id');
     }
-
    
 }

@@ -10,35 +10,23 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $date
  * @property string $reason
  * @property Member $member
- * @property Member $member
  */
 class Flag extends Model
 {
+     // Don't add create and update timestamps in database.
+     public $timestamps  = false;
+     
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'flag';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['date', 'reason'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+
     public function member()
     {
         return $this->belongsTo('App\Member');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function member()
-    {
-        return $this->belongsTo('App\Member');
-    }
 }

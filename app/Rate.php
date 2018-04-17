@@ -13,29 +13,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Rate extends Model
 {
+    // Don't add create and update timestamps in database.
+    public $timestamps  = false;
+
     /**
      * The table associated with the model.
-     * 
-     * @var string
      */
     protected $table = 'question_rating';
 
-    /**
-     * @var array
-     */
     protected $fillable = ['rate'];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
+    
     public function question()
     {
         return $this->belongsTo('App\Question');
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
     public function member()
     {
         return $this->belongsTo('App\Member');
