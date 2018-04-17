@@ -22,7 +22,7 @@
                     <div class="col-md-9 col-sm-6 py-2">
                         <span>{{Auth::User()->email}}</span>
                         <br>
-                        <a href="">Change Email</a>
+                        <a href="" data-toggle="modal" data-target="#editEmail">Change Email</a>
                     </div>
                 </div>
                 <br>
@@ -71,4 +71,51 @@
     <!-- /.container -->
     </body>
 
+    <!-- edit e-mail modal -->
+    <div class="modal fade" id="editEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="{{ Route('api.edit-email', Auth::User())}}">
+                    {{ method_field('PUT') }}
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <div>
+                            <h6><label for="email">Change your E-Mail</label></h6>
+                            <div class="input-group">
+                                <input type="email" name="email" class="form-control" placeholder="New E-Mail" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+        <!-- edit password modal -->
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="{{ Route('api.edit-password', Auth::User())}}">
+                    {{ method_field('PUT') }}
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <div>
+                            <h6><label for="password">Change your password</label></h6>
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" placeholder="New password" aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 @endsection

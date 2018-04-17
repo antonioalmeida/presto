@@ -50,6 +50,32 @@ class ProfileController extends Controller
 
         return redirect()->route('profile.edit', $member);
     }
+
+    public function updateEmail(Request $request) {
+        $member = Auth::user(); 
+
+        $request->validate([
+            'email' => 'required|string|email|max:255|unique:member'
+        ]);
+
+        $member->email = request('email');
+        $member->save();
+
+        return redirect()->route('settings');
+    }
+
+    public function updatePassword(Request $request) {
+        $member = Auth::user(); 
+
+        $request->validate([
+            'password' => 'required|string|min:6'
+        ]);
+
+        $member->password = bcrypt(request('password'));
+        $member->save();
+
+        return redirect()->route('settings');
+    }
            
     public function followers(Member $member){
         return view('pages.profile.followers', compact('member'));
