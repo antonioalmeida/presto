@@ -1,4 +1,3 @@
-'use strict';
 
 (function(d, s, id) {
   let js, fjs = d.getElementsByTagName(s)[0];

@@ -11,5 +11,12 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+mix.sass('resources/assets/sass/app.scss', 'public/css').scripts([
+    'resources/assets/js/fontawesome-all.min.js',
+    'resources/assets/js/summernote.js',
+    'resources/assets/js/script.js',
+    'resources/assets/js/searchbar.js',
+    'resources/assets/js/offcanvas.js',
+    'resources/assets/js/tagsinput.js',
+    'resources/assets/js/temp.js'
+], 'public/js/app.js');
