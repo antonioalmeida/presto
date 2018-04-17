@@ -1,12 +1,7 @@
-
-/**
- * First, we will load all of this project's Javascript utilities and other
- * dependencies. Then, we will be ready to develop a robust and powerful
- * application frontend using useful Laravel and JavaScript libraries.
- */
-
-require('./fontawesome-all.min.js');
-require('./temp.js');
+require('./fontawesome-all.min');
+require('./temp');
 require('./tagsinput');
+require('./offcanvas');
 require('./script');
+require('./summernote');
 require('./searchbar');
