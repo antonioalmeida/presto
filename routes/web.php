@@ -55,6 +55,10 @@ Auth::routes();
 //Profile
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
 
+//Settings
+Route::put('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
+Route::put('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
+
 //Follows Member
 Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
 Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
