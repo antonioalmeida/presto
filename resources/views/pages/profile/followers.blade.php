@@ -7,7 +7,7 @@ Followers | Presto
 @section('content')
 
 <body class="grey-background">
-    <main role="main" class="my-5">
+    <main role="main" class="my-4">
 
         @include('pages.profile.profile')
 

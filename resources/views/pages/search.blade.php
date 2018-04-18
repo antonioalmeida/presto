@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main role="main" class="mt-5 mb-2">
+    <main role="main" class="mt-4 mb-2">
         <section class="container wrapper mt-5">
             <div class="row">
                 <div class="col-md-3 mt-2">
