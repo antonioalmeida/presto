@@ -34,14 +34,11 @@
                                     @if ($loop->first)
                                         @include('partials.comment', ['comment' => $comment])
                                         <div class="collapse" id="commentCollapse{{ $question->id}}">
-
-                                    @endif
-
-                                @include('partials.comment', ['comment' => $comment])
-
-                                    @if ($loop->last)
+                                    @elseif($loop->last)
                                         @include('partials.comment', ['comment' => $comment])
                                         </div>
+                                    @else
+                                        @include('partials.comment', ['comment' => $comment])
                                     @endif
 
                                 @endforeach
@@ -97,7 +94,7 @@
                             {{ csrf_field() }}
                             <div class="card">
                                <div class="input-group">
-                                <textarea class="form-control" name="body" placeholder="Leave a comment..."></textarea>
+                                <textarea class="form-control" name="content" placeholder="Leave a comment..."></textarea required>
                             </div>
                             <div class="card-footer">
                                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>

@@ -7,7 +7,13 @@ $.ajaxSetup({
 $('#question-add-comment').submit(function(event) {
 	event.preventDefault();
 
-	$.post('/api/comments/question', {'body': "OLAAA"})
+	let questionID = parseInt(event.target.getAttribute('data-question-id'));
+	let content = event.target.querySelector('textarea[name="content"]').value;
+
+	console.log(questionID);
+	console.log(content);
+
+	$.post('/api/comments/question', {'question_id': questionID, 'content': content})
 	.done(function(data) {
 		console.log(data);
 	})
