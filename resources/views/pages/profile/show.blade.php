@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
     <body class="grey-background">
 
-    <main class="mt-4" role="main">
+    <main class="mt-5" role="main">
 
     @include('pages.profile.profile')
 

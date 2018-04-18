@@ -10,7 +10,7 @@
     @endphp
 
     <body class="grey-background">
-    <main class="mt-4" role="main">
+    <main class="mt-5" role="main">
 
         <section>
             <div class="jumbotron profile-jumbotron">

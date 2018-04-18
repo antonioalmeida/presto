@@ -29,6 +29,8 @@
 
 </head>
 
+@include('includes.errors')
+
 @yield('content')
 
 </html>

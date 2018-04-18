@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
     <body class="grey-background">
 
-    <main role="main" class="mt-4">
+    <main role="main" class="mt-5">
         <div class="container">
             <div class="row">
 

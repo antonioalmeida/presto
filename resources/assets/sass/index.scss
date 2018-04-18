@@ -27,6 +27,46 @@
 	color: $white;
 }
 
+.alert-bottom {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+    bottom: 1em;
+    left: 50%;
+    transform: translate(-50%, 0);
+    margin: 1.5em;
+    padding: 1em;
+    border-radius: 16px;
+    animation: slideUp .5s;
+    animation-timing-function: ease-out;
+
+    .alert-message {
+    	flex: 2 0 0;
+    	padding-right: 2em;
+    }
+
+    .close-button {
+    	flex: 1 0 1;
+
+    	&:hover {
+    		cursor: pointer;
+    	}
+    }
+}
+
+@keyframes slideUp {
+    from {
+    	bottom: 0;
+    	opacity: 0.3;
+    }
+
+    to {
+    	bottom: 1em;
+    	opacity: 1;
+    }
+}
+
 .profile-jumbotron {
 	background-image: url('../img/background.svg');
 
