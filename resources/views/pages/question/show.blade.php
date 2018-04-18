@@ -18,7 +18,7 @@
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
                             @forelse ($question->topics as $topic)
-                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>, 
+                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}
                             @empty
                             <span class="text-muted">No topics</span>
                             @endforelse
@@ -48,7 +48,7 @@
                                 </a>
                             </div>
 
-                            @if ($question->author_id == Auth::id() || Auth::is_moderator)
+                            @if ($question->author_id == Auth::id())
                             <div class="ml-auto mt-2">
                                 <small>
                                     <a href="btn" class="text-muted">Edit</a> |
