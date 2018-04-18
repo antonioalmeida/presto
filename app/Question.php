@@ -53,6 +53,10 @@ class Question extends Model
         return count($this->answers);
     }
 
+    public function addComment($comment) {
+        $this->comments()->create($comment);
+    }
+
     /**
      * Relations
      */

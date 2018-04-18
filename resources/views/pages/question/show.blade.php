@@ -25,6 +25,12 @@
                         </small>
                     </h5>
 
+                    <ul>
+                    @foreach ($question->comments as $comment)
+                        <li>{{ $comment->content }}</li>
+                    @endforeach
+                    </ul>
+
                     <div id="questionAcordion" class="mt-3">
 
                         <div class="d-flex justify-content-between flex-wrap">
@@ -64,21 +70,22 @@
                         </div>
 
                         <div id="commentCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingComment" data-parent="#questionAcordion">
+                            <form id="question-add-comment" data-question-id="{{ $question->id}}">
+                            {{ csrf_field() }}
                             <div class="card">
                                <div class="input-group">
-                                <textarea class="form-control" placeholder="Leave a comment..."></textarea>
+                                <textarea class="form-control" name="body" placeholder="Leave a comment..."></textarea>
                             </div>
                             <div class="card-footer">
-                                    <button class="btn btn-sm btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                                     <button class="btn btn-sm btn-link">Cancel</button>
                                 </div>
                             </div>
+                            </form>
                         </div>
 
    
                     </div>
-
-
 
                     <h4 class="mt-4">{{ $question->getNumAnswers() }} Answer(s)</h4>
 
