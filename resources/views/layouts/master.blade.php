@@ -28,7 +28,7 @@
     <!-- summernote -->
     <link defer href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-    <script defer src="{{ asset('js/app.js') }}"></script>">
+    <script defer src="{{ asset('js/app.js') }}"></script>
   </script>
 </head>
 
@@ -39,5 +39,8 @@
 @include('includes.footer')
 
 @include('includes.question_modal')
+
+@include('includes.errors')
+
 
 </html>

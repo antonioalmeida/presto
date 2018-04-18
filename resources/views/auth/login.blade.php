@@ -38,8 +38,6 @@
                 <button type="submit" class="btn btn-primary">Login</button>
               </div>
 
-              @include ('includes.errors')
-
             </form>
           </div>
           <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center mb-5">

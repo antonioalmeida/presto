@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main role="main" class="mt-4">
+    <main role="main" class="mt-5">
         <section>
             <div class="jumbotron profile-jumbotron">
                 <div class="container">
@@ -37,8 +37,6 @@
 
 
                                 </div>
-
-                            @include ('includes.errors')
 
                         </form>
                     </div>
