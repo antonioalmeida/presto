@@ -38,18 +38,20 @@ use Carbon\Carbon;
         <h6><small>{{$answer->comments->count()}} Comments</small></h6>
         <div class="d-flex list-group list-group-flush short-padding">
 
-                @foreach ($answer->comments as $comment)
+            @foreach ($question->comments as $comment)
+                @if ($loop->first)
                     @include('partials.comment', ['comment' => $comment])
-                @endforeach
+                    <div class="collapse" id="commentCollapse{{ $question->id}}">
+                @endif
 
-            <div class="collapse" id="commentCollapse{{ $answer->id}}">
+                @include('partials.comment', ['comment' => $comment])
 
-                <!-- add extra comments -->
-                @foreach ($answer->comments as $comment)
+                @if ($loop->last)
                     @include('partials.comment', ['comment' => $comment])
-                @endforeach
+                    </div>
+                @endif
 
-            </div>
+            @endforeach
 
             <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#commentCollapse{{ $answer->id}}" role="button" aria-expanded="false" aria-controls="commentCollapse{{ $answer->id}}">
                 View More

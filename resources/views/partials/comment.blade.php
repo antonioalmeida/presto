@@ -19,7 +19,6 @@ use Carbon\Carbon;
             <p>
                {{ $comment->content }}
             </p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac massa tristique semper.  Phasellus eu orci quis erat rhoncus feugiat eget congue leo.</p>
             <div class="d-flex justify-content-between">
                 <div>
                     <a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>

@@ -25,11 +25,34 @@
                         </small>
                     </h5>
 
-                    <ul>
-                    @foreach ($question->comments as $comment)
-                        <li>{{ $comment->content }}</li>
-                    @endforeach
-                    </ul>
+                    <div class="card my-3">
+                        <div class="card-body">
+                            <h6><small>{{$question->comments->count()}} Comments</small></h6>
+                            <div class="d-flex list-group list-group-flush short-padding">
+
+                                @foreach ($question->comments as $comment)
+                                    @if ($loop->first)
+                                        @include('partials.comment', ['comment' => $comment])
+                                        <div class="collapse" id="commentCollapse{{ $question->id}}">
+
+                                    @endif
+
+                                @include('partials.comment', ['comment' => $comment])
+
+                                    @if ($loop->last)
+                                        @include('partials.comment', ['comment' => $comment])
+                                        </div>
+                                    @endif
+
+                                @endforeach
+
+                                <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#commentCollapse{{ $question->id}}" role="button" aria-expanded="false" aria-controls="commentCollapse{{ $question->id}}">
+                                    View More
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
 
                     <div id="questionAcordion" class="mt-3">
 
@@ -94,34 +117,6 @@
                         @foreach ($question->answers as $answer)
                         @include('partials.answer', ['answer' => $answer])
                         @endforeach
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="container my-3">
-
-            <h5 class="m-3">More answers by António Almeida</h5>
-            <div class="card-deck m-2">
-                <div class="card list-group-item-action" role="button">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">What is Maths?</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                        <span class="ml-1 mt-auto card-text"><small class="text-muted">6.4k views</small></span>
-                    </div>
-                </div>
-                <div class="card list-group-item-action">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">How big is the universe?</h5>
-                        <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
-                        <span class="ml-1 mt-auto card-text"><small class="text-muted">6.4k views</small></span>
-                    </div>
-                </div>
-                <div class="card list-group-item-action">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">How big is the universe?</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
-                        <span class="ml-1 mt-auto card-text"><small class="text-muted">6.4k views</small></span>
                     </div>
                 </div>
             </div>
