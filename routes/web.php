@@ -39,7 +39,7 @@ Route::post('api/comments/question', 'CommentController@create')->name('question
 Route::get('admin', 'AdminController@show')->name('admin');
 
 // Answer
-Route::get('questions/{question_id}/answers/{answer_id}', 'AnswerController@show')->name('answer');
+Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
 
 // Question
 Route::get('questions/{question}', 'QuestionController@show')->name('question');

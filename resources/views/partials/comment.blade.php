@@ -1,3 +1,7 @@
+@php
+use Carbon\Carbon;
+@endphp
+
 <div class="list-group-item">
     <div class="d-flex flex-column">
         <div class="ml-1">
@@ -6,8 +10,8 @@
                     <img class="rounded-circle mr-2" width="36px" heigth="36px" src="{{ $comment->member->profile_picture }}">
                 </div>
                 <div class="d-flex flex-column">
-                    <span><strong>{{ $comment->member->name }} </strong></span>
-                    <span class="text-muted">5h ago</span>
+                <span><a href="{{Route('profile', $comment->member->username)}}" class="btn-link"><strong>{{ $comment->member->name }} </strong></a></span>
+                    <span class="text-muted">{{Carbon::parse($comment->date)->diffForHumans(Carbon::now(), true)}} ago</span>
                 </div>
             </div>
         </div>

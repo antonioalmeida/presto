@@ -7,9 +7,10 @@
     </div>
 
     <small class="text-muted"><i class="far fa-tags"></i>
-        @foreach($question->topics as $topic)
-        <a href="{{Route('topic', $topic->name)}}" class="btn-link">{{$topic->name}}</a>{{$loop->last ? '' : ','}}
-
-        @endforeach
+    @forelse ($question->topics as $topic)
+                    <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}
+                    @empty
+                    <span class="text-muted">No topics</span>
+                    @endforelse
     </small>
 </div> 
