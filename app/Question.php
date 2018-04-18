@@ -54,7 +54,7 @@ class Question extends Model
     }
 
     public function addComment($comment) {
-        $this->comments()->create($comment);
+        return $this->comments()->create($comment);
     }
 
     /**
