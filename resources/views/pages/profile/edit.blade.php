@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main role="main" class="mt-5">
+    <main role="main" class="mt-4">
         <section>
             <div class="jumbotron profile-jumbotron">
                 <div class="container">

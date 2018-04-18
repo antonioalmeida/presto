@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main role="main" class="mt-5">
+    <main role="main" class="mt-4">
         <section class="container text-justify">
             <h1 class="mt-5 text-center">About <em>Presto</em></h1>
 
