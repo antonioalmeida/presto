@@ -5,15 +5,17 @@ use Carbon\Carbon;
 <div class="mt-5">
 <div class="d-flex flex-wrap">
     <div class="align-self-center">
-        <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="{{ $answer->member->profile_picture }}">
-    </div>
-    <div class="ml-1">
-        <h5><a href="{{Route('profile', $answer->member->username)}}" class="btn-link">{{$answer->member->name}}</a></h5>
-        <h6><small class="text-muted">answered {{Carbon::parse($answer->date)->diffForHumans(Carbon::now(), true)}} ago</small></h6>
+        <a href="{{Route('profile', $answer->member->username)}}" class="text-dark btn-link">
+            <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="{{ $answer->member->profile_picture }}">
+        </div>
+        <div class="ml-1">
+            <h5>{{$answer->member->name}}</h5>
+        </a>
+            <h6><small class="text-muted">answered {{Carbon::parse($answer->date)->diffForHumans(Carbon::now(), true)}} ago</small></h6>
     </div>
     <div class="ml-3">
         @include('partials.follow', ['followTarget' => $answer->member])    </div>
-</div>
+    </div>
 
 <hr>
 <div>
