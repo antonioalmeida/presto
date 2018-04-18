@@ -24,8 +24,9 @@ class CommentController extends ApiBaseController
 		$date = now();
 
 		$question = \App\Question::find($question_id);
-		$newComment = $question->addComment(compact('author_id', 'content', 'date'));
-
-		return $this->sendResponse(200, $newComment);
+		$comment = $question->addComment(compact('author_id', 'content', 'date'));
+		$view = view('partials.comment', compact('comment'))->render();
+		
+		return $this->sendResponse($view, $comment);
 	}
 }

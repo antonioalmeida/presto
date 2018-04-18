@@ -28,7 +28,7 @@
                     <div class="card my-3">
                         <div class="card-body">
                             <h6><small>{{$question->comments->count()}} Comments</small></h6>
-                            <div class="d-flex list-group list-group-flush short-padding">
+                            <div id="questionComments" class="d-flex list-group list-group-flush short-padding">
 
                                 @foreach ($question->comments as $comment)
                                     @if ($loop->first)
