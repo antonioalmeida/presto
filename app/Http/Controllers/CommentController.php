@@ -14,12 +14,13 @@ class CommentController extends ApiBaseController
 	public function create()
 	{
 		$this->validate(request(), [
-			'body' => 'required|min:2'
+			'content' => 'required|min:2',
+			'question_id' => 'required|integer|min:0'
 		]);
 
-		$content = request('body');
+		$content = request('content');
+		$question_id = request('question_id');
 		$author_id = Auth::id();
-		$question_id = 3;
 		$date = now();
 
 		$question = \App\Question::find($question_id);
