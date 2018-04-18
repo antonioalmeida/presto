@@ -30,11 +30,6 @@ Route::put('profile/{member}', 'ProfileController@update')->name('profile.update
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
-//Test
-//Route::get('api/comments/question', 'CommentController@create');
-
-Route::post('api/comments/question', 'CommentController@create')->name('question-add-comment');
-
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 
@@ -71,6 +66,9 @@ Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow
 //Follows Topic
 Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('api.followTopic');
 Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
+
+// Comments
+Route::post('api/comments/question', 'CommentController@create')->name('question-add-comment');
 
 
 
