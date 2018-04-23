@@ -18,9 +18,9 @@
                         <p class="lead lead-adapt">
                             {{$member->bio}}
                         </p>
-                        @if(Auth::user()->id == $member->id)
+                        @can('update', $member)
                             <a href="{{Route('profile.edit')}}" class="btn btn-outline-light">Edit Profile</a>
-                        @endif
+                        @endcan
                     </div>
 
                 </div>
