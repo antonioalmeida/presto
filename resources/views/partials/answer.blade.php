@@ -2,7 +2,7 @@
 use Carbon\Carbon;
 @endphp
 
-<div class="mt-3">
+<div class="mt-5">
 <div class="d-flex flex-wrap">
     <div class="align-self-center">
         <a href="{{Route('profile', $answer->member->username)}}" class="text-dark btn-link">
