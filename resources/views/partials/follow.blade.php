@@ -1,5 +1,5 @@
 @auth
-@if(Auth::user()->id != $followTarget->id)
+@can('follow', $followTarget)
 @if(Auth::user()->isFollowing($followTarget))
     <form method="POST" action="{{Route('api.unFollow', $followTarget)}}">
         {{ method_field('DELETE') }}
@@ -12,5 +12,5 @@
         <button type="submit" class="btn btn-sm btn-outline-primary"><i class="far fa-fw fa-user-plus"></i> <span class="text-collapse">Follow</span></button>
     </form>
 @endif
-@endif
+@endcan
 @endauth

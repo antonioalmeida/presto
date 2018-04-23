@@ -13,6 +13,14 @@ use Carbon\Carbon;
                 <span><a href="{{Route('profile', $comment->member->username)}}" class="btn-link"><strong>{{ $comment->member->name }} </strong></a></span>
                     <span class="text-muted">{{Carbon::parse($comment->date)->diffForHumans(Carbon::now(), true)}} ago</span>
                 </div>
+                @can('update', $comment)
+                 <div class="ml-auto ">
+                 <small>
+                  <a href="#" class="text-muted">Edit</a> |
+                  <a href="#" class="text-danger">Delete</a>
+                 </small>
+                 </div>
+                 @endcan
             </div>
         </div>
         <div class="pl-2 mt-1">

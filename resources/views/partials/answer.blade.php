@@ -2,21 +2,29 @@
 use Carbon\Carbon;
 @endphp
 
-<div class="mt-5">
+<div class="mt-3">
 <div class="d-flex flex-wrap">
     <div class="align-self-center">
         <a href="{{Route('profile', $answer->member->username)}}" class="text-dark btn-link">
             <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px" src="{{ $answer->member->profile_picture }}">
-        </div>
-        <div class="ml-1">
+    </div>
+    <div class="ml-1">
             <h5>{{$answer->member->name}}</h5>
         </a>
             <h6><small class="text-muted">answered {{Carbon::parse($answer->date)->diffForHumans(Carbon::now(), true)}} ago</small></h6>
     </div>
     <div class="ml-3">
-        @include('partials.follow', ['followTarget' => $answer->member])    </div>
+        @include('partials.follow', ['followTarget' => $answer->member])
     </div>
-
+    @can('update', $answer)
+    <div class="ml-auto ">
+                <small>
+                  <a href="#" class="text-muted">Edit</a> |
+                  <a href="#" class="text-danger">Delete</a>
+                </small>
+    </div>
+    @endcan
+    </div>
 <hr>
 <div>
     <p>
@@ -41,10 +49,10 @@ use Carbon\Carbon;
         <div class="d-flex list-group list-group-flush short-padding">
 
             @foreach ($answer->comments as $comment)
-                @if ($loop->first)
+                @if ($loop->first && !$loop->last)
                     @include('partials.comment', ['comment' => $comment])
-                    <div class="collapse" id="commentCollapse{{ $question->id}}">
-                @elseif($loop->last)
+                    <div class="collapse" id="commentCollapse{{ $answer->id}}">
+                @elseif($loop->last && !$loop->first)
                     @include('partials.comment', ['comment' => $comment])
                     </div>
                 @else

@@ -31,16 +31,16 @@
                             <div id="questionComments" class="d-flex list-group list-group-flush short-padding">
 
                                 @foreach ($question->comments as $comment)
-                                    @if ($loop->first)
+                                    @if ($loop->first && !$loop->last)
                                         @include('partials.comment', ['comment' => $comment])
                                         <div class="collapse" id="commentCollapse{{ $question->id}}">
-                                    @elseif($loop->last)
+                                    @elseif($loop->last && !$loop->first)
                                         @include('partials.comment', ['comment' => $comment])
                                         </div>
                                     @else
                                         @include('partials.comment', ['comment' => $comment])
                                     @endif
-
+                                    
                                 @endforeach
 
                                 <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#commentCollapse{{ $question->id}}" role="button" aria-expanded="false" aria-controls="commentCollapse{{ $question->id}}">
@@ -68,14 +68,14 @@
                                 </a>
                             </div>
 
-                            @if ($question->author_id == Auth::id())
+                            @can('update', $question)
                             <div class="ml-auto mt-2">
                                 <small>
                                     <a href="btn" class="text-muted">Edit</a> |
                                     <a href="btn" class="text-danger">Delete</a>
                                 </small>
                             </div>
-                            @endif
+                            @endcan
                         </div>
 
                         <div id="answerCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingAnswer" data-parent="#questionAcordion">
