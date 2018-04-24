@@ -365,7 +365,7 @@ CREATE TRIGGER member_comment_report
 --Unique email between admins and members
 CREATE FUNCTION admin_member_email() RETURNS TRIGGER AS $$
 BEGIN
-  IF EXISTS(SELECT member.email FROM admin INNER JOIN member ON admin.email = member.email) THEN
+  IF EXISTS(SELECT email FROM admin WHERE email = NEW.email UNION SELECT email FROM member WHERE email = NEW.email) THEN
     RAISE EXCEPTION 'Email must be unique';
   END IF;
   RETURN NEW;
@@ -373,12 +373,12 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER admin_email
-  AFTER INSERT OR UPDATE OF email ON admin
+  BEFORE INSERT OR UPDATE OF email ON admin
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
 CREATE TRIGGER member_email
-  AFTER INSERT OR UPDATE OF email ON member
+  BEFORE INSERT OR UPDATE OF email ON member
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
