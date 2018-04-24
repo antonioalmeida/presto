@@ -6,6 +6,8 @@ use App\Member;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Database\QueryException;
+use PDOException;
 
 class RegisterController extends Controller
 {
@@ -62,11 +64,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return Member::create([
-            'name' => $data['username'],
-            'username' => $data['username'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+
+        try {
+            $member = Member::create([
+                'name' => $data['username'],
+                'username' => $data['username'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+            ]);
+        } catch (Illuminate\Database\QueryException $e) {
+            dd($e);
+
+        } catch (PDOException $e) {
+            dd($e);
+        }    
+
+        return $member;
     }
 }
