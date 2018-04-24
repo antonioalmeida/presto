@@ -373,12 +373,12 @@ END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER admin_email
-  BEFORE INSERT OR UPDATE OF email ON admin
+  AFTER INSERT OR UPDATE OF email ON admin
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
 CREATE TRIGGER member_email
-  BEFORE INSERT OR UPDATE OF email ON member
+  AFTER INSERT OR UPDATE OF email ON member
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
 
