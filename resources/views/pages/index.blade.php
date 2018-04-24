@@ -20,8 +20,8 @@
                         <div class="card sign-up-card">
                             <div class="card-body">
                                 <div class="d-flex align-items-center flex-column">
-                                    <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
-
+                                     <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
+            
                                     <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
                                 </div>
 

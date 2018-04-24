@@ -56,14 +56,15 @@ function updateHrefs(x) {
         notifications_button.removeAttribute("data-toggle");
     } else {
         console.log("Bigger than 768");
-        navbar_avatar.href = "";
-        notifications_button.href = "";
+        navbar_avatar.href = "#";
+        notifications_button.href = "#";
         navbar_avatar.setAttribute("data-toggle", "dropdown");
         notifications_button.setAttribute("data-toggle", "dropdown");
     }
 }
-
+if(navbar_avatar != null){
 var x = window.matchMedia("(max-width: 768px)")
 updateHrefs(x) // Call listener function at run time
 x.addListener(updateHrefs) // Attach listener function on state changes
+}
 
