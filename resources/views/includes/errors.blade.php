@@ -6,7 +6,7 @@
 			@if ($loop->first)
 					{{ trim($error) }}
 				@else 
-					Also, Illuminate\Support\Str::lower($error)
+					Also, {{Illuminate\Support\Str::lower($error)}}
 				@endif
 			@endforeach
 		</div>
