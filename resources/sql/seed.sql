@@ -81,6 +81,7 @@ CREATE TABLE admin (
     id SERIAL NOT NULL,
     email VARCHAR(40) NOT NULL,
     password VARCHAR(60) NOT NULL,
+    remember_token VARCHAR(100),
     CONSTRAINT admin_pk PRIMARY KEY (id),
     CONSTRAINT admin_uk UNIQUE (email)
 );
