@@ -9,7 +9,7 @@
 @section('content')
 
     <body class="grey-background">
-     <main role="main">
+    <main role="main">
     <div class="container pt-1 mt-2">
       <div class="row">
         <div class="col-md-2 mt-2">
@@ -63,84 +63,22 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($members as $member)
                     <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
+                      <td>{{$member->username}}</td>
+                      <td>{{$member->name}}</td>
+                      <td>{{$member->email}}</td>
                       <td class="admin-actions">
                         <a href="" class="text-muted">Edit</a> |
                         <a href="" class="text-danger">Ban</a> |
                         <a href="" class="text-info">Promote</a>
                       </td>
                     </tr>
-                    <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
-                      <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
-                      <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
-                      <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
-                      <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>antonioalmeida</td>
-                      <td>António Almeida</td>
-                      <td>antonio@presto.com</td>
-                      <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>
-              <div class="col-md-6 offset-md-3 d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination justify-content-center">
-                    <li class="page-item disabled">
-                      <a class="page-link" href="#" tabindex="-1">Previous</a>
-                    </li>
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                      <a class="page-link" href="#">Next</a>
-                    </li>
-                  </ul>
-                </nav>
-              </div>
+              {{ $members->links('pagination.default') }}
             </section>
           </div>
           <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
@@ -222,8 +160,8 @@
                   </tr>
                 </tbody>
               </table>
-</div>
-</div>
+            </div>
+          </div>
           <div class="tab-pane fade" id="nav-recommended" role="tabpanel" aria-labelledby="nav-recommended-tab">
             <section class="pb-3">
               <div class="d-flex justify-content-center">
