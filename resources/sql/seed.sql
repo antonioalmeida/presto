@@ -155,7 +155,6 @@ CREATE TABLE topic (
     description text,
     picture text,
     CONSTRAINT topic_pk PRIMARY KEY (id),
-    CONSTRAINT topic_uk UNIQUE (name)
 );
 
 CREATE TABLE follow_topic (
@@ -170,7 +169,7 @@ CREATE TABLE follow_topic (
 CREATE TABLE question (
     id SERIAL NOT NULL,
     title text NOT NULL,
-    content text NOT NULL,
+    content text NOT NULL DEFAULT '',
     "date" TIMESTAMP WITH TIME zone NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     solved BOOLEAN NOT NULL DEFAULT false,
@@ -722,6 +721,7 @@ CREATE TRIGGER notify_on_follow
     EXECUTE PROCEDURE notify_on_follow();
 
 --Indexes
+CREATE UNIQUE INDEX idx_topic_name ON topic USING btree (lower(name));
 CREATE INDEX idx_question_author_id ON question USING btree (author_id);
 CREATE INDEX idx_answer_author_id ON answer USING btree (author_id);
 CREATE INDEX idx_answer_question_id ON answer USING btree (question_id);
