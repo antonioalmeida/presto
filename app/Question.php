@@ -57,6 +57,10 @@ class Question extends Model
         return $this->comments()->create($comment);
     }
 
+    public function addTopic($topic) {
+        return $this->topics()->attach($topic);
+    }
+
     /**
      * Relations
      */

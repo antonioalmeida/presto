@@ -154,7 +154,7 @@ CREATE TABLE topic (
     name VARCHAR(25) NOT NULL,
     description text,
     picture text,
-    CONSTRAINT topic_pk PRIMARY KEY (id),
+    CONSTRAINT topic_pk PRIMARY KEY (id)
 );
 
 CREATE TABLE follow_topic (

@@ -38,6 +38,7 @@ Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->na
 
 // Question
 Route::get('questions/{question}', 'QuestionController@show')->name('question');
+Route::post('questions', 'QuestionController@store')->name('question-add');
 
 // Topic
 Route::get('topic/{topic}', 'TopicController@show')->name('topic');
