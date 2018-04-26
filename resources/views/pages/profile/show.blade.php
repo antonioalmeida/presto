@@ -35,7 +35,7 @@ use Carbon\Carbon;
                                 <!-- Questions go here -->
 
                                 <div class="list-group">
-                                    @foreach($member->questions as $question)
+                                    @foreach($member->questions->sortByDesc('date') as $question)
                                        @include('partials.question-card', ['question', $question]) 
                                     @endforeach
                                 </div>
@@ -44,7 +44,7 @@ use Carbon\Carbon;
                             </div>
                             <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
                                 <!-- answers go here -->
-                                @foreach($member->answers as $answer)
+                                @foreach($member->answers->sortByDesc('date') as $answer)
                                 @include('partials.answer-card',['answer', $answer]) 
                                 @endforeach
                             </div>

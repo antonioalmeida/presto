@@ -95,15 +95,17 @@
                         <div class="tab-content mb-5" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-newest" role="tabpanel" aria-labelledby="nav-newest-tab">
                                 <div class="list-group">
-                                @foreach($topic->questions->sortBy('date') as $question)
+                                @foreach($topic->questions->sortByDesc('date') as $question)
                                     @include('partials.question-card', ['question' => $question])
                                 @endforeach
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
-                                @foreach($topic->questions->sortByDesc('date') as $question)
+                            <div class="list-group">
+                                @foreach($topic->questions->sortBy('date') as $question)
                                     @include('partials.question-card', ['question' => $question])
                                 @endforeach
+                            </div>
                             </div>
                             <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
                                 
