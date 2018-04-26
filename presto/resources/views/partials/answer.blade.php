@@ -33,7 +33,8 @@ use Carbon\Carbon;
 
     <div class="d-flex">
         <div>
-            <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote <span class="badge badge-primary">19</span> <span class="sr-only">upvote number</span></a>
+            <!-- <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote <span class="badge badge-primary">19</span> <span class="sr-only">upvote number</span></a> -->
+            @include('partials.upvote', ['answer'=> $answer])
             <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">9</span> <span class="sr-only">downvote number</span></a>
             <a href="" class="btn">
                 <i class="far fa-fw fa-comment"></i> Comment

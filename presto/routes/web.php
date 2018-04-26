@@ -78,6 +78,9 @@ Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->na
 // Comments
 Route::post('api/comments/question', 'CommentController@create')->name('question-add-comment');
 
+//Questions
+Route::post('api/questions/{question}/rate', 'QuestionController@like');
 
-
+//Answers
+Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@like')->name('api.upvoteAnswer');
 
