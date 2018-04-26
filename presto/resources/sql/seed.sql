@@ -218,15 +218,18 @@ CREATE TABLE question_rating (
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1),
+    deleted_at DATE,
     CONSTRAINT question_rating_pk PRIMARY KEY (question_id, member_id),
     CONSTRAINT question_rating_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT question_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE answer_rating (
+    id SERIAL NOT NULL,
     answer_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1),
+    deleted_at DATE,
     CONSTRAINT answer_rating_pk PRIMARY KEY (answer_id, member_id),
     CONSTRAINT answer_rating_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT answer_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE

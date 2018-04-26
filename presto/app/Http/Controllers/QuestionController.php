@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use \App\Question;
 use \App\Topic;
+use \App\QuestionRating;
 
 class QuestionController extends Controller
 {
@@ -47,4 +48,31 @@ class QuestionController extends Controller
         return redirect()->route('question', $question);
       }
 
+ public function isLikedByMe($id)
+ {
+    $question = Question::findOrFail($id)->first();
+    if (QuestionRating::whereUserId(Auth::id())->wherePostId($question->id)->exists()){
+        return 'true';
+    }
+    return 'false';
+}
+
+public function like(Question $question)
+{
+    $existing_like = QuestionRating::withTrashed()->wherePostId($question->id)->whereUserId(Auth::id())->first();
+
+    if (is_null($existing_like)) {
+        QuestionRating::create([
+            'post_id' => $question->id,
+            'user_id' => Auth::id(),
+            'rate' => 1
+        ]);
+    } else {
+        if (is_null($existing_like->deleted_at)) {
+            $existing_like->delete();
+        } else {
+            $existing_like->restore();
+        }
+    }
+}
 }
