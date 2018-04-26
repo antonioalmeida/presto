@@ -1,0 +1,26 @@
+.admin-table {
+	thead tr th {
+		font-weight: lighter;
+		font-size: 0.8*$font-size-base;
+		text-transform: uppercase;
+	}
+}
+
+.panel-options {
+	a {
+		color: $body-color; 
+
+		.text-icon {
+			color: $gray-600;
+		}
+	}
+
+	a.active {
+		color: $primary;
+
+		.text-icon {
+			color: $primary;
+		}
+	}
+
+}
