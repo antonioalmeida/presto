@@ -10,17 +10,6 @@ trait Follow
     //Follow members
 
     /**
-     * Check if a given user is following this user.
-     *
-     * @param Member $member
-     * @return bool
-     */
-    public function isFollowing(Member $member)
-    {
-        return !! $this->followings()->where('following_id', $member->id)->count();
-    }
-
-    /**
      * Check if a given user is being followed by this user.
      *
      * @param Member $member
@@ -46,6 +35,17 @@ trait Follow
     }
 
     /**
+     * Check if a given user is following this user.
+     *
+     * @param Member $member
+     * @return bool
+     */
+    public function isFollowing(Member $member)
+    {
+        return !! $this->followings()->where('following_id', $member->id)->count();
+    }
+
+    /**
      * Unfollow the given user.
      *
      * @param User $user
@@ -57,17 +57,18 @@ trait Follow
     }
 
     //Follow topics
-    public function isFollowingTopic(Topic $topic)
-    {
-        return !! $this->topics()->where('topic_id', $topic->id)->count();
-    }
-   
+
     public function followTopic(Topic $topic)
     {
         if (! $this->isFollowingTopic($topic))
         {
             $this->topics()->attach($topic);
         }
+    }
+
+    public function isFollowingTopic(Topic $topic)
+    {
+        return !! $this->topics()->where('topic_id', $topic->id)->count();
     }
 
     public function unFollowTopic(Topic $topic)

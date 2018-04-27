@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $question_id
@@ -11,8 +12,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property Question $question
  * @property Member $member
  */
-class Rate extends Model
+class QuestionRating extends Model
 {
+
+    use SoftDeletes;
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = ['deleted_at'];
+
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
 
@@ -21,7 +32,7 @@ class Rate extends Model
      */
     protected $table = 'question_rating';
 
-    protected $fillable = ['rate'];
+    protected $fillable = ['question_id','member_id','rate'];
 
 
     public function question()
@@ -31,6 +42,6 @@ class Rate extends Model
 
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->belongsTo('App\Member','author_id');
     }
 }

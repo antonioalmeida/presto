@@ -48,21 +48,21 @@ class Topic extends Model
 
     public function getRelatedTopics(){
         $sub_query = DB::table('question_topic')
-                        ->where('topic_id', $this->id)
-                        ->pluck('question_id');
+            ->where('topic_id', $this->id)
+            ->pluck('question_id');
 
-         $query = DB::table('topic')
-		 ->select(DB::raw('count(*) as nrTimes, name'))
-		 ->join('question_topic', function($join) {
-		 	$join->on('topic.id', '=', 'question_topic.topic_id');
-		 	})
-		 ->whereIn('question_id', $sub_query)
-		 ->where('topic_id', '<>', $this->id)
-         ->groupBy('name')
-         ->orderByRaw('nrTimes DESC')
-         ->limit(5)
-         ->get();
-        
+        $query = DB::table('topic')
+            ->select(DB::raw('count(*) as nrTimes, name'))
+            ->join('question_topic', function($join) {
+                $join->on('topic.id', '=', 'question_topic.topic_id');
+            })
+            ->whereIn('question_id', $sub_query)
+            ->where('topic_id', '<>', $this->id)
+            ->groupBy('name')
+            ->orderByRaw('nrTimes DESC')
+            ->limit(5)
+            ->get();
+
         return $query;
     }
 
@@ -75,5 +75,5 @@ class Topic extends Model
     {
         return $this->belongsToMany(Member::class, 'follow_topic', 'topic_id', 'member_id');
     }
-   
+
 }

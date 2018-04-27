@@ -12,10 +12,10 @@ class AdminController extends Controller
     {
         $this->middleware('auth:admin');
     }
-    
+
     //
     public function show(){
-    	$members = Member::paginate(10);
+        $members = Member::paginate(10);
 
         return view('pages.admin',['members' => $members]);
     }
