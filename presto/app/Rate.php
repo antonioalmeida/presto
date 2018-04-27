@@ -23,7 +23,7 @@ class Rate extends Model
 
     protected $fillable = ['rate'];
 
-    
+
     public function question()
     {
         return $this->belongsTo('App\Question');

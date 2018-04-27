@@ -28,7 +28,7 @@ class ProfileController extends Controller
         $member = Auth::user();
 
         $this->validate(request(), [
-       
+
         ]);
 
         $member->name = request('name');
@@ -39,9 +39,9 @@ class ProfileController extends Controller
 
         return redirect()->route('profile', $member);
     }
- 
+
     public function updatePicture(Request $request) {
-        $member = Auth::user(); 
+        $member = Auth::user();
 
         $request->validate([
             'profile-pic-url' => 'required|url'
@@ -54,7 +54,7 @@ class ProfileController extends Controller
     }
 
     public function updateEmail(Request $request) {
-        $member = Auth::user(); 
+        $member = Auth::user();
 
         $request->validate([
             'email' => 'required|string|email|max:255|unique:member'
@@ -67,7 +67,7 @@ class ProfileController extends Controller
     }
 
     public function updatePassword(Request $request) {
-        $member = Auth::user(); 
+        $member = Auth::user();
 
         $request->validate([
             'password' => 'required|string|min:6'
@@ -78,7 +78,7 @@ class ProfileController extends Controller
 
         return redirect()->route('settings');
     }
-           
+
     public function followers(Member $member){
         return view('pages.profile.followers', compact('member'));
     }

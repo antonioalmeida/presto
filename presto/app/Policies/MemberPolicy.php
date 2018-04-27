@@ -17,7 +17,7 @@ class MemberPolicy
      */
     public function update(Member $user, Member $member)
     {
-        return $user->id === $member->id; 
+        return $user->id === $member->id;
     }
 
     public function follow(Member $user, Member $followTarget){

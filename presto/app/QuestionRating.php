@@ -34,7 +34,7 @@ class QuestionRating extends Model
 
     protected $fillable = ['question_id','member_id','rate'];
 
-    
+
     public function question()
     {
         return $this->belongsTo('App\Question');
