@@ -17,7 +17,7 @@ class Notification extends Model
 {
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
-    
+
     /**
      * The table associated with the model.
      */

@@ -10,7 +10,7 @@ class AnswerPolicy
 {
     use HandlesAuthorization;
 
-     /**
+    /**
      * Determine whether the user can update the answer.
      *
      * @param  \App\Member  $user
@@ -21,6 +21,12 @@ class AnswerPolicy
     {
         return $user->id === $answer->author_id || $user->is_moderator;
     }
+
+    public function rate(Member $user, Answer $answer)
+    {
+        return $user->id !== $answer->author_id;
+    }
+
 
     /**
      * Determine whether the user can delete the answer.
