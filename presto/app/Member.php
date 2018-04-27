@@ -70,15 +70,15 @@ class Member extends Authenticatable
      * Queries
      */
 
-     public function getAnswerViews() {
+    public function getAnswerViews() {
         return print_number_count($this->answers->sum('views'));
-     }
+    }
 
     /*
     * Relations
     */
 
-     public function country()
+    public function country()
     {
         return $this->belongsTo('App\Country');
     }
@@ -97,7 +97,7 @@ class Member extends Authenticatable
     {
         return $this->hasMany('App\QuestionReport');
     }
- 
+
     public function answerReports()
     {
         return $this->hasMany('App\AnswerReport');

@@ -10,7 +10,7 @@ class AnswerPolicy
 {
     use HandlesAuthorization;
 
-     /**
+    /**
      * Determine whether the user can update the answer.
      *
      * @param  \App\Member  $user

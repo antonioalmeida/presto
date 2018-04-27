@@ -34,7 +34,7 @@ class CommentRating extends Model
 
     protected $fillable = ['comment_id','member_id','rate'];
 
-    
+
     public function comment()
     {
         return $this->belongsTo('App\Comment');
