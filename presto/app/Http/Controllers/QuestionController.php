@@ -10,6 +10,11 @@ use \App\QuestionRating;
 
 class QuestionController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->except(['show']);
+    }
+    
     public function show(Question $question){
         return view('pages.question.show', compact('question'));
     }
@@ -48,31 +53,32 @@ class QuestionController extends Controller
         return redirect()->route('question', $question);
       }
 
- public function isLikedByMe($id)
- {
-    $question = Question::findOrFail($id)->first();
-    if (QuestionRating::whereUserId(Auth::id())->wherePostId($question->id)->exists()){
-        return 'true';
+      public function rate(Question $question)
+      {
+          $existing_rate = QuestionRating::withTrashed()->whereQuestionId($question->id)->whereMemberId(Auth::id())->first();
+      
+          if (is_null($existing_rate)) {    
+            QuestionRating::create([
+                  'question_id' => $question->id,
+                  'member_id' => Auth::id(),
+                  'rate' => request('rate')
+              ]);
+          } else {
+              if (is_null($existing_rate->deleted_at)) {
+                  if($existing_rate->rate == request('rate')){
+                   $existing_rate->delete();
+                  }
+                       else{
+                           $existing_rate->rate = request('rate');
+                           $existing_rate->save();
+                       }
+              } else {
+                  $existing_rate->restore();
+                  $existing_rate->rate = request('rate');
+                  $existing_rate->save();
+              }
+          }
+   
+          return back();
+      }
     }
-    return 'false';
-}
-
-public function like(Question $question)
-{
-    $existing_like = QuestionRating::withTrashed()->wherePostId($question->id)->whereUserId(Auth::id())->first();
-
-    if (is_null($existing_like)) {
-        QuestionRating::create([
-            'post_id' => $question->id,
-            'user_id' => Auth::id(),
-            'rate' => 1
-        ]);
-    } else {
-        if (is_null($existing_like->deleted_at)) {
-            $existing_like->delete();
-        } else {
-            $existing_like->restore();
-        }
-    }
-}
-}

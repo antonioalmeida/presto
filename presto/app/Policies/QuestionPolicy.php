@@ -22,6 +22,11 @@ class QuestionPolicy
         return $user->id === $question->author_id || $user->is_moderator;
     }
 
+    public function rate(Member $user, Comment $comment)
+    {
+        return $user->id !== $comment->author_id;
+    }
+
     /**
      * Determine whether the user can delete the question.
      *

@@ -12,36 +12,46 @@ use \App\AnswerRating;
 
 class AnswerController extends Controller
 {
-    //
-
+    public function __construct(){
+        $this->middleware('auth')->except(['show']);
+    }
+    
     public function show(Question $question, Answer $answer){
         return view('pages.answer', compact('answer'));
     }
 
-    public function isLikedByMe($id)
+    public function isLikedByMe($id, $rate)
     {
        $answer = Answer::findOrFail($id)->first();
-       if (AnswerRating::whereUserId(Auth::id())->whereAnswerId($answer->id)->exists()){
-           return 'true';
+       if (AnswerRating::whereMemberId(Auth::id())->whereAnswerId($answer->id)->where('rate',$rate)->exists()){
+           return true;
        }
-       return 'false';
+       return false;
    }
    
-   public function like(Question $question, Answer $answer)
+   public function rate(Question $question, Answer $answer)
    {
-       $existing_like = AnswerRating::withTrashed()->whereAnswerId($answer->id)->whereMemberId(Auth::id())->first();
+       $existing_rate = AnswerRating::withTrashed()->whereAnswerId($answer->id)->whereMemberId(Auth::id())->first();
    
-       if (is_null($existing_like)) {    
+       if (is_null($existing_rate)) {    
         AnswerRating::create([
                'answer_id' => $answer->id,
                'member_id' => Auth::id(),
-               'rate' => 1
+               'rate' => request('rate')
            ]);
        } else {
-           if (is_null($existing_like->deleted_at)) {
-               $existing_like->delete();
+           if (is_null($existing_rate->deleted_at)) {
+               if($existing_rate->rate == request('rate')){
+                $existing_rate->delete();
+               }
+                    else{
+                        $existing_rate->rate = request('rate');
+                        $existing_rate->save();
+                    }
            } else {
-               $existing_like->restore();
+               $existing_rate->restore();
+               $existing_rate->rate = request('rate');
+               $existing_rate->save();
            }
        }
 

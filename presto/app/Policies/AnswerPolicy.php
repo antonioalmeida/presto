@@ -22,6 +22,12 @@ class AnswerPolicy
         return $user->id === $answer->author_id || $user->is_moderator;
     }
 
+    public function rate(Member $user, Answer $answer)
+    {
+        return $user->id !== $answer->author_id;
+    }
+
+
     /**
      * Determine whether the user can delete the answer.
      *
