@@ -40,7 +40,7 @@
                                     @else
                                         @include('partials.comment', ['comment' => $comment])
                                     @endif
-                                    
+
                                 @endforeach
 
                                 <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" href="#commentCollapse{{ $question->id}}" role="button" aria-expanded="false" aria-controls="commentCollapse{{ $question->id}}">
@@ -80,7 +80,7 @@
 
                         <div id="answerCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingAnswer" data-parent="#questionAcordion">
                             <div class="card">
-                                <div id="summernote"></div>
+                                <textarea id="myeditor"></textarea>
 
                                 <div class="card-footer">
                                     <button class="btn btn-sm btn-primary">Submit</button>
@@ -104,7 +104,7 @@
                             </form>
                         </div>
 
-   
+
                     </div>
 
                     <h4 class="mt-4">{{ $question->getNumAnswers() }} Answer(s)</h4>
