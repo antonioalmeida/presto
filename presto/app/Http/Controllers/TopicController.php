@@ -8,6 +8,11 @@ use App\Topic;
 
 class TopicController extends Controller
 {
+
+    public function __construct(){
+        $this->middleware('auth')->except(['show']);
+    }
+
     //
     public function show(Topic $topic){
         return view('pages.topic', compact('topic'));

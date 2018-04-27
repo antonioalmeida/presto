@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property int $question_id
+ * @property int $comment_id
  * @property int $member_id
  * @property int $rate
- * @property Question $question
+ * @property Comment $comment
  * @property Member $member
  */
-class QuestionRating extends Model
+class CommentRating extends Model
 {
 
     use SoftDeletes;
@@ -30,18 +30,18 @@ class QuestionRating extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'question_rating';
+    protected $table = 'comment_rating';
 
-    protected $fillable = ['question_id','member_id','rate'];
+    protected $fillable = ['comment_id','member_id','rate'];
 
     
-    public function question()
+    public function comment()
     {
-        return $this->belongsTo('App\Question');
+        return $this->belongsTo('App\Comment');
     }
 
     public function member()
     {
-        return $this->belongsTo('App\Member','author_id');
+        return $this->belongsTo('App\Member', 'author_id');
     }
 }

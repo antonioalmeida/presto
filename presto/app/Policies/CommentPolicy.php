@@ -23,6 +23,11 @@ class CommentPolicy
 
     }
 
+    public function rate(Member $user, Comment $comment)
+    {
+        return $user->id !== $comment->author_id;
+    }
+
     /**
      * Determine whether the user can delete the comment.
      *

@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property int $question_id
+ * @property int $answer_id
  * @property int $member_id
  * @property int $rate
- * @property Question $question
+ * @property Answer $answer
  * @property Member $member
  */
 class AnswerRating extends Model

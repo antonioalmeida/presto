@@ -215,6 +215,7 @@ CREATE TABLE question_topic (
 );
 
 CREATE TABLE question_rating (
+    id SERIAL NOT NULL,
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1),
@@ -236,9 +237,11 @@ CREATE TABLE answer_rating (
 );
 
 CREATE TABLE comment_rating (
+    id SERIAL NOT NULL,
     comment_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     rate INTEGER NOT NULL CHECK (rate = 1 OR rate = -1),
+    deleted_at DATE,
     CONSTRAINT comment_rating_pk PRIMARY KEY (comment_id, member_id),
     CONSTRAINT comment_rating_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT comment_rating_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
