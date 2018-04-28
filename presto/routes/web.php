@@ -36,6 +36,7 @@ Route::get('admin', 'AdminController@show')->name('admin');
 // Answer
 Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
 
+
 // Question
 Route::get('questions/{question}', 'QuestionController@show')->name('question');
 Route::post('questions', 'QuestionController@store')->name('question-add');
@@ -84,4 +85,5 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
+Route::post('api/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 

@@ -79,14 +79,19 @@
                         </div>
 
                         <div id="answerCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingAnswer" data-parent="#questionAcordion">
-                            <div class="card">
-                                <textarea id="myeditor"></textarea>
 
+                        <form action="{{Route('answer-add', $question)}}" method="post">
+                            <div class="card">
+
+                            {{ csrf_field() }}
+                                <textarea name="content" id="myeditor"></textarea>
                                 <div class="card-footer">
-                                    <button class="btn btn-sm btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                                     <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>
+                                </div>                              
                             </div>
+                            </form>
+                            
                         </div>
 
                         <div id="commentCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingComment" data-parent="#questionAcordion">
