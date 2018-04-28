@@ -185,7 +185,7 @@ CREATE TABLE answer (
     id SERIAL NOT NULL,
     content text NOT NULL,
     "date" TIMESTAMP WITH TIME zone NOT NULL,
-    views INTEGER NOT NULL CHECK (views >= 0),
+    views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     question_id INTEGER NOT NULL,
     author_id INTEGER NOT NULL,
     search tsvector NOT NULL,

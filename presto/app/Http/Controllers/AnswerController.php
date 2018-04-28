@@ -20,6 +20,21 @@ class AnswerController extends Controller
         return view('pages.answer', compact('answer'));
     }
 
+    public function create(Question $question){
+        // $answer = new Answer();
+
+        $content = '<span>' . stripslashes(request('content')) . '</span>';
+        $author_id = Auth::id();
+        $date = now();
+
+        $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
+        // $answer->save();
+
+        // $question->answers()->attach($answer);
+
+        return back();
+    }
+
     public function isLikedByMe($id, $rate)
     {
         $answer = Answer::findOrFail($id)->first();
