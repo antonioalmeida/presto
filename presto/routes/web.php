@@ -36,7 +36,7 @@ Route::get('admin', 'AdminController@show')->name('admin');
 Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
 
 //Search
-Route::get('search', 'SearchController@search')->name('search');
+Route::post('search', 'SearchController@search')->name('search');
 
 
 // Question

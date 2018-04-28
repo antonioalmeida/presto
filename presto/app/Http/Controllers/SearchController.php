@@ -14,9 +14,10 @@ class SearchController extends Controller
     }
 
     public function search(){
-        // $questions = getQuestions(request('text_search'));
-        $questions = $this->getMembers('aalvaradoo');
-        return view('pages.search');
+        $questions = $this->getQuestions(request('text_search'));
+        $query = request('text_search');
+        
+        return view('pages.search', compact('query', 'questions'));
     }
     
     private function getQuestions($search_input){
@@ -34,7 +35,7 @@ class SearchController extends Controller
         ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
         ->limit(10)
         ->get();
-        dd($answers);
+
         return $answers;
     }
 
@@ -42,9 +43,8 @@ class SearchController extends Controller
         $topics = \App\Topic::where('name', 'ILIKE', '%' . $search_input .'%')
                 ->limit(10)
                 ->get();
-        dd($topics);
-         return $topics;
-
+        
+        return $topics;
     }
 
     private function getMembers($search_input){
@@ -52,7 +52,7 @@ class SearchController extends Controller
                     ->orWhere('name', 'ILIKE', '%' . $search_input .'%')
                     ->limit(10)
                     ->get();
-        dd($members);
+
         return $members;
     }
 }
