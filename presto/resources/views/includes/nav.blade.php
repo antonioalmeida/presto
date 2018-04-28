@@ -41,6 +41,14 @@
                 <a class="dropdown-item" href="{{Route('notifications')}}">See All Notifications</a>
               </div>
             </li>
+            <li class="dropdown">
+            <a class="dropdown-toggle" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span class="glyphicon glyphicon-user"></span>
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="notificationsMenu" id="notificationsMenu">
+                <li class="dropdown-header">No notifications</li>
+            </ul>
+            </li>
             <li class="nav-item dropdown">
               <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{Auth::user()->profile_picture}}" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">

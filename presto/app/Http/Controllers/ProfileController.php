@@ -109,4 +109,9 @@ class ProfileController extends Controller
         return view('pages.profile.notifications', ['notifications' => $notifications, 'notifications_p' => $notifications_p]);
     }
 
+    public function notifications2()
+    {
+        return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
+    }
+
 }
