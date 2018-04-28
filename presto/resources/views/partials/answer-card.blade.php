@@ -13,7 +13,7 @@ use Carbon\Carbon;
                                                     <small class="text-muted">answered {{Carbon::parse($answer->date)->diffForHumans(Carbon::now(), true)}} ago</small></h6>
                                             </div>
                                         </div>
-                                        <p class="mb-1">{{substr($answer->content, 0, 169)}}{{(strlen($answer->content)>169 ? '...' : '')}}<span href="/questions/{{$answer->question->id}}/answers/{{$answer->id}}" class="btn-link text-primary">(read more)</span></p>
+                                        <p class="mb-1">{!!substr($answer->content, 0, 169)!!}{{(strlen($answer->content)>169 ? '...' : '')}}<span href="/questions/{{$answer->question->id}}/answers/{{$answer->id}}" class="btn-link text-primary">(read more)</span></p>
                                         <small class="text-muted"><i class="far fa-tags"></i>
                                             @forelse ($answer->question->topics as $topic)
                                             <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}

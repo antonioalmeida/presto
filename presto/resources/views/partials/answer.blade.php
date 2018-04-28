@@ -28,7 +28,7 @@ use Carbon\Carbon;
 <hr>
 <div>
     <p>
-        {{ $answer->content }}
+        {!! $answer->content !!}
     </p>
 
     <div class="d-flex">
