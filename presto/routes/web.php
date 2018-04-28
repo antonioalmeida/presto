@@ -28,7 +28,7 @@ Route::get('profile/{member}/followers', 'ProfileController@followers')->name('f
 Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
-Route::get('notifications', 'ProfileController@notifications')->name('notifications');
+Route::get('notifications', 'ProfileController@notifications2')->name('notifications');
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
@@ -87,3 +87,16 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
 Route::post('api/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 
+
+
+
+Route::get('/cenas', 'HomeController@cenas');
+
+Route::get('test', function () {
+    event(new App\Events\StatusRated('Lol'));
+    return "Event has been sent!";
+});
+
+Route::get('/notify', 'HomeController@sendNotification');
+
+// Route::get('/notifications', 'ProfileController@notifications2');

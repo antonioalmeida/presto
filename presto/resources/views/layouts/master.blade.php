@@ -30,6 +30,19 @@
     <script defer src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script defer src="{{ asset('js/app.js') }}"></script>
   </script>
+
+    <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>
+    </script>
+
+    <!-- This makes the current user's id available in javascript -->
+    @if(!auth()->guest())
+        <script>
+            window.Laravel.userId = <?php echo auth()->user()->id; ?>
+        </script>
+    @endif
 </head>
 
 @include('includes.nav')

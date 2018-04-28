@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Pusher\Pusher;
 
 class HomeController extends Controller
 {
@@ -40,4 +41,28 @@ class HomeController extends Controller
 
         return view('pages.404');
     }
+
+    public function cenas(){
+
+        return view('cenas');
+    }
+
+    public function sendNotification()
+    {
+        $options = array(
+            'cluster' => 'eu',
+            'encrypted' => true
+          );
+          $pusher = new Pusher(
+            'b9238648fe8769320bdf',
+            'db38c5e095b16b7fe027',
+            '516724',
+            $options
+          );
+
+          $data['message'] = 'hello world';
+          $pusher->trigger('my-channel', 'my-event', $data);
+            
+    }
+
 }
