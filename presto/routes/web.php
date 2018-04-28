@@ -18,7 +18,6 @@ Route::get('/', function () {
 //Index
 Route::get('index', 'HomeController@index')->name('index');
 Route::get('about', 'HomeController@about')->name('about');
-Route::get('search', 'HomeController@search')->name('search');
 Route::get('404', 'HomeController@error')->name('404');
 
 //Profile
@@ -35,6 +34,9 @@ Route::get('admin', 'AdminController@show')->name('admin');
 
 // Answer
 Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+
+//Search
+Route::get('search', 'SearchController@search')->name('search');
 
 
 // Question
