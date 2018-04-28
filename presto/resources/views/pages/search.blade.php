@@ -60,31 +60,31 @@
                             <div class="dropdown-divider"></div>
                             <div class="typeFilter">
                                 <div class="form-check">
-                                    <input id="checkAll" class="form-check-input" type="checkbox" id="timeFilterAll">
+                                    <input name="time" id="checkAll" class="form-check-input" type="radio" id="timeFilterAll" checked>
                                     <label class="form-check-label text-muted btn-link" for="timeFilterAll">
                                         <strong>All Time</strong>
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter0">
+                                    <input name="time" class="form-check-input" type="radio" id="timeFilter0">
                                     <label class="form-check-label text-muted btn-link" for="timeFilter0">
                                         Past Day
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter1">
+                                    <input name="time" class="form-check-input" type="radio" id="timeFilter1">
                                     <label class="form-check-label text-muted btn-link" for="timeFilter1">
                                         Past Week
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter2">
+                                    <input name="time" class="form-check-input" type="radio" id="timeFilter2">
                                     <label class="form-check-label text-muted btn-link" for="timeFilter2">
                                         Past Month
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter3">
+                                    <input name="time" class="form-check-input" type="radio" id="timeFilter3">
                                     <label class="form-check-label text-muted btn-link" for="timeFilter3">
                                         Past Year
                                     </label>
