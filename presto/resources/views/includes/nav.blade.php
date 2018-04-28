@@ -28,10 +28,14 @@
           </ul>
           <ul class="navbar-nav align-items-end">
             <li class="nav-item pr-2">
+            <form method="POST" action="{{ Route('search')}}">
+                    {{ csrf_field() }}
               <div class="input-group">
-                <a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
-                <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+                <a onclick="document.getElementById('nav-search-btn').submit();" id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+                <input name="text_search" id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
               </div>
+            </form>
+
             </li>
             <li class="nav-item pr-2 dropdown">
               <a class="nav-link" href="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
