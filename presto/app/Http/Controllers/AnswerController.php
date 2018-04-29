@@ -10,6 +10,8 @@ use App\Question;
 
 use \App\AnswerRating;
 
+use Purifier;
+
 class AnswerController extends Controller
 {
     public function __construct(){
@@ -23,7 +25,7 @@ class AnswerController extends Controller
     public function create(Question $question){
         // $answer = new Answer();
 
-        $content = '<span>' . stripslashes(request('content')) . '</span>';
+        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
         $author_id = Auth::id();
         $date = now();
 
