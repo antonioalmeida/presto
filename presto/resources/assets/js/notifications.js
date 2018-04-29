@@ -15,13 +15,14 @@ window.Echo = new Echo({
 var notifications = [];
 
 const NOTIFICATION_TYPES = {
-    follow: 'App\\Notifications\\MemberFollowed'
+    follow: 'App\\Notifications\\MemberFollowed',
+    newQuestion: 'App\\Notifications\\NewQuestion'
 };
 
 $(document).ready(function() {
     // check if there's a logged in user
     if(Laravel.userId) {
-        window.Echo.private(`App.User.${Laravel.userId}`)
+        window.Echo.private('App.User.${Laravel.userId}')
         .notification((notification) => {
             addNotifications([notification], '#notifications');
         });
@@ -64,6 +65,10 @@ function routeNotification(notification) {
     var to = '?read=' + notification.id;
     if(notification.type === NOTIFICATION_TYPES.follow) {
         to = 'users' + to;
+    } else if(notification.type === NOTIFICATION_TYPES.newQuestion) {
+        console.log("cenas");
+        const questionId = notification.data.question_id;
+        to = 'questions/${questionId}' + to;
     }
     return '/' + to;
 }
@@ -74,6 +79,11 @@ function makeNotificationText(notification) {
     if(notification.type === NOTIFICATION_TYPES.follow) {
         const name = notification.data.follower_name;
         text += '<strong>' + name + '</strong> followed you';
+    } else if(notification.type === NOTIFICATION_TYPES.newQuestion) {
+        console.log("lel");
+        const name = notification.data.following_name;
+        text += '<strong>${name}</strong> published a question';
     }
+
     return text;
 }
