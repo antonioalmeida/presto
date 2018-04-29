@@ -102,16 +102,11 @@ class ProfileController extends Controller
     }
 
     public function notifications(){
-        $notifications_p = Notification::where('member_id', Auth::user()->id)->paginate(7);
+        $notifications_p = Auth()->user()->notifications()->paginate(7);
         $notifications = Auth()->user()->notifications;
 
 
         return view('pages.profile.notifications', ['notifications' => $notifications, 'notifications_p' => $notifications_p]);
-    }
-
-    public function notifications2()
-    {
-        return auth()->user()->unreadNotifications()->limit(5)->get()->toArray();
     }
 
 }
