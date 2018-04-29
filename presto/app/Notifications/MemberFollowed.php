@@ -40,10 +40,13 @@ class MemberFollowed extends Notification implements ShouldQueue
     {
         return new BroadcastMessage([
             'id' => $this->id,
+            'type' =>'Follow',
             'read_at' => null,
             'data' => [
                 'follower_id' => $this->follower->id,
                 'follower_name' => $this->follower->name,
+                'follower_username' => $this->follower->username,
+                'follower_picture' => $this->follower->profile_picture,
             ],
         ]);
     }
@@ -57,14 +60,14 @@ class MemberFollowed extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'id' => $this->id,
-            'read_at' => null,
+            'type' =>'Follow',
             'data' => [
                 'follower_id' => $this->follower->id,
                 'follower_name' => $this->follower->name,
+                'follower_username' => $this->follower->username,
+                'follower_picture' => $this->follower->profile_picture,
             ],
         ];
     }
 
-   
 }

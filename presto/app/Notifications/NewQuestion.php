@@ -44,11 +44,15 @@ class NewQuestion extends Notification implements ShouldQueue
 {
     return new BroadcastMessage([
         'id' => $this->id,
+        'type' =>'Question',
         'read_at' => null,
         'data' => [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
+            'following_username' => $this->following->username,
+            'following_picture' => $this->following->profile_picture,
             'question_id' => $this->question->id,
+            'question_title' => $this->question->title,
         ],
     ]);
 }
@@ -63,12 +67,14 @@ class NewQuestion extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-        'id' => $this->id,
-        'read_at' => null,
+        'type' =>'Question',
         'data' => [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
+            'following_username' => $this->following->username,
+            'following_picture' => $this->following->profile_picture,
             'question_id' => $this->question->id,
+            'question_title' => $this->question->title,
         ],
     ];
     }
