@@ -1,9 +1,11 @@
 window._ = require('lodash');
-window.$ = window.jQuery;
+window.$ = window.jQuery = jQuery;
 // = require('jquery');
 //require('bootstrap-sass');
 window.Pusher = require('pusher-js');
 import Echo from "laravel-echo";
+
+window.Pusher.logToConsole = true;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
@@ -19,15 +21,25 @@ const NOTIFICATION_TYPES = {
     newQuestion: 'App\\Notifications\\NewQuestion'
 };
 
+//${Laravel.userId}
+
 $(document).ready(function() {
+   
     // check if there's a logged in user
     if(Laravel.userId) {
-        window.Echo.private('App.User.${Laravel.userId}')
+        window.Echo.private('App.Member.'+ window.Laravel.userId)
         .notification((notification) => {
             addNotifications([notification], '#notifications');
+            console.log("recebi por pusher");
         });
 
-        $.get('/notifications', function (data) {
+        window.Echo.channel('App.Member.'+ window.Laravel.userId)
+        .notification((notification) => {
+            addNotifications([notification], '#notifications');
+            console.log("recebi por pusher2");
+        });
+
+            $.get('/notifications', function (data) {
             addNotifications(data, "#notifications");
         });
     }

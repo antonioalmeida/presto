@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 
 use \App\Member;
 
@@ -13,7 +14,7 @@ class MemberFollowed extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $follower;
+    public $follower;
     
     /**
      * Create a new notification instance.
@@ -33,6 +34,18 @@ class MemberFollowed extends Notification implements ShouldQueue
     public function via($notifiable)
     {
         return ['database', 'broadcast'];
+    }
+
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'id' => $this->id,
+            'read_at' => null,
+            'data' => [
+                'follower_id' => $this->follower->id,
+                'follower_name' => $this->follower->name,
+            ],
+        ]);
     }
 
     /**
