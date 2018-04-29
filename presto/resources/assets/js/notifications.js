@@ -30,14 +30,12 @@ $(document).ready(function() {
         window.Echo.private('App.Member.'+ window.Laravel.userId)
         .notification((notification) => {
             addNotifications([notification], '#notifications');
-            console.log("recebi por pusher");
         });
 
-        window.Echo.channel('App.Member.'+ window.Laravel.userId)
-        .notification((notification) => {
-            addNotifications([notification], '#notifications');
-            console.log("recebi por pusher2");
-        });
+        // window.Echo.channel('App.Member.'+ window.Laravel.userId)
+        // .notification((notification) => {
+        //     addNotifications([notification], '#notifications');
+        // });
 
             $.get('/notifications', function (data) {
             addNotifications(data, "#notifications");
@@ -69,18 +67,18 @@ function showNotifications(notifications, target) {
 function makeNotification(notification) {
     var to = routeNotification(notification);
     var notificationText = makeNotificationText(notification);
-    return '<li><a href="' + to + '">' + notificationText + '</a></li>';
+    return '<a  class="dropdown-item" href="' + to + '">' + notificationText + '</a>';
 }
 
 // get the notification route based on it's type
 function routeNotification(notification) {
     var to = '?read=' + notification.id;
     if(notification.type === NOTIFICATION_TYPES.follow) {
-        to = 'users' + to;
+        const username = notification.data.follower_username;
+        to = 'profile/' + username + to;
     } else if(notification.type === NOTIFICATION_TYPES.newQuestion) {
-        console.log("cenas");
         const questionId = notification.data.question_id;
-        to = 'questions/${questionId}' + to;
+        to = 'questions/' + questionId + to;
     }
     return '/' + to;
 }
@@ -90,11 +88,19 @@ function makeNotificationText(notification) {
     var text = '';
     if(notification.type === NOTIFICATION_TYPES.follow) {
         const name = notification.data.follower_name;
-        text += '<strong>' + name + '</strong> followed you';
+        const username = notification.data.follower_username;
+        const picture = notification.data.follower_picture;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        + name + '<span class="text-muted"> started following you.</span>';
+
     } else if(notification.type === NOTIFICATION_TYPES.newQuestion) {
-        console.log("lel");
         const name = notification.data.following_name;
-        text += '<strong>${name}</strong> published a question';
+        const username = notification.data.following_username;
+        const picture = notification.data.following_picture;
+        const idq = notification.data.question_id;
+        const title = notification.data.question_title;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+                + name + '<span class="text-muted"> post a question.</span>';
     }
 
     return text;
