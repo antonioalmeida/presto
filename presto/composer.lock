@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e1f5e4a2496b9c93944ba06ef55d22bd",
+    "content-hash": "c1927ee5067106d131d26fb911cda892",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -452,6 +452,66 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "jameslkingsley/laravel-mentions",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jameslkingsley/laravel-mentions.git",
+                "reference": "bfaa708f17d1e63fca37470b028975b809f747c2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jameslkingsley/laravel-mentions/zipball/bfaa708f17d1e63fca37470b028975b809f747c2",
+                "reference": "bfaa708f17d1e63fca37470b028975b809f747c2",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "^5.5",
+                "illuminate/http": "^5.5",
+                "illuminate/routing": "^5.5",
+                "illuminate/support": "^5.5",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "fzaninotto/faker": "^1.4",
+                "mockery/mockery": "^0.9",
+                "orchestra/testbench": "^3.5",
+                "phpunit/phpunit": "^6.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kingsley\\Mentions\\MentionServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kingsley\\Mentions\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "James Kingsley",
+                    "email": "jameslkingsley@outlook.com",
+                    "homepage": "https://github.com/jameslkingsley",
+                    "role": "Developer"
+                }
+            ],
+            "description": "End-to-end mentions in Laravel 5.",
+            "homepage": "https://github.com/jameslkingsley/laravel-mentions",
+            "keywords": [
+                "laravel",
+                "mentions"
+            ],
+            "time": "2017-11-18T22:42:06+00:00"
         },
         {
             "name": "laravel/framework",

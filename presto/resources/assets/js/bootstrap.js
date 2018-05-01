@@ -53,3 +53,10 @@ if (token) {
 //     cluster: 'mt1',
 //     encrypted: true
 // });
+
+
+/**
+  * Import tributejs for mentions
+  */
+import Tribute from "tributejs";
+window.Tribute = Tribute;
