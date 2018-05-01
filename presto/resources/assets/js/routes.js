@@ -13,8 +13,9 @@ let routes = [
     },
 
     {
-        path: '/profile',
-        component: require('./views/Profile')
+        path: '/profile/:username?',
+        component: require('./views/Profile'),
+        props: true,
     }
 
 

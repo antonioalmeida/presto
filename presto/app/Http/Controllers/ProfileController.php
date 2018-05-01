@@ -25,6 +25,12 @@ class ProfileController extends ApiBaseController
         return $this->sendResponseData($member);
     }
 
+    public function getLoggedIn() {
+        $member = Auth::user();
+        $member['answer_views'] = $member->getAnswerViews();
+        return $this->sendResponseData($member);
+    }
+
     public function edit(){
         $member = Auth::user();
         return view('pages.profile.edit', compact('member'));
