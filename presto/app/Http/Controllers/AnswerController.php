@@ -30,6 +30,7 @@ class AnswerController extends Controller
         $date = now();
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
+        $answer->mention(request('mentions'));
         // $answer->save();
 
         // $question->answers()->attach($answer);

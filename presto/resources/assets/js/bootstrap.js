@@ -60,3 +60,9 @@ if (token) {
   */
 import Tribute from "tributejs";
 window.Tribute = Tribute;
+
+/**
+  * Import Mentions class
+  */
+import Mentions from './laravel-mentions';
+window.Mentions = Mentions;
