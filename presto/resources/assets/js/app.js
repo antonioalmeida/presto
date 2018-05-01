@@ -1,6 +1,8 @@
-import Vue from 'vue';
+import './bootstrap';
+import router from './routes';
 
-const app = new Vue({
-  el: '#app'
+new Vue({
+    el: '#app',
+
+    router
 });
-
