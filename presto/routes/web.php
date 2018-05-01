@@ -11,9 +11,13 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return redirect('index');
 });
+*/
+
+Route::get('/', 'HomeController@index')->name('index');
 
 //Index
 Route::get('index', 'HomeController@index')->name('index');
@@ -29,6 +33,9 @@ Route::get('profile/{member}/following', 'ProfileController@following')->name('f
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
+
+// Profile API
+Route::get('api/profile/{member}', 'ProfileController@get')->name('profile');
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');

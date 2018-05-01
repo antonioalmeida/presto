@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ApiBaseController;
 
 use \App\Member;
 use App\Notification;
 
-class ProfileController extends Controller
+class ProfileController extends ApiBaseController
 {
     public function __construct(){
         $this->middleware('auth')->except(['show','followers','following']);
@@ -17,6 +18,11 @@ class ProfileController extends Controller
 
     public function show(Member $member){
         return view('pages.profile.show', compact('member'));
+    }
+
+    public function get(Member $member) {
+        $member['answer_views'] = $member->getAnswerViews();
+        return $this->sendResponseData($member);
     }
 
     public function edit(){
