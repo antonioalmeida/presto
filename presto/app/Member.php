@@ -7,7 +7,6 @@ use App\Presto\Follow;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use \App\Topic;
-use Kingsley\Mentions\Traits\HasMentions;
 
 require_once app_path().'/Utils.php';
 
@@ -45,7 +44,6 @@ require_once app_path().'/Utils.php';
 class Member extends Authenticatable
 {
     use Notifiable, Follow;
-    use HasMentions;
 
     // Don't add create and update timestamps in database.
     public $timestamps  = false;
