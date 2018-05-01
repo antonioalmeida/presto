@@ -31,8 +31,9 @@
             <form method="POST" action="{{ Route('search')}}">
                     {{ csrf_field() }}
               <div class="input-group">
-                <a onclick="document.getElementById('nav-search-btn').submit();" id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+                <a id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
                 <input name="text_search" id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+                <input type="hidden" name="type" value="questions" />
               </div>
             </form>
 

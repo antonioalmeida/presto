@@ -14,12 +14,29 @@ class SearchController extends Controller
     }
 
     public function search(){
-        $questions = $this->getQuestions(request('text_search'));
+        $type = request('type'); // Content type being searched (Questions, Answers, Topics, Members)
         $query = request('text_search');
-        
-        return view('pages.search', compact('query', 'questions'));
+        $result = [];
+        switch($type) {
+          case 'questions':
+            $result = $this->getQuestions($query);
+            break;
+          case 'answers':
+            $result = $this->getAnswers($query);
+            break;
+          case 'topics':
+            $result = $this->getTopics($query);
+            break;
+          case 'members':
+            $result = $this->getMembers($query);
+            break;
+          default:
+            break;
+        }
+
+        return view('pages.search', compact('query', 'result', 'type'));
     }
-    
+
     private function getQuestions($search_input){
 
         $questions = \App\Question::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
@@ -43,7 +60,7 @@ class SearchController extends Controller
         $topics = \App\Topic::where('name', 'ILIKE', '%' . $search_input .'%')
                 ->limit(10)
                 ->get();
-        
+
         return $topics;
     }
 
