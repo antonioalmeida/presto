@@ -9,10 +9,10 @@ return [
             'model' => 'App\Member',
 
             // Resource class that provides the JSON
-            'resource' => null, //TODO: Figure out what is this
+            'resource' => null, //TODO: Alter later if necessary (shouldn't need?)
 
             // Filter class that alters the query
-            'filter' => null, //TODO: Figure out what is this
+            'filter' => null, //TODO: Alter later if necessary (shouldn't need?)
 
             // The column that will be used to search the model
             'column' => 'username',
