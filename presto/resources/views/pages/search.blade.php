@@ -72,37 +72,59 @@
                         <div>
                             <h4 class="pt-4">Time</h4>
                             <div class="dropdown-divider"></div>
+                            <!-- TODO: Adjust search controller to include (possible) date filters -->
+                            <!-- TODO: Block date filters when type = members or topics -->
                             <div class="typeFilter">
-                                <div>
-                                    <input name="time" id="checkAll" class="form-check-input" type="radio" id="timeFilterAll" checked>
-                                    <label class="form-check-label text-muted" for="timeFilterAll">
-                                        <strong>All Time</strong>
-                                    </label>
-                                </div>
                                 <div class="form-check">
-                                    <input name="time" class="form-check-input" type="radio" id="timeFilter0">
-                                    <label class="form-check-label text-muted" for="timeFilter0">
-                                        Past Day
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('1 January 1970'))?>" />
+                                      <input type="submit" value="All Time" class="btn-link text-muted" />
+                                  </form>
                                 </div>
+
                                 <div class="form-check">
-                                    <input name="time" class="form-check-input" type="radio" id="timeFilter1">
-                                    <label class="form-check-label text-muted" for="timeFilter1">
-                                        Past Week
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 day'))?>" />
+                                      <input type="submit" value="Past day" class="btn-link text-muted" />
+                                  </form>
                                 </div>
+
                                 <div class="form-check">
-                                    <input name="time" class="form-check-input" type="radio" id="timeFilter2">
-                                    <label class="form-check-label text-muted" for="timeFilter2">
-                                        Past Month
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 week'))?>" />
+                                      <input type="submit" value="Past Week" class="btn-link text-muted" />
+                                  </form>
                                 </div>
+
                                 <div class="form-check">
-                                    <input name="time" class="form-check-input" type="radio" id="timeFilter3">
-                                    <label class="form-check-label text-muted" for="timeFilter3">
-                                        Past Year
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 month'))?>" />
+                                      <input type="submit" value="Past Month" class="btn-link text-muted" />
+                                  </form>
                                 </div>
+
+                                <div class="form-check">
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 year'))?>" />
+                                      <input type="submit" value="Past Year" class="btn-link text-muted" />
+                                  </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -119,6 +141,7 @@
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
                                 <a class="nav-item nav-link" id="nav-oldest-tab" data-toggle="tab" href="#nav-oldest" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
+                                <!-- TODO: Remove sort by ratings? -->
                                 <a class="nav-item nav-link" id="nav-rating-tab" data-toggle="tab" href="#nav-rating" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
                             </div>
                         </nav>
@@ -165,14 +188,14 @@
                                     @endswitch
                                 </div>
 
-                      @if($type === 'questions' || $type === 'answers')
+                      @if($type == 'questions' || $type == 'answers')
                             </div>
                             <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
                       @endif
                                 <div class="list-group">
 
                                 </div>
-                      @if($type === 'questions' || $type === 'answers')
+                      @if($type == 'questions' || $type == 'answers')
                             </div>
                         </div>
                       @endif
