@@ -16,13 +16,14 @@ class SearchController extends Controller
     public function search(){
         $type = request('type'); // Content type being searched (Questions, Answers, Topics, Members)
         $query = request('text_search');
+        $limit_date = request('limit_date'); // In case of Questions or Answers, content must be after this date
         $result = [];
         switch($type) {
           case 'questions':
-            $result = $this->getQuestions($query);
+            $result = $this->getQuestions($query, $limit_date);
             break;
           case 'answers':
-            $result = $this->getAnswers($query);
+            $result = $this->getAnswers($query, $limit_date);
             break;
           case 'topics':
             $result = $this->getTopics($query);
@@ -34,12 +35,13 @@ class SearchController extends Controller
             break;
         }
 
-        return view('pages.search', compact('query', 'result', 'type'));
+        return view('pages.search', compact('query', 'result', 'type', 'limit_date'));
     }
 
-    private function getQuestions($search_input){
+    private function getQuestions($search_input, $limit_date){
 
-        $questions = \App\Question::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
+        $questions = \App\Question::where('date', '>=', $limit_date)
+                    ->whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
                     ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
                     ->limit(10)
                     ->get();
@@ -47,8 +49,9 @@ class SearchController extends Controller
         return $questions;
     }
 
-    private function getAnswers($search_input){
-        $answers = \App\Answer::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
+    private function getAnswers($search_input, $limit_date){
+        $answers = \App\Answer::where('date', '>=', $limit_date)
+        ->whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
         ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
         ->limit(10)
         ->get();

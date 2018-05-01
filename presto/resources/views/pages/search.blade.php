@@ -33,6 +33,7 @@
                                           {{ csrf_field() }}
                                       <input type="submit" value="Questions" class="form-check-label btn-link" />
                                       <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
                                       <input type="hidden" name="type" value="questions" />
                                   </form>
                                 </div>
@@ -41,6 +42,7 @@
                                           {{ csrf_field() }}
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="answers" />
+                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
                                       <input type="submit" value="Answers" class="btn-link" />
                                   </form>
                                 </div>
@@ -49,6 +51,7 @@
                                           {{ csrf_field() }}
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="topics" />
+                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
                                       <input type="submit" value="Topics" class="btn-link" />
                                   </form>
                                 </div>
@@ -57,6 +60,7 @@
                                           {{ csrf_field() }}
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="members" />
+                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
                                       <input type="submit" value="Members" class="btn-link" />
                                   </form>
                                 </div>
@@ -72,7 +76,6 @@
                         <div>
                             <h4 class="pt-4">Time</h4>
                             <div class="dropdown-divider"></div>
-                            <!-- TODO: Adjust search controller to include (possible) date filters -->
                             <!-- TODO: Block date filters when type = members or topics -->
                             <div class="typeFilter">
                                 <div class="form-check">
