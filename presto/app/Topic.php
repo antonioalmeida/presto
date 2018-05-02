@@ -26,6 +26,8 @@ class Topic extends Model
 
     protected $fillable = ['name', 'description', 'picture'];
 
+    protected $hidden = ['pivot'];
+
     public function getRouteKeyName(){
         return 'name';
     }

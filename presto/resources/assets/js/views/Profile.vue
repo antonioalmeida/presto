@@ -48,7 +48,7 @@
                                                 <div class="mx-2">
                                                     <i class="far fa-fw fa-eye"></i>
                                                 </div>
-                                                <h6>{{ user.answer_views }} <small class="text-muted">answer views</small></h6>
+                                                <h6>{{ user.answers_views }} <small class="text-muted">answer views</small></h6>
                                             </div>
                                             <div class="d-flex p-1">
                                                 <div class="mx-2">
@@ -94,6 +94,12 @@
                                 @include('partials.question-card', ['question', $question]) 
                                 @endforeach
                             -->
+
+                            <div class="list-group">
+                                <template v-for="question in questions">
+                                    <question-card v-bind:question="question"></question-card> 
+                                </template>
+                            </div>
                         </div>
 
 
@@ -103,6 +109,7 @@
                             @foreach(user.answers->sortByDesc('date') as $answer)
                             @include('partials.answer-card',['answer', $answer]) 
                             @endforeach -->
+            
                         </div>
                     </div>
 
@@ -123,29 +130,48 @@ export default {
 
     props: ['username'],
 
+    components: {
+        QuestionCard: require('../components/QuestionCard')
+    },
+
     data () {
         return {
             user: {},
+            questions: {}
         }
     },
 
-    created() {
+    mounted() {
         this.getData(this.username);
     },
 
     watch: {
         '$route' (to, from) {
+            console.log(to.params);
             this.getData(to.params.username);
         }
     },
 
     methods: {
-        getData: function(username)  {
+        getData: function(username) {
+            this.getUser(username);
+            this.getQuestions(username);
+        },
+
+        getUser: function(username)  {
             axios.get('api/profile/' + ( username || '' ))
             .then(({data}) => this.user = data)
             .catch((error) => {
                 console.log(error);
             });    
+        },
+
+        getQuestions: function(username) {
+            axios.get('api/profile/' + ( username || '' ) + '/questions')
+            .then(({data}) => this.questions = data)
+            .catch((error) => {
+                console.log(error);
+            }); 
         }
     }
 
