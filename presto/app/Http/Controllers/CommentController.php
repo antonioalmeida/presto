@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiBaseController;
 
+use App\Http\Resources\CommentResource;
+
 use App\Comment;
 use \App\CommentRating;
 
 class CommentController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
     public function create()
@@ -33,6 +35,10 @@ class CommentController extends ApiBaseController
         $view = view('partials.comment', compact('comment'))->render();
 
         return $this->sendResponse($view, $comment);
+    }
+
+    public function get(Comment $comment) {
+        return new CommentResource($comment);
     }
 
     public function rate(Comment $comment)

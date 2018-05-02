@@ -4,9 +4,10 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 use App\Http\Resources\MemberResource;
+use App\Http\Resources\CommentResource;
 
 
-class QuestionResource extends Resource
+class FullQuestionResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -23,10 +24,11 @@ class QuestionResource extends Resource
             'name' => $this->member->name,
             'profile_picture' => $this->member->profile_picture,
         ];
-        
-        //TODO: replace this with TopicResource
+
         $response['topics'] = $this->topics;
+
+        $response['comments'] = CommentResource::collection($this->comments);
+
         return $response;
     }
-
 }
