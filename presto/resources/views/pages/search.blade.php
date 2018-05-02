@@ -24,7 +24,11 @@
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="<?=$type_filter?>" />
                                       <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" />
+                                      @if($type === $type_filter)
+                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link selected-filter" />
+                                      @else
+                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" /> 
+                                      @endif
                                   </form>
                                 </div>
                               @endforeach
