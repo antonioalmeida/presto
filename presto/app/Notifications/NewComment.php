@@ -28,7 +28,7 @@ class NewComment extends Notification implements ShouldQueue
     {
         $this->following = $following;
         $this->comment = $comment;
-        if($this->comment->question->count() > 0){
+        if($this->comment->question_id != null){
             $this->type = 'Question';
         } else {
             $this->type = 'Answer';
