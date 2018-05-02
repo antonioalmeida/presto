@@ -13,8 +13,14 @@ let routes = [
     },
 
     {
-        path: '/profile/:username?',
+        path: '/profile/:username',
         component: require('./views/Profile'),
+        props: true,
+    },
+
+    {
+        path: '/question/:id',
+        component: require('./views/Question'),
         props: true,
     }
 
