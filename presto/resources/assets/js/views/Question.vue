@@ -19,23 +19,7 @@
                     </h5>
 
                     <div class="card my-3">
-
-                            <comments-list :comments="question.comments"></comments-list>
-                            	<!--
-                                @foreach (question.comments as $comment)
-                                    @if ($loop->first && !$loop->last)
-                                        @include('partials.comment', ['comment' => $comment])
-                                        <div class="collapse" :id="commentCollapse{{ question.id}}">
-                                    @elseif($loop->last && !$loop->first)
-                                        @include('partials.comment', ['comment' => $comment])
-                                        </div>
-                                    @else
-                                        @include('partials.comment', ['comment' => $comment])
-                                    @endif
-
-                                @endforeach
-                            -->
-
+                        <comments-list :comments="question.comments"></comments-list>
                     </div>
 
                     <div :id="'questionAcordion'" class="mt-3">
@@ -70,38 +54,6 @@
                         	-->
                         </div>
 
-                        <div :id="'answerCollapse'" class="collapse mt-2 pb-2" aria-labelledby="headingAnswer" data-parent="#questionAcordion">
-
-                        <form action="" method="post">
-                            <div class="card">
-
-                            <!--{{ csrf_field() }}-->
-                                <textarea name="content" :id="'myeditor'"></textarea>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                    <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>                              
-                            </div>
-                        </form>
-                            
-                        </div>
-
-                        <div :id="'commentCollapse'" class="collapse mt-2 pb-2" aria-labelledby="headingComment" data-parent="#questionAcordion">
-                            <form :id="'question-add-comment'">
-                            <!-- {{ csrf_field() }} -->
-                            <div class="card">
-                               <div class="input-group">
-                                <textarea class="form-control" name="content" placeholder="Leave a comment..."></textarea required>
-                            </div>
-                            <div class="card-footer">
-                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                    <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-
-
                     </div>
 
                     <div class="mt-3" role="tablist">
@@ -114,6 +66,7 @@
                     				<textarea name="content" :id="'myeditor'"></textarea>
                     				<div class="card-footer">
                     					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+
                     					<button class="btn btn-sm btn-link">Cancel</button>
                     				</div>                              
                     			</div>
@@ -122,18 +75,20 @@
                     	</b-collapse>
 
                     	<b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-                    		<!-- {{ csrf_field() }} -->
-                    		<form :id="'question-add-comment'">
-                    			<div class="card">
-                    				<div class="input-group">
-                    					<textarea class="form-control" name="content" placeholder="Leave a comment..."></textarea required>
-                    					</div>
-                    					<div class="card-footer">
-                    						<button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                    						<button class="btn btn-sm btn-link">Cancel</button>
-                    					</div>
-                    				</div>
-                    			</form>
+
+                            <div class="card">
+                                <b-form-textarea 
+                                    v-model="commentText"
+                                    placeholder="Leave a comment..."
+                                    :rows="2"
+                                    :max-rows="6">
+                                </b-form-textarea>
+                                <div class="card-footer">
+                                    <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
+                                    <button v-b-toggle.accordion2 class="btn btn-sm btn-link">Cancel</button>
+                                </div>
+                            </div>
+
                     		</b-collapse>
                     </div>
 
@@ -155,7 +110,7 @@
 </template>
 
 <script>
-import { Collapse } from 'bootstrap-vue/es/components'
+import { Collapse, FormTextarea } from 'bootstrap-vue/es/components'
 import CommentsList from '../components/CommentsList'
 
 export default {
@@ -166,13 +121,15 @@ export default {
 
 	components: {
 		'Collapse': Collapse,
-        'CommentsList': CommentsList
+        'CommentsList': CommentsList,
+        'FormTextarea': FormTextarea
 	},
 
 	data () {
 		return {
 			question: {},
-			answers: {}
+			answers: {},
+            commentText: ''
 		}
 	},
 
@@ -206,6 +163,20 @@ export default {
 
             axios.get(request)
             .then(({data}) => this.answers = data)
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+
+        onCommentSubmit: function() {
+            axios.post('/api/comments/question', {
+                'question_id': this.question.id,
+                'content': this.commentText,
+            })
+            .then(({data}) => {
+                this.question.comments.push(data);
+                this.commentText = '';
+            })
             .catch((error) => {
                 console.log(error);
             }); 
