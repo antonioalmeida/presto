@@ -17,20 +17,23 @@
                                 <h4 class="h4-adapt">&#64;{{ user.username}}</h4>
 
                                 <!-- bio -->
-                                <!--
+                                
                                 <div class="bio mt-3">
+                                    <!--
                                     <div class="d-flex justify-content-sm-start justify-content-around">
                                         <a href={{Route('followers', user)}}><h5 class="p-2 h5-adapt">{{count(user.followers)}} <small>followers</small></h5></a>
-                                        <a href={{Route('following', user)}}><h5 class="p-2 h5-adapt">{{count(user.followings)}} <small>following</small></h5></a>                        </div>
+                                        <a href={{Route('following', user)}}><h5 class="p-2 h5-adapt">{{count(user.followings)}} <small>following</small></h5></a>                        
+                                    </div>
+                                -->
                                         <p class="lead lead-adapt">
                                             {{user.bio}}
                                         </p>
+                                        <!--
                                         @can('update', user)
                                         <a href="{{Route('profile.edit')}}" class="btn btn-outline-light">Edit Profile</a>
                                         @endcan
+                                        -->
                                     </div>
-                                -->
-
                                 </div>
 
                                 <div class="col-md-3 mt-3">
@@ -167,7 +170,12 @@ export default {
         },
 
         getQuestions: function(username) {
-            axios.get('api/profile/' + ( username || '' ) + '/questions')
+            let request = 'api/profile';
+            if(username)
+                request += '/' + username;
+            request += '/questions';
+
+            axios.get(request)
             .then(({data}) => this.questions = data)
             .catch((error) => {
                 console.log(error);
