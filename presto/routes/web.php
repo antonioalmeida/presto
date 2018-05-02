@@ -38,6 +38,9 @@ Route::get('notifications', 'ProfileController@notifications')->name('notificati
 Route::get('api/profile/{member}', 'ProfileController@get')->name('profile');
 Route::get('api/profile/', 'ProfileController@getLoggedIn')->name('profile');
 
+Route::get('api/profile/{member}/questions', 'ProfileController@getQuestions')->name('profile.questions');
+Route::get('api/profile/{member}/questions', 'ProfileController@getQuestions')->name('profile.questions');
+
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 
