@@ -162,7 +162,7 @@ export default {
         },
 
         getUser: function(username)  {
-            axios.get('api/profile/' + ( username || '' ))
+            axios.get('/api/profile/' + ( username || '' ))
             .then(({data}) => this.user = data)
             .catch((error) => {
                 console.log(error);
@@ -170,7 +170,7 @@ export default {
         },
 
         getQuestions: function(username) {
-            let request = 'api/profile';
+            let request = '/api/profile';
             if(username)
                 request += '/' + username;
             request += '/questions';

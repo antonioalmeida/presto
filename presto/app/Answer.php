@@ -28,6 +28,8 @@ class Answer extends Model
      */
     protected $table = 'answer';
 
+    protected $hidden = ['search'];
+
     protected $fillable = ['question_id', 'author_id', 'content', 'date', 'views', 'search'];
 
     public function member()
