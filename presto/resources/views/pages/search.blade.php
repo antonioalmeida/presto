@@ -27,7 +27,7 @@
                                       @if($type === $type_filter)
                                         <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link selected-filter" />
                                       @else
-                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" /> 
+                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" />
                                       @endif
                                   </form>
                                 </div>
@@ -102,7 +102,7 @@
                                         @endforeach
                                         @break
                                       @case('answers')
-                                        @foreach($result->sortByDesc('date') as $answers)
+                                        @foreach($result->sortByDesc('date') as $answer)
                                           @include('partials.answer-card', ['answer', $answer])
                                         @endforeach
                                         @break
@@ -153,11 +153,40 @@
                             </div>
                             <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
                               <div class="list-group">
-                      @endif
+                                @switch($type)
+                                  @case('questions')
+                                    @foreach($result->sortBy('date') as $question)
+                                      @include('partials.question-card', ['question', $question])
+                                    @endforeach
+                                    @break
+                                  @case('answers')
+                                    @foreach($result->sortBy('date') as $answer)
+                                      @include('partials.answer-card', ['answer', $answer])
+                                    @endforeach
+                                    @break
+                                  @default
+                                    @break
+                                @endswitch
+                              </div>
+                            </div>
 
-
-
-                      @if($type == 'questions' || $type == 'answers')
+                            <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
+                              <div class="list-group">
+                                <!-- TODO: Although sortByDesc is used, questions/answers are in inverted ordered according to positive ratings?? Investigate -->
+                                @switch($type)
+                                  @case('questions')
+                                    @foreach($result->sortByDesc(function($product, $key){return count($product->questionRatings()->where('rate',1));}) as $question)
+                                      @include('partials.question-card', ['question', $question])
+                                    @endforeach
+                                    @break
+                                  @case('answers')
+                                    @foreach($result->sortByDesc(function($product, $key){return count($product->answerRatings()->where('rate',1));}) as $answer)
+                                      @include('partials.answer-card', ['answer', $answer])
+                                    @endforeach
+                                    @break
+                                  @default
+                                    @break
+                                @endswitch
                               </div>
                             </div>
                         </div>
