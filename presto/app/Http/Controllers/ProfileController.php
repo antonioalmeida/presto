@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiBaseController;
+
 use App\Http\Resources\MemberResource;
+use App\Http\Resources\QuestionResource;
 
 use \App\Member;
 use App\Notification;
@@ -31,12 +33,12 @@ class ProfileController extends ApiBaseController
     }
 
     public function getQuestions(Member $member) {
-        
+        return QuestionResource::collection($member->questions);
     }
 
     public function getQuestionsLoggedIn() {
         $member = Auth::user();
-        return $this->questions()->sendResponseData($member->questions);
+        return QuestionResource::collection($member->questions);
     }
 
     public function edit(){
