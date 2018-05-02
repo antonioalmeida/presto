@@ -34,6 +34,12 @@ Route::put('profile/{member}', 'ProfileController@update')->name('profile.update
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
+// Answer
+Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+Route::post('questions', 'QuestionController@store')->name('question-add');
+Route::view('questions/{question}', 'layouts.master');
+
+
 Route::prefix('api')->group(function() {
 	// Profile API
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
@@ -43,19 +49,11 @@ Route::prefix('api')->group(function() {
 	Route::get('questions/{question}', 'QuestionController@get');
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
 
-
+	Route::get('comments/{comment}', 'CommentController@get');
 });
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
-
-// Answer
-Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
-
-
-// Question
-Route::get('questions/{question}', 'QuestionController@show')->name('question');
-Route::post('questions', 'QuestionController@store')->name('question-add');
 
 // Topic
 Route::get('topic/{topic}', 'TopicController@show')->name('topic');
@@ -93,7 +91,7 @@ Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('
 Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
 
 // Comments
-Route::post('api/comments/question', 'CommentController@create')->name('question-add-comment');
+Route::post('api/comments/question', 'CommentController@store')->name('question-add-comment');
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');
 
 //Questions

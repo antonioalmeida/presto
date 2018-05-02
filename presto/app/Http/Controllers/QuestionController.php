@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\FullQuestionResource;
 
 use \App\Question;
 use \App\Topic;
@@ -14,7 +15,7 @@ class QuestionController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->except(['show', 'get', 'getAnswers']);
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
     public function show(Question $question) {
@@ -22,14 +23,8 @@ class QuestionController extends Controller
     }
 
     public function get(Question $question) {
-        return new QuestionResource($question);
+        return new FullQuestionResource($question);
     }
-   
-    /*
-    public function getAnswers(Question $question) {
-        return new AnswerResource:collection($question->answers);
-    }
-    */
 
     public function store(){
         $this->validate(request(), [
