@@ -64,7 +64,11 @@
                                       <input type="hidden" name="type" value="{{$type}}" />
                                       <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime($date_filter[0]))?>" />
                                       @if($type == 'questions' || $type == 'answers')
-                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn" />
+                                        @if(date('Y-m-d', strtotime($limit_date)) === date('Y-m-d', strtotime($date_filter[0])))
+                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn selected-filter" />
+                                        @else
+                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn" />
+                                        @endif
                                       @else
                                       <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn filter-disabled" disabled/>
                                       @endif
