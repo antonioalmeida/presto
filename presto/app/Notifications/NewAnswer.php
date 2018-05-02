@@ -54,6 +54,8 @@ class NewAnswer extends Notification implements ShouldQueue
             'question_id' => $this->answer->question->id,
             'answer_id' => $this->answer->id,
             'question_title' => $this->answer->question->title,
+            'url' => 'questions/' . $this->answer->question->id 
+            . '/answers/' . $this->answer->id,
         ],
     ]);
 }
@@ -77,6 +79,8 @@ class NewAnswer extends Notification implements ShouldQueue
             'question_id' => $this->answer->question->id,
             'answer_id' => $this->answer->id,
             'question_title' => $this->answer->question->title,
+            'url' => 'questions/' . $this->answer->question->id 
+            . '/answers/' . $this->answer->id,
         ],
     ];
     }

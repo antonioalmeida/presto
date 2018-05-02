@@ -53,6 +53,7 @@ class NewQuestion extends Notification implements ShouldQueue
             'following_picture' => $this->following->profile_picture,
             'question_id' => $this->question->id,
             'question_title' => $this->question->title,
+            'url' => 'questions/' . $this->question->id,
         ],
     ]);
 }
@@ -75,6 +76,7 @@ class NewQuestion extends Notification implements ShouldQueue
             'following_picture' => $this->following->profile_picture,
             'question_id' => $this->question->id,
             'question_title' => $this->question->title,
+            'url' => 'questions/' . $this->question->id,
         ],
     ];
     }
