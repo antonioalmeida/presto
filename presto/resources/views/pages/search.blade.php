@@ -144,7 +144,6 @@
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
                                 <a class="nav-item nav-link" id="nav-oldest-tab" data-toggle="tab" href="#nav-oldest" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
-                                <!-- TODO: Remove sort by ratings? -->
                                 <a class="nav-item nav-link" id="nav-rating-tab" data-toggle="tab" href="#nav-rating" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
                             </div>
                         </nav>
@@ -185,6 +184,22 @@
                                         @endforeach
                                         @break
                                       @case('topics')
+                                        @foreach($result as $topic)
+                                        <div onclick="location.assign('{{Route('topic', $topic->name)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
+                                          <div class="d-flex w-100 justify-content-begin">
+                                            <div class="align-self-center">
+                                               <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{$topic->picture}}">
+                                           </div>
+                                            <div class="d-flex flex-column">
+                                              <h6 class="mb-1">{{ $topic->name }}</h6>
+                                              <h6 class="text-collapse"><small>{{ $topic->description }}</small></h6>
+                                            </div>
+                                            <div class="ml-auto align-self-center flex-wrap">
+                                              @include('partials.follow-topic', ['followTarget' => $topic])
+                                            </div>
+                                          </div>
+                                        </div>
+                                        @endforeach
                                         @break
                                       @default
                                         @break
@@ -194,11 +209,13 @@
                       @if($type == 'questions' || $type == 'answers')
                             </div>
                             <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
+                              <div class="list-group">
                       @endif
-                                <div class="list-group">
 
-                                </div>
+
+
                       @if($type == 'questions' || $type == 'answers')
+                              </div>
                             </div>
                         </div>
                       @endif
