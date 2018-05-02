@@ -47,6 +47,7 @@ class MemberFollowed extends Notification implements ShouldQueue
                 'follower_name' => $this->follower->name,
                 'follower_username' => $this->follower->username,
                 'follower_picture' => $this->follower->profile_picture,
+                'url' => 'profile/' . $this->follower->username,
             ],
         ]);
     }
@@ -66,6 +67,7 @@ class MemberFollowed extends Notification implements ShouldQueue
                 'follower_name' => $this->follower->name,
                 'follower_username' => $this->follower->username,
                 'follower_picture' => $this->follower->profile_picture,
+                'url' => 'profile/' . $this->follower->username,
             ],
         ];
     }

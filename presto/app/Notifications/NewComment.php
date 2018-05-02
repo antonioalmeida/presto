@@ -61,6 +61,9 @@ class NewComment extends Notification implements ShouldQueue
             'question_title' => ($this->type == 'Question'? $this->question->title : $this->answer->question->title ),
             'type' => $this->type,
             'answer_id' => ($this->type == 'Answer'? $this->answer->id : null ),
+            'url' => 'questions/' . ($this->type == 'Question'? $this->question->id : $this->answer->question->id ) 
+            . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '' ),
+
         ],
     ]);
 }
@@ -85,6 +88,8 @@ class NewComment extends Notification implements ShouldQueue
             'question_title' => ($this->type == 'Question'? $this->question->title : $this->answer->question->title ),
             'type' => $this->type,
             'answer_id' => ($this->type == 'Answer'? $this->answer->id : null ),
+            'url' => 'questions/' . ($this->type == 'Question'? $this->question->id : $this->answer->question->id ) 
+            . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '' ),
         ],
     ];
     }
