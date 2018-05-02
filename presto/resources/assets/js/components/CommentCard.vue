@@ -9,7 +9,7 @@
 					</div>
 					<div class="d-flex flex-column">
 
-						<span><router-link to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
+						<span><router-link :to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
 						<span class="text-muted">{{ comment.date | moment("from") }}</span>
 					</div>
 					<!--

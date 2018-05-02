@@ -1,6 +1,6 @@
 <template>
     <!-- TODO: add link to question -->
-    <div class="list-group-item list-group-item-action flex-column align-items-start">
+    <router-link :to="'/questions/' + question.id" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between flex-md-nowrap flex-wrap-reverse">
 
             <h4 class="mb-1 max-w-70">{{ question.title }}</h4>
@@ -22,7 +22,7 @@
             <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
         </small>
         
-    </div> 
+    </router-link> 
 </template>
 
 <script>
