@@ -26,6 +26,7 @@ require_once app_path().'/Utils.php';
  * @property int $score
  * @property boolean $is_banned
  * @property boolean $is_moderator
+ * @property boolean $is_certified
  * @property Country $country
  * @property Notification[] $notifications
  * @property Topic[] $topics
@@ -53,7 +54,7 @@ class Member extends Authenticatable
      */
     protected $table = 'member';
 
-    protected $fillable = ['country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator'];
+    protected $fillable = ['country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -70,15 +71,15 @@ class Member extends Authenticatable
      * Queries
      */
 
-    public function getAnswerViews() {
+     public function getAnswerViews() {
         return print_number_count($this->answers->sum('views'));
-    }
+     }
 
     /*
     * Relations
     */
 
-    public function country()
+     public function country()
     {
         return $this->belongsTo('App\Country');
     }
@@ -130,12 +131,12 @@ class Member extends Authenticatable
 
     public function questionRatings()
     {
-        return $this->hasMany('App\QuestionRating', 'member_id', 'question_id');
+        return $this->hasMany('App\QuestionRating');
     }
 
     public function answerRatings()
     {
-        return $this->hasMany('App\AnswerRating','member_id', 'answer_id');
+        return $this->hasMany('App\AnswerRating');
     }
 
     public function followers()
