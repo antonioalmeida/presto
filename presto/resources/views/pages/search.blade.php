@@ -16,54 +16,18 @@
                             <h4 class="pt-4">Type</h4>
                             <div class="dropdown-divider"></div>
                             <div class="typeFilter">
-                              <!-- TODO Try to make code cleaner with loop
-                              START LOOP
+                              <?php $filter_types = ['questions', 'answers', 'topics', 'members']; ?>
+                              @foreach($filter_types as $type_filter)
                                 <div class="form-check">
                                   <form method="POST" action="{{ Route('search')}}">
                                           {{ csrf_field() }}
                                       <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="submit" value="CAPS_FIRST_LETTER_($type)" class="btn-link" />
-                                  </form>
-                                </div>
-                              END LOOP
-                            -->
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="submit" value="Questions" class="form-check-label btn-link" />
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="<?=$type_filter?>" />
                                       <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="hidden" name="type" value="questions" />
+                                      <input type="submit" value="<?=ucfirst($type_filter)?>" class="btn-link" />
                                   </form>
                                 </div>
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="answers" />
-                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="submit" value="Answers" class="btn-link" />
-                                  </form>
-                                </div>
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="topics" />
-                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="submit" value="Topics" class="btn-link" />
-                                  </form>
-                                </div>
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="members" />
-                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="submit" value="Members" class="btn-link" />
-                                  </form>
-                                </div>
+                              @endforeach
                             </div>
                         </div>
                         <div>
@@ -78,56 +42,24 @@
                             <div class="dropdown-divider"></div>
                             <!-- TODO: Block date filters when type = members or topics -->
                             <div class="typeFilter">
+                              <?php $filter_dates = array(
+                                array('1 January 1970', 'All Time'),
+                                array('-1 day', 'Past day'),
+                                array('-1 week', 'Past week'),
+                                array('-1 month', 'Past month'),
+                                array('-1 year', 'Past year')
+                              ); ?>
+                              @foreach($filter_dates as $date_filter)
                                 <div class="form-check">
                                   <form method="POST" action="{{ Route('search')}}">
                                           {{ csrf_field() }}
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('1 January 1970'))?>" />
-                                      <input type="submit" value="All Time" class="btn-link text-muted" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime($date_filter[0]))?>" />
+                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted" />
                                   </form>
                                 </div>
-
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 day'))?>" />
-                                      <input type="submit" value="Past day" class="btn-link text-muted" />
-                                  </form>
-                                </div>
-
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 week'))?>" />
-                                      <input type="submit" value="Past Week" class="btn-link text-muted" />
-                                  </form>
-                                </div>
-
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 month'))?>" />
-                                      <input type="submit" value="Past Month" class="btn-link text-muted" />
-                                  </form>
-                                </div>
-
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                          {{ csrf_field() }}
-                                      <input type="hidden" name="text_search" value="{{$query}}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('-1 year'))?>" />
-                                      <input type="submit" value="Past Year" class="btn-link text-muted" />
-                                  </form>
-                                </div>
-
+                              @endforeach
                             </div>
                         </div>
                     </div>
