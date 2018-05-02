@@ -16,7 +16,7 @@ use App\Notification;
 class ProfileController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show','followers','following']);
+        $this->middleware('auth')->except(['get','getQuestions','show','followers','following']);
     }
 
     public function show(Member $member){

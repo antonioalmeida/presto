@@ -12,11 +12,15 @@ class QuestionController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
     public function show(Question $question){
         return view('pages.question.show', compact('question'));
+    }
+
+     public function get(Question $question) {
+        return new QuestionResource($question);
     }
 
     public function store(){

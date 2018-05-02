@@ -19,7 +19,7 @@ let routes = [
     },
 
     {
-        path: '/question/:id',
+        path: '/questions/:id',
         component: require('./views/Question'),
         props: true,
     }
@@ -28,5 +28,6 @@ let routes = [
     ];
 
 export default new VueRouter({
-    routes
+    routes,
+    mode: 'history'
 });
