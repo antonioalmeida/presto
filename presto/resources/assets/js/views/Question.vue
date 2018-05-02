@@ -10,42 +10,18 @@
                     <h4><small>{{ question.content }}</small></h4>
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
-                        	<!--
-                            @forelse (question.topics as $topic)
-                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}
-                            @empty
-                            <span class="text-muted">No topics</span>
-                            @endforelse
-                        -->
+
+                            <a v-for="(topic, index) in question.topics" class="text-muted" href="">
+                                {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
+                            </a>
+
+                            <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
+
                         </small>
                     </h5>
 
                     <div class="card my-3">
-                        <div class="card-body">
-                            <h6><small>69 Comments</small></h6>
-                            <div class="d-flex list-group list-group-flush short-padding">
-
-                            	<!--
-                                @foreach (question.comments as $comment)
-                                    @if ($loop->first && !$loop->last)
-                                        @include('partials.comment', ['comment' => $comment])
-                                        <div class="collapse" :id="commentCollapse{{ question.id}}">
-                                    @elseif($loop->last && !$loop->first)
-                                        @include('partials.comment', ['comment' => $comment])
-                                        </div>
-                                    @else
-                                        @include('partials.comment', ['comment' => $comment])
-                                    @endif
-
-                                @endforeach
-                            -->
-
-                                <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" role="button" aria-expanded="false" >
-                                    View More
-                                </a>
-
-                            </div>
-                        </div>
+                        <comments-list :comments="question.comments"></comments-list>
                     </div>
 
                     <div :id="'questionAcordion'" class="mt-3">
@@ -80,38 +56,6 @@
                         	-->
                         </div>
 
-                        <div :id="'answerCollapse'" class="collapse mt-2 pb-2" aria-labelledby="headingAnswer" data-parent="#questionAcordion">
-
-                        <form action="" method="post">
-                            <div class="card">
-
-                            <!--{{ csrf_field() }}-->
-                                <textarea name="content" :id="'myeditor'"></textarea>
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                    <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>                              
-                            </div>
-                            </form>
-                            
-                        </div>
-
-                        <div :id="'commentCollapse'" class="collapse mt-2 pb-2" aria-labelledby="headingComment" data-parent="#questionAcordion">
-                            <form :id="'question-add-comment'">
-                            <!-- {{ csrf_field() }} -->
-                            <div class="card">
-                               <div class="input-group">
-                                <textarea class="form-control" name="content" placeholder="Leave a comment..."></textarea required>
-                            </div>
-                            <div class="card-footer">
-                                    <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                                    <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-
-
                     </div>
 
                     <div class="mt-3" role="tablist">
@@ -124,6 +68,7 @@
                     				<textarea name="content" :id="'myeditor'"></textarea>
                     				<div class="card-footer">
                     					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+
                     					<button class="btn btn-sm btn-link">Cancel</button>
                     				</div>                              
                     			</div>
@@ -132,18 +77,20 @@
                     	</b-collapse>
 
                     	<b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-                    		<!-- {{ csrf_field() }} -->
-                    		<form :id="'question-add-comment'">
-                    			<div class="card">
-                    				<div class="input-group">
-                    					<textarea class="form-control" name="content" placeholder="Leave a comment..."></textarea required>
-                    					</div>
-                    					<div class="card-footer">
-                    						<button type="submit" class="btn btn-sm btn-primary">Submit</button>
-                    						<button class="btn btn-sm btn-link">Cancel</button>
-                    					</div>
-                    				</div>
-                    			</form>
+
+                            <div class="card">
+                                <b-form-textarea 
+                                    v-model="commentText"
+                                    placeholder="Leave a comment..."
+                                    :rows="2"
+                                    :max-rows="6">
+                                </b-form-textarea>
+                                <div class="card-footer">
+                                    <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
+                                    <button v-b-toggle.accordion2 class="btn btn-sm btn-link">Cancel</button>
+                                </div>
+                            </div>
+
                     		</b-collapse>
                     </div>
 
@@ -165,7 +112,8 @@
 </template>
 
 <script>
-import { Collapse } from 'bootstrap-vue/es/components'
+import { Collapse, FormTextarea } from 'bootstrap-vue/es/components'
+import CommentsList from '../components/CommentsList'
 
 export default {
 
@@ -175,17 +123,20 @@ export default {
 
 	components: {
 		'Collapse': Collapse,
+        'CommentsList': CommentsList,
+        'FormTextarea': FormTextarea
 	},
 
 	data () {
 		return {
 			question: {},
-			answers: {}
+			answers: {},
+            commentText: ''
 		}
 	},
 
 	mounted() {
-        //this.getData(this.id);
+        this.getData(this.id);
     },
 
     watch: {
@@ -214,6 +165,20 @@ export default {
 
             axios.get(request)
             .then(({data}) => this.answers = data)
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+
+        onCommentSubmit: function() {
+            axios.post('/api/comments/question', {
+                'question_id': this.question.id,
+                'content': this.commentText,
+            })
+            .then(({data}) => {
+                this.question.comments.push(data);
+                this.commentText = '';
+            })
             .catch((error) => {
                 console.log(error);
             }); 

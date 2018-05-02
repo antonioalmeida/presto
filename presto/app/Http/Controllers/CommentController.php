@@ -7,16 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\ApiBaseController;
 
+use App\Http\Resources\CommentResource;
+
 use App\Comment;
 use \App\CommentRating;
 
 class CommentController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
-    public function create()
+    public function store()
     {
         $this->validate(request(), [
             'content' => 'required|min:2',
@@ -28,11 +30,13 @@ class CommentController extends ApiBaseController
         $author_id = Auth::id();
         $date = now();
 
-        $question = \App\Question::find($question_id);
-        $comment = $question->addComment(compact('author_id', 'content', 'date'));
-        $view = view('partials.comment', compact('comment'))->render();
+        $comment = Comment::create(compact('question_id','author_id','content','date'));
 
-        return $this->sendResponse($view, $comment);
+        return new CommentResource($comment);
+    }
+
+    public function get(Comment $comment) {
+        return new CommentResource($comment);
     }
 
     public function rate(Comment $comment)
