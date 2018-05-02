@@ -10,7 +10,7 @@
 					<div class="d-flex flex-column">
 
 						<span><router-link to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
-						<span class="text-muted">{{ comment.date }} ago</span>
+						<span class="text-muted">{{ comment.date | moment("from") }}</span>
 					</div>
 					<!--
 					@can('update',comment.
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+
 export default {
 
 	props: ['comment'],
@@ -51,6 +52,12 @@ export default {
 	data () {
 		return {
 
+		}
+	},
+
+	methods: {
+		displayDate: function(date) {
+			return moment.fromNow(true);
 		}
 	}
 }

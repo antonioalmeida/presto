@@ -36,6 +36,7 @@ Route::get('notifications', 'ProfileController@notifications')->name('notificati
 
 // Answer
 Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+Route::post('questions', 'QuestionController@store')->name('question-add');
 Route::view('questions/{question}', 'layouts.master');
 
 
@@ -51,15 +52,8 @@ Route::prefix('api')->group(function() {
 	Route::get('comments/{comment}', 'CommentController@get');
 });
 
-
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
-
-
-
-
-// Question
-//Route::post('questions', 'QuestionController@store')->name('question-add');
 
 // Topic
 Route::get('topic/{topic}', 'TopicController@show')->name('topic');
@@ -97,7 +91,7 @@ Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('
 Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
 
 // Comments
-Route::post('api/comments/question', 'CommentController@create')->name('question-add-comment');
+Route::post('api/comments/question', 'CommentController@store')->name('question-add-comment');
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');
 
 //Questions
