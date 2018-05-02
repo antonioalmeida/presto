@@ -4,5 +4,11 @@
 
 .filter-btn {
   border: none;
-  background: none;
+}
+
+/**
+  * TODO: Style properly... :'(
+  */
+.selected-filter {
+  background-color: red;
 }
