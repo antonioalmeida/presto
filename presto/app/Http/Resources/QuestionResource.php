@@ -22,6 +22,8 @@ class QuestionResource extends Resource
             'name' => $this->member->name,
             'profile_picture' => $this->member->profile_picture,
         ];
+        //TODO: replace this with TopicResource
+        $response['topics'] = $this->topics;
         return $response;
     }
 
