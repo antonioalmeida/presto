@@ -18,7 +18,7 @@ class QuestionController extends Controller
         $this->middleware('auth')->except(['show', 'get']);
     }
 
-    public function show(Question $question){
+    public function show(Question $question) {
         return view('pages.question.show', compact('question'));
     }
 

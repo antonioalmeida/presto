@@ -10,11 +10,13 @@
                     <h4><small>{{ question.content }}</small></h4>
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
+
                             <a v-for="(topic, index) in question.topics" class="text-muted" href="">
                                 {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
                             </a>
 
                             <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
+
                         </small>
                     </h5>
 
