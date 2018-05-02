@@ -34,26 +34,32 @@ Route::put('profile/{member}', 'ProfileController@update')->name('profile.update
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
+// Answer
+Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+Route::view('questions/{question}', 'layouts.master');
+
+
 Route::prefix('api')->group(function() {
 	// Profile API
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+
 	// Question API
 	Route::get('questions/{question}', 'QuestionController@get');
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
+
+	Route::get('comments/{comment}', 'CommentController@get');
 });
 
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 
-// Answer
-Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+
 
 
 // Question
-Route::get('questions/{question}', 'QuestionController@show')->name('question');
-Route::post('questions', 'QuestionController@store')->name('question-add');
+//Route::post('questions', 'QuestionController@store')->name('question-add');
 
 // Topic
 Route::get('topic/{topic}', 'TopicController@show')->name('topic');

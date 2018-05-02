@@ -10,21 +10,17 @@
                     <h4><small>{{ question.content }}</small></h4>
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
-                        	<!--
-                            @forelse (question.topics as $topic)
-                            <a class="text-muted" href="{{Route('topic', $topic->name)}}">{{ $topic->name }}</a>{{$loop->last ? '' : ','}}
-                            @empty
-                            <span class="text-muted">No topics</span>
-                            @endforelse
-                        -->
+                            <a v-for="(topic, index) in question.topics" class="text-muted" href="">
+                                {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
+                            </a>
+
+                            <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
                         </small>
                     </h5>
 
                     <div class="card my-3">
-                        <div class="card-body">
-                            <h6><small>69 Comments</small></h6>
-                            <div class="d-flex list-group list-group-flush short-padding">
 
+                            <comments-list :comments="question.comments"></comments-list>
                             	<!--
                                 @foreach (question.comments as $comment)
                                     @if ($loop->first && !$loop->last)
@@ -40,12 +36,6 @@
                                 @endforeach
                             -->
 
-                                <a class="btn btn-lg btn-link text-dark" data-toggle="collapse" role="button" aria-expanded="false" >
-                                    View More
-                                </a>
-
-                            </div>
-                        </div>
                     </div>
 
                     <div :id="'questionAcordion'" class="mt-3">
@@ -92,7 +82,7 @@
                                     <button class="btn btn-sm btn-link">Cancel</button>
                                 </div>                              
                             </div>
-                            </form>
+                        </form>
                             
                         </div>
 
@@ -166,6 +156,7 @@
 
 <script>
 import { Collapse } from 'bootstrap-vue/es/components'
+import CommentsList from '../components/CommentsList'
 
 export default {
 
@@ -175,6 +166,7 @@ export default {
 
 	components: {
 		'Collapse': Collapse,
+        'CommentsList': CommentsList
 	},
 
 	data () {
@@ -185,7 +177,7 @@ export default {
 	},
 
 	mounted() {
-        //this.getData(this.id);
+        this.getData(this.id);
     },
 
     watch: {
