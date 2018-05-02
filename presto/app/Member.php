@@ -131,12 +131,12 @@ class Member extends Authenticatable
 
     public function questionRatings()
     {
-        return $this->hasMany('App\QuestionRating');
+        return $this->hasMany('App\QuestionRating', 'member_id', 'question_id');
     }
 
     public function answerRatings()
     {
-        return $this->hasMany('App\AnswerRating');
+        return $this->hasMany('App\AnswerRating', 'member_id', 'answer_id');
     }
 
     public function followers()
