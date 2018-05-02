@@ -24,7 +24,7 @@
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="<?=$type_filter?>" />
                                       <input type="hidden" name="limit_date" value="{{$limit_date}}" />
-                                      <input type="submit" value="<?=ucfirst($type_filter)?>" class="btn-link" />
+                                      <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" />
                                   </form>
                                 </div>
                               @endforeach
@@ -34,13 +34,16 @@
                             <h4 class="pt-4">Author</h4>
                             <div class="dropdown-divider"></div>
                             <div class="input-group">
+                                @if($type == 'questions' || $type == 'answers')
                                 <input type="text" class="form-control" placeholder="Find People">
+                                @else
+                                <input type="text" class="form-control filter-disabled" placeholder="Find People" disabled>
+                                @endif
                             </div>
                         </div>
                         <div>
                             <h4 class="pt-4">Time</h4>
                             <div class="dropdown-divider"></div>
-                            <!-- TODO: Block date filters when type = members or topics -->
                             <div class="typeFilter">
                               <?php $filter_dates = array(
                                 array('1 January 1970', 'All Time'),
@@ -56,7 +59,11 @@
                                       <input type="hidden" name="text_search" value="{{$query}}" />
                                       <input type="hidden" name="type" value="{{$type}}" />
                                       <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime($date_filter[0]))?>" />
-                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted" />
+                                      @if($type == 'questions' || $type == 'answers')
+                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn" />
+                                      @else
+                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn filter-disabled" disabled/>
+                                      @endif
                                   </form>
                                 </div>
                               @endforeach
