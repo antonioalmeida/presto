@@ -120,7 +120,7 @@ CREATE TABLE member (
 CREATE TABLE flag (
     member_id INTEGER NOT NULL,
     moderator_id INTEGER NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     reason text NOT NULL,
     CONSTRAINT flag_pk PRIMARY KEY (member_id, moderator_id),
     CONSTRAINT flag_member_fk FOREIGN KEY (member_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -140,7 +140,7 @@ CREATE TABLE follow_member (
 CREATE TABLE notification (
     id SERIAL NOT NULL,
     type notification_origin NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     content text NOT NULL,
     member_id INTEGER NOT NULL,
     -- IDs to identify which user and/or post caused notification
@@ -172,7 +172,7 @@ CREATE TABLE question (
     id SERIAL NOT NULL,
     title text NOT NULL,
     content text NOT NULL DEFAULT '',
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
@@ -184,7 +184,7 @@ CREATE TABLE question (
 CREATE TABLE answer (
     id SERIAL NOT NULL,
     content text NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     question_id INTEGER NOT NULL,
     author_id INTEGER NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE answer (
 CREATE TABLE comment (
     id SERIAL NOT NULL,
     content text NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     question_id INTEGER,
     answer_id INTEGER,
     author_id INTEGER NOT NULL,
@@ -252,7 +252,7 @@ CREATE TABLE comment_rating (
 CREATE TABLE question_report (
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     reason text NOT NULL,
     CONSTRAINT question_report_pk PRIMARY KEY (question_id, member_id),
     CONSTRAINT question_report_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -262,7 +262,7 @@ CREATE TABLE question_report (
 CREATE TABLE answer_report (
     answer_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     reason text NOT NULL,
     CONSTRAINT answer_report_pk PRIMARY KEY (answer_id, member_id),
     CONSTRAINT answer_report_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -272,7 +272,7 @@ CREATE TABLE answer_report (
 CREATE TABLE comment_report (
     comment_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
+    "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     reason text NOT NULL,
     CONSTRAINT comment_report_pk PRIMARY KEY (comment_id, member_id),
     CONSTRAINT comment_report_comment_fk FOREIGN KEY (comment_id) REFERENCES comment (id) ON UPDATE CASCADE ON DELETE CASCADE,
