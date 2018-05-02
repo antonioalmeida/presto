@@ -34,12 +34,14 @@ Route::put('profile/{member}', 'ProfileController@update')->name('profile.update
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
-// Profile API
-Route::get('api/profile/{member}', 'ProfileController@get')->name('profile');
-Route::get('api/profile/', 'ProfileController@getLoggedIn')->name('profile');
-
-Route::get('api/profile/questions', 'ProfileController@getQuestionsLoggedIn');
-Route::get('api/profile/{member}/questions', 'ProfileController@getQuestions');
+Route::prefix('api')->group(function() {
+	// Profile API
+	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
+	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+	// Question API
+	Route::get('questions/{question}', 'QuestionController@get');
+	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
+});
 
 
 //Admin
