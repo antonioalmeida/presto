@@ -179,12 +179,12 @@
                                 <!-- TODO: Although sortByDesc is used, questions/answers are in inverted ordered according to positive ratings?? Investigate -->
                                 @switch($type)
                                   @case('questions')
-                                    @foreach($result->sortByDesc(function($product, $key){return count($product->questionRatings()->where('rate',1));}) as $question)
+                                    @foreach($result->sortByDesc(function($product, $key){return $product->questionRatings()->where('rate',1)->count();}) as $question)
                                       @include('partials.question-card', ['question', $question])
                                     @endforeach
                                     @break
                                   @case('answers')
-                                    @foreach($result->sortByDesc(function($product, $key){return count($product->answerRatings()->where('rate',1));}) as $answer)
+                                    @foreach($result->sortByDesc(function($product, $key){return $product->answerRatings()->where('rate',1)->count();}) as $answer)
                                       @include('partials.answer-card', ['answer', $answer])
                                     @endforeach
                                     @break
