@@ -26,7 +26,12 @@ class Flag extends Model
 
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->belongsTo('App\Member','member_id');
     }
 
+
+    public function moderator()
+    {
+        return $this->belongsTo('App\Member','moderator_id');
+    }
 }

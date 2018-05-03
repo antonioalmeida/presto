@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Member;
+use App\Flag;
 
 class AdminController extends Controller
 {
@@ -16,25 +17,10 @@ class AdminController extends Controller
     //
     public function show(){
     	$members = Member::get();
-    	$flagged = array();
-    	$banned = array();
-    	$moderators = array();
-    	$certified = array();
-
-    	foreach($members as $member){
-    		if($member->flags()->count() != 0)
-    			$flagged[] = $member;
-
-    		if($member->is_banned)
-    			$banned[] = $member;
-
-    		if($member->is_moderator)
-    			$moderators[] = $member;
-
-    		if($member->is_certified)
-    			$certified[] = $member;
-
-    	}
+    	$flagged = Flag::orderBy('date')->get();
+    	$banned = Member::where('is_banned', true)->get();
+    	$moderators = Member::where('is_moderator',true)->get();
+    	$certified = Member::where('is_certified',true)->get();
 
         $members = Member::paginate(10);
 
