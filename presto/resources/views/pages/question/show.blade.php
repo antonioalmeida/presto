@@ -84,14 +84,16 @@
                             <div class="card">
 
                             {{ csrf_field() }}
-                                <textarea name="content" id="myeditor"></textarea>
+                                <input type="hidden" name="mentions" id="mentions" />
+
+                                <textarea class="has-mentions" contenteditable="true" name="content" id="myeditor"></textarea>
+                                
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-sm btn-primary">Submit</button>
                                     <button class="btn btn-sm btn-link">Cancel</button>
-                                </div>                              
+                                </div>
                             </div>
                             </form>
-                            
                         </div>
 
                         <div id="commentCollapse" class="collapse mt-2 pb-2" aria-labelledby="headingComment" data-parent="#questionAcordion">
