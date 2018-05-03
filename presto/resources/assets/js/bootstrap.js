@@ -58,8 +58,8 @@
 /**
   * Import tributejs for mentions
   */
-import Tribute from "tributejs";
-window.Tribute = Tribute;
+  import Tribute from "tributejs";
+  window.Tribute = Tribute;
 
 /**
   * Import Mentions class
