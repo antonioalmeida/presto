@@ -46,7 +46,6 @@ function addNotifications(newNotifications, target) {
 }
 
 function showNotifications(notifications, target) {
-    console.log(notifications);
     if(notifications.length > 1) {
         var htmlElements = notifications.map(function (notification) {
             return makeNotification(notification);
