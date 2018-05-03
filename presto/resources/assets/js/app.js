@@ -1,6 +1,6 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 
-const app = new Vue({
-  el: '#app'
-});
+// const app = new Vue({
+//   el: '#app'
+// });
 
