@@ -64,9 +64,8 @@
                     		<form action="" method="post">
                     			<div class="card">
 
-                    				<!--{{ csrf_field() }}-->
-                    				<textarea name="content" :id="'myeditor'"></textarea>
-                    				<div class="card-footer">
+                                <editor v-model="editorContent" :init="editorInit"></editor>
+                                <div class="card-footer">
                     					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
 
                     					<button class="btn btn-sm btn-link">Cancel</button>
@@ -96,7 +95,7 @@
 
                     <h4 class="mt-4"> {{ answers.length }} Answer(s)</h4>
 
-                    <AnswerPartial v-for="answer in answers" :answer="answer" :key="answer.id"></AnswerPartial>
+                    <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" :key="answer.id"></AnswerPartial>
                 </div>
             </div>
         </section>
@@ -108,6 +107,7 @@
 import { Collapse, FormTextarea } from 'bootstrap-vue/es/components'
 import CommentsList from '../components/CommentsList'
 import AnswerPartial from '../components/AnswerPartial'
+import Editor from '@tinymce/tinymce-vue';
 
 export default {
 
@@ -119,6 +119,7 @@ export default {
 		'Collapse': Collapse,
         'CommentsList': CommentsList,
         'FormTextarea': FormTextarea,
+        'Editor': Editor,
         'AnswerPartial': AnswerPartial
 	},
 
@@ -126,11 +127,13 @@ export default {
 		return {
 			question: {},
 			answers: {},
-            commentText: ''
-		}
-	},
+            commentText: '',
+            editorInit: require('../tiny-mce-config').default,
+            editorContent: ''
+            }
+        },
 
-	mounted() {
+    mounted() {
         this.getData(this.id);
     },
 
