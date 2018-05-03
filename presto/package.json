@@ -14,6 +14,7 @@
         "cross-env": "^5.1",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
+        "tributejs": "^3.2.0",
         "vue": "^2.5.16"
     },
     "dependencies": {
