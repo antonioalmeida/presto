@@ -66,6 +66,7 @@ class Member extends Authenticatable
     public function getRouteKeyName(){
         return 'username';
     }
+    
 
     /**
      * Queries
