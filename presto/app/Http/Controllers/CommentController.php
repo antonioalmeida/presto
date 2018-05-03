@@ -18,7 +18,7 @@ class CommentController extends ApiBaseController
         $this->middleware('auth')->except(['show', 'get']);
     }
 
-    public function store()
+    public function storeQuestionComment()
     {
         $this->validate(request(), [
             'content' => 'required|min:2',
@@ -31,6 +31,23 @@ class CommentController extends ApiBaseController
         $date = date('Y-m-d H:i:s');
 
         $comment = Comment::create(compact('question_id','author_id','content','date'));
+
+        return new CommentResource($comment);
+    }
+
+        public function storeAnswerComment()
+    {
+        $this->validate(request(), [
+            'content' => 'required|min:2',
+            'answer_id' => 'required|integer|min:0'
+        ]);
+
+        $content = request('content');
+        $answer_id = request('answer_id');
+        $author_id = Auth::id();
+        $date = date('Y-m-d H:i:s');
+
+        $comment = Comment::create(compact('answer_id','author_id','content','date'));
 
         return new CommentResource($comment);
     }

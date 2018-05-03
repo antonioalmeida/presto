@@ -30,8 +30,7 @@
   </div>
   <hr>
   <div>
-    <p>
-        {{ answer.content }}
+    <p v-html="answer.content">
     </p>
 
     <div class="d-flex">
@@ -51,7 +50,27 @@
 <div class="card my-3">
     <comments-list :comments="answer.comments"></comments-list>
 
+    <div class="card-footer">
+        <b-form-textarea 
+        v-model="commentText"
+        placeholder="Leave a comment..."
+        :rows="2"
+        :max-rows="6"
+        :state="showError ? !showError : null" @input="showError = false; showSuccess = false;">
+    </b-form-textarea>
+
+    <span v-if="showError" class="text-danger"><small>You can't submit an empty comment.</small></span>
+    <span v-if="showSuccess" class="text-primary"><small>Comment successfully added.</small></span>
+
+
+    <div class="mt-2">
+        <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
+<!--
+<button v-b-toggle.accordion2 class="btn btn-sm btn-link">Clear</button>
+-->
 </div>
+</div>
+
 </div>
 </div>
 </template>
@@ -61,7 +80,7 @@ import CommentsList from '../components/CommentsList'
 
 export default {
 
-    props: ['answer'],
+    props: ['answerData'],
 
     name: 'AnswerPartial',
 
@@ -69,10 +88,39 @@ export default {
         'CommentsList': CommentsList
     },
 
+
     data () {
         return {
+            answer: this.answerData,
+            commentText: '',
+            showError: false,
 
         }
+    },
+
+    methods: {
+        onCommentSubmit: function() {
+            if(this.commentText == '') {
+                this.showError = true;
+                return;
+            }
+            else 
+                this.showError = false;
+
+            axios.post('/api/comments/answer', {
+                'answer_id': this.answer.id,
+                'content': this.commentText,
+            })
+            .then(({data}) => {
+                this.answer.comments.push(data);
+                this.commentText = '';
+                this.showSuccess = true;
+            })
+            .catch((error) => {
+                console.log(error);
+            }); 
+        }
     }
+
 }
 </script>

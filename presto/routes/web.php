@@ -51,7 +51,10 @@ Route::prefix('api')->group(function() {
 	Route::get('questions/{question}', 'QuestionController@get');
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
 
+	// Comments
 	Route::get('comments/{comment}', 'CommentController@get');
+	Route::post('comments/question', 'CommentController@storeQuestionComment')->name('question.add.comment');
+	Route::post('comments/answer', 'CommentController@storeAnswerComment')->name('answer.add.comment');
 });
 
 //Admin
@@ -92,8 +95,7 @@ Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow
 Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('api.followTopic');
 Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
 
-// Comments
-Route::post('api/comments/question', 'CommentController@store')->name('question-add-comment');
+
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');
 
 //Questions
