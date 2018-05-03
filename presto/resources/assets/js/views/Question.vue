@@ -11,9 +11,9 @@
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
 
-                            <a v-for="(topic, index) in question.topics" class="text-muted" href="">
+                            <router-link v-for="(topic, index) in question.topics" :key="topic.id" :to="'/topics/' + topic.name" class="text-muted">
                                 {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
-                            </a>
+                            </router-link>
 
                             <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
 
@@ -94,16 +94,9 @@
                     		</b-collapse>
                     </div>
 
-                    <h4 class="mt-4"> <!-- {{ question.nr_answers () }} --> Answer(s)</h4>
+                    <h4 class="mt-4"> {{ answers.length }} Answer(s)</h4>
 
-                    <!--
-                    <div class="">
-                        <hr>
-                        @foreach (question.answers as $answer)
-                        @include('partials.answer', ['answer' => $answer])
-                        @endforeach
-                    </div>
-                -->
+                    <AnswerPartial v-for="answer in answers" :answer="answer" :key="answer.id"></AnswerPartial>
                 </div>
             </div>
         </section>
@@ -114,6 +107,7 @@
 <script>
 import { Collapse, FormTextarea } from 'bootstrap-vue/es/components'
 import CommentsList from '../components/CommentsList'
+import AnswerPartial from '../components/AnswerPartial'
 
 export default {
 
@@ -124,7 +118,8 @@ export default {
 	components: {
 		'Collapse': Collapse,
         'CommentsList': CommentsList,
-        'FormTextarea': FormTextarea
+        'FormTextarea': FormTextarea,
+        'AnswerPartial': AnswerPartial
 	},
 
 	data () {

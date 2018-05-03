@@ -1,7 +1,7 @@
 <header>
   <nav class="navbar navbar-expand fixed-top navbar-light bg-light">
     <div class="container">
-      <router-link class="navbar-brand" to="/">
+      <router-link class="navbar-brand" :to="'/'">
         <h4>Presto</h4>
       </router-link>
       <button class="navbar-toggler p-0 border-0" type="button" data-toggle="offcanvas">

@@ -35,7 +35,9 @@ Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
 // Answer
-Route::get('questions/{question}/answers/{answer}', 'AnswerController@show')->name('answer');
+Route::view('answers/{answer}', 'layouts.master');
+Route::view('questions/{question}/answers/{answer}', 'layouts.master');
+
 Route::post('questions', 'QuestionController@store')->name('question-add');
 Route::view('questions/{question}', 'layouts.master');
 

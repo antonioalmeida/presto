@@ -19,10 +19,18 @@ let routes = [
     },
 
     {
+        path: '/answers/:a_id',
+        component: require('./views/Answer'),
+        props: true,
+    },
+
+    {
         path: '/questions/:id',
         component: require('./views/Question'),
         props: true,
-    }
+    },
+
+
 
 
     ];
