@@ -103,19 +103,17 @@
                     </tr>
                   </thead>
                   <tbody> 
-                   @foreach($flagged as $member)
-                      @foreach($member->flags()->get() as $flag)
+                    @foreach($flagged as $flag)
                         <tr>
-                          <td>{{$member->username}}</td>
                           <td>{{$flag->member->username}}</td>
+                          <td>{{$flag->moderator->username}}</td>
                           <td>{{$flag->reason}}</td>
                           <td class="admin-actions">
                             <a href="" class="text-danger">Ban</a> |
                             <a href="" class="text-info">Dismiss</a>
                           </td>
                         </tr> 
-                      @endforeach
-                    @endforeach
+                    @endforeach                 
                   </tbody>
                 </table>
               </div>
