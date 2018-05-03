@@ -28,7 +28,7 @@ class CommentController extends ApiBaseController
         $content = request('content');
         $question_id = request('question_id');
         $author_id = Auth::id();
-        $date = now();
+        $date = date('Y-m-d H:i:s');
 
         $comment = Comment::create(compact('question_id','author_id','content','date'));
 
