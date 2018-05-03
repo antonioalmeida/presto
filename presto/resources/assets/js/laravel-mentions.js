@@ -5,6 +5,10 @@ class Mentions {
 
         this.input = this.findNode(this.options.input, '.has-mentions');
         this.output = this.findNode(this.options.output, '#mentions');
+        
+        if(this.input == null || this.output == null){
+            return;
+        }
 
         this.collect()
             .attach()
