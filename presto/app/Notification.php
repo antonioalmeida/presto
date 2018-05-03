@@ -21,12 +21,12 @@ class Notification extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'notification';
+    // protected $table = 'notification';
 
-    protected $fillable = ['member_id', 'type', 'date', 'content', 'read'];
+    // protected $fillable = ['member_id', 'type', 'date', 'content', 'read'];
 
-    public function member()
-    {
-        return $this->belongsTo('App\Member');
-    }
+    // public function member()
+    // {
+    //     return $this->belongsTo('App\Member');
+    // }
 }

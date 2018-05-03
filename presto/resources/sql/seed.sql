@@ -137,19 +137,19 @@ CREATE TABLE follow_member (
     CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE notification (
-    id SERIAL NOT NULL,
-    type notification_origin NOT NULL,
-    "date" TIMESTAMP WITH TIME zone NOT NULL,
-    content text NOT NULL,
-    member_id INTEGER NOT NULL,
-    -- IDs to identify which user and/or post caused notification
-    message_id INTEGER,
-    user_id INTEGER,
-    read BOOLEAN NOT NULL DEFAULT false,
-    CONSTRAINT notification_pk PRIMARY KEY (id),
-    CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id)
-);
+-- CREATE TABLE notification (
+--     id SERIAL NOT NULL,
+--     type notification_origin NOT NULL,
+--     "date" TIMESTAMP WITH TIME zone NOT NULL,
+--     content text NOT NULL,
+--     member_id INTEGER NOT NULL,
+--     -- IDs to identify which user and/or post caused notification
+--     message_id INTEGER,
+--     user_id INTEGER,
+--     read BOOLEAN NOT NULL DEFAULT false,
+--     CONSTRAINT notification_pk PRIMARY KEY (id),
+--     CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id)
+-- );
 
 CREATE TABLE topic (
     id SERIAL NOT NULL,
@@ -628,113 +628,113 @@ CREATE TRIGGER answer_search_update
   FOR EACH ROW
     EXECUTE PROCEDURE answer_search_update();
 
--- A member is notified when someone else answers his question
-CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
-BEGIN
-  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
-    INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Answer', now(),
-      (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id) || ' answered your question: ' || (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
-      (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id),
-      NEW.id);
-  END IF;
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else answers his question
+-- CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
+-- BEGIN
+--   IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
+--     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Answer', now(),
+--       (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id) || ' answered your question: ' || (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
+--       (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id),
+--       NEW.id);
+--   END IF;
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_answer
-  AFTER INSERT ON answer
-  FOR EACH ROW
-    EXECUTE PROCEDURE notify_on_answer();
+-- CREATE TRIGGER notify_on_answer
+--   AFTER INSERT ON answer
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE notify_on_answer();
 
--- A member is notified when someone else comments his question
-CREATE FUNCTION notify_on_comment_question() RETURNS TRIGGER AS $$
-BEGIN
-  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
-    INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
-      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your question: ' || (SELECT title FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id),
-      (SELECT member.id FROM question INNER JOIN comment ON question.id = comment.question_id INNER JOIN member ON question.author_id = member.id WHERE comment.id = NEW.id),
-      NEW.id);
-  END IF;
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else comments his question
+-- CREATE FUNCTION notify_on_comment_question() RETURNS TRIGGER AS $$
+-- BEGIN
+--   IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
+--     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
+--       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your question: ' || (SELECT title FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id),
+--       (SELECT member.id FROM question INNER JOIN comment ON question.id = comment.question_id INNER JOIN member ON question.author_id = member.id WHERE comment.id = NEW.id),
+--       NEW.id);
+--   END IF;
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_comment_question
-  AFTER INSERT ON comment
-  FOR EACH ROW
-  WHEN (NEW.question_id IS NOT NULL)
-    EXECUTE PROCEDURE notify_on_comment_question();
+-- CREATE TRIGGER notify_on_comment_question
+--   AFTER INSERT ON comment
+--   FOR EACH ROW
+--   WHEN (NEW.question_id IS NOT NULL)
+--     EXECUTE PROCEDURE notify_on_comment_question();
 
--- A member is notified when someone else comments his answer
-CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
-BEGIN
-  IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
-    INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
-      (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer to the question ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN question ON answer.question_id = question.id WHERE comment.id = NEW.id),
-      (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id),
-      NEW.id);
-  END IF;
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else comments his answer
+-- CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
+-- BEGIN
+--   IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
+--     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
+--       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer to the question ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN question ON answer.question_id = question.id WHERE comment.id = NEW.id),
+--       (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id),
+--       NEW.id);
+--   END IF;
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_comment_answer
-  AFTER INSERT ON comment
-  FOR EACH ROW
-  WHEN (NEW.answer_id IS NOT NULL)
-    EXECUTE PROCEDURE notify_on_comment_answer();
+-- CREATE TRIGGER notify_on_comment_answer
+--   AFTER INSERT ON comment
+--   FOR EACH ROW
+--   WHEN (NEW.answer_id IS NOT NULL)
+--     EXECUTE PROCEDURE notify_on_comment_answer();
 
--- A member is notified when someone else upvotes his question
-CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
-    (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE question_rating.question_id = NEW.question_id AND member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id AND question.id = NEW.question_id),
-    (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id),
-    NEW.member_id,
-    NEW.question_id);
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else upvotes his question
+-- CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
+-- BEGIN
+--   INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
+--     (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE question_rating.question_id = NEW.question_id AND member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id AND question.id = NEW.question_id),
+--     (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id),
+--     NEW.member_id,
+--     NEW.question_id);
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_question_rating
-  AFTER INSERT ON question_rating
-  FOR EACH ROW
-  WHEN (NEW.rate = 1)
-    EXECUTE PROCEDURE notify_on_question_rating();
+-- CREATE TRIGGER notify_on_question_rating
+--   AFTER INSERT ON question_rating
+--   FOR EACH ROW
+--   WHEN (NEW.rate = 1)
+--     EXECUTE PROCEDURE notify_on_question_rating();
 
--- A member is notified when someone else upvotes his answer
-CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
-    (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
-    (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id),
-    NEW.member_id,
-    NEW.answer_id);
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else upvotes his answer
+-- CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
+-- BEGIN
+--   INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
+--     (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
+--     (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id),
+--     NEW.member_id,
+--     NEW.answer_id);
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_answer_rating
-  AFTER INSERT ON answer_rating
-  FOR EACH ROW
-  WHEN (NEW.rate = 1)
-    EXECUTE PROCEDURE notify_on_answer_rating();
+-- CREATE TRIGGER notify_on_answer_rating
+--   AFTER INSERT ON answer_rating
+--   FOR EACH ROW
+--   WHEN (NEW.rate = 1)
+--     EXECUTE PROCEDURE notify_on_answer_rating();
 
--- A member is notified when someone else follows him
-CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO notification (type, "date", content, member_id, user_id) VALUES ('Follow', now(),
-    (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id) || ' followed you',
-    NEW.following_id,
-    NEW.follower_id);
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
+-- -- A member is notified when someone else follows him
+-- CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
+-- BEGIN
+--   INSERT INTO notification (type, "date", content, member_id, user_id) VALUES ('Follow', now(),
+--     (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id) || ' followed you',
+--     NEW.following_id,
+--     NEW.follower_id);
+--   RETURN NEW;
+-- END
+-- $$ LANGUAGE 'plpgsql';
 
-CREATE TRIGGER notify_on_follow
-  AFTER INSERT ON follow_member
-  FOR EACH ROW
-    EXECUTE PROCEDURE notify_on_follow();
+-- CREATE TRIGGER notify_on_follow
+--   AFTER INSERT ON follow_member
+--   FOR EACH ROW
+--     EXECUTE PROCEDURE notify_on_follow();
 
 --Indexes
 CREATE UNIQUE INDEX idx_topic_name ON topic USING btree (lower(name));

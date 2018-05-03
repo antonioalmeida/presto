@@ -33,14 +33,18 @@
                 <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
               </div>
             </li>
-            <li class="nav-item pr-2 dropdown">
+
+          <li class="nav-item pr-2 dropdown">
               <a class="nav-link" href="#" id="notificationsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
-                <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a>
+                <div id="notificationsMenu">
+                <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
+                </div>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{{Route('notifications')}}">See All Notifications</a>
               </div>
-            </li>
+          </li>
+
             <li class="nav-item dropdown">
               <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <img src="{{Auth::user()->profile_picture}}" width="40px" height="40px" class="rounded-circle border border-primary profile-photo">

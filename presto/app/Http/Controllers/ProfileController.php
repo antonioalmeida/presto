@@ -102,11 +102,17 @@ class ProfileController extends Controller
     }
 
     public function notifications(){
-        $notifications_p = Notification::where('member_id', Auth::user()->id)->paginate(7);
+        $notifications_p = Auth()->user()->notifications()->paginate(7);
         $notifications = Auth()->user()->notifications;
+        $counters['Follows'] = $notifications->where('type','App\Notifications\MemberFollowed')->count();
+        $counters['Questions'] = $notifications->where('type','App\Notifications\NewQuestion')->count();
+        $counters['Answers'] = $notifications->where('type','App\Notifications\NewAnswer')->count();
+        $counters['Comments'] = $notifications->where('type','App\Notifications\NewComment')->count();
+        $counters['Rating'] = $notifications->where('type','App\Notifications\QuestionRated')->count() 
+        + $notifications->where('type','App\Notifications\AnswerRated')->count() 
+        + $notifications->where('type','App\Notifications\CommentRated')->count();
 
-
-        return view('pages.profile.notifications', ['notifications' => $notifications, 'notifications_p' => $notifications_p]);
+        return view('pages.profile.notifications', ['counters' => $counters, 'notifications_p' => $notifications_p]);
     }
 
 }
