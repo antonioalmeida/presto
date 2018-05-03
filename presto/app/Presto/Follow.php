@@ -4,6 +4,8 @@ namespace App\Presto;
 use App\Member;
 use App\Topic;
 
+use App\Notifications\MemberFollowed;
+
 trait Follow
 {
 
@@ -30,6 +32,8 @@ trait Follow
     {
         if (! $this->isFollowing($member) && $this->id != $member->id)
         {
+            $member->notify(new MemberFollowed($this));
+            
             $this->followings()->attach($member);
         }
     }

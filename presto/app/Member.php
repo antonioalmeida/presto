@@ -84,10 +84,10 @@ class Member extends Authenticatable
         return $this->belongsTo('App\Country');
     }
 
-    public function notifications()
-    {
-        return $this->hasMany('App\Notification');
-    }
+    // public function notifications()
+    // {
+    //     return $this->hasMany('App\Notification');
+    // }
 
     public function commentRatings()
     {
