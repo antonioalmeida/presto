@@ -16,175 +16,185 @@
                             <h4 class="pt-4">Type</h4>
                             <div class="dropdown-divider"></div>
                             <div class="typeFilter">
+                              <?php $filter_types = ['questions', 'answers', 'topics', 'members']; ?>
+                              @foreach($filter_types as $type_filter)
                                 <div class="form-check">
-                                    <input id="checkAll" class="form-check-input" type="checkbox" id="typeFilterAll">
-                                    <label class="form-check-label text-muted btn-link" for="typeFilterAll">
-                                        <strong>All Types</strong>
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="<?=$type_filter?>" />
+                                      <input type="hidden" name="limit_date" value="{{$limit_date}}" />
+                                      @if($type === $type_filter)
+                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link selected-filter" />
+                                      @else
+                                        <input type="submit" value="<?=ucfirst($type_filter)?>" class="filter-btn btn-link" />
+                                      @endif
+                                  </form>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="typeFilter0">
-                                    <label class="form-check-label text-muted btn-link" for="typeFilter0">
-                                        Questions
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="typeFilter1">
-                                    <label class="form-check-label text-muted btn-link" for="typeFilter1">
-                                        Answers
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="typeFilter2">
-                                    <label class="form-check-label text-muted btn-link" for="typeFilter2">
-                                        Topics
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="typeFilter3">
-                                    <label class="form-check-label text-muted btn-link" for="typeFilter3">
-                                        Users
-                                    </label>
-                                </div>
+                              @endforeach
                             </div>
                         </div>
                         <div>
                             <h4 class="pt-4">Author</h4>
                             <div class="dropdown-divider"></div>
                             <div class="input-group">
+                                @if($type == 'questions' || $type == 'answers')
                                 <input type="text" class="form-control" placeholder="Find People">
+                                @else
+                                <input type="text" class="form-control filter-disabled" placeholder="Find People" disabled>
+                                @endif
                             </div>
                         </div>
                         <div>
                             <h4 class="pt-4">Time</h4>
                             <div class="dropdown-divider"></div>
                             <div class="typeFilter">
+                              <?php $filter_dates = array(
+                                array('1 January 1970', 'All Time'),
+                                array('-1 day', 'Past day'),
+                                array('-1 week', 'Past week'),
+                                array('-1 month', 'Past month'),
+                                array('-1 year', 'Past year')
+                              ); ?>
+                              @foreach($filter_dates as $date_filter)
                                 <div class="form-check">
-                                    <input id="checkAll" class="form-check-input" type="checkbox" id="timeFilterAll">
-                                    <label class="form-check-label text-muted btn-link" for="timeFilterAll">
-                                        <strong>All Time</strong>
-                                    </label>
+                                  <form method="POST" action="{{ Route('search')}}">
+                                          {{ csrf_field() }}
+                                      <input type="hidden" name="text_search" value="{{$query}}" />
+                                      <input type="hidden" name="type" value="{{$type}}" />
+                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime($date_filter[0]))?>" />
+                                      @if($type == 'questions' || $type == 'answers')
+                                        @if(date('Y-m-d', strtotime($limit_date)) === date('Y-m-d', strtotime($date_filter[0])))
+                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn selected-filter" />
+                                        @else
+                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn" />
+                                        @endif
+                                      @else
+                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn filter-disabled" disabled/>
+                                      @endif
+                                  </form>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter0">
-                                    <label class="form-check-label text-muted btn-link" for="timeFilter0">
-                                        Past Day
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter1">
-                                    <label class="form-check-label text-muted btn-link" for="timeFilter1">
-                                        Past Week
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter2">
-                                    <label class="form-check-label text-muted btn-link" for="timeFilter2">
-                                        Past Month
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="timeFilter3">
-                                    <label class="form-check-label text-muted btn-link" for="timeFilter3">
-                                        Past Year
-                                    </label>
-                                </div>
+                              @endforeach
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-8">
                     <div class="d-flex justify-content-between flex-wrap">
-                        <h3><small class="text-muted">Results for </small> Maths</h3>
+                        <h3><small class="text-muted">Results for </small> {{$query}}</h3>
                         <button class="btn btn-link text-mobile" type="button" data-toggle="offcanvas">
                             <i class="far fa-fw fa-filter"></i> Filter
                         </button>
                     </div>
-                    <div class="nav nav-tabs mt-3">
-                        <a class="nav-item nav-link active" href="#">Newest</a>
-                        <a class="nav-item nav-link" href="#">Oldest</a>
-                        <a class="nav-item nav-link" href="#">Rating</a>
-                    </div>
-                    <div class="list-group">
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                <h4 class="mb-1">How is Maths taught?</h4>
-                                <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
+                      @if($type == 'questions' || $type == 'answers')
+                        <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
+                                <a class="nav-item nav-link" id="nav-oldest-tab" data-toggle="tab" href="#nav-oldest" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
+                                <a class="nav-item nav-link" id="nav-rating-tab" data-toggle="tab" href="#nav-rating" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
                             </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
+                        </nav>
 
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                                <h4 class="mb-3">Where has Math been invented?</h4>
-                                <div class="d-flex">
-                                    <div>
-                                        <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                    </div>
-                                    <h6><a href="profile.html" class="btn-link">António Almeida</a><br>
-                                        <small class="text-muted">answered 23h ago</small></h6>
+                        <div class="tab-content mb-5" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-newest" role="tabpanel" aria-labelledby="nav-newest-tab">
+                      @endif
+                                <div class="list-group">
+                                    @switch($type)
+                                      @case('questions')
+                                        @foreach($result->sortByDesc('date') as $question)
+                                          @include('partials.question-card', ['question', $question])
+                                        @endforeach
+                                        @break
+                                      @case('answers')
+                                        @foreach($result->sortByDesc('date') as $answer)
+                                          @include('partials.answer-card', ['answer', $answer])
+                                        @endforeach
+                                        @break
+                                      @case('members')
+                                        @foreach($result as $member)
+                                        <div onclick="location.assign('{{Route('profile', $member->username)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
+                                          <div class="d-flex w-100 justify-content-begin">
+                                            <div class="align-self-center">
+                                               <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{$member->profile_picture}}">
+                                           </div>
+                                            <div class="d-flex flex-column">
+                                              <h6 class="mb-1">{{ $member->name }}</h6>
+                                              <h6 class="text-collapse"><small>{{ $member->bio }}</small></h6>
+                                              <h6><small class="text-muted">@ {{$member->username}} </small></h6>
+                                            </div>
+
+                                            <div class="ml-auto align-self-center flex-wrap">
+                                              @include('partials.follow', ['followTarget' => $member])
+                                            </div>
+                                          </div>
+                                        </div>
+                                        @endforeach
+                                        @break
+                                      @case('topics')
+                                        @foreach($result as $topic)
+                                        <div onclick="location.assign('{{Route('topic', $topic->name)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
+                                          <div class="d-flex w-100 justify-content-begin">
+                                            <div class="align-self-center">
+                                               <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{$topic->picture}}">
+                                           </div>
+                                            <div class="d-flex flex-column">
+                                              <h6 class="mb-1">{{ $topic->name }}</h6>
+                                              <h6 class="text-collapse"><small>{{ $topic->description }}</small></h6>
+                                            </div>
+                                            <div class="ml-auto align-self-center flex-wrap">
+                                              @include('partials.follow-topic', ['followTarget' => $topic])
+                                            </div>
+                                          </div>
+                                        </div>
+                                        @endforeach
+                                        @break
+                                      @default
+                                        @break
+                                    @endswitch
                                 </div>
+
+                      @if($type == 'questions' || $type == 'answers')
                             </div>
-                            <div class="row answer-preview">
-                                <div class="answer-text-preview col-sm mb-1">
-                                    <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably the realization that a collection of two apples and a collection of two oranges (for example) have something in common, namely quantity of their members. <span class="btn-link text-primary">(read more)</span></p>
-                                </div>
-                                <div class="answer-image-preview col-sm-4">
-                                    <img class="rounded" src="https://upload.wikimedia.org/wikipedia/commons/a/af/Abacus_6.png">
-                                </div>
+                            <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
+                              <div class="list-group">
+                                @switch($type)
+                                  @case('questions')
+                                    @foreach($result->sortBy('date') as $question)
+                                      @include('partials.question-card', ['question', $question])
+                                    @endforeach
+                                    @break
+                                  @case('answers')
+                                    @foreach($result->sortBy('date') as $answer)
+                                      @include('partials.answer-card', ['answer', $answer])
+                                    @endforeach
+                                    @break
+                                  @default
+                                    @break
+                                @endswitch
+                              </div>
                             </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
+
+                            <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
+                              <div class="list-group">
+                                <!-- TODO: Although sortByDesc is used, questions/answers are in inverted ordered according to positive ratings?? Investigate -->
+                                @switch($type)
+                                  @case('questions')
+                                    @foreach($result->sortByDesc(function($product, $key){return count($product->questionRatings()->where('rate',1));}) as $question)
+                                      @include('partials.question-card', ['question', $question])
+                                    @endforeach
+                                    @break
+                                  @case('answers')
+                                    @foreach($result->sortByDesc(function($product, $key){return count($product->answerRatings()->where('rate',1));}) as $answer)
+                                      @include('partials.answer-card', ['answer', $answer])
+                                    @endforeach
+                                    @break
+                                  @default
+                                    @break
+                                @endswitch
+                              </div>
+                            </div>
                         </div>
-
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                <h4 class="mb-1">How is Maths taught?</h4>
-                                <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                            </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                <h4 class="mb-1">How is Maths taught?</h4>
-                                <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                            </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-column mb-1">
-                                <h4 class="mb-3">Where has Math been invented?</h4>
-                                <div class="d-flex">
-                                    <div>
-                                        <img class="rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man.jpeg">
-                                    </div>
-                                    <h6><a href="profile.html" class="btn-link">António Almeida</a><br>
-                                        <small class="text-muted">answered 23h ago</small></h6>
-                                </div>
-                            </div>
-                            <p class="mb-1">The history of mathematics can be seen as an ever-increasing series of abstractions. The first abstraction, which is shared by many animals, was probably that of numbers... <span class="btn-link text-primary">(read more)</span></p>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                <h4 class="mb-1">How is Maths taught?</h4>
-                                <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                            </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
-
-                        <div onclick="location.assign('answer.html');" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between flex-wrap-reverse">
-                                <h4 class="mb-1">How is Maths taught?</h4>
-                                <small class="pb-1"><a href="profile.html" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" src="assets/img/portrait-man2.jpeg">João Damas</a> <span class="text-muted">asked</span></small>
-                            </div>
-                            <small class="text-muted"><i class="far fa-tags"></i> <a href="topic.html" class="btn-link">Science</a>, <a href="topic.html" class="btn-link">Education</a></small>
-                        </div>
-
+                      @endif
                     </div>
         </section>
     </main>

@@ -28,10 +28,16 @@
           </ul>
           <ul class="navbar-nav align-items-end">
             <li class="nav-item pr-2">
+            <form method="POST" action="{{ Route('search')}}">
+                    {{ csrf_field() }}
               <div class="input-group">
-                <a id= "nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
-                <input id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+                <a id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
+                <input name="text_search" id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
+                <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('1 January 1970'))?>" />
+                <input type="hidden" name="type" value="questions" />
               </div>
+            </form>
+
             </li>
 
           <li class="nav-item pr-2 dropdown">
