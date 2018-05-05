@@ -91,7 +91,7 @@ export default {
             answer: this.answerData,
             commentText: '',
             showError: false,
-
+            showSuccess: false,
         }
     },
 

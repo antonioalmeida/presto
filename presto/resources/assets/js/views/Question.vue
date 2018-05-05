@@ -93,7 +93,7 @@
                     		</b-collapse>
                     </div>
 
-                    <h4 class="mt-4"> {{ answers.length }} Answer(s)</h4>
+                    <!--<h4 class="mt-4"> {{ answers.length }} Answer(s)</h4>-->
 
                     <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" :key="answer.id"></AnswerPartial>
                 </div>
@@ -125,7 +125,10 @@ export default {
 
 	data () {
 		return {
-			question: {},
+			question: {
+                comments: [],
+                topics: [],
+            },
 			answers: {},
             commentText: '',
             editorInit: require('../tiny-mce-config').default,
