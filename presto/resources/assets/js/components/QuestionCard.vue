@@ -15,9 +15,9 @@
 
         
         <small class="text-muted"><i class="far fa-tags"></i>
-            <a v-for="(topic, index) in question.topics" class="text-muted" href="">
+            <router-link v-for="(topic, index) in question.topics" class="text-muted" :key="topic.id" :to="'/topic/' + topic.name">
                 {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
-            </a>
+            </router-link>
 
             <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
         </small>

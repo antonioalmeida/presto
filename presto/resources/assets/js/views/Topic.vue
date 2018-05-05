@@ -125,6 +125,12 @@ export default {
         this.getTopic(this.name);
     },
 
+    watch: {
+        '$route' (to, from) {
+            this.getTopic(to.params.name);
+        }
+    },
+
     data () {
         return {
             topic: {}
