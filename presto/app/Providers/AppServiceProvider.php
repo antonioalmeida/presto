@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Resources\Json\Resource;
 use App\Observers\QuestionObserver;
 use App\Question;
 use App\Observers\AnswerObserver;
@@ -19,6 +20,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // Removes top-level 'data' attribute
+        // from JSON responses
+        Resource::withoutWrapping();
         Question::observe(QuestionObserver::class);
         Answer::observe(AnswerObserver::class);
         Comment::observe(CommentObserver::class);

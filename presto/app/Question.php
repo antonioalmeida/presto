@@ -37,6 +37,8 @@ class Question extends Model
      */
     protected $fillable = ['author_id', 'title', 'content', 'date', 'views', 'solved', 'search'];
 
+    protected $hidden = ['search'];
+
     /**
      * Queries
      */

@@ -26,12 +26,23 @@ class Topic extends Model
 
     protected $fillable = ['name', 'description', 'picture'];
 
+    protected $hidden = ['pivot'];
+
     public function getRouteKeyName(){
         return 'name';
     }
 
     public function getNumFollowers(){
         return $this->followers->count();
+    }
+
+    public function getNumViews() {
+        $nrViews = 0.0;
+
+        foreach ($this->questions as $question)
+            $nrViews += $question->answers->sum('views');
+
+        return print_number_count($nrViews);
     }
 
     public function getAnswersStats(){

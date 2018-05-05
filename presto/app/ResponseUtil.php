@@ -16,6 +16,17 @@ class ResponseUtil
             'message' => $message,
         ];
     }
+
+    /**
+     * @param mixed  $data
+     *
+     * @return array
+     */
+    public static function makeResponseData($data)
+    {
+        return $data; 
+    }
+
     /**
      * @param string $message
      * @param array  $data

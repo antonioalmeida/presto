@@ -47,8 +47,7 @@
 
 </head>
 
-
-@include('includes.nav')
+@verbatim <!-- @include('includes.nav')
 
 @yield('content')
 
@@ -57,6 +56,16 @@
 @include('includes.question_modal')
 
 @include('includes.errors')
+-->
+@endverbatim
+
+  <div id="app">
+    @include('includes.nav')
+
+    <router-view></router-view>
+
+    @include('includes.footer')
+  </div>
 
 
 </html>
