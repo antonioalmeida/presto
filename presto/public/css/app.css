@@ -49,7 +49,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 @-ms-viewport {
@@ -10462,25 +10462,11 @@ footer {
   max-width: 72.5%;
 }
 
-.btn-unfollow .after {
-  display: none;
-}
-
 .btn-unfollow:hover,
 .btn-unfollow:active {
   border-color: #d9534f !important;
   background-color: #d9534f;
   color: #fff;
-}
-
-.btn-unfollow:hover .after,
-.btn-unfollow:active .after {
-  display: inline-block;
-}
-
-.btn-unfollow:hover .before,
-.btn-unfollow:active .before {
-  display: none;
 }
 
 .list-group-item-action:hover {
@@ -10675,5 +10661,54 @@ footer {
     border-width: 1px;
     border-color: #ddd;
   }
+}
+
+#notifications.has-notifications {
+  color: #bf5329;
+}
+
+.filter-disabled:hover {
+  cursor: not-allowed;
+}
+
+.filter-btn {
+  border: none;
+}
+
+/**
+  * TODO: Style properly... :'(
+  */
+
+.selected-filter {
+  background-color: red;
+}
+
+.tribute-container {
+  margin-top: 1rem;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  background: white;
+}
+
+.tribute-container ul {
+  padding: .5rem 0;
+  margin: 0;
+}
+
+.tribute-container ul li {
+  padding: 1rem 2rem;
+  margin: 0;
+  color: black;
+  list-style-type: none;
+}
+
+.tribute-container ul li.highlight,
+.tribute-container ul li:hover {
+  background: #ddd;
+}
+
+.mention-node {
+  font-weight: bold;
+  text-color: black;
 }
 
