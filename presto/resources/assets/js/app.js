@@ -1,6 +1,10 @@
-// import Vue from 'vue';
+import './bootstrap';
+import router from './routes';
 
-// const app = new Vue({
-//   el: '#app'
-// });
+Vue.use(require('vue-moment'));
 
+new Vue({
+    el: '#app',
+
+    router
+});

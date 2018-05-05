@@ -34,8 +34,10 @@ trait Follow
         {
             $member->notify(new MemberFollowed($this));
             
-            $this->followings()->attach($member);
+            return $this->followings()->attach($member);
         }
+
+        return false;
     }
 
     /**
@@ -64,10 +66,12 @@ trait Follow
 
     public function followTopic(Topic $topic)
     {
-        if (! $this->isFollowingTopic($topic))
-        {
+        if (! $this->isFollowingTopic($topic)) {
             $this->topics()->attach($topic);
+            return true;
         }
+        
+        return false;
     }
 
     public function isFollowingTopic(Topic $topic)

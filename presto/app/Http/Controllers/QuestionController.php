@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\FullQuestionResource;
+use App\Http\Resources\AnswerResource;
+
 use \App\Question;
 use \App\Topic;
 use \App\QuestionRating;
@@ -12,11 +16,19 @@ class QuestionController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'get', 'getAnswers']);
     }
 
-    public function show(Question $question){
+    public function show(Question $question) {
         return view('pages.question.show', compact('question'));
+    }
+
+    public function get(Question $question) {
+        return new FullQuestionResource($question);
+    }
+
+    public function getAnswers(Question $question) {
+        return AnswerResource::collection($question->answers);
     }
 
     public function store(){

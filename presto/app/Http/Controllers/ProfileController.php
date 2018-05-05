@@ -5,18 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\ApiBaseController;
+
+use App\Http\Resources\MemberResource;
+use App\Http\Resources\QuestionResource;
 
 use \App\Member;
 use App\Notification;
 
-class ProfileController extends Controller
+class ProfileController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show','followers','following']);
+        $this->middleware('auth')->except(['get','getQuestions','show','followers','following']);
     }
 
     public function show(Member $member){
         return view('pages.profile.show', compact('member'));
+    }
+
+    public function get(Member $member) {
+        return new MemberResource($member);
+    }
+
+    public function getLoggedIn() {
+        $member = Auth::user();
+        return new MemberResource($member);
+    }
+
+    public function getQuestions(Member $member) {
+        return QuestionResource::collection($member->questions);
+    }
+
+    public function getQuestionsLoggedIn() {
+        $member = Auth::user();
+        return QuestionResource::collection($member->questions);
     }
 
     public function edit(){
@@ -88,8 +110,8 @@ class ProfileController extends Controller
     }
 
     public function follow(Member $follower) {
-        Auth::user()->follow($follower);
-        return back();
+        return Auth::user()->follow($follower);
+        //return back();
     }
 
     public function unFollow(Member $follower) {

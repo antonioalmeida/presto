@@ -4,23 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Resources\TopicResource;
+
 use App\Topic;
 
 class TopicController extends Controller
 {
 
-    public function __construct(){
-        $this->middleware('auth')->except(['show']);
+    public function __construct() {
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
-    //
+    public function get(Topic $topic) {
+        return new TopicResource($topic);
+    }
+
     public function show(Topic $topic){
         return view('pages.topic', compact('topic'));
     }
 
+    public function toggleFollow(Topic $topic) {
+        $member = Auth::user();
+
+        if($member->isFollowingTopic($topic)) 
+            $member->unFollowTopic($topic);
+        else 
+            $member->followTopic($topic);
+
+        return ['following' => $member->isFollowingTopic($topic)];
+    }
+
     public function follow(Topic $topic) {
-        Auth::user()->followTopic($topic);
-        return back();
+        if(Auth::user()->followTopic($topic))
+            return "ola";
+
+        return "adeus";
+        //return back();
     }
 
     public function unFollow(Topic $topic) {
