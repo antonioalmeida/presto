@@ -35,8 +35,7 @@ class CommentController extends ApiBaseController
         return new CommentResource($comment);
     }
 
-        public function storeAnswerComment()
-    {
+        public function storeAnswerComment() {
         $this->validate(request(), [
             'content' => 'required|min:2',
             'answer_id' => 'required|integer|min:0'
