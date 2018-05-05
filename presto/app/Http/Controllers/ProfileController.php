@@ -110,8 +110,8 @@ class ProfileController extends ApiBaseController
     }
 
     public function follow(Member $follower) {
-        Auth::user()->follow($follower);
-        return back();
+        return Auth::user()->follow($follower);
+        //return back();
     }
 
     public function unFollow(Member $follower) {

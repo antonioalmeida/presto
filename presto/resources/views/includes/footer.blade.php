@@ -10,7 +10,6 @@
             </div>
             <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
                 <router-link to="/about">About</router-link>
-                <router-link to="/profile">Profile</router-link>
             </div>
         </div>
     </div>

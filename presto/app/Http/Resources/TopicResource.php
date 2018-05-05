@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 use App\Http\Resources\QuestionResource;
+use Illuminate\Support\Facades\Auth;
 
 
 class TopicResource extends Resource
@@ -24,11 +25,13 @@ class TopicResource extends Resource
         $response['related'] = $this->getRelatedTopics();
         $response['nrViews'] = $this->getNumViews();
 
-        $response['questions'] = QuestionResource::collection($this->questions);
+        $isFollowing = false;
+        if (Auth::user()->isFollowingTopic($request['topic']))
+            $isFollowing = true;
+
+        $response['isFollowing'] = $isFollowing;
 
         $response['questions'] = QuestionResource::collection($this->questions);
-
-        //TODO: add answers
 
         return $response;
     }
