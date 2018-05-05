@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Auth;
 
 class MemberResource extends Resource
 {
@@ -17,6 +18,13 @@ class MemberResource extends Resource
     {
         $response = parent::toArray($request);
         $response['answers_views'] = $this->getAnswerViews();
+
+        $isOwner = false;
+        $member = Auth::user();
+        if ($member->can('update', request('member')))
+            $isOwner = true;
+    
+        $response['isOwner'] = $isOwner;
         return $response;
     }
 }

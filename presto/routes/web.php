@@ -27,12 +27,14 @@ Route::get('404', 'HomeController@error')->name('404');
 
 //Profile
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
-Route::get('profile/{member}', 'ProfileController@show')->name('profile');
 Route::get('profile/{member}/followers', 'ProfileController@followers')->name('followers');
 Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
+
+// Profile
+Route::view('profile/{member}', 'layouts.master');
 
 // Answer
 Route::view('answers/{answer}', 'layouts.master');

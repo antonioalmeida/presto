@@ -28,11 +28,8 @@
                                         <p class="lead lead-adapt">
                                             {{user.bio}}
                                         </p>
-                                        <!--
-                                        @can('update', user)
-                                        <a href="{{Route('profile.edit')}}" class="btn btn-outline-light">Edit Profile</a>
-                                        @endcan
-                                        -->
+
+                                        <router-link v-if="user.isOwner" :to="'/edit-profile'" class="btn btn-outline-light">Edit Profile</router-link>
                                     </div>
                                 </div>
 
