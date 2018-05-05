@@ -39,9 +39,6 @@
                 <span class="badge badge-primary">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>
             </a>
             <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
-            <a href="" class="btn">
-                <i class="far fa-fw fa-comment"></i> Comment
-            </a>
         </div>
     </div>
 
