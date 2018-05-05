@@ -20,9 +20,15 @@
                                 <p class="lead lead-adapt">
                                     {{ topic.description }}
                                 </p>
-                                <!-- <a href="" class="btn btn-outline-light"><i class="far fa-user-plus fa-fw"></i> Follow</a> 
-                                @include('partials.follow-topic', ['topic' => $topic])
-                            -->
+                                
+                                <follow-button 
+                                v-model="topic.isFollowing"
+                                :classesDefault= "'btn btn-outline-light'"
+                                :classesActive= "'btn btn-danger'"
+                                :path="'/api/topic/' + topic.name + '/toggle-follow'"
+                                >
+                                </follow-button>
+
                             </div>
 
                         </div>
@@ -93,7 +99,8 @@
                             </div>
                             <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
                             <div class="list-group">
-                                <question-card :key="question.id" v-for="question in this.sortedOldest" :question="question"></question-card> 
+                                <!-- <question-card :key="question.id" v-for="question in this.sortedOldest" :question="question"></question-card> 
+                                -->
                             </div>
                             </div>
                             <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
@@ -110,6 +117,7 @@
 
 <script>
 import QuestionCard from '../components/QuestionCard'
+import FollowButton from '../components/FollowButton'
 
 export default {
 
@@ -118,7 +126,8 @@ export default {
     name: 'Topic',
 
     components: {
-        'QuestionCard': QuestionCard
+        'QuestionCard': QuestionCard,
+        'FollowButton': FollowButton
     },
 
     mounted() {
@@ -144,6 +153,14 @@ export default {
             .catch((error) => {
                 console.log(error);
             });  
+        },
+
+        toggleFollowTopic: function() {
+           axios.post('/api/topic/toggle-follow')
+           .then(({data}) => this.topic.isFollowing = data.isFollowing)
+           .catch((error) => {
+                console.log(error);
+            });   
         }
     },
 

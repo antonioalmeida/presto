@@ -62,6 +62,8 @@ Route::prefix('api')->group(function() {
 
 	// Topics API
 	Route::get('topic/{topic}', 'TopicController@get');
+	Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
+	//Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
 
 });
 
@@ -98,9 +100,7 @@ Route::put('api/members/{username}/settings/password', 'ProfileController@update
 Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
 Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
 
-//Follows Topic
-Route::post('api/topic/{topic}/toggle-follow', 'TopicController@follow')->name('api.followTopic');
-Route::delete('api/topic/{topic}/toggle-follow', 'TopicController@unFollow')->name('api.unFollowTopic');
+
 
 
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');

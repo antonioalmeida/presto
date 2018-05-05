@@ -30,8 +30,10 @@ trait Follow
     {
         if (! $this->isFollowing($member) && $this->id != $member->id)
         {
-            $this->followings()->attach($member);
+            return $this->followings()->attach($member);
         }
+
+        return false;
     }
 
     /**
@@ -60,10 +62,12 @@ trait Follow
 
     public function followTopic(Topic $topic)
     {
-        if (! $this->isFollowingTopic($topic))
-        {
+        if (! $this->isFollowingTopic($topic)) {
             $this->topics()->attach($topic);
+            return true;
         }
+        
+        return false;
     }
 
     public function isFollowingTopic(Topic $topic)
