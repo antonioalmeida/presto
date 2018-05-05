@@ -41,6 +41,8 @@ Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 Route::post('questions', 'QuestionController@store')->name('question-add');
 Route::view('questions/{question}', 'layouts.master');
 
+// Topic
+Route::view('topic/{topic}', 'layouts.master');
 
 Route::prefix('api')->group(function() {
 	// Profile API
@@ -60,8 +62,7 @@ Route::prefix('api')->group(function() {
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
 
-// Topic
-Route::get('topic/{topic}', 'TopicController@show')->name('topic');
+
 
 // Authentication
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');

@@ -30,8 +30,11 @@ let routes = [
         props: true,
     },
 
-
-
+    {
+        path: '/topic/:name',
+        component: require('./views/Topic'),
+        props: true,
+    },
 
     ];
 
