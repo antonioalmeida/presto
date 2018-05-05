@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Resources\TopicResource;
+
 use App\Topic;
 
 class TopicController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'get']);
     }
 
-    //
+    public function get(Topic $topic) {
+        return new TopicResource($topic);
+    }
+
     public function show(Topic $topic){
         return view('pages.topic', compact('topic'));
     }

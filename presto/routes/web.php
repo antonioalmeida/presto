@@ -57,6 +57,10 @@ Route::prefix('api')->group(function() {
 	Route::get('comments/{comment}', 'CommentController@get');
 	Route::post('comments/question', 'CommentController@storeQuestionComment')->name('question.add.comment');
 	Route::post('comments/answer', 'CommentController@storeAnswerComment')->name('answer.add.comment');
+
+	// Topics API
+	Route::get('topic/{topic}', 'TopicController@get');
+
 });
 
 //Admin
