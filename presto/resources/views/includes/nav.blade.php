@@ -21,11 +21,9 @@
         <div class="navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav ml-auto align-items-end">
             <li class="nav-item pr-2">
-              <a class="nav-link">
-                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#exampleModal">
-                  <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
-                </button>
-              </a>
+                  <b-btn variant="primary" v-b-modal.modal>
+                    <i class="far fa-plus"></i> <span class="text-collapse">Add Question</span>
+                  </b-btn>
             </li>
           </ul>
           <ul class="navbar-nav align-items-end">
@@ -70,3 +68,4 @@
     </div>
   </nav>
 </header>
+

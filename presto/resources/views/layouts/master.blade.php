@@ -65,6 +65,9 @@
     <router-view></router-view>
 
     @include('includes.footer')
+
+    <add-question-modal></add-question-modal>
+
   </div>
 
 
