@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class AnswerCardResource extends Resource
+class TopicCardResource extends Resource
 {
     /**
      * Transform the resource into an array.
@@ -14,7 +14,7 @@ class AnswerCardResource extends Resource
      */
     public function toArray($request)
     {
-        $response = parent::toArray($request);
+        return parent::toArray($request);
 
         $response['author'] = [
             'username' => $this->member->username,
@@ -22,17 +22,5 @@ class AnswerCardResource extends Resource
             'profile_picture' => $this->member->profile_picture,
         ];
 
-        $response['topics'] = $this->topics;
-
-        $response['question'] = $this->question;
-
-        /*
-        $response['question'] = [
-            'id' => $this->question->id,
-            'title' => $this->question->title
-        ]
-       */
-
-        return $response;
     }
 }

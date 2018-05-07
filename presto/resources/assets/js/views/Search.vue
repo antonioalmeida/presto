@@ -9,12 +9,11 @@
                             <h4 class="pt-4">Type</h4>
                             <div class="dropdown-divider"></div>
 
-							<ul>
-								<li class="text-muted">Questions</li>
-								<li class="text-muted">Answers</li>
-								<li class="text-muted">Members</li>
-								<li class="text-muted">Topics</li>
-							</ul>
+                            <b-form-radio-group class="text-muted" v-model="type"
+	                            	:options="typeOptions"
+	                            	stacked
+	                            	name="radiosStacked">
+	                        </b-form-radio-group>
 
                             </div>
                         <div>
@@ -76,6 +75,10 @@
                     <!--
                       @if($type == 'questions' || $type == 'answers')
                   -->
+                  <template v-if="results == null">
+                  </template>
+                  <h5 v-else-if="results.length === 0"> <small> No results. </small></h5>
+                  <template v-else>
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
@@ -91,80 +94,22 @@
                   -->
                                 <div class="list-group">
 
-                                	<ul>
-                                		<li v-for="result in results">
-                                			{{ result.id }}, {{ result.date }}
-                                		</li>
-                                	</ul>
-
                                 	<template v-if="type == 'questions'">
                                 		<question-card :key="question.id" v-for="question in results" :question="question"></question-card> 
+                                	</template>
+
+                                	<template v-if="type == 'answers'">
+                                		<answer-card :key="answer.id" v-for="answer in results" :answer="answer"></answer-card> 
                                 	</template>
 
                                 	<template v-if="type == 'members'">
                                 		<member-card :key="member.id" v-for="member in results" :member="member"></member-card> 
                                 	</template>
 
+                                	<template v-if="type == 'topics'">
+                                		<topic-card :key="topic.id" v-for="topic in results" :topic="topic"></topic-card> 
+                                	</template>
 
-
-                                	<!--
-                                    @switch($type)
-                                      @case('questions')
-                                        @foreach($result->sortByDesc('date') as $question)
-                                          @include('partials.question-card', ['question', $question])
-                                        @endforeach
-                                        @break
-                                      @case('answers')
-                                        @foreach($result->sortByDesc('date') as $answer)
-                                          @include('partials.answer-card', ['answer', $answer])
-                                        @endforeach
-                                        @break
-                                      @case('members')
-                                        @foreach($result as $member)
-                                        <div onclick="location.assign('{{Route('profile', member.username)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                          <div class="d-flex w-100 justify-content-begin">
-                                            <div class="align-self-center">
-                                               <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{member.profile_picture}}">
-                                           </div>
-                                            <div class="d-flex flex-column">
-                                              <h6 class="mb-1">{{ member.name }}</h6>
-                                              <h6 class="text-collapse"><small>{{ member.bio }}</small></h6>
-                                              <h6><small class="text-muted">@ {{member.username}} </small></h6>
-                                            </div>
-
-                                            <div class="ml-auto align-self-center flex-wrap">
-                                            	<!--
-                                              @include('partials.follow', ['followTarget' => $member])
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <!--
-                                        @endforeach
-                                        @break
-                                      @case('topics')
-                                        @foreach($result as $topic)
-                                        <div onclick="location.assign('{{Route('topic', topic.name)}}');" class="list-group-item list-group-item-action flex-column align-items-start">
-                                          <div class="d-flex w-100 justify-content-begin">
-                                            <div class="align-self-center">
-                                               <img class="rounded-circle pr-2" width="60px" heigth="60px" src="{{topic.picture}}">
-                                           </div>
-                                            <div class="d-flex flex-column">
-                                              <h6 class="mb-1">{{ topic.name }}</h6>
-                                              <h6 class="text-collapse"><small>{{ topic.description }}</small></h6>
-                                            </div>
-                                            <div class="ml-auto align-self-center flex-wrap">
-                                            	<!--
-                                              @include('partials.follow-topic', ['followTarget' => $topic])
-                                            </div>
-                                          </div>
-                                        </div>
-                                        <!--
-                                        @endforeach
-                                        @break
-                                      @default
-                                        @break
-                                    @endswitch
-                                -->
                                 </div>
 
                                 <!--
@@ -214,10 +159,10 @@
                               </div>
                             </div>
                         </div>
-                        <!--
-                      @endif
-                  -->
-                    </div>
+
+                    </template>
+                 
+                	</div>
                 </div>
         </section>
     </main>
@@ -235,7 +180,9 @@ export default {
 
 	components: {
 		QuestionCard: require('../components/QuestionCard'),
-		MemberCard: require('../components/MemberCard')
+		AnswerCard: require('../components/AnswerCard'),
+		MemberCard: require('../components/MemberCard'),
+		TopicCard: require('../components/TopicCard')
 	},
 
 	mounted() {
@@ -243,11 +190,26 @@ export default {
         this.getResults(this.query);
 	},
 
+	watch: {
+		type: function() {
+			this.results = null;
+			this.loader = this.$loading.show();
+			this.getResults(this.query);
+		}
+	},
+
 	data () {
 		return {
-			results: [],
-			type: 'members',
+			results: null,
+			type: 'questions',
 			isOffcanvasOpen: false,
+
+			typeOptions: [
+				{ text: 'Questions', value: 'questions' },
+				{ text: 'Answers', value: 'answers' },
+				{ text: 'Members', value: 'members' },
+				{ text: 'Topics', value: 'topics' }
+			]
 		}
 	},
 

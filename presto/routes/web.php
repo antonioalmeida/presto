@@ -55,7 +55,6 @@ Route::prefix('api')->group(function() {
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
 	Route::post('questions', 'QuestionController@store')->name('question-add');
 
-
 	// Comments
 	Route::get('comments/{comment}', 'CommentController@get');
 	Route::post('comments/question', 'CommentController@storeQuestionComment')->name('question.add.comment');
