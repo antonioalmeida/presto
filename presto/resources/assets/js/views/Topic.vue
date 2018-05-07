@@ -131,11 +131,13 @@ export default {
     },
 
     mounted() {
+        this.loader = this.$loading.show();
         this.getTopic(this.name);
     },
 
     watch: {
         '$route' (to, from) {
+            this.loader = this.$loading.show();
             this.getTopic(to.params.name);
         }
     },
@@ -149,7 +151,10 @@ export default {
     methods: {
         getTopic: function(id) {
             axios.get('/api/topic/' + this.name)
-            .then(({data}) => this.topic = data)
+            .then(({data}) => {
+                this.topic = data;
+                this.loader.hide();
+            })
             .catch((error) => {
                 console.log(error);
             });  

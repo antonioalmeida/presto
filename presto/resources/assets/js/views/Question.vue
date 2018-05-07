@@ -111,7 +111,7 @@ import Editor from '@tinymce/tinymce-vue';
 
 export default {
 
-	props: ['id'],
+	props: ['id', 'created'],
 
 	name: 'Question',
 
@@ -129,20 +129,21 @@ export default {
                 comments: [],
                 topics: [],
             },
-			answers: {},
+            answers: {},
             commentText: '',
             editorInit: require('../tiny-mce-config').default,
-            editorContent: ''
-            }
-        },
+            editorContent: '',
+        }
+    },
 
     mounted() {
+        this.loader = this.$loading.show();
         this.getData(this.id);
     },
 
     watch: {
         '$route' (to, from) {
-            console.log(to.params);
+            this.loader = this.$loading.show();
             this.getData(to.params.id);
         }
     },
@@ -165,7 +166,10 @@ export default {
             let request = '/api/questions/' + questionId + '/answers';
 
             axios.get(request)
-            .then(({data}) => this.answers = data)
+            .then(({data}) => {
+                this.answers = data;
+                this.loader.hide();
+            })
             .catch((error) => {
                 console.log(error);
             }); 
