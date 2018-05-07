@@ -39,10 +39,6 @@ Route::view('profile/{member}', 'layouts.master');
 Route::view('answers/{answer}', 'layouts.master');
 Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 
-//Search
-Route::post('search', 'SearchController@search')->name('search');
-
-
 // Question
 Route::view('questions/{question}', 'layouts.master');
 
@@ -70,7 +66,15 @@ Route::prefix('api')->group(function() {
 	Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
 	//Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
 
+	// Search API
+	Route::get('search/{query}', 'SearchController@get');
+
+
 });
+
+//Search
+Route::view('search/{query}', 'layouts.master');
+//Route::post('search', 'SearchController@search')->name('search');
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');

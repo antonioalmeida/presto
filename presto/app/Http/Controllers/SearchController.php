@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Http\Resources\MemberResource;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\AnswerCardResource;
+
 class SearchController extends Controller
 {
     //
@@ -13,50 +17,50 @@ class SearchController extends Controller
         $this->middleware('auth');
     }
 
-    public function search(){
-        $type = request('type'); // Content type being searched (Questions, Answers, Topics, Members)
-        $query = request('text_search');
-        $limit_date = request('limit_date'); // In case of Questions or Answers, content must be after this date
+    public function get($query) {
+        // Content type being searched 
+        // (Questions, Answers, Topics, Members)
+        $type = request('type'); 
+
         $result = [];
+
         switch($type) {
           case 'questions':
-            $result = $this->getQuestions($query, $limit_date);
-            break;
+          $result = $this->getQuestions($query);
+          break;
           case 'answers':
-            $result = $this->getAnswers($query, $limit_date);
-            break;
+          $result = $this->getAnswers($query);
+          break;
           case 'topics':
-            $result = $this->getTopics($query);
-            break;
+          $result = $this->getTopics($query);
+          break;
           case 'members':
-            $result = $this->getMembers($query);
-            break;
+          $result = $this->getMembers($query);
+          break;
           default:
-            break;
-        }
+          break;
+      }
 
-        return view('pages.search', compact('query', 'result', 'type', 'limit_date'));
-    }
+      return $result;
+  }
 
-    private function getQuestions($search_input, $limit_date){
+    private function getQuestions($search_input){
 
-        $questions = \App\Question::where('date', '>=', $limit_date)
-                    ->whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
+        $questions = \App\Question::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
                     ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
                     ->limit(10)
                     ->get();
 
-        return $questions;
+        return QuestionResource::collection($questions);
     }
 
-    private function getAnswers($search_input, $limit_date){
-        $answers = \App\Answer::where('date', '>=', $limit_date)
-        ->whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
+    private function getAnswers($search_input){
+        $answers = \App\Answer::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
         ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
         ->limit(10)
         ->get();
 
-        return $answers;
+        return AnswerCardResource::collection($answers);
     }
 
     private function getTopics($search_input){
@@ -73,6 +77,6 @@ class SearchController extends Controller
                     ->limit(10)
                     ->get();
 
-        return $members;
+        return MemberResource::collection($members);
     }
 }

@@ -36,6 +36,12 @@ let routes = [
         props: true,
     },
 
+    {
+        path: '/search/:query',
+        component: require('./views/Search'),
+        props: true,
+    },
+
     ];
 
 export default new VueRouter({

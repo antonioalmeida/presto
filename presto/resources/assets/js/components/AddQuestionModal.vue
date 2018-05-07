@@ -2,14 +2,15 @@
 	<b-modal centered hide-header id="modal" lazy v-model="showModal">
 		<div class="modal-body">
 			<div>
-				<input v-model="title" placeholder="Write your question" type="text" class="main-question">
+				<input v-model="title" placeholder="Write your question" type="text" class="main-question" @input="showError = false">
 
 				<vue-tags-input
 				v-model="tag"
 				:tags="tags"
 				:validation="validation"
 				placeholder=""
-				@tags-changed="(newTags => tags = newTags)"/>
+				@tags-changed="(newTags => tags = newTags)"
+				@input="showError = false"/>
 				</div>
 
 				<div v-if="showError" class="ml-1">
