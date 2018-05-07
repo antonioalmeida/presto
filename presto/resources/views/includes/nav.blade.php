@@ -28,7 +28,7 @@
           </ul>
           <ul class="navbar-nav align-items-end">
             <li class="nav-item pr-2">
-            <form method="POST" action="{{ Route('search')}}">
+            <form method="POST" action="">
                     {{ csrf_field() }}
               <div class="input-group">
                 <a id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
