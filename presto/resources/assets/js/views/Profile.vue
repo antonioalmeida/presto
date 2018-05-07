@@ -88,7 +88,6 @@
                                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                                     <!-- Questions go here -->
 
-                                    <div class="list-group">
                                 <!--
                                 @foreach(user.questions->sortByDesc('date') as $question)
                                 @include('partials.question-card', ['question', $question]) 
@@ -100,7 +99,6 @@
                                     <question-card v-bind:question="question"></question-card> 
                                 </template>
                             </div>
-                        </div>
 
 
                     </div>
@@ -142,7 +140,7 @@ export default {
     },
 
     mounted() {
-            this.loader = this.$loading.show();
+        this.loader = this.$loading.show();
         this.getData(this.username);
     },
 
