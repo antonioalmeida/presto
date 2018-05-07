@@ -1,0 +1,43 @@
+<template>
+
+	<router-link :to="'/questions/' + answer.question.id + '/answers/' + answer.id" class="list-group-item list-group-item-action flex-column align-items-start">
+		<div class="d-flex w-100 justify-content-between flex-column mb-1">
+
+			<h4 class="mb-3">{{ answer.question.title }}</h4>
+			<div class="d-flex">
+				<div>
+					<img class="rounded-circle pr-1" width="36px" heigth="36px" :src="answer.author.profile_picture">
+				</div>
+				<h6><router-link :to="'/profile' + answer.author.username" class="btn-link">{{answer.author.name}}</router-link><br>
+					<small class="text-muted">answered answer.date ago</small></h6>
+				</div>
+			</div>
+			<p class="mb-1"> {{ answer.content }} <router-link :to="'/questions/' + answer.question.id + '/answers/' + answer.id" class="btn-link text-primary">(read more)</router-link></p>
+
+			<small class="text-muted"><i class="far fa-tags"></i>
+				<span v-if="!answer.topics" class="text-muted">No topics</span>
+				<router-link v-for="(topic, index) in answer.topics" class="text-muted" :key="topic.id" :to="'/topic/' + topic.name">
+					{{ topic.name }}<template v-if="index != answer.topics.length -1">,</template>
+				</router-link>
+
+			</small>
+		
+	</router-link>
+
+</template>
+
+<script>
+	export default {
+
+		props: ['answer'],
+
+		name: 'AnswerCard',
+
+		data () {
+			return {
+
+			}
+		}
+	}
+</script>
+

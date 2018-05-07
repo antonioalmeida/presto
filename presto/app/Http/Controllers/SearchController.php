@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\AnswerCardResource;
+use App\Http\Resources\TopicCardResource;
 
 class SearchController extends Controller
 {
@@ -68,7 +69,7 @@ class SearchController extends Controller
                 ->limit(10)
                 ->get();
 
-        return $topics;
+        return TopicCardResource::collection($topics);
     }
 
     private function getMembers($search_input){

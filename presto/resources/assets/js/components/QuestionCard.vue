@@ -5,12 +5,10 @@
 
             <h4 class="mb-1 max-w-70">{{ question.title }}</h4>
 
-            <div class="pb-1">
-                <small>
+            <small class="pb-1">
                     <router-link :to="'/profile/' + question.author.username" class="btn-link"><img class="user-preview rounded-circle pr-1" width="36px" heigth="36px" :src="question.author.profile_picture"> {{question.author.name}} </router-link> 
                     <span class="text-muted">asked</span>
-                </small>
-            </div>
+            </small>
         </div>
 
         
