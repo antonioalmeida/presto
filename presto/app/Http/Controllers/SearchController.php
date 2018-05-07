@@ -55,7 +55,7 @@ class SearchController extends Controller
         return QuestionResource::collection($questions);
     }
 
-    private function getAnswers($search_input){
+    private function getAnswers($search_input) {
         $answers = \App\Answer::whereRaw('search @@ to_tsquery(\'english\', ?)', [$search_input])
         ->orderByRaw('ts_rank(search, to_tsquery(\'english\', ?)) DESC', [$search_input])
         ->limit(10)

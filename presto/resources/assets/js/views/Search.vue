@@ -77,87 +77,39 @@
                   -->
                   <template v-if="results == null">
                   </template>
+
                   <h5 v-else-if="results.length === 0"> <small> No results. </small></h5>
+
                   <template v-else>
-                        <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-newest-tab" data-toggle="tab" href="#nav-newest" role="tab" aria-controls="nav-newest" aria-selected="true">Newest</a>
-                                <a class="nav-item nav-link" id="nav-oldest-tab" data-toggle="tab" href="#nav-oldest" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
-                                <a class="nav-item nav-link" id="nav-rating-tab" data-toggle="tab" href="#nav-rating" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
-                            </div>
-                        </nav>
 
-                        <div class="tab-content mb-5" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-newest" role="tabpanel" aria-labelledby="nav-newest-tab">
-                            	<!--
-                      @endif
-                  -->
-                                <div class="list-group">
+                  	<nav v-if="showSorting">
+                  		<div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  			<a class="nav-item nav-link active" data-toggle="tab" role="tab" href="" @click="sortOrder = 'newest'" aria-controls="nav-newest" aria-selected="true">Newest</a>
 
-                                	<template v-if="type == 'questions'">
-                                		<question-card :key="question.id" v-for="question in results" :question="question"></question-card> 
-                                	</template>
+                  			<a class="nav-item nav-link" id="nav-oldest-tab" href="" @click="sortOrder = 'oldest'" data-toggle="tab" role="tab" aria-controls="nav-oldest" aria-selected="false">Oldest</a>
 
-                                	<template v-if="type == 'answers'">
-                                		<answer-card :key="answer.id" v-for="answer in results" :answer="answer"></answer-card> 
-                                	</template>
+                  			<a class="nav-item nav-link" id="nav-rating-tab" href="" @click="sortOrder = 'rating'" data-toggle="tab" role="tab" aria-controls="nav-rating" aria-selected="false">Rating</a>
+                  		</div>
+                  	</nav>
 
-                                	<template v-if="type == 'members'">
-                                		<member-card :key="member.id" v-for="member in results" :member="member"></member-card> 
-                                	</template>
+                        <div class="list-group">
 
-                                	<template v-if="type == 'topics'">
-                                		<topic-card :key="topic.id" v-for="topic in results" :topic="topic"></topic-card> 
-                                	</template>
+                        	<template v-if="type == 'questions'">
+                        		<question-card :key="question.id" v-for="question in sortedResults" :question="question"></question-card> 
+                        	</template>
 
-                                </div>
+                        	<template v-if="type == 'answers'">
+                        		<answer-card :key="answer.id" v-for="answer in sortedResults" :answer="answer"></answer-card> 
+                        	</template>
 
-                                <!--
-                      @if($type == 'questions' || $type == 'answers')
-                  -->
-                            </div>
-                            <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
-                              <div class="list-group">
-                              	<!--
-                                @switch($type)
-                                  @case('questions')
-                                    @foreach($result->sortBy('date') as $question)
-                                      @include('partials.question-card', ['question', $question])
-                                    @endforeach
-                                    @break
-                                  @case('answers')
-                                    @foreach($result->sortBy('date') as $answer)
-                                      @include('partials.answer-card', ['answer', $answer])
-                                    @endforeach
-                                    @break
-                                  @default
-                                    @break
-                                @endswitch
-                            -->
-                              </div>
-                            </div>
+                        	<template v-if="type == 'members'">
+                        		<member-card :key="member.id" v-for="member in sortedResults" :member="member"></member-card> 
+                        	</template>
 
-                            <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
-                              <div class="list-group">
-                                <!-- TODO: Although sortByDesc is used, questions/answers are in inverted ordered according to positive ratings?? Investigate -->
-                                <!--
-                                @switch($type)
-                                  @case('questions')
-                                    @foreach($result->sortByDesc(function($product, $key){return $product->questionRatings()->where('rate',1)->count();}) as $question)
-                                      @include('partials.question-card', ['question', $question])
-                                    @endforeach
-                                    @break
-                                  @case('answers')
-                                    @foreach($result->sortByDesc(function($product, $key){return $product->answerRatings()->where('rate',1)->count();}) as $answer)
-                                      @include('partials.answer-card', ['answer', $answer])
-                                    @endforeach
-                                    @break
-                                  @default
-                                    @break
-                                @endswitch
-                            -->
-                              </div>
-                            </div>
+                        	<template v-if="type == 'topics'">
+                        		<topic-card :key="topic.id" v-for="topic in sortedResults" :topic="topic"></topic-card> 
+                        	</template>
+
                         </div>
 
                     </template>
@@ -209,7 +161,9 @@ export default {
 				{ text: 'Answers', value: 'answers' },
 				{ text: 'Members', value: 'members' },
 				{ text: 'Topics', value: 'topics' }
-			]
+			],
+
+			sortOrder: 'newest'
 		}
 	},
 
@@ -235,6 +189,44 @@ export default {
                 console.log(error);
             }); 
         }
+    },
+
+    computed: {
+    	sortedResults: function() {
+
+    		if(this.type == 'members' || this.type == 'topics')
+    			return this.results;
+
+    		if(!this.results)
+    			return null;
+
+    		let comparator;
+
+    		switch(this.sortOrder) {
+    			case 'newest':
+    			comparator = (a, b) => { return a.date < b.date };
+    			break;
+
+    			case 'oldest':
+    			comparator = (a, b) => { return a.date > b.date };
+    			break;
+
+
+    			case 'rating':
+    			comparator = (a, b) => { return a.rating < b.rating };
+    			break;
+    			
+    		}
+
+            return this.results.sort(comparator);
+    	},
+
+    	showSorting: function() {
+    		if(this.type == 'members' || this.type == 'topics')
+    			return false;
+
+    		return true;
+    	}
     }
 
 
