@@ -42,7 +42,7 @@ class QuestionController extends Controller
         $question->date = now();
         request()->user()->questions()->save($question);
 
-        $tags = explode(',', request('tags'));
+        $tags = request('tags');
         foreach ($tags as $tag){
             // $topic[$tag] = Topic::where('name', 'ILIKE', $tag)->get();
             $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
@@ -61,8 +61,9 @@ class QuestionController extends Controller
             }
         }
 
-        session()->flash('message','Your question has now been published');
-        return redirect()->route('question', $question);
+        return new QuestionResource($question);
+        //session()->flash('message','Your question has now been published');
+        //return redirect()->route('question', $question);
     }
 
     public function rate(Question $question)

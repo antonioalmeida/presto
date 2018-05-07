@@ -44,7 +44,6 @@ Route::post('search', 'SearchController@search')->name('search');
 
 
 // Question
-Route::post('questions', 'QuestionController@store')->name('question-add');
 Route::view('questions/{question}', 'layouts.master');
 
 // Topic
@@ -58,6 +57,8 @@ Route::prefix('api')->group(function() {
 	// Question API
 	Route::get('questions/{question}', 'QuestionController@get');
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
+	Route::post('questions', 'QuestionController@store')->name('question-add');
+
 
 	// Comments
 	Route::get('comments/{comment}', 'CommentController@get');
