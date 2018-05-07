@@ -142,12 +142,13 @@ export default {
     },
 
     mounted() {
+            this.loader = this.$loading.show();
         this.getData(this.username);
     },
 
     watch: {
         '$route' (to, from) {
-            console.log(to.params);
+            this.loader = this.$loading.show();
             this.getData(to.params.username);
         }
     },
@@ -160,7 +161,9 @@ export default {
 
         getUser: function(username)  {
             axios.get('/api/profile/' + ( username || '' ))
-            .then(({data}) => this.user = data)
+            .then(({data}) => {
+                this.user = data;
+            })
             .catch((error) => {
                 console.log(error);
             });    
@@ -173,7 +176,10 @@ export default {
             request += '/questions';
 
             axios.get(request)
-            .then(({data}) => this.questions = data)
+            .then(({data}) => {
+                this.questions = data;
+                this.loader.hide();
+            })
             .catch((error) => {
                 console.log(error);
             }); 
