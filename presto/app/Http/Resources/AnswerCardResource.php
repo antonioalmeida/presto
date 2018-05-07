@@ -26,6 +26,8 @@ class AnswerCardResource extends Resource
 
         $response['question'] = $this->question;
 
+        $response['rating'] = $this->answerRatings()->where('rate',1)->count();
+
         /*
         $response['question'] = [
             'id' => $this->question->id,
