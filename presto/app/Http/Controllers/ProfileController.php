@@ -9,6 +9,7 @@ use App\Http\Controllers\ApiBaseController;
 
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\NotificationsResource;
 
 use \App\Member;
 use App\Notification;
@@ -39,6 +40,11 @@ class ProfileController extends ApiBaseController
     public function getQuestionsLoggedIn() {
         $member = Auth::user();
         return QuestionResource::collection($member->questions);
+    }
+
+    public function getNotifications() {
+        $member = Auth::user();
+        return NotificationsResource::collection($member->notifications);
     }
 
     public function edit(){

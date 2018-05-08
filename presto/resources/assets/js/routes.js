@@ -42,6 +42,11 @@ let routes = [
         props: true,
     },
 
+    {
+        path: '/notifications',
+        component: require('./views/Notifications')
+    },
+
     ];
 
 export default new VueRouter({
