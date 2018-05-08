@@ -30,7 +30,7 @@ Route::get('profile/{member}/followers', 'ProfileController@followers')->name('f
 Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
-Route::get('notifications', 'ProfileController@notifications')->name('notifications');
+Route::view('notifications', 'layouts.master')->name('notifications');
 
 // Profile
 Route::view('profile/{member}', 'layouts.master');
@@ -49,6 +49,7 @@ Route::prefix('api')->group(function() {
 	// Profile API
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+	Route::get('notifications', 'ProfileController@getNotifications');
 
 	// Question API
 	Route::get('questions/{question}', 'QuestionController@get');
