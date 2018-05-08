@@ -1,5 +1,5 @@
 <template>
-	    <body class="grey-background">
+	<body class="grey-background">
     <main role="main" class="mt-5 mb-2">
         <section class="container wrapper mt-5">
             <div class="row">
@@ -12,57 +12,22 @@
                             <b-form-radio-group class="text-muted" v-model="type"
 	                            	:options="typeOptions"
 	                            	stacked
-	                            	name="radiosStacked">
+	                            	name="typeRadio">
 	                        </b-form-radio-group>
 
                             </div>
-                        <div>
-                            <h4 class="pt-4">Author</h4>
-                            <div class="dropdown-divider"></div>
-                            <div class="input-group">
-                            	<!--
-                                @if($type == 'questions' || $type == 'answers')
-                                <input type="text" class="form-control" placeholder="Find People">
-                                @else
-                                <input type="text" class="form-control filter-disabled" placeholder="Find People" disabled>
-                                @endif
-                            -->
-                            </div>
-                        </div>
+                  
                         <div>
                             <h4 class="pt-4">Time</h4>
                             <div class="dropdown-divider"></div>
-                            	<!--
-                            <div class="typeFilter">
-                              <?php $filter_dates = array(
-                                array('1 January 1970', 'All Time'),
-                                array('-1 day', 'Past day'),
-                                array('-1 week', 'Past week'),
-                                array('-1 month', 'Past month'),
-                                array('-1 year', 'Past year')
-                              ); ?>
-                              @foreach($filter_dates as $date_filter)
-                                <div class="form-check">
-                                  <form method="POST" action="{{ Route('search')}}">
-                                      <input type="hidden" name="text_search" value="{{query }}" />
-                                      <input type="hidden" name="type" value="{{$type}}" />
-                                      <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime($date_filter[0]))?>" />
 
-                                      <!--
-                                      @if($type == 'questions' || $type == 'answers')
-                                        @if(date('Y-m-d', strtotime($limit_date)) === date('Y-m-d', strtotime($date_filter[0])))
-                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn selected-filter" />
-                                        @else
-                                          <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn" />
-                                        @endif
-                                      @else
-                                      <input type="submit" value="<?=$date_filter[1]?>" class="btn-link text-muted filter-btn filter-disabled" disabled/>
-                                      @endif
-                                  </form>
-                                </div>
-                              @endforeach
-                          -->
-                            </div>
+                            <b-form-radio-group class="text-muted" v-model="time"
+                            :options="timeOptions"
+                            stacked
+                            name="timeRadio">
+                        </b-form-radio-group>
+
+                    </div>
                         </div>
                     </div>
                 <div class="col-md-8">
@@ -72,9 +37,7 @@
                             <i class="far fa-fw fa-filter"></i> Filter
                         </button>
                     </div>
-                    <!--
-                      @if($type == 'questions' || $type == 'answers')
-                  -->
+            
                   <template v-if="results == null">
                   </template>
 
@@ -95,19 +58,19 @@
                         <div class="list-group">
 
                         	<template v-if="type == 'questions'">
-                        		<question-card :key="question.id" v-for="question in sortedResults" :question="question"></question-card> 
+                        		<question-card :key="question.id" v-for="question in filteredResults" :question="question"></question-card> 
                         	</template>
 
                         	<template v-if="type == 'answers'">
-                        		<answer-card :key="answer.id" v-for="answer in sortedResults" :answer="answer"></answer-card> 
+                        		<answer-card :key="answer.id" v-for="answer in filteredResults" :answer="answer"></answer-card> 
                         	</template>
 
                         	<template v-if="type == 'members'">
-                        		<member-card :key="member.id" v-for="member in sortedResults" :member="member"></member-card> 
+                        		<member-card :key="member.id" v-for="member in filteredResults" :member="member"></member-card> 
                         	</template>
 
                         	<template v-if="type == 'topics'">
-                        		<topic-card :key="topic.id" v-for="topic in sortedResults" :topic="topic"></topic-card> 
+                        		<topic-card :key="topic.id" v-for="topic in filteredResults" :topic="topic"></topic-card> 
                         	</template>
 
                         </div>
@@ -153,7 +116,11 @@ export default {
 	data () {
 		return {
 			results: null,
+
+			// Active filters
 			type: 'questions',
+			time: 'all',
+
 			isOffcanvasOpen: false,
 
 			typeOptions: [
@@ -161,6 +128,14 @@ export default {
 				{ text: 'Answers', value: 'answers' },
 				{ text: 'Members', value: 'members' },
 				{ text: 'Topics', value: 'topics' }
+			],
+
+			timeOptions: [
+				{ text: 'All Time', value: 'all' },
+				{ text: 'Past Day', value: 'day' },
+				{ text: 'Past Week', value: 'week' },
+				{ text: 'Past Month', value: 'month' },
+				{ text: 'Past Year', value: 'year' }
 			],
 
 			sortOrder: 'newest'
@@ -195,7 +170,7 @@ export default {
     	sortedResults: function() {
 
     		if(this.type == 'members' || this.type == 'topics')
-    			return this.results;
+    			return this.filteredResults;
 
     		if(!this.results)
     			return null;
@@ -211,14 +186,47 @@ export default {
     			comparator = (a, b) => { return a.date > b.date };
     			break;
 
-
     			case 'rating':
     			comparator = (a, b) => { return a.rating < b.rating };
     			break;
-    			
     		}
 
-            return this.results.sort(comparator);
+            return this.filteredResults.sort(comparator);
+    	},
+
+    	filteredResults: function() {
+    		if(this.type == 'members' || this.type == 'topics')
+    			return this.results;
+
+    		if(!this.results)
+    			return null;
+
+    		let limitDate; 
+
+    		switch(this.time) {
+    			case 'all':
+    			limitDate = this.$moment('1970-01-01');
+    			console.log(limitDate.format());
+    			break;
+
+    			case 'day':
+    			limitDate = this.$moment().subtract(1, 'day');
+    			break;
+
+    			case 'week':
+    			limitDate = this.$moment().subtract(1, 'week');
+    			break;
+
+    			case 'month':
+    			limitDate = this.$moment().subtract(1, 'month');
+    			break;
+
+    			case 'year':
+    			limitDate = this.$moment().subtract(1, 'year');
+    			break;
+    		}
+
+    		return this.results.filter((entry) => this.$moment(entry.date) > limitDate);    		
     	},
 
     	showSorting: function() {
@@ -229,35 +237,33 @@ export default {
     	}
     }
 
-
-
 }
 </script>
 
 <style lang="css">
-	@media (max-width: 767.98px) {
-  .offcanvas-collapse {
-    position: fixed;
-    top: 56px; /* Height of navbar */
-    bottom: 0;
-    left: 0;
-    width: 16.5rem;
-    padding-right: 1rem;
-    padding-left: 3.5rem;
-    overflow-y: auto;
-    background-color: white;
-    transition: -webkit-transform .3s ease-in-out;
-    transition: transform .3s ease-in-out;
-    transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
-    -webkit-transform: translateX(-150%);
-    transform: translateX(-150%);
-    z-index: 1030;
-  }
+@media (max-width: 767.98px) {
+	.offcanvas-collapse {
+		position: fixed;
+		top: 56px; /* Height of navbar */
+		bottom: 0;
+		left: 0;
+		width: 16.5rem;
+		padding-right: 1rem;
+		padding-left: 3.5rem;
+		overflow-y: auto;
+		background-color: white;
+		transition: -webkit-transform .3s ease-in-out;
+		transition: transform .3s ease-in-out;
+		transition: transform .3s ease-in-out, -webkit-transform .3s ease-in-out;
+		-webkit-transform: translateX(-150%);
+		transform: translateX(-150%);
+		z-index: 1030;
+	}
 
-  .offcanvas-collapse.open {
-    -webkit-transform: translateX(-2rem);
-    transform: translateX(-2rem); /* Account for horizontal padding on navbar */
-  }
+	.offcanvas-collapse.open {
+		-webkit-transform: translateX(-2rem);
+		transform: translateX(-2rem); /* Account for horizontal padding on navbar */
+	}
 }
 </style>
 
