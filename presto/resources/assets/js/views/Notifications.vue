@@ -24,9 +24,9 @@
                     <div class="list-group mt-4">
                         <h4 class="text-mobile">Notifications</h4>
 
-                                                     <!-- <template v-for="notification in notifications">
-                                     <notification-card v-bind:notification="notification"></notification-card> 
-                                 </template> -->
+                                <template v-for="notification in notifications">
+                                     <notifications-card v-bind:notification="notification"></notifications-card> 
+                                 </template>
 
                               
                             </div>
@@ -46,7 +46,7 @@
 export default {
 
     components: {
-        // NotificationCard: require('../components/NotificationsCard')
+        NotificationsCard: require('../components/NotificationsCard')
     },
 
     data () {
@@ -76,6 +76,7 @@ export default {
             axios.get('/api/notifications')
             .then(({data}) => {
                 this.notifications = data;
+                this.loader.hide();
             })
             .catch((error) => {
                 console.log(error);
