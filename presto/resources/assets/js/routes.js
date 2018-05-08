@@ -42,6 +42,11 @@ let routes = [
         props: true,
     },
 
+    {
+        path: '/admin',
+        component: require('./views/Admin'),
+    },
+
     ];
 
 export default new VueRouter({

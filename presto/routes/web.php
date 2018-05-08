@@ -68,7 +68,9 @@ Route::prefix('api')->group(function() {
 	// Search API
 	Route::get('search/{query}', 'SearchController@get');
 
-
+	// Admin API
+	Route::get('admin/get-users', 'AdminController@getUsers');
+	Route::get('admin/get-banned', 'AdminController@getBanned');
 });
 
 //Search
@@ -77,7 +79,6 @@ Route::view('search/{query}', 'layouts.master');
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
-
 
 
 // Authentication
@@ -93,6 +94,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::get('/', 'AdminController@show')->name('admin.dashboard');
+    //Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
