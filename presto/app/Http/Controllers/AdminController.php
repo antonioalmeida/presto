@@ -14,7 +14,30 @@ class AdminController extends Controller
         $this->middleware('auth:admin');
     }
     
-    //
+    public function getUsers(){
+        $members = Member::get();
+        /*
+        $data = array('a' => 'apple', 'b' => 'banana', 'c' => 'catnip');
+        return json_encode($data);
+        */
+        return new MemberResource(Member::first());
+    }
+
+    public function getFlagged(){
+
+    }
+
+    public function getBanned(){
+
+    }
+    public function getModerators(){
+
+    }
+
+    public function getCertified(){
+
+    }
+
     public function show(){
     	$members = Member::get();
     	$flagged = Flag::orderBy('date')->get();
