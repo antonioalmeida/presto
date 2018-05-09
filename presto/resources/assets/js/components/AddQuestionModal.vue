@@ -18,7 +18,7 @@
 				</div>
 		</div>
 		<div slot="modal-footer">
-			<b-button variant="link" @click="show = false">Cancel</b-button>
+			<b-button variant="link" @click="showModal = false">Cancel</b-button>
 			<b-button variant="primary" @click="onSubmit">Submit</b-button>
 		</div>
 	</b-modal>
