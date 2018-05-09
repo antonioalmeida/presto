@@ -8,7 +8,7 @@
 				<div>
 					<img class="rounded-circle pr-1" width="36px" heigth="36px" :src="answer.author.profile_picture">
 				</div>
-				<h6><router-link :to="'/profile' + answer.author.username" class="btn-link">{{answer.author.name}}</router-link><br>
+				<h6><router-link :to="'/profile/' + answer.author.username" class="btn-link">{{answer.author.name}}</router-link><br>
 					<small class="text-muted">answered {{ answer.date | moment("from") }} </small></h6>
 				</div>
 			</div>

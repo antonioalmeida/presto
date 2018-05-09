@@ -9,8 +9,14 @@
       </button>
       @guest
         <div class="navbar-collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto ">
+            
+          </ul>
 
+          <ul class="navbar-nav align-items-end">
+            <li class="nav-item pr-2">
+              <search-bar></search-bar>
+            </li>
           </ul>
           <div>
             <a href={{Route('login')}}><button class="btn btn-link">Login</button></a>
