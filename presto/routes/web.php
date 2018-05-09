@@ -20,8 +20,8 @@ Route::get('/', function () {
 Route::get('/', 'HomeController@index')->name('index');
 
 //Index
-Route::get('index', 'HomeController@index')->name('index');
-Route::get('about', 'HomeController@about')->name('about');
+Route::view('index', 'layouts.master')->name('index');
+Route::view('about', 'layouts.master')->name('about');
 Route::get('404', 'HomeController@error')->name('404');
 
 //Profile

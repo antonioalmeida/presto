@@ -360,6 +360,10 @@ export default {
 
   name: 'Index',
 
+  created () {
+    document.title = "Presto";
+  },
+
   data () {
     return {
 

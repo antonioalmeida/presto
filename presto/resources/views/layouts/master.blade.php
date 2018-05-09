@@ -11,7 +11,7 @@
   <!-- google platform -->
   <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 
-  <title>@yield('title')</title>
+  <!-- <title>@yield('title')</title> -->
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
