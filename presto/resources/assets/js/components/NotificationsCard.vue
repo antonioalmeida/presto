@@ -26,7 +26,7 @@
                     <img class="rounded-circle pr-1" width="36px" heigth="36px" :src="notification.data['data']['follower_picture']">{{notification.data['data']['follower_name']}}</a>
                     <span class="text-muted"> left a comment on your<span v-if:"notification.data['data']['type']=='Answer'"> answer to the </span> question: </span>{{notification.data['data']['question_title']}}
                 </template>
-
+            </div>
                 <!--Rate-->
 
                 <div>
@@ -34,7 +34,6 @@
                         <small>{{ notification.created_at | moment("from") }}</small>
                     </span>
                 </div>
-            </div>
 
         </div>
 
