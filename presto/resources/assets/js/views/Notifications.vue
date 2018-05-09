@@ -11,20 +11,21 @@
                     <div class="mt-4">
                         <h4 class="pt-4">Notifications</h4>
                         <div class="dropdown-divider"></div>
-                        <ul class="no-bullets pl-0">
+                       <!-- <ul class="no-bullets pl-0">
                             <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-danger ">{{notifications.Questions}}</span></div></li>
                             <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-danger ">{{notifications.Answers}}</span></div></li>
                             <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-danger ">{{notifications.Comments}}</span></div></li>
                             <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-danger ">{{notifications.Follows}}</span></div></li>
                             <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-danger ">{{notifications.Rating}}</span></div></li>
-                        </ul>
+                        </ul> -->
+                        <b-form-radio-group class="text-muted" v-model="type" :options="typeOptions" stacked name="typeRadio"></b-form-radio-group>
                     </div>
                 </div>
                 <div class="col-md-9 mt-4">
                     <div class="list-group mt-4">
                         <h4 class="text-mobile">Notifications</h4>
 
-                                <template v-for="notification in notifications">
+                                <template v-for="notification in filteredResults">
                                      <notifications-card v-bind:notification="notification"></notifications-card> 
                                  </template>
 
@@ -51,7 +52,10 @@ export default {
 
     data () {
         return {
-            notifications: {}
+            notifications: {},
+            results: null,
+            type: 'All',
+            typeOptions: {},
         }
     },
 
@@ -69,19 +73,48 @@ export default {
 
     methods: {
         getData: function() {
+            this.getNotificationsStats();
             this.getNotifications();
         },
 
-        getNotifications: function()  {
-            axios.get('/api/notifications')
+        getNotificationsStats: function()  {
+            axios.get('/api/notificationsStats')
             .then(({data}) => {
                 this.notifications = data;
+                this.typeOptions = [
+                { text: 'All Notifications', value: 'All' },                
+                { text: 'Questions ' + this.notifications.Questions, value: 'Question' },
+                { text: 'Answers ' +  this.notifications.Answers, value: 'Answer' },
+                { text: 'Comments ' +  this.notifications.Comments, value: 'Comment' },
+                { text: 'People ' +  this.notifications.Follows, value: 'Follow' },
+                { text: 'Rating ' +  this.notifications.Rating, value: 'Rate' }
+            ];
+                this.loader.hide();
+            })
+            .catch((error) => {
+                console.log(error);
+            });    
+        },
+
+          getNotifications: function()  {
+            axios.get('/api/notifications')
+            .then(({data}) => {
+                this.results = data;
                 this.loader.hide();
             })
             .catch((error) => {
                 console.log(error);
             });    
         }
+    },
+
+    computed: {
+        filteredResults: function() {
+    		if(!this.results)
+    			return null;
+
+    		return this.results.filter((entry) => entry.data['type'] == this.type || this.type == 'All');    		
+    	}
     }
 }
 </script>

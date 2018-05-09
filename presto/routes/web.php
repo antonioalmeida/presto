@@ -50,6 +50,9 @@ Route::prefix('api')->group(function() {
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
 	Route::get('notifications', 'ProfileController@getNotifications');
+	Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
+	Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+
 
 	// Question API
 	Route::get('questions/{question}', 'QuestionController@get');

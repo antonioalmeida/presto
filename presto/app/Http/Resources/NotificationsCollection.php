@@ -15,7 +15,7 @@ class NotificationsCollection extends ResourceCollection
      */
     public function toArray($request)
     {
-        $response = parent::toArray($request);
+        // $response = parent::toArray($request);
         $response['Follows'] = $this->where('type','App\Notifications\MemberFollowed')->count();
         $response['Questions'] = $this->where('type','App\Notifications\NewQuestion')->count();
         $response['Answers'] = $this->where('type','App\Notifications\NewAnswer')->count();
