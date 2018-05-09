@@ -93,6 +93,10 @@ export default {
 
 	name: 'Search',
 
+	created () {
+   		document.title = "Search | Presto";
+  	},
+
 	components: {
 		QuestionCard: require('../components/QuestionCard'),
 		AnswerCard: require('../components/AnswerCard'),
