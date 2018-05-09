@@ -12,11 +12,11 @@
                         <h4 class="pt-4">Notifications</h4>
                         <div class="dropdown-divider"></div>
                         <ul class="no-bullets pl-0">
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-danger "></span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-danger "></span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-danger "></span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-danger "></span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-danger "></span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-danger ">{{notifications.Questions}}</span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-danger ">{{notifications.Answers}}</span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-danger ">{{notifications.Comments}}</span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-danger ">{{notifications.Follows}}</span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-danger ">{{notifications.Rating}}</span></div></li>
                         </ul>
                     </div>
                 </div>
