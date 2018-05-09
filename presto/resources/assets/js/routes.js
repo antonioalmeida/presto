@@ -9,10 +9,7 @@ let routes = [
 
     {
         path: '/about',
-        component: require('./views/About'),
-        meta: {
-            title: 'About'
-        }
+        component: require('./views/About')
     },
 
     {
