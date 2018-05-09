@@ -1,6 +1,7 @@
 import './bootstrap';
 import router from './routes';
 import AddQuestionModal from './components/AddQuestionModal';
+import SearchBar from './components/SearchBar';
 
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.min.css';
@@ -13,6 +14,7 @@ new Vue({
     el: '#app',
     router,
     components: {
-    	'AddQuestionModal': AddQuestionModal
+    	'AddQuestionModal': AddQuestionModal,
+    	'SearchBar': SearchBar
     } 
 });

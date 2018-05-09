@@ -110,6 +110,12 @@ export default {
 			this.results = null;
 			this.loader = this.$loading.show();
 			this.getResults(this.query);
+		},
+
+		query: function() {
+			this.results = null;
+			this.loader = this.$loading.show();
+			this.getResults(this.query);
 		}
 	},
 
