@@ -23,19 +23,17 @@ class AnswerController extends Controller
     }
 
     public function create(Question $question){
-        // $answer = new Answer();
 
         $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
         $author_id = Auth::id();
         $date = now();
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
-        $answer->mention(request('mentions'));
-        // $answer->save();
 
-        // $question->answers()->attach($answer);
-
-        return back();
+        return [
+            'question_id' => $question->id,
+            'answer_id' => $answer->id,
+        ];
     }
 
     public function isLikedByMe($id, $rate)

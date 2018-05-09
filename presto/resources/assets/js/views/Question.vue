@@ -61,19 +61,24 @@
                     <div class="mt-3" role="tablist">
                     	<b-collapse id="accordion1" accordion="my-accordion" role="tabpanel">
 
-                    		<form action="" method="post">
-                    			<div class="card">
+                           <div class="card">
 
-                                <editor v-model="editorContent" :init="editorInit"></editor>
-                                <div class="card-footer">
-                    					<button type="submit" class="btn btn-sm btn-primary">Submit</button>
+                            <editor 
+                                v-model="editorContent" 
+                                :init="editorInit" 
+                                @onChange="answerShowError = false">
+                            </editor>
 
-                    					<button class="btn btn-sm btn-link">Cancel</button>
-                    				</div>                              
-                    			</div>
-                    		</form>
+                            <div class="card-footer">
+                               <span v-if="answerShowError" class="text-danger"><small>You can't submit an empty answer.<br></small></span>
 
-                    	</b-collapse>
+                               <button @click="onAnswerSubmit" class="mt-1 btn btn-sm btn-primary">Submit</button>
+
+                               <button class="mt-1 btn btn-sm btn-link">Cancel</button>
+                           </div>                              
+                       </div>
+
+                   </b-collapse>
 
                     	<b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
 
@@ -133,6 +138,10 @@ export default {
             commentText: '',
             editorInit: require('../tiny-mce-config').default,
             editorContent: '',
+
+            //error handling utils
+            answerShowError: false,
+            commentShowError: false,
         }
     },
 
@@ -187,6 +196,25 @@ export default {
             .catch((error) => {
                 console.log(error);
             }); 
+        },
+
+        onAnswerSubmit: function() {
+            if(this.editorContent.length === 0) {
+                this.answerShowError = true;
+                return;
+            }
+
+            axios.post('/api/questions/' + this.question.id + '/answers/', {
+                'content': this.editorContent,
+            })
+            .then(({data}) => {
+                console.log('ola');
+            })
+            .catch(({response}) => {
+                this.errors = response.data.errors;
+                this.showError = true;
+            }); 
+
         }
     }
 }
