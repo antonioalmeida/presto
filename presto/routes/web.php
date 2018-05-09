@@ -68,7 +68,8 @@ Route::prefix('api')->group(function() {
 	// Search API
 	Route::get('search/{query}', 'SearchController@get');
 
-
+	// Answer API
+	Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 });
 
 //Search
@@ -118,4 +119,3 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
-Route::post('api/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
