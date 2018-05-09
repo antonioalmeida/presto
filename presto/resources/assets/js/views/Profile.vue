@@ -128,6 +128,10 @@ export default {
 
     props: ['username'],
 
+    created () {
+   		document.title = "Profile | Presto";
+  	},
+
     components: {
         QuestionCard: require('../components/QuestionCard')
     },
