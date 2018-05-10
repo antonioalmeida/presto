@@ -34,10 +34,11 @@ class AnswerController extends Controller
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
 
-        return [
-            'question_id' => $question->id,
-            'answer_id' => $answer->id,
-        ];
+        // return [
+        //     'question_id' => $question->id,
+        //     'answer_id' => $answer->id,
+        // ];
+        return new AnswerResource($answer);
     }
 
     public function isLikedByMe($id, $rate)

@@ -209,7 +209,10 @@ export default {
                 'content': this.editorContent,
             })
             .then(({data}) => {
-                console.log('ola');
+                    console.log(data);
+                    this.answers.push(data);
+                    this.editorContent = '';
+                    
             })
             .catch(({response}) => {
                 this.errors = response.data.errors;
