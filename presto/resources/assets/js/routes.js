@@ -28,6 +28,12 @@ let routes = [
               path: 'followers',
               component: require('./views/Followers'),
               props: true,
+            },
+
+            {
+              path: 'following',
+              component: require('./views/Following'),
+              props: true,
             }
         ]
     },

@@ -1,11 +1,11 @@
 <template>
 	<section class="container">
 		<div class="offset-md-3 col-md-7 mb-4">
-			<h4 class="mb-4">{{ username }}'s followers</h4>
+			<h4 class="mb-4">{{ username }} is following</h4>
 			
 			<div class="list-group">
 
-				<member-card :key="follower.id" :member="follower" v-for="follower in followers">
+				<member-card :key="user.id" :member="user" v-for="user in following">
 				</member-card>
 
 			</div>
@@ -18,7 +18,7 @@ export default {
 
 	props:['username'],
 
-	name: 'Followers',
+	name: 'Following',
 
 	components: {
 		MemberCard: require('../components/MemberCard'),
@@ -26,20 +26,20 @@ export default {
 
 	mounted() {
 		this.loader = this.$loading.show();
-		this.getFollowers(this.username);
+		this.getFollowing(this.username);
 	},
 
 	data () {
 		return {
-			followers: []
+			following: []
 		}
 	},
 
 	methods: {
-		getFollowers: function(username)  {
-			axios.get('/api/profile/' + username + '/followers')
+		getFollowing: function(username)  {
+			axios.get('/api/profile/' + username + '/following')
 			.then(({data}) => {
-				this.followers = data;
+				this.following = data;
 				this.loader.hide();
 			})
 			.catch((error) => {
