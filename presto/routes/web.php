@@ -56,6 +56,7 @@ Route::prefix('api')->group(function() {
 	Route::get('notifications', 'ProfileController@getNotifications');
 	Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
 	Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+	Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
 
 	// Question API
 	Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
@@ -114,8 +115,8 @@ Route::put('api/members/{username}/settings/email', 'ProfileController@updateEma
 Route::put('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
 
 //Follows Member
-Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
-Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
+// Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
+// Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
 
 
 
