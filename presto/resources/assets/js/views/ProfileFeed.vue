@@ -18,7 +18,7 @@
 						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
                             <div class="list-group">
-                            	<template v-for="question in questions">
+                            	<template v-for="question in sortedQuestions">
                             		<question-card v-bind:question="question"></question-card> 
                             	</template>
                             </div>
@@ -27,7 +27,7 @@
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
                                 <div class="list-group">
-                            	<template v-for="answer in answers">
+                            	<template v-for="answer in sortedAnswers">
                             		<answer-card v-bind:answer="answer"></answer-card> 
                             	</template>
                             </div>
@@ -62,8 +62,8 @@ export default {
 
 	data () {
 		return {
-			questions: {},
-			answers: {}
+			questions: null,
+			answers: null
 		}
 	},
 
@@ -99,7 +99,33 @@ export default {
 				console.log(error);
 			}); 
 		}
-	}
+	
+	},
+
+	 computed: {
+			sortedQuestions: function() {
+				if (!this.questions)
+					return null;
+	
+				let comparator = (a, b) => {
+					return a.date < b.date
+				};
+	
+				return this.questions.sort(comparator);
+			},
+
+			sortedAnswers: function() {
+				if (!this.answers)
+					return null;
+	
+				let comparator = (a, b) => {
+					return a.date < b.date
+				};
+	
+				return this.answers.sort(comparator);
+			}
+
+	 }
 }
 </script>
 
