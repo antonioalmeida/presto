@@ -16,7 +16,7 @@ use App\Notification;
 class ProfileController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['get','getQuestions','show','followers','following']);
+        $this->middleware('auth')->except(['get','getQuestions','show','getFollowers','following']);
     }
 
     public function show(Member $member){
@@ -101,12 +101,14 @@ class ProfileController extends ApiBaseController
         return redirect()->route('settings');
     }
 
-    public function followers(Member $member){
-        return view('pages.profile.followers', compact('member'));
+    public function getFollowers(Member $member){
+        //TODO: use MemberCardResource instead (need to create it)
+        return MemberResource::collection($member->followers);
     }
 
-    public function following(Member $member){
-        return view('pages.profile.following', compact('member'));
+    public function getFollowing(Member $member){
+        //TODO: use MemberCardResource instead (need to create it)
+        return MemberResource::collection($member->followings);
     }
 
     public function follow(Member $follower) {
