@@ -16,6 +16,14 @@ let routes = [
         path: '/profile/:username',
         component: require('./views/Profile'),
         props: true,
+
+        children: [
+            {
+              path: 'followers',
+              component: require('./views/Followers'),
+              props: true,
+            }
+        ]
     },
 
     {

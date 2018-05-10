@@ -20,12 +20,12 @@
                                 
                                 <div class="bio mt-3">
                                     <div class="d-flex justify-content-sm-start justify-content-around">
-                                        <router-link :to="this.username + '/followers'">
+                                        <router-link :to="'followers'">
                                             <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowers }} <small>followers</small>
                                             </h5>
                                         </router-link>
 
-                                         <router-link :to="this.username + '/following'">
+                                         <router-link :to="'following'">
                                             <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowing }} <small>following</small>
                                             </h5>
                                         </router-link>
@@ -80,6 +80,9 @@
 
 
             <section class="small-container">
+                <div class="container">
+                    <router-view></router-view>
+                </div>
                 <div class="container">
 
                     <div class="row">
