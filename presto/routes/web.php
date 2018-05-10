@@ -34,6 +34,7 @@ Route::get('notifications', 'ProfileController@notifications')->name('notificati
 // Profile
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
+Route::view('profile/{member}/following', 'layouts.master');
 
 // Answer
 Route::view('answers/{answer}', 'layouts.master');
@@ -49,7 +50,7 @@ Route::prefix('api')->group(function() {
 	// Profile API
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
 	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
-	Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
+	Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 
 	// Question API

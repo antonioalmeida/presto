@@ -106,8 +106,9 @@ class ProfileController extends ApiBaseController
         return MemberResource::collection($member->followers);
     }
 
-    public function following(Member $member){
-        return view('pages.profile.following', compact('member'));
+    public function getFollowing(Member $member){
+        //TODO: use MemberCardResource instead (need to create it)
+        return MemberResource::collection($member->followings);
     }
 
     public function follow(Member $follower) {
