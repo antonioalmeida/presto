@@ -44,7 +44,7 @@
                 <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{Route('notifications')}}">See All Notifications</a>
+                <router-link to="/notifications" class="dropdown-item">See All Notifications</router-link>
               </div>
           </li>
 
