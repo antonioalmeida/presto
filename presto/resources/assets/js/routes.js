@@ -19,6 +19,12 @@ let routes = [
 
         children: [
             {
+                path: '',
+                component: require('./views/ProfileFeed'),
+                props: true,
+            },
+
+            {
               path: 'followers',
               component: require('./views/Followers'),
               props: true,

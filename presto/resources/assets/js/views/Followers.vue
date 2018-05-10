@@ -39,6 +39,7 @@ export default {
 			axios.get('/api/profile/' + username + '/followers')
 			.then(({data}) => {
 				this.followers = data;
+				this.loader.hide();
 			})
 			.catch((error) => {
 				console.log(error);
