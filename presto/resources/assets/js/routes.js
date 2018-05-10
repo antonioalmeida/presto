@@ -39,7 +39,7 @@ let routes = [
     },
 
     {
-        path: '/answers/:a_id',
+        path: '/questions/:q_id/answers/:a_id',
         component: require('./views/Answer'),
         props: true,
     },
