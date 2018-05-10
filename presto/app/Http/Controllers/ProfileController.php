@@ -70,12 +70,6 @@ class ProfileController extends ApiBaseController
         return NotificationsResource::collection($member->unreadNotifications);
     }
 
-
-    public function edit(){
-        $member = Auth::user();
-        return view('pages.profile.edit', compact('member'));
-    }
-
     public function update(){
         $member = Auth::user();
 
@@ -89,7 +83,7 @@ class ProfileController extends ApiBaseController
 
         $member->save();
 
-        return redirect()->route('profile', $member);
+        return new MemberResource($member);
     }
 
     public function updatePicture(Request $request) {
