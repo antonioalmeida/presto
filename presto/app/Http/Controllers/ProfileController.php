@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Notifications\Notification;
 use App\Http\Controllers\ApiBaseController;
 
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\NotificationsResource;
+use App\Http\Resources\NotificationsCollection;
+
 
 use \App\Member;
-use App\Notification;
+// use App\Notification;
 
 class ProfileController extends ApiBaseController
 {
@@ -40,6 +44,27 @@ class ProfileController extends ApiBaseController
         $member = Auth::user();
         return QuestionResource::collection($member->questions);
     }
+
+    public function getNotificationsStats() {
+        $member = Auth::user();
+
+        return new NotificationsCollection($member->notifications);
+    }
+
+    public function getNotifications() {
+        $member = Auth::user();
+
+        $member->unreadNotifications->markAsRead();
+
+        return NotificationsResource::collection($member->notifications);
+    }
+
+    public function getUnreadNotifications() {
+        $member = Auth::user();
+        
+        return NotificationsResource::collection($member->unreadNotifications);
+    }
+
 
     public function edit(){
         $member = Auth::user();
@@ -125,18 +150,18 @@ class ProfileController extends ApiBaseController
         return view('pages.profile.settings');
     }
 
-    public function notifications(){
-        $notifications_p = Auth()->user()->notifications()->paginate(7);
-        $notifications = Auth()->user()->notifications;
-        $counters['Follows'] = $notifications->where('type','App\Notifications\MemberFollowed')->count();
-        $counters['Questions'] = $notifications->where('type','App\Notifications\NewQuestion')->count();
-        $counters['Answers'] = $notifications->where('type','App\Notifications\NewAnswer')->count();
-        $counters['Comments'] = $notifications->where('type','App\Notifications\NewComment')->count();
-        $counters['Rating'] = $notifications->where('type','App\Notifications\QuestionRated')->count() 
-        + $notifications->where('type','App\Notifications\AnswerRated')->count() 
-        + $notifications->where('type','App\Notifications\CommentRated')->count();
+    // public function notifications(){
+    //     $notifications_p = Auth()->user()->notifications()->paginate(7);
+    //     $notifications = Auth()->user()->notifications;
+    //     $counters['Follows'] = $notifications->where('type','App\Notifications\MemberFollowed')->count();
+    //     $counters['Questions'] = $notifications->where('type','App\Notifications\NewQuestion')->count();
+    //     $counters['Answers'] = $notifications->where('type','App\Notifications\NewAnswer')->count();
+    //     $counters['Comments'] = $notifications->where('type','App\Notifications\NewComment')->count();
+    //     $counters['Rating'] = $notifications->where('type','App\Notifications\QuestionRated')->count() 
+    //     + $notifications->where('type','App\Notifications\AnswerRated')->count() 
+    //     + $notifications->where('type','App\Notifications\CommentRated')->count();
 
-        return view('pages.profile.notifications', ['counters' => $counters, 'notifications_p' => $notifications_p]);
-    }
+    //     return view('pages.profile.notifications', ['counters' => $counters, 'notifications_p' => $notifications_p]);
+    // }
 
 }
