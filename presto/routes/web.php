@@ -26,14 +26,14 @@ Route::get('404', 'HomeController@error')->name('404');
 
 //Profile
 Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
-Route::get('profile/{member}/followers', 'ProfileController@followers')->name('followers');
-Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
+
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::get('notifications', 'ProfileController@notifications')->name('notifications');
 
 // Profile
 Route::view('profile/{member}', 'layouts.master');
+Route::view('profile/{member}/followers', 'layouts.master');
 
 // Answer
 Route::view('answers/{answer}', 'layouts.master');
@@ -47,8 +47,10 @@ Route::view('topic/{topic}', 'layouts.master');
 
 Route::prefix('api')->group(function() {
 	// Profile API
-	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
+	Route::get('profile/{member}/following', 'ProfileController@following')->name('following');
+	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 
 	// Question API
 	Route::get('questions/{question}', 'QuestionController@get');
