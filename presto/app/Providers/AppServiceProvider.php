@@ -25,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
         Resource::withoutWrapping();
         Question::observe(QuestionObserver::class);
         Answer::observe(AnswerObserver::class);
-        Comment::observe(CommentObserver::class);
+        //Comment::observe(CommentObserver::class);
         //
     }
 

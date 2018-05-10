@@ -35,6 +35,10 @@ export default {
 
   name: 'About',
 
+  created () {
+    document.title = "About | Presto";
+  },
+
   data () {
     return {
 
