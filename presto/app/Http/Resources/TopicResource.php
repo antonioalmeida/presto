@@ -18,12 +18,13 @@ class TopicResource extends Resource
     public function toArray($request)
     {
         $response = parent::toArray($request);
+        $answerStats = $this->getAnswersStats();
 
-        $response['nrFollowers'] = count($this->followers);
-        $response['nrQuestions'] = count($this->questions);
-        $response['nrAnswers'] = count($this->answers);
+        $response['nrFollowers'] = $this->followers()->count();
+        $response['nrQuestions'] = $this->questions()->count();
+        $response['nrAnswers'] = $answerStats['number'];
         $response['related'] = $this->getRelatedTopics();
-        $response['nrViews'] = $this->getNumViews();
+        $response['nrViews'] = $answerStats['views'];
 
         $isFollowing = false;
         if (Auth::user()->isFollowingTopic($request['topic']))

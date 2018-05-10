@@ -17,6 +17,8 @@ class AnswerResource extends Resource
     {
         $response = parent::toArray($request);
 
+        $response['question'] = new QuestionResource($this->question);
+
          $response['author'] = [
             'username' => $this->member->username,
             'name' => $this->member->name,
