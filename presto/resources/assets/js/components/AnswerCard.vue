@@ -19,11 +19,11 @@
 			</p>
 
 			<small class="text-muted"><i class="far fa-tags"></i>
-				<span v-if="!answer.topics" class="text-muted">No topics</span>
-				<router-link v-for="(topic, index) in answer.topics" class="text-muted" :key="topic.id" :to="'/topic/' + topic.name">
-					{{ topic.name }}<template v-if="index != answer.topics.length -1">,</template>
-				</router-link>
-			</small>
+			<router-link v-for="(topic, index) in answer.question.topics" class="text-muted" :key="topic.id" :to="'/topic/' + topic.name">
+                {{ topic.name }}<template v-if="index != answer.question.topics.length -1">,</template>
+            </router-link>
+
+            <span v-if="answer.question.topics.length === 0" class="text-muted">No topics</span>			</small>
 		
 	</router-link>
 

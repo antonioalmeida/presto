@@ -10,6 +10,7 @@ use App\Http\Controllers\ApiBaseController;
 
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\QuestionResource;
+use App\Http\Resources\AnswerResource;
 use App\Http\Resources\NotificationsResource;
 use App\Http\Resources\NotificationsCollection;
 
@@ -20,7 +21,7 @@ use \App\Member;
 class ProfileController extends ApiBaseController
 {
     public function __construct(){
-        $this->middleware('auth')->except(['get','getQuestions','show','getFollowers','following']);
+        $this->middleware('auth')->except(['get','getQuestions', 'getAnswers','show','getFollowers','following']);
     }
 
     public function show(Member $member){
@@ -34,6 +35,10 @@ class ProfileController extends ApiBaseController
     public function getLoggedIn() {
         $member = Auth::user();
         return new MemberResource($member);
+    }
+
+    public function getAnswers(Member $member) {
+        return AnswerResource::collection($member->answers);
     }
 
     public function getQuestions(Member $member) {
