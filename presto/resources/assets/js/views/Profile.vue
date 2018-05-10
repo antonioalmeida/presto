@@ -19,12 +19,19 @@
                                 <!-- bio -->
                                 
                                 <div class="bio mt-3">
-                                    <!--
                                     <div class="d-flex justify-content-sm-start justify-content-around">
-                                        <a href={{Route('followers', user)}}><h5 class="p-2 h5-adapt">{{count(user.followers)}} <small>followers</small></h5></a>
-                                        <a href={{Route('following', user)}}><h5 class="p-2 h5-adapt">{{count(user.followings)}} <small>following</small></h5></a>                        
+                                        <router-link :to="this.username + '/followers'">
+                                            <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowers }} <small>followers</small>
+                                            </h5>
+                                        </router-link>
+
+                                         <router-link :to="this.username + '/following'">
+                                            <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowing }} <small>following</small>
+                                            </h5>
+                                        </router-link>
+
                                     </div>
-                                -->
+
                                         <p class="lead lead-adapt">
                                             {{user.bio}}
                                         </p>
