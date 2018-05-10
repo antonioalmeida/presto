@@ -74,7 +74,7 @@
                     <ul class="no-bullets">
 
                     <router-link v-for="topic in topic.related" :key="topic.id" :to="'/topic/' + topic.name" class="text-muted">
-                        {{ topic.name }}
+                        <li>{{ topic.name }}</li>
                     </router-link>
                   
                     </ul>
