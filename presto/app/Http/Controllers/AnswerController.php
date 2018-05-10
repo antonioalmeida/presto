@@ -30,7 +30,7 @@ class AnswerController extends Controller
 
         $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
         $author_id = Auth::id();
-        $date = now();
+        $date = date('Y-m-d H:i:s');
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
 
