@@ -1,5 +1,5 @@
 <template>
-	<router-link :to="'/topic/' + topic.username" class="list-group-item list-group-item-action flex-column align-items-start">
+	<router-link :to="'/topic/' + topic.name" class="list-group-item list-group-item-action flex-column align-items-start">
 
 		<div class="d-flex w-100 justify-content-begin">
 			<div class="align-self-center">
@@ -7,7 +7,7 @@
 			</div>
 			<div class="d-flex flex-column">
 				<h6 class="mb-1">{{ topic.name }}</h6>
-				<h6 class="text-collapse"><small>{{ topic.description }}</small></h6>
+				<h6 class="text-muted text-collapse"><small>{{ topic.description || "No description"}}</small></h6>
 			</div>
 
 			<div class="ml-auto align-self-center flex-wrap">
