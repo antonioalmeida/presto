@@ -1,5 +1,6 @@
 <template>
-    <div class="mt-5">
+    <div class="mt-4">
+    <hr>
         <div class="d-flex flex-wrap">
             <div class="align-self-center">
                 <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -13,7 +14,14 @@
                 <h6><small class="text-muted">answered {{ answer.date | moment("from") }}</small></h6>
             </div>
             <div class="ml-3">
-                Follow
+                <follow-button 
+                                v-model="answer.author.isFollowing"
+                                :classesDefault= "'btn btn-sm btn-primary'"
+                                :classesActive= "'btn btn-sm btn-outline-primary'"
+                                :path="'/api/member/' + answer.author.username + '/toggle-follow'"
+                                >
+                                </follow-button>
+
                 <!--@include('partials.follow', ['followTarget' => answer.member])-->
             </div>
             <!--
@@ -74,6 +82,7 @@
 
 <script>
 import CommentsList from '../components/CommentsList'
+import FollowButton from '../components/FollowButton'
 
 export default {
 
@@ -82,7 +91,9 @@ export default {
     name: 'AnswerPartial',
 
     components: {
-        'CommentsList': CommentsList
+        'CommentsList': CommentsList,
+        'FollowButton': FollowButton
+
     },
 
 

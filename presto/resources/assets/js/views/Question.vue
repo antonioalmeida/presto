@@ -99,7 +99,7 @@
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
-
+                    
                     <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" :key="answer.id"></AnswerPartial>
                     
                 </div>
