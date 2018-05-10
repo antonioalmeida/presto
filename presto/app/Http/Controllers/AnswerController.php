@@ -7,19 +7,23 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Answer;
 use App\Question;
-
 use \App\AnswerRating;
+use App\Http\Resources\AnswerResource;
 
 use Purifier;
 
 class AnswerController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'getAnswer']);
     }
 
     public function show(Question $question, Answer $answer){
         return view('pages.answer', compact('answer'));
+    }
+
+    public function getAnswer(Question $question, Answer $answer) {
+        return new AnswerResource($answer);
     }
 
     public function create(Question $question){

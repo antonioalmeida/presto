@@ -11,7 +11,7 @@
                     <h5>
                         <small class="text-muted"><i class="far fa-fw fa-tags"></i>
 
-                            <router-link v-for="(topic, index) in question.topics" :key="topic.id" :to="'/topics/' + topic.name" class="text-muted">
+                            <router-link v-for="(topic, index) in question.topics" :key="topic.id" :to="'/topic/' + topic.name" class="text-muted">
                                 {{ topic.name }}<template v-if="index != question.topics.length -1">,</template>
                             </router-link>
 

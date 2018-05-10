@@ -37,7 +37,7 @@ Route::view('profile/{member}/followers', 'layouts.master');
 Route::view('profile/{member}/following', 'layouts.master');
 
 // Answer
-Route::view('answers/{answer}', 'layouts.master');
+// Route::view('answers/{answer}', 'layouts.master');
 Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 
 // Question
@@ -54,6 +54,7 @@ Route::prefix('api')->group(function() {
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
 
 	// Question API
+	Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
 	Route::get('questions/{question}', 'QuestionController@get');
 	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
 	Route::post('questions', 'QuestionController@store')->name('question-add');
