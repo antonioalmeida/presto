@@ -18,7 +18,7 @@
 						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
 
                             <div class="list-group">
-                            	<template v-for="question in questions">
+                            	<template v-for="question in sortedQuestions">
                             		<question-card v-bind:question="question"></question-card> 
                             	</template>
                             </div>
@@ -26,10 +26,11 @@
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                            <!-- answers go here 
-                            @foreach(user.answers->sortByDesc('date') as $answer)
-                            @include('partials.answer-card',['answer', $answer]) 
-                            @endforeach -->
+                                <div class="list-group">
+                            	<template v-for="answer in sortedAnswers">
+                            		<answer-card v-bind:answer="answer"></answer-card> 
+                            	</template>
+                            </div>
 
                         </div>
                     </div>
@@ -49,17 +50,20 @@ export default {
 	name: 'ProfileFeed',
 
 	components: {
-		QuestionCard: require('../components/QuestionCard')
+		QuestionCard: require('../components/QuestionCard'),
+		AnswerCard: require('../components/AnswerCard')
 	},
 
 	mounted() {
 		this.loader = this.$loading.show();
 		this.getQuestions(this.username);
+		this.getAnswers(this.username);
 	},
 
 	data () {
 		return {
-			questions: {}
+			questions: null,
+			answers: null
 		}
 	},
 
@@ -78,8 +82,50 @@ export default {
 			.catch((error) => {
 				console.log(error);
 			}); 
+		},
+
+		getAnswers: function(username) {
+			let request = '/api/profile';
+			if(username)
+				request += '/' + username;
+			request += '/answers';
+
+			axios.get(request)
+			.then(({data}) => {
+				this.answers = data;
+				this.loader.hide();
+			})
+			.catch((error) => {
+				console.log(error);
+			}); 
 		}
-	}
+	
+	},
+
+	 computed: {
+			sortedQuestions: function() {
+				if (!this.questions)
+					return null;
+	
+				let comparator = (a, b) => {
+					return a.date < b.date
+				};
+	
+				return this.questions.sort(comparator);
+			},
+
+			sortedAnswers: function() {
+				if (!this.answers)
+					return null;
+	
+				let comparator = (a, b) => {
+					return a.date < b.date
+				};
+	
+				return this.answers.sort(comparator);
+			}
+
+	 }
 }
 </script>
 
