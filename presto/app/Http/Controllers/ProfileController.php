@@ -143,7 +143,7 @@ class ProfileController extends ApiBaseController
         else 
             $member->follow($follower);
 
-        return ['following' => $member->isFollowing($follower)];
+        return ['following' => $member->isFollowing($follower), 'no_followings' => $member->followings->count()];
     }
 
 
