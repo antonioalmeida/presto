@@ -24,8 +24,6 @@ Route::view('index', 'layouts.master')->name('index');
 Route::view('about', 'layouts.master')->name('about');
 Route::get('404', 'HomeController@error')->name('404');
 
-//Profile
-Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
 
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
 Route::get('settings', 'ProfileController@settings')->name('settings');
@@ -35,6 +33,8 @@ Route::view('notifications', 'layouts.master')->name('notifications');
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
 Route::view('profile/{member}/following', 'layouts.master');
+Route::view('edit-profile', 'layouts.master')->name('profile.edit');
+
 
 // Answer
 // Route::view('answers/{answer}', 'layouts.master');
@@ -52,9 +52,12 @@ Route::prefix('api')->group(function() {
 	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
 	Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
 	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
+	Route::get('profile/', 'ProfileController@getLoggedIn');
 	Route::get('notifications', 'ProfileController@getNotifications');
 	Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
 	Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+
+	Route::post('profile/', 'ProfileController@update');
 
 	// Question API
 	Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');

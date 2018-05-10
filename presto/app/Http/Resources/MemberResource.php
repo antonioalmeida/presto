@@ -24,7 +24,7 @@ class MemberResource extends Resource
 
         $isOwner = false;
         $member = Auth::user();
-        if ($member->can('update', request('member')))
+        if ($member != null && $member->can('update', request('member')))
             $isOwner = true;
     
         $response['isOwner'] = $isOwner;
