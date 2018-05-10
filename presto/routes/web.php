@@ -48,6 +48,7 @@ Route::view('topic/{topic}', 'layouts.master');
 
 Route::prefix('api')->group(function() {
 	// Profile API
+	Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
 	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
 	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
 	Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
