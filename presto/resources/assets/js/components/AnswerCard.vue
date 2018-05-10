@@ -8,18 +8,21 @@
 				<div>
 					<img class="rounded-circle pr-1" width="36px" heigth="36px" :src="answer.author.profile_picture">
 				</div>
-				<h6><router-link :to="'/profile' + answer.author.username" class="btn-link">{{answer.author.name}}</router-link><br>
-					<small class="text-muted">answered answer.date ago</small></h6>
+				<h6><router-link :to="'/profile/' + answer.author.username" class="btn-link">{{answer.author.name}}</router-link><br>
+					<small class="text-muted">answered {{ answer.date | moment("from") }} </small></h6>
 				</div>
 			</div>
-			<p class="mb-1"> {{ answer.content }} <router-link :to="'/questions/' + answer.question.id + '/answers/' + answer.id" class="btn-link text-primary">(read more)</router-link></p>
+			<p class="mb-1"> 
+				{{ contentPreview }}
+				<router-link :to="'/questions/' + answer.question.id + '/answers/' + answer.id" class="btn-link text-primary">(read more)
+				</router-link>
+			</p>
 
 			<small class="text-muted"><i class="far fa-tags"></i>
 				<span v-if="!answer.topics" class="text-muted">No topics</span>
 				<router-link v-for="(topic, index) in answer.topics" class="text-muted" :key="topic.id" :to="'/topic/' + topic.name">
 					{{ topic.name }}<template v-if="index != answer.topics.length -1">,</template>
 				</router-link>
-
 			</small>
 		
 	</router-link>
@@ -37,7 +40,21 @@
 			return {
 
 			}
+		},
+
+		computed: {
+			contentPreview: function() {
+				let stripped = this.answer.content.replace(/(<([^>]+)>)/ig,"")
+
+				if(stripped.length > 169) {
+					stripped = stripped.substring(0, 169);
+					stripped += "...";
+				}
+
+				return stripped;
+			}
 		}
+
 	}
 </script>
 

@@ -23,6 +23,8 @@ class QuestionResource extends Resource
             'name' => $this->member->name,
             'profile_picture' => $this->member->profile_picture,
         ];
+
+        $response['rating'] = $this->questionRatings()->where('rate',1)->count();
         
         //TODO: replace this with TopicResource
         $response['topics'] = $this->topics;

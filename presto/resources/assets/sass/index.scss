@@ -211,7 +211,9 @@ footer {
 }
 
 .max-w-70 {
-	max-width: 72.5%;
+	@media (min-width: 768px){
+		max-width: 72.5%;
+	}
 }
 
 .btn-unfollow {

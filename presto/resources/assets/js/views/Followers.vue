@@ -1,0 +1,52 @@
+<template>
+	<section class="container">
+		<div class="offset-md-3 col-md-7 mb-4">
+			<h4 class="mb-4">{{ username }}'s followers</h4>
+			
+			<div class="list-group">
+
+				<member-card :key="follower.id" :member="follower" v-for="follower in followers">
+				</member-card>
+
+			</div>
+		</div>
+	</section>
+</template>
+
+<script>
+export default {
+
+	props:['username'],
+
+	name: 'Followers',
+
+	components: {
+		MemberCard: require('../components/MemberCard'),
+	},
+
+	mounted() {
+		this.loader = this.$loading.show();
+		this.getFollowers(this.username);
+	},
+
+	data () {
+		return {
+			followers: []
+		}
+	},
+
+	methods: {
+		getFollowers: function(username)  {
+			axios.get('/api/profile/' + username + '/followers')
+			.then(({data}) => {
+				this.followers = data;
+				this.loader.hide();
+			})
+			.catch((error) => {
+				console.log(error);
+			});    
+		},
+	}
+}
+</script>
+

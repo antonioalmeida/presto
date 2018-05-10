@@ -1,14 +1,12 @@
-
 .vue-tags-input .input {
-
-  border: none;
-    box-shadow: none;
-    outline: none;
-    background-color: transparent;
-    padding: 0 0.3em;
-    margin: 0;
-    width: auto;
-    max-width: inherit;
+  border: 0;
+  box-shadow: none;
+  outline: none;
+  background-color: transparent;
+  padding: 0 0.3em;
+  margin: 0;
+  width: auto;
+  max-width: inherit;
 }
 
 .tag {
@@ -16,10 +14,9 @@
   margin-right: 0.25em;
   font-weight: bold;
   border-radius: 5px !important;
+}
 
-  .valid {
-    background-color: $primary !important;
-  }
-
+.tag.valid {
+  background-color: $primary !important;
 }
 
