@@ -7,13 +7,14 @@
 
 				<member-card :key="follower.id" :member="follower" v-for="follower in followers">
 				</member-card>
-
+ 
 			</div>
 		</div>
 	</section>
 </template>
 
 <script>
+
 export default {
 
 	props:['username'],
@@ -45,7 +46,7 @@ export default {
 			.catch((error) => {
 				console.log(error);
 			});    
-		},
+		}
 	}
 }
 </script>

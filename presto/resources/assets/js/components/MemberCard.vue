@@ -12,18 +12,32 @@
 			</div>
 
 			<div class="ml-auto align-self-center flex-wrap">
-				Follow
-			</div>
+				<follow-button 
+                                v-model="member.isFollowing"
+                                :classesDefault= "'btn btn-sm btn-primary'"
+                                :classesActive= "'btn btn-sm btn-outline-primary'"
+                                :path="'/api/member/' + member.username + '/toggle-follow'"
+                                >
+                                </follow-button>
+
+			</div> 
 		</div>
 	</router-link>
 </template>
 
 <script>
+
+import FollowButton from '../components/FollowButton'
+
 export default {
 
 	props: ['member'],
 
 	name: 'MemberCard',
+
+	components: {
+		'FollowButton': FollowButton
+	},
 
 	data () {
 		return {

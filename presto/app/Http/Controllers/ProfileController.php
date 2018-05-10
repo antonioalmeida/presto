@@ -141,9 +141,21 @@ class ProfileController extends ApiBaseController
         return MemberResource::collection($member->followings);
     }
 
+    public function toggleFollow(Member $follower) {
+        $member = Auth::user();
+
+        if($member->isFollowing($follower)) 
+            $member->unFollow($follower);
+        else 
+            $member->follow($follower);
+
+        return ['following' => $member->isFollowing($follower)];
+    }
+
+
     public function follow(Member $follower) {
         return Auth::user()->follow($follower);
-        //return back();
+        return back();
     }
 
     public function unFollow(Member $follower) {
