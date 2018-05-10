@@ -212,7 +212,7 @@ export default {
                     console.log(data);
                     this.answers.push(data);
                     this.editorContent = '';
-                    
+
             })
             .catch(({response}) => {
                 this.errors = response.data.errors;
