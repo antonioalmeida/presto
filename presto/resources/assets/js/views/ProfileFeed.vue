@@ -26,10 +26,11 @@
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                            <!-- answers go here 
-                            @foreach(user.answers->sortByDesc('date') as $answer)
-                            @include('partials.answer-card',['answer', $answer]) 
-                            @endforeach -->
+                                <div class="list-group">
+                            	<template v-for="answer in answers">
+                            		<answer-card v-bind:answer="answer"></answer-card> 
+                            	</template>
+                            </div>
 
                         </div>
                     </div>
@@ -49,17 +50,20 @@ export default {
 	name: 'ProfileFeed',
 
 	components: {
-		QuestionCard: require('../components/QuestionCard')
+		QuestionCard: require('../components/QuestionCard'),
+		AnswerCard: require('../components/AnswerCard')
 	},
 
 	mounted() {
 		this.loader = this.$loading.show();
 		this.getQuestions(this.username);
+		this.getAnswers(this.username);
 	},
 
 	data () {
 		return {
-			questions: {}
+			questions: {},
+			answers: {}
 		}
 	},
 
@@ -73,6 +77,22 @@ export default {
 			axios.get(request)
 			.then(({data}) => {
 				this.questions = data;
+				this.loader.hide();
+			})
+			.catch((error) => {
+				console.log(error);
+			}); 
+		},
+
+		getAnswers: function(username) {
+			let request = '/api/profile';
+			if(username)
+				request += '/' + username;
+			request += '/answers';
+
+			axios.get(request)
+			.then(({data}) => {
+				this.answers = data;
 				this.loader.hide();
 			})
 			.catch((error) => {
