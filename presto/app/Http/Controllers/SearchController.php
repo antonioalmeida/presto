@@ -19,9 +19,9 @@ class SearchController extends Controller
     }
 
     public function get($query) {
-        // Content type being searched 
+        // Content type being searched
         // (Questions, Answers, Topics, Members)
-        $type = request('type'); 
+        $type = request('type');
 
         $result = [];
 
@@ -47,9 +47,8 @@ class SearchController extends Controller
 
     private function getQuestions($search_input){
 
-        $questions = \App\Question::whereRaw('search @@ plainto_tsquery(\'english\', ?)', [$search_input])
-                    ->orderByRaw('ts_rank(search, plainto_tsquery(\'english\', ?)) DESC', [$search_input])
-                    ->limit(10)
+        $questions = \App\Question::whereRaw('search @@ to_tsquery(\'english\', replace(plainto_tsquery(\'english\', ?)::text, \'&\', \'|\'))', [$search_input])
+                    ->orderByRaw('ts_rank(search, to_tsquery(\'english\', replace(plainto_tsquery(\'english\', ?)::text, \'&\', \'|\'))) DESC', [$search_input])
                     ->get();
 
         return QuestionResource::collection($questions);
@@ -58,7 +57,6 @@ class SearchController extends Controller
     private function getAnswers($search_input) {
         $answers = \App\Answer::whereRaw('search @@ plainto_tsquery(\'english\', ?)', [$search_input])
         ->orderByRaw('ts_rank(search, plainto_tsquery(\'english\', ?)) DESC', [$search_input])
-        ->limit(10)
         ->get();
 
         return AnswerCardResource::collection($answers);
@@ -66,7 +64,6 @@ class SearchController extends Controller
 
     private function getTopics($search_input){
         $topics = \App\Topic::where('name', 'ILIKE', '%' . $search_input .'%')
-                ->limit(10)
                 ->get();
 
         return TopicCardResource::collection($topics);
@@ -75,7 +72,6 @@ class SearchController extends Controller
     private function getMembers($search_input){
         $members = \App\Member::where('username', 'ILIKE', '%' . $search_input .'%')
                     ->orWhere('name', 'ILIKE', '%' . $search_input .'%')
-                    ->limit(10)
                     ->get();
 
         return MemberResource::collection($members);
