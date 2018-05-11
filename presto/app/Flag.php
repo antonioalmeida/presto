@@ -23,7 +23,6 @@ class Flag extends Model
 
     protected $fillable = ['date', 'reason'];
 
-
     public function member()
     {
         return $this->belongsTo('App\Member','member_id');
