@@ -35,9 +35,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
+                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -59,8 +59,8 @@
                       <td>{{user.email}}</td>
                       <td class="admin-actions">
                         <a href="" class="text-muted">Edit</a> |
-                        <a href="" class="text-danger">Ban</a> |
-                        <a href="" class="text-info">Promote</a>
+                        <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
+                        <a v-on:click="toggleModerator" href="" class="text-info">Promote</a>
                       </td>
                     </tr>
                   </tbody>
@@ -74,9 +74,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
+                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -91,7 +91,16 @@
                       <th scope="col">Actions</th>
                     </tr>
                   </thead>
-                  <tbody>                
+                  <tbody> 
+                    <tr v-for="flag in flagged">
+                      <td>{{flag.member.username}}</td>
+                      <td>{{flag.moderator.username}}</td>
+                      <td>{{flag.reason}}</td>
+                      <td class="admin-actions">
+                        <a v-on:click="banUser(flag, $event)" href="" class="text-danger">Ban</a> |
+                        <a v-on:click="dismissFlag(flag, $event)" href="" class="text-info">Dismiss</a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -103,9 +112,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
+                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButton"  class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -120,6 +129,11 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr v-for="user in banned">
+                      <td>{{user.username}}</td>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -131,9 +145,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input type="text" id="userName" class="form-control" placeholder="Search for users"  autofocus="">
+                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users"  autofocus="">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -149,6 +163,15 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr v-for="user in moderators">
+                      <td>{{user.username}}</td>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                      <td class="admin-actions">
+                        <a v-on:click="banUser" href="" class="text-danger">Ban</a> |
+                        <a v-on:click="toggleModerator" href="" class="text-info">Dismiss</a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -160,9 +183,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
+                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
                     <div class="input-group-append">
-                      <button class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -178,6 +201,15 @@
                     </tr>
                   </thead>
                   <tbody>
+                    <tr v-for="user in certified">
+                      <td>{{user.username}}</td>
+                      <td>{{user.name}}</td>
+                      <td>{{user.email}}</td>
+                      <td class="admin-actions">ss="admin-actions">
+                        <a v-on:click="banUser" href="" lass="text-danger">Ban</a> |
+                        <a v-on:click="toggleModerator" href="" class="text-info">Promote</a>
+                      </td>
+                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -200,7 +232,7 @@ export default {
       users: {},
       flagged: {},
       banned: {},
-      moderatos: {},
+      moderators: {},
       certified: {}
     }
   },
@@ -213,11 +245,10 @@ export default {
   methods: {
     getData: function(){
       this.getUsers();
-      /*this.getFlagged();
+      this.getFlagged();
       this.getBanned();
       this.getModerators();
       this.getCertified();
-      */
     },
 
     getUsers: function(){
@@ -226,9 +257,7 @@ export default {
       axios.get('/api/admin/get-users')
         .then(({data}) => {
             console.log("Done getting users");
-            console.log(data);
-            this.user = data;
-            this.loader.hide();
+            this.users = data;
         })
         .catch((error) => {
             console.log(error);
@@ -237,19 +266,125 @@ export default {
 
     getFlagged: function(){
       console.log("Getting flagged");
+      axios.get('/api/admin/get-flagged')
+        .then(({data}) => {
+            console.log("Done getting flags");
+            this.flagged = data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     },
 
     getBanned: function(){
       console.log("Getting banned...");
+      axios.get('/api/admin/get-banned')
+        .then(({data}) => {
+            console.log("Done getting banned");
+            this.banned = data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     },
 
     getModerators: function(){
       console.log("Getting moderators");
+      axios.get('/api/admin/get-moderators')
+        .then(({data}) => {
+            console.log("Done getting moderators");
+            this.moderators = data;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
     },
 
     getCertified: function(){
       console.log("Getting certified");
+      axios.get('/api/admin/get-certified')
+        .then(({data}) => {
+            console.log("Done getting certified");
+            this.certified = data;
+            this.loader.hide();
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
+
+    banUser(user,e){
+
+      console.log("Banning user");
+      e.preventDefault();
+
+      console.log(user);
+      console.log(this.users.indexOf(user));
+    },
+
+    toggleModerator(e){
+      e.preventDefault();
+      console.log("Toggle Mod");
+      let userName = e.target.closest("tr").children[0].innerHTML;
+      console.log(userName);
+
+      /*
+      axios.post('/api/members/'+userName+'/promote')
+        .then(({data}) => {
+          console.log(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+      */
+    },
+
+    dismissFlag(flag,e){
+      e.preventDefault();
+
+      console.log(flag.member['id']+"  "+flag.moderator['id']);
+
+
+      axios.delete('/api/flags/'+flag.member['id']+'/'+flag.moderator['id']+'/dismiss')
+        .then(({data}) => {
+          console.log(data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });     
+
+      this.flagged.splice(this.flagged.indexOf(flag),1);
+    },
+
+    filter(searchField){
+      let section = searchField.closest("section");
+      let tr = section.querySelectorAll("tbody > tr")
+      
+      let search = new RegExp(searchField.value,'i');
+
+      for(let j=0;j<tr.length;j++){
+
+        if(searchField.value != ""){  
+          if(search.test(tr[j].children[0].innerHTML+" "+tr[j].children[1].innerHTML))
+            tr[j].style.display="";
+          else
+              tr[j].style.display="none";
+        }
+        else{
+           tr[j].style.display="";
+        }
+      }
+    },
+
+    filterBar(){
+      filter(this);
+    },
+
+    filterButton(){
+      let searchBar = this.closest(".input-group").children[1];
+      filter(searchField);
     }
   }
 }
+
 </script>
