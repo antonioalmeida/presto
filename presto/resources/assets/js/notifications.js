@@ -44,7 +44,6 @@ function addNotifications(newNotifications, target) {
     // show only last 5 notifications
     notifications.slice(0, 5);
     showNotifications(notifications, target);
-    console.log(notifications);
 }
 
 function showNotifications(notifications, target) {
@@ -85,7 +84,7 @@ function routeNotification(notification) {
         const answerId = notification.data.answer_id;
         to = 'questions/' + questionId + '/answers/' + answerId + to;
     }
-    console.log(to);
+
     return '/' + to;
 }
 
