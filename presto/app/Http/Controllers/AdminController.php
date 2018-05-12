@@ -19,7 +19,7 @@ class AdminController extends Controller
     }
     
     public function getUsers(){
-        return MemberResource::collection(Member::get());
+        return MemberResource::collection(Member::where('is_banned', false)->get());
     }
 
     public function getFlagged(){
@@ -30,11 +30,11 @@ class AdminController extends Controller
         return MemberResource::collection(Member::where('is_banned', true)->get());
     }
     public function getModerators(){
-        return MemberResource::collection(Member::where('is_moderator', true)->get());
+        return MemberResource::collection(Member::where(['is_moderator' => true, 'is_banned' => false])->get());
     }
 
     public function getCertified(){
-        return MemberResource::collection(Member::where('is_certified', true)->get());
+        return MemberResource::collection(Member::where(['is_certified' => true, 'is_banned' => false])->get());
     }
 
     public function ban(String $username){
@@ -43,13 +43,14 @@ class AdminController extends Controller
         $member->update();
     }
 
-    public function promote(String $username){
+    public function toggleModerator(String $username){
         $member = Member::where('username',$username)->first();
         if($member->is_moderator == 0)
             $member->is_moderator = 1;
         else
             $member->is_moderator = 0;
         $member->update();
+        return $member->is_moderator;
     }
 
     public function dismissFlag(int $member_id, int $moderator_id){

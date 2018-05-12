@@ -60,7 +60,7 @@ class Member extends Authenticatable
      * The attributes that should be hidden for arrays.
      */
     protected $hidden = [
-        'password', 'remember_token', 'positive_votes', 'total_votes', 'is_banned', 'is_moderator' 
+        'password', 'remember_token', 'positive_votes', 'total_votes', 'is_banned', 
     ];
 
     public function getRouteKeyName(){

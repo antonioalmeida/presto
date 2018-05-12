@@ -117,7 +117,7 @@ Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow
 Route::post('api/members/{username}/ban', 'AdminController@ban')->name('api.ban');
 
 //Promote Moderator
-Route::post('api/members/{username}/promote', 'AdminController@promote')->name('api.promote');
+Route::post('api/members/{username}/toggle-moderator', 'AdminController@toggleModerator')->name('api.promote');
 
 //Dismiss Flag
 Route::delete('api/flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');

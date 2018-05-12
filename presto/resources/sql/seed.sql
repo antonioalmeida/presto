@@ -118,6 +118,7 @@ CREATE TABLE member (
 );
 
 CREATE TABLE flag (
+    id SERIAL NOT NULL,
     member_id INTEGER NOT NULL,
     moderator_id INTEGER NOT NULL,
     "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
