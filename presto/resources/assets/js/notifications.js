@@ -32,9 +32,9 @@ $(document).ready(function() {
             addNotifications([notification], '#notificationsDropdown');
         });
 
-            $.get('/notifications', function (data) {
-            addNotifications(data, "#notificationsDropdown");
-        });
+        //     $.get('/notifications', function (data) {
+        //     addNotifications(data, "#notificationsDropdown");
+        // });
     }
 });
 
