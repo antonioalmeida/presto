@@ -72,6 +72,9 @@ class AnswerController extends Controller
             }
         }
 
-        return back();
+        $upvotes = $answer->answerRatings->where('rate',1)->count();
+        $downvotes = $answer->answerRatings->where('rate',-1)->count();
+        
+        return compact('upvotes', 'downvotes');
     }
 }
