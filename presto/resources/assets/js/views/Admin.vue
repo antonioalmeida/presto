@@ -58,9 +58,9 @@
                       <td>{{user.name}}</td>
                       <td>{{user.email}}</td>
                       <td class="admin-actions">
-                        <a href="" class="text-muted">Edit</a> |
                         <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
-                        <a v-on:click="toggleModerator" href="" class="text-info">Promote</a>
+                        <a v-if="user.is_moderator == true" v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
+                        <a v-else v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
                       </td>
                     </tr>
                   </tbody>
@@ -97,7 +97,7 @@
                       <td>{{flag.moderator.username}}</td>
                       <td>{{flag.reason}}</td>
                       <td class="admin-actions">
-                        <a v-on:click="banUser(flag, $event)" href="" class="text-danger">Ban</a> |
+                        <a v-on:click="banFlagged(flag, $event)" href="" class="text-danger">Ban</a> |
                         <a v-on:click="dismissFlag(flag, $event)" href="" class="text-info">Dismiss</a>
                       </td>
                     </tr>
@@ -168,8 +168,8 @@
                       <td>{{user.name}}</td>
                       <td>{{user.email}}</td>
                       <td class="admin-actions">
-                        <a v-on:click="banUser" href="" class="text-danger">Ban</a> |
-                        <a v-on:click="toggleModerator" href="" class="text-info">Dismiss</a>
+                        <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
+                        <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
                       </td>
                     </tr>
                   </tbody>
@@ -206,8 +206,8 @@
                       <td>{{user.name}}</td>
                       <td>{{user.email}}</td>
                       <td class="admin-actions">ss="admin-actions">
-                        <a v-on:click="banUser" href="" lass="text-danger">Ban</a> |
-                        <a v-on:click="toggleModerator" href="" class="text-info">Promote</a>
+                        <a v-on:click="banUser(user,$event)" href="" lass="text-danger">Ban</a> |
+                        <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
                       </td>
                     </tr>
                   </tbody>
@@ -313,46 +313,129 @@ export default {
         });
     },
 
-    banUser(user,e){
+    findUser(list, userName){
+      for(let i=0;i<list.length;i++){
+        if(list[i].username == userName)
+          return {'user': list[i], 'pos': i};
+      }
 
-      console.log("Banning user");
-      e.preventDefault();
-
-      console.log(user);
-      console.log(this.users.indexOf(user));
+      return {'user': null, 'pos': -1};
     },
 
-    toggleModerator(e){
+    ban(userName){
+      let index, res;
+
+      //Remove from all users
+      res = this.findUser(this.users,userName);
+      this.users.splice(res.pos,1);
+
+      //Remove related flags
+      for(let i=0;i<this.flagged.length;i++){
+        if(this.flagged[i].member.username === userName){
+          this.dismiss(this.flagged[i]);
+          this.flagged.splice(i,1);
+          i--;
+        }
+      }
+
+      //Remove from moderators
+      if((index = this.findUser(this.moderators,userName).pos) != -1)
+        this.moderators.splice(index,1);
+
+      //Remove from certified
+      if((index = this.findUser(this.certified,userName).pos) != -1)
+        this.certified.splice(index,1);
+
+      this.banned.splice(this.banned.length,0,res.user);
+    },
+
+    //When user is banned from all_users/moderators/certified tabs
+    banUser(user,e){
+      e.preventDefault();
+      console.log("Banning user");
+      console.log(user.username);
+
+      axios.post('/api/members/'+user.username+'/ban')
+        .then(() => {
+          this.ban(user.username);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
+
+    //When user is banned from the flagged tab
+    banFlagged(flag,e){
+      e.preventDefault();
+      console.log("Banning flagged user");
+      console.log(flag.member.username);
+
+      axios.post('/api/members/'+flag.member.username+'/ban')
+        .then(({data}) => {
+          console.log(data);
+          this.ban(flag.member.username);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
+
+    toggle_moderator(userName,modStatus){
+      let index, res;
+
+      //Update user in all users
+      res = this.findUser(this.users,userName);
+      res.user.is_moderator = modStatus;
+
+      //Update moderators
+      if(modStatus == true){
+        //Add to moderators
+        this.moderators.splice(this.moderators.length,0,res.user);
+      }
+      else{
+
+        //Remove from moderators
+        if((index = this.findUser(this.moderators,userName).pos) != -1)
+          this.moderators.splice(index,1);
+      }
+
+      //Update certified if exists
+      let certified = this.findUser(this.certified,userName);
+      if(certified.pos != -1){
+        certified.user.is_moderator = modStatus;
+      }
+    },
+
+    toggleModerator(user,e){
       e.preventDefault();
       console.log("Toggle Mod");
-      let userName = e.target.closest("tr").children[0].innerHTML;
-      console.log(userName);
+      console.log(user.username);
 
-      /*
-      axios.post('/api/members/'+userName+'/promote')
+      axios.post('/api/members/'+user.username+'/toggle-moderator')
         .then(({data}) => {
+          console.log(!!+data);
+          this.toggle_moderator(user.username,!!+data);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    },
+
+    dismiss(flag){
+      axios.delete('/api/flags/'+flag.member['id']+'/'+flag.moderator['id']+'/dismiss')
+        .then(() => {
           console.log(data);
         })
         .catch((error) => {
             console.log(error);
         });
-      */
     },
 
     dismissFlag(flag,e){
       e.preventDefault();
 
       console.log(flag.member['id']+"  "+flag.moderator['id']);
-
-
-      axios.delete('/api/flags/'+flag.member['id']+'/'+flag.moderator['id']+'/dismiss')
-        .then(({data}) => {
-          console.log(data);
-        })
-        .catch((error) => {
-            console.log(error);
-        });     
-
+      this.dismiss(flag);
       this.flagged.splice(this.flagged.indexOf(flag),1);
     },
 
@@ -376,13 +459,15 @@ export default {
       }
     },
 
-    filterBar(){
-      filter(this);
+    filterBar(e){
+      if(e.keyCode === 13){
+        this.filter(e.target);
+      }
     },
 
-    filterButton(){
-      let searchBar = this.closest(".input-group").children[1];
-      filter(searchField);
+    filterButton(e){
+      let searchBar = e.target.closest(".input-group").children[1];
+      this.filter(searchField);
     }
   }
 }
