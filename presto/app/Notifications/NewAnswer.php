@@ -37,8 +37,8 @@ class NewAnswer extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-                return ['database', 'broadcast'];
-                // return ['database'];
+                // return ['database', 'broadcast'];
+                return ['database'];
     }
 
     public function toBroadcast($notifiable)
@@ -72,7 +72,6 @@ class NewAnswer extends Notification implements ShouldQueue
     {
         return [
         'type' =>'Answer',
-        'data' => [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
             'following_username' => $this->following->username,
@@ -82,7 +81,6 @@ class NewAnswer extends Notification implements ShouldQueue
             'question_title' => $this->answer->question->title,
             'url' => 'questions/' . $this->answer->question->id 
             . '/answers/' . $this->answer->id,
-        ],
     ];
     }
 }
