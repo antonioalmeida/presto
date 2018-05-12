@@ -8,7 +8,7 @@
                     <div class="offset-md-2 col-md-8">
                         <h1>{{answer.question.title}}</h1>
                         <h4>
-                            <small>This is the question's description.</small>
+                            <!-- <small>This is the question's description.</small> -->
                         </h4>
                         <h5>
                             <small class="text-muted">
