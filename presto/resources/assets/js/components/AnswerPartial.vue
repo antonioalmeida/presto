@@ -115,8 +115,7 @@ export default {
             else 
                 this.showError = false;
 
-            axios.post('/api/comments/answer', {
-                'answer_id': this.answer.id,
+            axios.post('/api/comments/answer/'+ this.answer.id, {
                 'content': this.commentText,
             })
             .then(({data}) => {

@@ -9,6 +9,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 
 use App\Comment;
+use App\Question;
+use App\Answer;
 use App\Member;
 
 class NewComment extends Notification implements ShouldQueue
@@ -18,6 +20,8 @@ class NewComment extends Notification implements ShouldQueue
     public $following;
     public $comment;
     public $type;
+    public $question;
+    public $answer;
 
     /**
      * Create a new notification instance.
@@ -30,8 +34,10 @@ class NewComment extends Notification implements ShouldQueue
         $this->comment = $comment;
         if($this->comment->question_id != null){
             $this->type = 'Question';
+            $this->question = Question::find($comment->question_id);
         } else {
             $this->type = 'Answer';
+            $this->answer = Answer::find($comment->answer_id);
         }
     }
 
