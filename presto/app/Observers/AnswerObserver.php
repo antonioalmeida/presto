@@ -10,8 +10,10 @@ class AnswerObserver
     public function created(Answer $answer)
     {
         $user = $answer->member;
-        foreach ($user->followers as $follower) {
-            $follower->notify(new NewAnswer($user, $answer));
-        }
+        $author = $answer->question->member;
+       
+        if($author->id != $user->id)
+         $author->notify(new NewAnswer($user, $answer));
     }
 }
+ 

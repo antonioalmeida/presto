@@ -18,7 +18,7 @@ const NOTIFICATION_TYPES = {
     follow: 'App\\Notifications\\MemberFollowed',
     newQuestion: 'App\\Notifications\\NewQuestion',
     newAnswer: 'App\\Notifications\\NewAnswer',
-    newComment: 'App\\Notifications\\newComment'
+    newComment: 'App\\Notifications\\NewComment'
 };
 
 //${Laravel.userId}
@@ -83,6 +83,7 @@ function routeNotification(notification) {
         const answerId = notification.data.answer_id;
         to = 'questions/' + questionId + '/answers/' + answerId + to;
     }
+    
     return '/' + to;
 }
 
