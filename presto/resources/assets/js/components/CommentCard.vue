@@ -30,7 +30,7 @@
 				</p>
 				<div class="d-flex justify-content-between">
 					<div>
-						<a class="text-muted" href="">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" href="#">Downvote</a>
+						<a @click.stop.prevent="rateComment(1)" class="text-muted">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" @click.stop.prevent="rateComment(-1)">Downvote</a>
 					</div>
 					<div class="ml-auto">
 						<a href="#" class="text-muted"><small>Report</small></a>
@@ -58,7 +58,20 @@ export default {
 	methods: {
 		displayDate: function(date) {
 			return moment.fromNow(true);
-		}
+		},
+		
+		rateComment: function(vote) {
+            axios.post('/api/comments/' + this.comment.id + '/rate', {
+                'rate': vote,
+            })
+            .then(({data}) => {
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+			}); 
+			
+			}
 	}
 }
 </script>
