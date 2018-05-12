@@ -13,7 +13,7 @@
         "@johmun/vue-tags-input": "^1.3.6",
         "axios": "^0.17",
         "bootstrap-vue": "^2.0.0-rc.9",
-        "cross-env": "^5.1",
+        "cross-env": "^5.1.5",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.10",
         "tributejs": "^3.2.0",
@@ -23,9 +23,9 @@
         "vue-router": "^3.0.1"
     },
     "dependencies": {
+        "@tinymce/tinymce-vue": "^1.0.8",
         "laravel-echo": "^1.3.5",
         "node-sass": "^4.9.0",
-        "pusher-js": "^4.2.2",
-        "@tinymce/tinymce-vue": "^1.0.7"
+        "pusher-js": "^4.2.2"
     }
 }
