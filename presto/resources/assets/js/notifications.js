@@ -32,18 +32,9 @@ $(document).ready(function() {
             addNotifications([notification], '#notificationsDropdown');
         });
 
-        $.get('/notifications', function (data) {
+        $.get('/api/UnreadNotifications', function (data) {
             addNotifications(data, "#notificationsDropdown");
         });
-
-        // axios.get('/api/UnreadNotifications')
-        // .then(({data}) => {
-        //     console.log(data);
-        //      //     addNotifications(data, "#notificationsDropdown");
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // });
    
     }
 });
@@ -53,10 +44,11 @@ function addNotifications(newNotifications, target) {
     // show only last 5 notifications
     notifications.slice(0, 5);
     showNotifications(notifications, target);
+    console.log(notifications);
 }
 
 function showNotifications(notifications, target) {
-    if(notifications.length > 1) {
+    if(notifications.length > 0) {
         var htmlElements = notifications.map(function (notification) {
             return makeNotification(notification);
         });
@@ -93,7 +85,7 @@ function routeNotification(notification) {
         const answerId = notification.data.answer_id;
         to = 'questions/' + questionId + '/answers/' + answerId + to;
     }
-    
+    console.log(to);
     return '/' + to;
 }
 
@@ -122,7 +114,7 @@ function makeNotificationText(notification) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
-        const type = notification.data.type;
+        const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
                 + name + '<span class="text-muted"> left a comment on your '+ (type=='Answer'? 'answer to the ' : '') +'question: </span>'
                 + title;

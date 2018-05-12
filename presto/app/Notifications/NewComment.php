@@ -66,7 +66,7 @@ class NewComment extends Notification implements ShouldQueue
             'following_picture' => $this->following->profile_picture,
             'question_id' => ($this->type == 'Question'? $this->question->id : $this->answer->question->id ),
             'question_title' => ($this->type == 'Question'? $this->question->title : $this->answer->question->title ),
-            'type' => $this->type,
+            'type_comment' => $this->type,
             'answer_id' => ($this->type == 'Answer'? $this->answer->id : null ),
             'url' => 'questions/' . ($this->type == 'Question'? $this->question->id : $this->answer->question->id ) 
             . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '' ),
@@ -86,18 +86,16 @@ class NewComment extends Notification implements ShouldQueue
     {
         return [
         'type' =>'Comment',
-        'data' => [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
             'following_username' => $this->following->username,
             'following_picture' => $this->following->profile_picture,
             'question_id' => ($this->type == 'Question'? $this->question->id : $this->answer->question->id ),
             'question_title' => ($this->type == 'Question'? $this->question->title : $this->answer->question->title ),
-            'type' => $this->type,
+            'type_comment' => $this->type,
             'answer_id' => ($this->type == 'Answer'? $this->answer->id : null ),
             'url' => 'questions/' . ($this->type == 'Question'? $this->question->id : $this->answer->question->id ) 
             . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '' ),
-        ],
     ];
     }
 }

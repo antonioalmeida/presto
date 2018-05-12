@@ -63,13 +63,11 @@ class MemberFollowed extends Notification implements ShouldQueue
     {
         return [
             'type' =>'Follow',
-            'data' => [
                 'follower_id' => $this->follower->id,
                 'follower_name' => $this->follower->name,
                 'follower_username' => $this->follower->username,
                 'follower_picture' => $this->follower->profile_picture,
                 'url' => 'profile/' . $this->follower->username,
-            ],
         ];
     }
 
