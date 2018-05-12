@@ -79,6 +79,9 @@ class CommentController extends ApiBaseController
             }
         }
 
-        return back();
+        $upvotes = $comment->commentRatings->where('rate',1)->count();
+        $downvotes = $comment->commentRatings->where('rate',-1)->count();
+        
+        return compact('upvotes', 'downvotes');
     }
 }

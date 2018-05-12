@@ -43,10 +43,10 @@
 
     <div class="d-flex">
         <div>
-            <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote 
+            <a @click.stop.prevent="rateAnswer(1)" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote 
                 <span class="badge badge-primary">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>
             </a>
-            <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
+            <a @click.stop.prevent="rateAnswer(-1)" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
         </div>
     </div>
 
@@ -122,6 +122,19 @@ export default {
                 this.answer.comments.push(data);
                 this.commentText = '';
                 this.showSuccess = true;
+            })
+            .catch((error) => {
+                console.log(error);
+            }); 
+        },
+
+         rateAnswer: function(vote) {
+            axios.post('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id + '/rate', {
+                'rate': vote,
+            })
+            .then(({data}) => {
+                this.answer.upvotes = data.upvotes;
+                this.answer.downvotes = data.downvotes;
             })
             .catch((error) => {
                 console.log(error);
