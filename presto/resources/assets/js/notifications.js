@@ -32,9 +32,19 @@ $(document).ready(function() {
             addNotifications([notification], '#notificationsDropdown');
         });
 
-        //     $.get('/notifications', function (data) {
-        //     addNotifications(data, "#notificationsDropdown");
+        $.get('/notifications', function (data) {
+            addNotifications(data, "#notificationsDropdown");
+        });
+
+        // axios.get('/api/UnreadNotifications')
+        // .then(({data}) => {
+        //     console.log(data);
+        //      //     addNotifications(data, "#notificationsDropdown");
+        // })
+        // .catch((error) => {
+        //     console.log(error);
         // });
+   
     }
 });
 
