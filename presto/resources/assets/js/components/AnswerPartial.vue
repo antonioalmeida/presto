@@ -14,7 +14,7 @@
                 <h6><small class="text-muted">answered {{ answer.date | moment("from") }}</small></h6>
             </div>
             <div class="ml-3">
-                <follow-button 
+                <follow-button v-if="!answer.author.isSelf"
                                 v-model="answer.author.isFollowing"
                                 :classesDefault= "'btn btn-sm btn-primary'"
                                 :classesActive= "'btn btn-sm btn-outline-primary'"
@@ -115,8 +115,7 @@ export default {
             else 
                 this.showError = false;
 
-            axios.post('/api/comments/answer', {
-                'answer_id': this.answer.id,
+            axios.post('/api/comments/answer/'+ this.answer.id, {
                 'content': this.commentText,
             })
             .then(({data}) => {

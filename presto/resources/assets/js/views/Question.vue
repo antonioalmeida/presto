@@ -186,8 +186,7 @@ export default {
         },
 
         onCommentSubmit: function() {
-            axios.post('/api/comments/question', {
-                'question_id': this.question.id,
+            axios.post('/api/comments/question/' + this.question.id, {
                 'content': this.commentText,
             })
             .then(({data}) => {

@@ -31,7 +31,7 @@ class Comment extends Model
 
     public function question()
     {
-        return $this->belongsTo('App\Question');
+        return $this->belongsTo('App\Question', 'question_id');
     }
 
     public function member()
@@ -41,7 +41,7 @@ class Comment extends Model
 
     public function answer()
     {
-        return $this->belongsTo('App\Answer');
+        return $this->belongsTo('App\Answer', 'answer_id');
     }
 
     public function commentRatings()

@@ -69,8 +69,8 @@ Route::prefix('api')->group(function() {
 
 	// Comments
 	Route::get('comments/{comment}', 'CommentController@get');
-	Route::post('comments/question', 'CommentController@storeQuestionComment')->name('question.add.comment');
-	Route::post('comments/answer', 'CommentController@storeAnswerComment')->name('answer.add.comment');
+	Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
+	Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
 
 	// Topics API
 	Route::get('topic/{topic}', 'TopicController@get');

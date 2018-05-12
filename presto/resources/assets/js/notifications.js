@@ -18,7 +18,7 @@ const NOTIFICATION_TYPES = {
     follow: 'App\\Notifications\\MemberFollowed',
     newQuestion: 'App\\Notifications\\NewQuestion',
     newAnswer: 'App\\Notifications\\NewAnswer',
-    newComment: 'App\\Notifications\\newComment'
+    newComment: 'App\\Notifications\\NewComment'
 };
 
 //${Laravel.userId}
@@ -32,9 +32,19 @@ $(document).ready(function() {
             addNotifications([notification], '#notificationsDropdown');
         });
 
-            $.get('/notifications', function (data) {
+        $.get('/notifications', function (data) {
             addNotifications(data, "#notificationsDropdown");
         });
+
+        // axios.get('/api/UnreadNotifications')
+        // .then(({data}) => {
+        //     console.log(data);
+        //      //     addNotifications(data, "#notificationsDropdown");
+        // })
+        // .catch((error) => {
+        //     console.log(error);
+        // });
+   
     }
 });
 
@@ -83,6 +93,7 @@ function routeNotification(notification) {
         const answerId = notification.data.answer_id;
         to = 'questions/' + questionId + '/answers/' + answerId + to;
     }
+    
     return '/' + to;
 }
 

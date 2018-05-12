@@ -28,7 +28,9 @@ class MemberResource extends Resource
             $isOwner = true;
     
         $response['isOwner'] = $isOwner;
-        $response['isFollowing'] = $this->isFollowedBy($member);
+        
+        if($member != null)
+          $response['isFollowing'] = $this->isFollowedBy($member);
         
         return $response;
     }
