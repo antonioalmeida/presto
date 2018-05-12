@@ -10,8 +10,14 @@ class CommentObserver
     public function created(Comment $comment)
     {
         $user = $comment->member;
-        foreach ($user->followers as $follower) {
-            $follower->notify(new NewComment($user, $comment));
+        
+        if($comment->question_id != null){
+            $author = $comment->question->member;
+        } else {
+            $author = $comment->answer->member;
         }
+    
+        if($author->id != $user->id)
+            $author->notify(new NewComment($user, $comment));
     }
 }
