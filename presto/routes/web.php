@@ -80,7 +80,14 @@ Route::prefix('api')->group(function() {
 	// Search API
 	Route::get('search/{query}', 'SearchController@get');
 
-	// Answer API
+	// Admin API
+	Route::get('admin/get-users', 'AdminController@getUsers');
+	Route::get('admin/get-banned', 'AdminController@getBanned');
+	Route::get('admin/get-flagged', 'AdminController@getFlagged');
+	Route::get('admin/get-moderators', 'AdminController@getModerators');
+	Route::get('admin/get-certified', 'AdminController@getCertified');
+
+  // Answer API
 	Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 });
 
@@ -90,7 +97,6 @@ Route::view('search/{query}', 'layouts.master');
 
 //Admin
 Route::get('admin', 'AdminController@show')->name('admin');
-
 
 
 // Authentication
@@ -105,7 +111,8 @@ Auth::routes();
 Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    Route::get('/', 'AdminController@show')->name('admin.dashboard');
+    //Route::get('/', 'AdminController@show')->name('admin.dashboard');
+    Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
@@ -121,8 +128,14 @@ Route::put('api/members/{username}/settings/password', 'ProfileController@update
 // Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
 // Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
 
+//Ban Member
+Route::post('api/members/{username}/ban', 'AdminController@ban')->name('api.ban');
 
+//Promote Moderator
+Route::post('api/members/{username}/toggle-moderator', 'AdminController@toggleModerator')->name('api.promote');
 
+//Dismiss Flag
+Route::delete('api/flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');
 
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');
 

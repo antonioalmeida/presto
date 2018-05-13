@@ -69,7 +69,12 @@ let routes = [
     },
 
     {
-        path: '/notifications',
+        path: '/admin',
+        component: require('./views/Admin'),
+    },
+    
+    {
+      path: '/notifications',
         component: require('./views/Notifications')
     },
 
