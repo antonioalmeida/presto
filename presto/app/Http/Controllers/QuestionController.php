@@ -62,8 +62,6 @@ class QuestionController extends Controller
         }
 
         return new QuestionResource($question);
-        //session()->flash('message','Your question has now been published');
-        //return redirect()->route('question', $question);
     }
 
     public function rate(Question $question)

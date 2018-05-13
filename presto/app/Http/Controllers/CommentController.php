@@ -10,6 +10,8 @@ use App\Http\Controllers\ApiBaseController;
 use App\Http\Resources\CommentResource;
 
 use App\Comment;
+use App\Answer;
+use App\Question;
 use \App\CommentRating;
 
 class CommentController extends ApiBaseController
@@ -18,35 +20,31 @@ class CommentController extends ApiBaseController
         $this->middleware('auth')->except(['show', 'get']);
     }
 
-    public function storeQuestionComment()
+    public function storeQuestionComment(Question $question)
     {
         $this->validate(request(), [
-            'content' => 'required|min:2',
-            'question_id' => 'required|integer|min:0'
+            'content' => 'required|min:2'
         ]);
 
         $content = request('content');
-        $question_id = request('question_id');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
 
-        $comment = Comment::create(compact('question_id','author_id','content','date'));
+        $comment = $question->comments()->create(compact('author_id','content','date'));
 
         return new CommentResource($comment);
     }
 
-        public function storeAnswerComment() {
+        public function storeAnswerComment(Answer $answer) {
         $this->validate(request(), [
-            'content' => 'required|min:2',
-            'answer_id' => 'required|integer|min:0'
+            'content' => 'required|min:2'
         ]);
 
         $content = request('content');
-        $answer_id = request('answer_id');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
 
-        $comment = Comment::create(compact('answer_id','author_id','content','date'));
+        $comment = $answer->comments()->create(compact('author_id','content','date'));
 
         return new CommentResource($comment);
     }
@@ -81,6 +79,9 @@ class CommentController extends ApiBaseController
             }
         }
 
-        return back();
+        $upvotes = $comment->commentRatings->where('rate',1)->count();
+        $downvotes = $comment->commentRatings->where('rate',-1)->count();
+        
+        return compact('upvotes', 'downvotes');
     }
 }

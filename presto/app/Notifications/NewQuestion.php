@@ -70,7 +70,6 @@ class NewQuestion extends Notification implements ShouldQueue
     {
         return [
         'type' =>'Question',
-        'data' => [
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
             'following_username' => $this->following->username,
@@ -78,7 +77,6 @@ class NewQuestion extends Notification implements ShouldQueue
             'question_id' => $this->question->id,
             'question_title' => $this->question->title,
             'url' => 'questions/' . $this->question->id,
-        ],
     ];
     }
 }

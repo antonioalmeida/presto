@@ -9,8 +9,14 @@
       </button>
       @guest
         <div class="navbar-collapse navbar-collapse" id="navbarsExampleDefault">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto ">
+            
+          </ul>
 
+          <ul class="navbar-nav align-items-end">
+            <li class="nav-item pr-2">
+              <search-bar></search-bar>
+            </li>
           </ul>
           <div>
             <a href={{Route('login')}}><button class="btn btn-link">Login</button></a>
@@ -28,16 +34,7 @@
           </ul>
           <ul class="navbar-nav align-items-end">
             <li class="nav-item pr-2">
-            <form method="POST" action="">
-                    {{ csrf_field() }}
-              <div class="input-group">
-                <a id="nav-search-btn" class="nav-link" href="#" role="button"><i class="far fa-search"></i></a>
-                <input name="text_search" id="nav-search-bar" type="text" class="form-control" placeholder="Search Presto" aria-label="search query" aria-describedby="basic-addon2">
-                <input type="hidden" name="limit_date" value="<?=date('Y-m-d H:i:s', strtotime('1 January 1970'))?>" />
-                <input type="hidden" name="type" value="questions" />
-              </div>
-            </form>
-
+              <search-bar></search-bar>
             </li>
 
           <li class="nav-item pr-2 dropdown">
@@ -47,7 +44,7 @@
                 <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
                 </div>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{{Route('notifications')}}">See All Notifications</a>
+                <router-link to="/notifications" class="dropdown-item">See All Notifications</router-link>
               </div>
           </li>
 

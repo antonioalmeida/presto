@@ -16,10 +16,8 @@ mix.sass('resources/assets/sass/app.scss', 'public/css').js([
     'resources/assets/js/tinymce.js',
     'resources/assets/js/mentioninstance.js',
     'resources/assets/js/app.js',
-    'resources/assets/js/ajax.js',
     'resources/assets/js/script.js',
-    'resources/assets/js/searchbar.js',
     'resources/assets/js/notifications.js',
     'resources/assets/js/tagsinput.js',
     'resources/assets/js/admin.js'
-], 'public/js/app.js');
+], 'public/js/app.js'); 

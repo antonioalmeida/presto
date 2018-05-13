@@ -19,12 +19,19 @@ class MemberResource extends Resource
         $response = parent::toArray($request);
         $response['answers_views'] = $this->getAnswerViews();
 
+        $response['nrFollowers'] = $this->followers()->count();
+        $response['nrFollowing'] = $this->followings()->count();
+
         $isOwner = false;
         $member = Auth::user();
-        if ($member->can('update', request('member')))
+        if ($member != null && $member->can('update', request('member')))
             $isOwner = true;
     
         $response['isOwner'] = $isOwner;
+        
+        if($member != null)
+          $response['isFollowing'] = $this->isFollowedBy($member);
+        
         return $response;
     }
 }
