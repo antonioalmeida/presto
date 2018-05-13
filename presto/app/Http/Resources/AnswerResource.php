@@ -17,12 +17,10 @@ class AnswerResource extends Resource
     {
         $response = parent::toArray($request);
 
-         $response['author'] = [
-            'username' => $this->member->username,
-            'name' => $this->member->name,
-            'profile_picture' => $this->member->profile_picture,
-        ];
+        $response['question'] = new QuestionResource($this->question);
 
+        $response['author'] = new MemberPartialResource($this->member);
+        
         $response['comments'] = CommentResource::collection($this->comments);
 
         $response['upvotes'] = $this->answerRatings()->where('rate', 1)->count();

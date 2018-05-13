@@ -1,5 +1,6 @@
 <template>
-    <div class="mt-5">
+    <div class="mt-4">
+    <hr>
         <div class="d-flex flex-wrap">
             <div class="align-self-center">
                 <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -13,7 +14,14 @@
                 <h6><small class="text-muted">answered {{ answer.date | moment("from") }}</small></h6>
             </div>
             <div class="ml-3">
-                Follow
+                <follow-button v-if="!answer.author.isSelf"
+                                v-model="answer.author.isFollowing"
+                                :classesDefault= "'btn btn-sm btn-primary'"
+                                :classesActive= "'btn btn-sm btn-outline-primary'"
+                                :path="'/api/member/' + answer.author.username + '/toggle-follow'"
+                                >
+                                </follow-button>
+
                 <!--@include('partials.follow', ['followTarget' => answer.member])-->
             </div>
             <!--
@@ -35,10 +43,10 @@
 
     <div class="d-flex">
         <div>
-            <a href="" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote 
+            <a @click.stop.prevent="rateAnswer(1)" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote 
                 <span class="badge badge-primary">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>
             </a>
-            <a href="" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
+            <a @click.stop.prevent="rateAnswer(-1)" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
         </div>
     </div>
 
@@ -74,6 +82,7 @@
 
 <script>
 import CommentsList from '../components/CommentsList'
+import FollowButton from '../components/FollowButton'
 
 export default {
 
@@ -82,7 +91,9 @@ export default {
     name: 'AnswerPartial',
 
     components: {
-        'CommentsList': CommentsList
+        'CommentsList': CommentsList,
+        'FollowButton': FollowButton
+
     },
 
 
@@ -104,8 +115,7 @@ export default {
             else 
                 this.showError = false;
 
-            axios.post('/api/comments/answer', {
-                'answer_id': this.answer.id,
+            axios.post('/api/comments/answer/'+ this.answer.id, {
                 'content': this.commentText,
             })
             .then(({data}) => {
@@ -116,7 +126,21 @@ export default {
             .catch((error) => {
                 console.log(error);
             }); 
+        },
+
+         rateAnswer: function(vote) {
+            axios.post('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id + '/rate', {
+                'rate': vote,
+            })
+            .then(({data}) => {
+                this.answer.upvotes = data.upvotes;
+                this.answer.downvotes = data.downvotes;
+            })
+            .catch((error) => {
+                console.log(error);
+            }); 
         }
+
     }
 
 }

@@ -7,35 +7,34 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Answer;
 use App\Question;
-
 use \App\AnswerRating;
+use App\Http\Resources\AnswerResource;
 
 use Purifier;
 
 class AnswerController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth')->except(['show']);
+        $this->middleware('auth')->except(['show', 'getAnswer']);
     }
 
     public function show(Question $question, Answer $answer){
         return view('pages.answer', compact('answer'));
     }
 
+    public function getAnswer(Question $question, Answer $answer) {
+        return new AnswerResource($answer);
+    }
+
     public function create(Question $question){
-        // $answer = new Answer();
 
         $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
         $author_id = Auth::id();
-        $date = now();
+        $date = date('Y-m-d H:i:s');
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
-        $answer->mention(request('mentions'));
-        // $answer->save();
 
-        // $question->answers()->attach($answer);
-
-        return back();
+        return new AnswerResource($answer);
     }
 
     public function isLikedByMe($id, $rate)
@@ -73,6 +72,9 @@ class AnswerController extends Controller
             }
         }
 
-        return back();
+        $upvotes = $answer->answerRatings->where('rate',1)->count();
+        $downvotes = $answer->answerRatings->where('rate',-1)->count();
+        
+        return compact('upvotes', 'downvotes');
     }
 }

@@ -1,5 +1,5 @@
 <template>
-	<button @click="toggleFollow()" :class="{ [classesDefault]: (!isActive || !value), [classesActive]: (isActive && value) }" @mouseover="handleHover()" @mouseleave="handleLeave()">
+	<button @click.stop.prevent="toggleFollow()" :class="{ [classesDefault]: (!isActive || !value), [classesActive]: (isActive && value) }" @mouseover="handleHover()" @mouseleave="handleLeave()">
 			<i v-if="value" :class="{'far fa-fw': true, 'fa-user': !isActive, 'fa-user-times': isActive }"></i>
 			<i v-else class="far fa-fw fa-user-plus"></i>
 			{{ text }}

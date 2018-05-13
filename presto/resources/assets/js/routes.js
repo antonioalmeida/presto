@@ -16,10 +16,36 @@ let routes = [
         path: '/profile/:username',
         component: require('./views/Profile'),
         props: true,
+
+        children: [
+            {
+                path: '',
+                component: require('./views/ProfileFeed'),
+                props: true,
+            },
+
+            {
+              path: 'followers',
+              component: require('./views/Followers'),
+              props: true,
+            },
+
+            {
+              path: 'following',
+              component: require('./views/Following'),
+              props: true,
+            }
+        ]
     },
 
     {
-        path: '/answers/:a_id',
+        path: '/edit-profile',
+        component: require('./views/EditProfile'),
+        props: true,
+    },
+
+    {
+        path: '/questions/:q_id/answers/:a_id',
         component: require('./views/Answer'),
         props: true,
     },
@@ -46,10 +72,20 @@ let routes = [
         path: '/admin',
         component: require('./views/Admin'),
     },
+    
+    {
+      path: '/notifications',
+        component: require('./views/Notifications')
+    },
 
     ];
 
+    
 export default new VueRouter({
     routes,
-    mode: 'history'
+    mode: 'history',
+
+    scrollBehavior (to, from, savedPosition) {
+        return { x: 0, y: 0 };
+    }
 });

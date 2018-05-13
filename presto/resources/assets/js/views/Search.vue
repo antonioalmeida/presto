@@ -24,7 +24,8 @@
                             <b-form-radio-group class="text-muted" v-model="time"
                             :options="timeOptions"
                             stacked
-                            name="timeRadio">
+                            name="timeRadio"
+                            :disabled="!showSorting">
                         </b-form-radio-group>
 
                     </div>
@@ -41,7 +42,7 @@
                   <template v-if="results == null">
                   </template>
 
-                  <h5 v-else-if="results.length === 0"> <small> No results. </small></h5>
+                  <h5 v-else-if="sortedResults.length === 0"> <small> No results. </small></h5>
 
                   <template v-else>
 
@@ -58,19 +59,19 @@
                         <div class="list-group">
 
                         	<template v-if="type == 'questions'">
-                        		<question-card :key="question.id" v-for="question in filteredResults" :question="question"></question-card> 
+                        		<question-card :key="question.id" v-for="question in sortedResults" :question="question"></question-card> 
                         	</template>
 
                         	<template v-if="type == 'answers'">
-                        		<answer-card :key="answer.id" v-for="answer in filteredResults" :answer="answer"></answer-card> 
+                        		<answer-card :key="answer.id" v-for="answer in sortedResults" :answer="answer"></answer-card> 
                         	</template>
 
                         	<template v-if="type == 'members'">
-                        		<member-card :key="member.id" v-for="member in filteredResults" :member="member"></member-card> 
+                        		<member-card :key="member.id" v-for="member in sortedResults" :member="member"></member-card> 
                         	</template>
 
                         	<template v-if="type == 'topics'">
-                        		<topic-card :key="topic.id" v-for="topic in filteredResults" :topic="topic"></topic-card> 
+                        		<topic-card :key="topic.id" v-for="topic in sortedResults" :topic="topic"></topic-card> 
                         	</template>
 
                         </div>
@@ -93,6 +94,10 @@ export default {
 
 	name: 'Search',
 
+	created () {
+   		document.title = "Search | Presto";
+  	},
+
 	components: {
 		QuestionCard: require('../components/QuestionCard'),
 		AnswerCard: require('../components/AnswerCard'),
@@ -107,6 +112,12 @@ export default {
 
 	watch: {
 		type: function() {
+			this.results = null;
+			this.loader = this.$loading.show();
+			this.getResults(this.query);
+		},
+
+		query: function() {
 			this.results = null;
 			this.loader = this.$loading.show();
 			this.getResults(this.query);
@@ -234,7 +245,8 @@ export default {
     			return false;
 
     		return true;
-    	}
+    	},
+
     }
 
 }
