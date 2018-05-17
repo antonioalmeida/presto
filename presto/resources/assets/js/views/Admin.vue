@@ -2,7 +2,7 @@
    
     <body class="grey-background">
     <main role="main">
-    <div class="container pt-4 mt-2">
+    <div class="container pt-4 mt-4">
       <div class="row">
         <div class="col-md-2 mt-2">
           <div class="offcanvas-collapse" id="navbarsExampleDefault">
