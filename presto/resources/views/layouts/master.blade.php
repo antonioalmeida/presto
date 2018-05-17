@@ -60,7 +60,11 @@
 @endverbatim
 
   <div id="app">
+    @auth('admin')
+    @include('includes.nav_admin')
+    @else
     @include('includes.nav')
+    @endauth
 
     <router-view></router-view>
 
