@@ -13,9 +13,7 @@ window.axios.defaults.headers.common = {
 
 window.axios.interceptors.response.use(
     
-  response => {
-      console.log(response);
-  }, 
+  response => response, 
   (error) => {
       console.log(error);
 

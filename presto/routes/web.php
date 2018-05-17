@@ -22,7 +22,7 @@ Route::get('/', 'HomeController@index')->name('index');
 //Index
 Route::view('index', 'layouts.master')->name('index');
 Route::view('about', 'layouts.master')->name('about');
-Route::get('404', 'HomeController@error')->name('404');
+Route::view('404', 'layouts.master')->name('404');
 
 
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
@@ -112,7 +112,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     //Route::get('/', 'AdminController@show')->name('admin.dashboard');
-    Route::view('/', 'layouts.master_admin')->name('admin.dashboard');
+    Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 

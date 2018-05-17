@@ -78,6 +78,11 @@ let routes = [
         component: require('./views/Notifications')
     },
 
+    {
+        path: '/404',
+          component: require('./views/404')
+    },
+
     ];
 
     
