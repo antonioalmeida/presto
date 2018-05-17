@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Http\Resources\MemberResource;
+use App\Http\Resources\MemberListResource;
 use App\Http\Resources\FlagResource;
 use App\Http\Resources\QuestionResource;
 
@@ -19,7 +19,7 @@ class AdminController extends Controller
     }
     
     public function getUsers(){
-        return MemberResource::collection(Member::where('is_banned', false)->get());
+        return MemberListResource::collection(Member::where('is_banned', false)->get());
     }
 
     public function getFlagged(){
@@ -27,14 +27,14 @@ class AdminController extends Controller
     }
 
     public function getBanned(){
-        return MemberResource::collection(Member::where('is_banned', true)->get());
+        return MemberListResource::collection(Member::where('is_banned', true)->get());
     }
     public function getModerators(){
-        return MemberResource::collection(Member::where(['is_moderator' => true, 'is_banned' => false])->get());
+        return MemberListResource::collection(Member::where(['is_moderator' => true, 'is_banned' => false])->get());
     }
 
     public function getCertified(){
-        return MemberResource::collection(Member::where(['is_certified' => true, 'is_banned' => false])->get());
+        return MemberListResource::collection(Member::where(['is_certified' => true, 'is_banned' => false])->get());
     }
 
     public function ban(String $username){

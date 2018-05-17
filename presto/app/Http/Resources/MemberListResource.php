@@ -4,9 +4,8 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
 
-class FlagResource extends Resource
+class MemberListResource extends Resource
 {
-
     /**
      * Transform the resource into an array.
      *
@@ -15,9 +14,6 @@ class FlagResource extends Resource
      */
     public function toArray($request)
     {
-        $response = parent::toArray($request);
-        $response['member'] = new MemberListResource($this->member);
-        $response['moderator'] = new MemberListResource($this->moderator); 
-        return $response;
+        return parent::toArray($request);
     }
 }
