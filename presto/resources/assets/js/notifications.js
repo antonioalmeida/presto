@@ -9,7 +9,7 @@ window.Echo = new Echo({
     broadcaster: 'pusher',
     key: 'b9238648fe8769320bdf',
     cluster: 'eu',
-    encrypted: true
+    encrypted: false
 });
 
 var notifications = [];
