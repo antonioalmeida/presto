@@ -9,6 +9,7 @@ import 'vue-loading-overlay/dist/vue-loading.min.css';
 Vue.use(Loading);
 
 Vue.use(require('vue-moment'));
+Vue.router = router;
 
 new Vue({
     el: '#app',
@@ -18,3 +19,5 @@ new Vue({
     	'SearchBar': SearchBar
     } 
 });
+
+

@@ -11,7 +11,21 @@ window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 };
 
+window.axios.interceptors.response.use(
+    
+  response => {
+      console.log(response);
+  }, 
+  (error) => {
+      console.log(error);
 
+    if (error.response.status === 401) {
+      window.Vue.router.push({path: '/404'});
+    }
+
+    return Promise.reject(error);
+
+  });
 
 
 /**
