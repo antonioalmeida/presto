@@ -96,7 +96,7 @@ Route::view('search/{query}', 'layouts.master');
 //Route::post('search', 'SearchController@search')->name('search');
 
 //Admin
-Route::get('admin', 'AdminController@show')->name('admin');
+// Route::get('admin', 'AdminController@show')->name('admin');
 
 
 // Authentication
@@ -112,7 +112,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     //Route::get('/', 'AdminController@show')->name('admin.dashboard');
-    Route::view('/', 'layouts.master')->name('admin.dashboard');
+    Route::view('/', 'layouts.master_admin')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
