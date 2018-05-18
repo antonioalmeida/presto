@@ -144,3 +144,7 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
+
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="favicon.ico">
 
-  <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com">
+  <!-- <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com"> -->
   <!-- google platform -->
-  <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+  <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
   <!-- facebook sdk -->
-  <div id="fb-root"></div>
+  <!-- <div id="fb-root"></div> -->
 
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
