@@ -53,7 +53,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="user in users">
+                    <tr v-for="user in users.data">
                       <td>{{user.username}}</td>
                       <td>{{user.name}}</td>
                       <td>{{user.email}}</td>
@@ -65,6 +65,9 @@
                     </tr>
                   </tbody>
                 </table>
+              </div>
+              <div class="col-md-6 offset-md-3 d-flex justify-content-center pt-4">
+                <pagination :data="users" @pagination-change-page="getUsers"></pagination>
               </div>
             </section>
           </div>
@@ -233,14 +236,20 @@ export default {
       flagged: {},
       banned: {},
       moderators: {},
-      certified: {}
+      certified: {},
+      query: "derp"
     }
+  },
+
+  components: {
+    'pagination': require('laravel-vue-pagination')
   },
 
   mounted() {
     this.loader = this.$loading.show();
     this.getData();
   },
+
 
   methods: {
     getData: function(){
@@ -251,10 +260,11 @@ export default {
       this.getCertified();
     },
 
-    getUsers: function(){
+    getUsers: function(page = 1){
       console.log("Getting users");
 
-      axios.get('/api/admin/get-users')
+      console.log('/api/admin/'+this.query+'/get-users?page='+page);
+      axios.get('/api/admin/'+this.query+'/get-users?page='+page)
         .then(({data}) => {
             console.log("Done getting users");
             this.users = data;
@@ -457,6 +467,9 @@ export default {
            tr[j].style.display="";
         }
       }
+
+      //this.query = searchField.value;
+      //this.getUsers(1);
     },
 
     filterBar(e){
