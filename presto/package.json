@@ -12,7 +12,7 @@
   "devDependencies": {
     "@johmun/vue-tags-input": "^1.3.6",
     "axios": "^0.17",
-    "bootstrap-vue": "^2.0.0-rc.9",
+    "bootstrap-vue": "^2.0.0-rc.10",
     "cross-env": "^5.1.5",
     "laravel-mix": "^1.0",
     "laravel-vue-pagination": "^1.2.0",
