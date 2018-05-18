@@ -62,27 +62,10 @@
             </form>
           </div>
           <div class="col-md-6 col-lg-4 d-flex flex-column align-items-center mb-5">
-            <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
-            <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div>
+          <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fab fa-google"></i> Sign in with Google</a>
+            <!-- <div class="m-2 g-signin2" data-width="254" data-height="40" data-longtitle="true"></div>
+            <div class="fb-login-button m-2" data-max-rows="1" data-size="large" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="false"></div> -->
           </div>
-          <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
-<!--Other form fields above the button-->
-    <div class="form-group">
-        <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">
-            <i class="fa fa-btn fa-user"></i> Register
-            </button>
-        </div>
-    </div>
-    <hr>
-    <div class="form-group">
-        <div class="col-md-6 col-md-offset-4">
-            <a href="{{ url('/auth/google') }}" class="btn btn-google"><i class="fa fa-google"></i> Google</a>
-            <a href="{{ url('/auth/twitter') }}" class="btn btn-twitter"><i class="fa fa-twitter"></i> Twitter</a>
-            <a href="{{ url('/auth/facebook') }}" class="btn btn-facebook"><i class="fa fa-facebook"></i> Facebook</a>
-        </div>
-    </div>
-</form>
         </div>
       </div>
     </section>
