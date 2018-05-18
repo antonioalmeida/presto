@@ -54,7 +54,7 @@ class Member extends Authenticatable
      */
     protected $table = 'member';
 
-    protected $fillable = ['country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
+    protected $fillable = ['provider', 'provider_id', 'country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
 
     /**
      * The attributes that should be hidden for arrays.
