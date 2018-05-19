@@ -12,18 +12,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-// use App\Notification;
-
 class ProfileController extends ApiBaseController
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['get', 'getQuestions', 'getAnswers', 'show', 'getFollowers', 'following']);
-    }
-
-    public function show(Member $member)
-    {
-        return view('pages.profile.show', compact('member'));
+        $this->middleware('auth')->except(['get', 'getQuestions', 'getAnswers', 'getFollowers', 'following']);
     }
 
     public function get(Member $member)
@@ -159,36 +152,9 @@ class ProfileController extends ApiBaseController
         return ['following' => $member->isFollowing($follower), 'no_followings' => $member->followings->count()];
     }
 
-
-    public function follow(Member $follower)
-    {
-        return Auth::user()->follow($follower);
-        return back();
-    }
-
-    public function unFollow(Member $follower)
-    {
-        Auth::user()->unFollow($follower);
-        return back();
-    }
-
     public function settings()
     {
         return view('pages.profile.settings');
     }
-
-    // public function notifications(){
-    //     $notifications_p = Auth()->user()->notifications()->paginate(7);
-    //     $notifications = Auth()->user()->notifications;
-    //     $counters['Follows'] = $notifications->where('type','App\Notifications\MemberFollowed')->count();
-    //     $counters['Questions'] = $notifications->where('type','App\Notifications\NewQuestion')->count();
-    //     $counters['Answers'] = $notifications->where('type','App\Notifications\NewAnswer')->count();
-    //     $counters['Comments'] = $notifications->where('type','App\Notifications\NewComment')->count();
-    //     $counters['Rating'] = $notifications->where('type','App\Notifications\QuestionRated')->count() 
-    //     + $notifications->where('type','App\Notifications\AnswerRated')->count() 
-    //     + $notifications->where('type','App\Notifications\CommentRated')->count();
-
-    //     return view('pages.profile.notifications', ['counters' => $counters, 'notifications_p' => $notifications_p]);
-    // }
-
+    
 }

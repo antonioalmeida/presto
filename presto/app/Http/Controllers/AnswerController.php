@@ -13,12 +13,7 @@ class AnswerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'getAnswer']);
-    }
-
-    public function show(Question $question, Answer $answer)
-    {
-        return view('pages.answer', compact('answer'));
+        $this->middleware('auth')->except(['getAnswer']);
     }
 
     public function getAnswer(Question $question, Answer $answer)
