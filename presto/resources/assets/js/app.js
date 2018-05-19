@@ -11,6 +11,7 @@ Vue.use(Loading);
 Vue.use(require('vue-moment'));
 Vue.router = router;
 
+if (document.getElementById('app') != null){
 new Vue({
     el: '#app',
     router,
@@ -21,3 +22,4 @@ new Vue({
 });
 
 
+}
