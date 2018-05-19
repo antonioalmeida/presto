@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 
-class ProfileController extends ApiBaseController
+class ProfileController extends Controller
 {
     public function __construct()
     {

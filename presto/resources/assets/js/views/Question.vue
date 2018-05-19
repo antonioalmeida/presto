@@ -125,6 +125,10 @@
 
         name: 'Question',
 
+        created() {
+            document.title = "Question | Presto";
+        },
+
         components: {
             'Collapse': Collapse,
             'CommentsList': CommentsList,
