@@ -11,7 +11,7 @@ class MemberResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -26,12 +26,12 @@ class MemberResource extends Resource
         $member = Auth::user();
         if ($member != null && $member->can('update', request('member')))
             $isOwner = true;
-    
+
         $response['isOwner'] = $isOwner;
-        
-        if($member != null)
-          $response['isFollowing'] = $this->isFollowedBy($member);
-        
+
+        if ($member != null)
+            $response['isFollowing'] = $this->isFollowedBy($member);
+
         return $response;
     }
 }

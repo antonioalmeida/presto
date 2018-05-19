@@ -2,16 +2,14 @@
 </template>
 
 <script>
-export default {
+    export default {
 
-  name: 'AddQuestionModal',
+        name: 'AddQuestionModal',
 
-  data () {
-    return {
-
+        data() {
+            return {}
+        }
     }
-  }
-}
 </script>
 
 <style lang="css" scoped>

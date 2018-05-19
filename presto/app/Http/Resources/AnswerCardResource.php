@@ -9,7 +9,7 @@ class AnswerCardResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -26,7 +26,7 @@ class AnswerCardResource extends Resource
 
         $response['question'] = $this->question;
 
-        $response['rating'] = $this->answerRatings()->where('rate',1)->count();
+        $response['rating'] = $this->answerRatings()->where('rate', 1)->count();
 
         /*
         $response['question'] = [

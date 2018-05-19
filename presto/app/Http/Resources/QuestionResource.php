@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\MemberResource;
 
 
 class QuestionResource extends Resource
@@ -11,7 +10,7 @@ class QuestionResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -24,8 +23,8 @@ class QuestionResource extends Resource
             'profile_picture' => $this->member->profile_picture,
         ];
 
-        $response['rating'] = $this->questionRatings()->where('rate',1)->count();
-        
+        $response['rating'] = $this->questionRatings()->where('rate', 1)->count();
+
         //TODO: replace this with TopicResource
         $response['topics'] = $this->topics;
         return $response;

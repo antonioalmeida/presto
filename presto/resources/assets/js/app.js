@@ -15,9 +15,9 @@ new Vue({
     el: '#app',
     router,
     components: {
-    	'AddQuestionModal': AddQuestionModal,
-    	'SearchBar': SearchBar
-    } 
+        'AddQuestionModal': AddQuestionModal,
+        'SearchBar': SearchBar
+    }
 });
 
 

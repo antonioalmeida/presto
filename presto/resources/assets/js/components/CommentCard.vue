@@ -1,77 +1,79 @@
 <template>
 
-	<div class="list-group-item">
-		<div class="d-flex flex-column">
-			<div class="ml-1">
-				<div class="d-flex">
-					<div class="align-self-center">
-						<img class="rounded-circle mr-2" width="36px" heigth="36px" :src="comment.author.profile_picture">
-					</div>
-					<div class="d-flex flex-column">
+    <div class="list-group-item">
+        <div class="d-flex flex-column">
+            <div class="ml-1">
+                <div class="d-flex">
+                    <div class="align-self-center">
+                        <img class="rounded-circle mr-2" width="36px" heigth="36px"
+                             :src="comment.author.profile_picture">
+                    </div>
+                    <div class="d-flex flex-column">
 
-						<span><router-link :to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
-						<span class="text-muted">{{ comment.date | moment("from") }}</span>
-					</div>
-					<!--
-					@can('update',comment.
-					<div class="ml-auto ">
-						<small>
-							<a href="#" class="text-muted">Edit</a> |
-							<a href="#" class="text-danger">Delete</a>
-						</small>
-					</div>
-					@endcan
-					-->
-				</div>
-			</div>
-			<div class="pl-2 mt-1">
-				<p>
-					{{ comment.content }}
-				</p>
-				<div class="d-flex justify-content-between">
-					<div>
-						<a @click.stop.prevent="rateComment(1)" class="text-muted">Upvote</a> <span class="text-muted">&bull;</span> <a class="text-muted" @click.stop.prevent="rateComment(-1)">Downvote</a>
-					</div>
-					<div class="ml-auto">
-						<a href="#" class="text-muted"><small>Report</small></a>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                        <span><router-link :to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
+                        <span class="text-muted">{{ comment.date | moment("from") }}</span>
+                    </div>
+                    <!--
+                    @can('update',comment.
+                    <div class="ml-auto ">
+                        <small>
+                            <a href="#" class="text-muted">Edit</a> |
+                            <a href="#" class="text-danger">Delete</a>
+                        </small>
+                    </div>
+                    @endcan
+                    -->
+                </div>
+            </div>
+            <div class="pl-2 mt-1">
+                <p>
+                    {{ comment.content }}
+                </p>
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <a @click.stop.prevent="rateComment(1)" class="text-muted">Upvote</a> <span class="text-muted">&bull;</span>
+                        <a class="text-muted" @click.stop.prevent="rateComment(-1)">Downvote</a>
+                    </div>
+                    <div class="ml-auto">
+                        <a href="#" class="text-muted">
+                            <small>Report</small>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <script>
 
-export default {
+    export default {
 
-	props: ['comment'],
+        props: ['comment'],
 
-	name: 'CommentCard',
+        name: 'CommentCard',
 
-	data () {
-		return {
+        data() {
+            return {}
+        },
 
-		}
-	},
+        methods: {
+            displayDate: function (date) {
+                return moment.fromNow(true);
+            },
 
-	methods: {
-		displayDate: function(date) {
-			return moment.fromNow(true);
-		},
-		
-		rateComment: function(vote) {
-            axios.post('/api/comments/' + this.comment.id + '/rate', {
-                'rate': vote,
-            })
-            .then(({data}) => {
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-			}); 
-			
-			}
-	}
-}
+            rateComment: function (vote) {
+                axios.post('/api/comments/' + this.comment.id + '/rate', {
+                    'rate': vote,
+                })
+                    .then(({data}) => {
+                        console.log(data);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+            }
+        }
+    }
 </script>

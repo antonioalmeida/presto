@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Validator;
-use Auth;
-use Socialite;
 use App\Member;
+use Auth;
+use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Socialite;
 
 class LoginController extends Controller
 {
@@ -62,8 +61,8 @@ class LoginController extends Controller
             return $authUser;
         }
         return Member::create([
-            'username'     => $user->name,
-            'email'    => $user->email,
+            'username' => $user->name,
+            'email' => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id
         ]);

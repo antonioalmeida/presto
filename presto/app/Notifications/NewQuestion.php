@@ -2,14 +2,12 @@
 
 namespace App\Notifications;
 
-use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Messages\BroadcastMessage;
-
-use App\Question;
 use App\Member;
+use App\Question;
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
+use Illuminate\Notifications\Notification;
 
 class NewQuestion extends Notification implements ShouldQueue
 {
@@ -32,44 +30,44 @@ class NewQuestion extends Notification implements ShouldQueue
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
     {
-                return ['database', 'broadcast'];
-                // return ['database'];
+        return ['database', 'broadcast'];
+        // return ['database'];
     }
 
     public function toBroadcast($notifiable)
-{
-    return new BroadcastMessage([
-        'id' => $this->id,
-        'type' =>'Question',
-        'read_at' => null,
-        'data' => [
-            'following_id' => $this->following->id,
-            'following_name' => $this->following->name,
-            'following_username' => $this->following->username,
-            'following_picture' => $this->following->profile_picture,
-            'question_id' => $this->question->id,
-            'question_title' => $this->question->title,
-            'url' => 'questions/' . $this->question->id,
-        ],
-    ]);
-}
+    {
+        return new BroadcastMessage([
+            'id' => $this->id,
+            'type' => 'Question',
+            'read_at' => null,
+            'data' => [
+                'following_id' => $this->following->id,
+                'following_name' => $this->following->name,
+                'following_username' => $this->following->username,
+                'following_picture' => $this->following->profile_picture,
+                'question_id' => $this->question->id,
+                'question_title' => $this->question->title,
+                'url' => 'questions/' . $this->question->id,
+            ],
+        ]);
+    }
 
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
     {
         return [
-        'type' =>'Question',
+            'type' => 'Question',
             'following_id' => $this->following->id,
             'following_name' => $this->following->name,
             'following_username' => $this->following->username,
@@ -77,6 +75,6 @@ class NewQuestion extends Notification implements ShouldQueue
             'question_id' => $this->question->id,
             'question_title' => $this->question->title,
             'url' => 'questions/' . $this->question->id,
-    ];
+        ];
     }
 }

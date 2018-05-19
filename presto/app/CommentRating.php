@@ -17,22 +17,21 @@ class CommentRating extends Model
 
     use SoftDeletes;
 
+    public $timestamps = false;
+
+    // Don't add create and update timestamps in database.
     /**
      * The attributes that should be mutated to dates.
      *
      * @var array
      */
     protected $dates = ['deleted_at'];
-
-    // Don't add create and update timestamps in database.
-    public $timestamps  = false;
-
     /**
      * The table associated with the model.
      */
     protected $table = 'comment_rating';
 
-    protected $fillable = ['comment_id','member_id','rate'];
+    protected $fillable = ['comment_id', 'member_id', 'rate'];
 
 
     public function comment()

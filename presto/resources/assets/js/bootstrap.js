@@ -1,6 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
+/**
+ * Import tributejs for mentions
+ */
+import Tribute from "tributejs";
+/**
+ * Import Mentions class
+ */
+import Mentions from './laravel-mentions';
 
 window.Vue = Vue;
 Vue.use(VueRouter);
@@ -12,28 +20,20 @@ window.axios.defaults.headers.common = {
 };
 
 window.axios.interceptors.response.use(
-    
-  response => response, 
-  (error) => {
-      console.log(error);
+    response => response,
+    (error) => {
+        console.log(error);
 
-    if (error.response.status === 401) {
-      window.Vue.router.push({path: '/404'});
-    }
+        if (error.response.status === 401) {
+            window.Vue.router.push({path: '/404'});
+        }
 
-    return Promise.reject(error);
+        return Promise.reject(error);
 
-  });
+    });
 
 
-/**
-  * Import tributejs for mentions
-  */
-  import Tribute from "tributejs";
-  window.Tribute = Tribute;
+window.Tribute = Tribute;
 
-/**
-  * Import Mentions class
-  */
-import Mentions from './laravel-mentions';
+
 window.Mentions = Mentions;

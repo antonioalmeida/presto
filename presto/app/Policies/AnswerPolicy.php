@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Member;
 use App\Answer;
+use App\Member;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class AnswerPolicy
@@ -13,8 +13,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can update the answer.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Answer  $answer
+     * @param  \App\Member $user
+     * @param  \App\Answer $answer
      * @return mixed
      */
     public function update(Member $user, Answer $answer)
@@ -31,8 +31,8 @@ class AnswerPolicy
     /**
      * Determine whether the user can delete the answer.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Answer  $answer
+     * @param  \App\Member $user
+     * @param  \App\Answer $answer
      * @return mixed
      */
     public function delete(Member $user, Answer $answer)

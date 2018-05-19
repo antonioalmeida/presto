@@ -25,15 +25,15 @@ let routes = [
             },
 
             {
-              path: 'followers',
-              component: require('./views/Followers'),
-              props: true,
+                path: 'followers',
+                component: require('./views/Followers'),
+                props: true,
             },
 
             {
-              path: 'following',
-              component: require('./views/Following'),
-              props: true,
+                path: 'following',
+                component: require('./views/Following'),
+                props: true,
             }
         ]
     },
@@ -72,26 +72,26 @@ let routes = [
         path: '/admin',
         component: require('./views/Admin'),
     },
-    
+
     {
-      path: '/notifications',
+        path: '/notifications',
         component: require('./views/Notifications')
     },
 
     {
         path: '/404',
-          component: require('./views/404')
+        component: require('./views/404')
     },
 
-    ];
+];
 
-    
+
 export default new VueRouter({
     routes,
     mode: 'history',
 
-    scrollBehavior (to, from, savedPosition) {
-        return { x: 0, y: 0 };
+    scrollBehavior(to, from, savedPosition) {
+        return {x: 0, y: 0};
     }
 });
 

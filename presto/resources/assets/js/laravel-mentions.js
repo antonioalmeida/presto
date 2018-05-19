@@ -5,8 +5,8 @@ class Mentions {
 
         this.input = this.findNode(this.options.input, '.has-mentions');
         this.output = this.findNode(this.options.output, '#mentions');
-        
-        if(this.input == null || this.output == null){
+
+        if (this.input == null || this.output == null) {
             return;
         }
 
@@ -36,7 +36,7 @@ class Mentions {
 
             let xhttp = new XMLHttpRequest();
 
-            xhttp.onreadystatechange = function() {
+            xhttp.onreadystatechange = function () {
                 if (this.readyState == 4 && this.status == 200) {
                     callback(JSON.parse(this.responseText));
                 }
@@ -88,7 +88,7 @@ class Mentions {
 
             mentions.value = nodeList.join();
 
-            if (input.hasAttribute('for') && ! (instance.options.ignoreFor || false)) {
+            if (input.hasAttribute('for') && !(instance.options.ignoreFor || false)) {
                 document.querySelector(input.getAttribute('for')).value = input.innerHTML;
             }
         });

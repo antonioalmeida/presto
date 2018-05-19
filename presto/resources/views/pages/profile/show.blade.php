@@ -1,5 +1,5 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 
 @extends('layouts.master')
@@ -26,26 +26,30 @@ use Carbon\Carbon;
 
                         <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
-                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
+                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                                   role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
+                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                                   role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
                             </div>
                         </nav>
                         <div class="tab-content mb-5" id="nav-tabContent">
-                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                                 aria-labelledby="nav-home-tab">
                                 <!-- Questions go here -->
 
                                 <div class="list-group">
                                     @foreach($member->questions->sortByDesc('date') as $question)
-                                       @include('partials.question-card', ['question', $question]) 
+                                        @include('partials.question-card', ['question', $question])
                                     @endforeach
                                 </div>
 
 
                             </div>
-                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                            <div class="tab-pane fade" id="nav-profile" role="tabpanel"
+                                 aria-labelledby="nav-profile-tab">
                                 <!-- answers go here -->
                                 @foreach($member->answers->sortByDesc('date') as $answer)
-                                @include('partials.answer-card',['answer', $answer]) 
+                                    @include('partials.answer-card',['answer', $answer])
                                 @endforeach
                             </div>
                         </div>
