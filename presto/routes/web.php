@@ -76,6 +76,7 @@ Route::prefix('api')->group(function () {
     Route::get('topic/{topic}', 'TopicController@get');
     Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
     //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
+    Route::get('topic/', 'TopicController@getAllTopics');
 
     // Search API
     Route::get('search/{query}', 'SearchController@get');

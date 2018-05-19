@@ -5,13 +5,11 @@
                 <input v-model="title" placeholder="Write your question" type="text" class="main-question"
                        @input="showError = false">
 
-                <vue-tags-input
-                        v-model="tag"
-                        :tags="tags"
-                        :validation="validation"
-                        placeholder=""
-                        @tags-changed="(newTags => tags = newTags)"
-                        @input="showError = false"/>
+                        <tags-input element-id="tags" 
+                         v-model="selectedTags"
+                         :typeahead="true"
+                         :existing-tags="existingTags"
+                        ></tags-input>
             </div>
 
             <div v-if="showError" class="ml-1">
@@ -26,38 +24,26 @@
 </template>
 
 <script>
-    import VueTagsInput from '@johmun/vue-tags-input';
+    import VoerroTagsInput from '@voerro/vue-tagsinput';
 
     export default {
 
         name: 'AddQuestionModal',
 
         components: {
-            'vue-tags-input': VueTagsInput
+            'tags-input': VoerroTagsInput
         },
 
         data() {
             return {
                 title: '',
-                tag: '',
-                tags: [{
-                    text: 'Science'
-                }, {
-                    text: 'Physics'
-                }],
+                
+                selectedTags: [
+                    'Science',
+                    'Physics',
+                  ],
 
-                validation: [{
-                    type: 'min-length',
-                    rule: /^.{3,}$/,
-                }, {
-                    type: 'no-numbers',
-                    rule: /^([^0-9]*)$/,
-                }, {
-                    type: 'no-braces',
-                    rule(text) {
-                        return text.indexOf('{') !== -1 || text.indexOf('}') !== -1;
-                    },
-                }],
+                existingTags: {},
 
                 showError: false,
                 errors: [],
@@ -66,11 +52,34 @@
             }
         },
 
+        mounted() {
+            this.getData();
+        },
+
         methods: {
+            getData: function (id) {
+                this.getTopics();
+            },
+
+            getTopics: function () {
+                let request = '/api/topic/';
+
+                axios.get(request)
+                    .then(({data}) => {
+                      this.existingTags =  data.reduce(function(result, item, index, array) {
+                         result[item] = item;
+                        return result;
+                    }, {});
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            },
+
             onSubmit: function () {
                 axios.post('/api/questions', {
                     'title': this.title,
-                    'tags': this.tagsString
+                    'tags': this.selectedTags
                 })
                     .then(({data}) => {
                         this.redirect(data.id);
@@ -84,14 +93,11 @@
             redirect: function (id) {
                 this.$router.push({path: '/questions/' + id});
                 this.showModal = false;
+                this.title = '';
+                this.selectedTags = ['Science','Physics'];
             }
         },
 
-        computed: {
-            tagsString: function () {
-                return this.tags.map(value => value.text);
-            }
-        }
     }
 </script>
 

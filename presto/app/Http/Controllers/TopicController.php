@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TopicResource;
+use App\Http\Resources\TopicListResource;
 use App\Topic;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,10 @@ class TopicController extends Controller
     public function get(Topic $topic)
     {
         return new TopicResource($topic);
+    }
+
+    public function getAllTopics() {
+        return TopicListResource::collection(Topic::all());
     }
 
     public function show(Topic $topic)
