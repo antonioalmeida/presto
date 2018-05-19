@@ -237,7 +237,6 @@
                 switch (this.time) {
                     case 'all':
                         limitDate = this.$moment('1970-01-01');
-                        console.log(limitDate.format());
                         break;
 
                     case 'day':
