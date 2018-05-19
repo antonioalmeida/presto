@@ -33,7 +33,7 @@ class TopicController extends Controller
         else
             $member->followTopic($topic);
 
-        return ['following' => $member->isFollowingTopic($topic)];
+        return ['following' => $member->isFollowingTopic($topic), 'no_followers' => $topic->followers->count()];
     }
 
 }

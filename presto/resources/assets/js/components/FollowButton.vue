@@ -45,6 +45,7 @@
                 axios.post(this.path)
                     .then(({data}) => {
                         this.$emit('input', data.following);
+                        this.$emit('update:data', data);
                     })
                     .catch((error) => {
                         console.log(error);

@@ -28,6 +28,7 @@
                                         :classesDefault="'btn btn-outline-light'"
                                         :classesActive="'btn btn-danger'"
                                         :path="'/api/topic/' + topic.name + '/toggle-follow'"
+                                        :data="followData" @update:data="value => topic.nrFollowers = value.no_followers"
                                 >
                                 </follow-button>
 
@@ -158,7 +159,8 @@
 
         data() {
             return {
-                topic: {}
+                topic: {},
+                followData: null,
             }
         },
 
@@ -169,14 +171,6 @@
                         this.topic = data;
                         this.loader.hide();
                     })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            },
-
-            toggleFollowTopic: function () {
-                axios.post('/api/topic/toggle-follow')
-                    .then(({data}) => this.topic.isFollowing = data.isFollowing)
                     .catch((error) => {
                         console.log(error);
                     });
