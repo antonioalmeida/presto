@@ -1,10 +1,14 @@
 let searchFields = document.querySelectorAll(".form-control");
 let searchButtons = document.querySelectorAll(".tab-pane button");
 
+if(searchFields != null && searchButtons != null) {
 function filter(searchField) {
     let section = searchField.closest("section");
-    let tr = section.querySelectorAll("tbody > tr")
-
+    
+    if(section == null)
+         return;
+    let tr = section.querySelectorAll("tbody > tr");
+        
     let search = new RegExp(searchField.value, 'i');
 
     for (let j = 0; j < tr.length; j++) {
@@ -36,4 +40,5 @@ for (let i = 0; i < searchButtons.length; i++) {
         let searchField = this.closest(".input-group").children[1];
         filter(searchField);
     });
+}
 }

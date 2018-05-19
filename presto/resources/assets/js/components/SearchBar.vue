@@ -46,6 +46,7 @@
                 }
 
                 this.$router.push({path: '/search/' + this.query});
+                this.query = '';
             }
         }
     }
