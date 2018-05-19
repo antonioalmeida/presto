@@ -6,7 +6,9 @@
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
+                     <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
                     <h1>{{answer.question.title}}</h1>
+                    </router-link>
                     <h4>
                         <!-- <small>This is the question's description.</small> -->
                     </h4>
@@ -51,6 +53,10 @@
         props: ['q_id', 'a_id'],
 
         name: 'Answer',
+
+         created() {
+            document.title = "Answer | Presto";
+        },
 
         components: {
             'Collapse': Collapse,

@@ -110,7 +110,6 @@
             </div>
         </section>
     </main>
-    </div>
 </template>
 
 <script>

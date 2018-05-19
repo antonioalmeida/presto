@@ -140,6 +140,10 @@
 
         name: 'Topic',
 
+        created() {
+            document.title = "Topic | Presto";
+        },
+
         components: {
             'QuestionCard': QuestionCard,
             'FollowButton': FollowButton
