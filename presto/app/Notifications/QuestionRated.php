@@ -2,22 +2,32 @@
 
 namespace App\Notifications;
 
+use App\Member;
+use App\Question;
+use App\QuestionRating;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
 class QuestionRated extends Notification
 {
     use Queueable;
 
+    public $member;
+    public $question;
+    public $rating;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Member $member, QuestionRating $rating)
     {
-        //
+        $this->member = $member;
+        $this->question = $rating->question;
+        $this->rating = $rating;
     }
 
     /**
@@ -28,22 +38,29 @@ class QuestionRated extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database', 'broadcast'];
+        // return ['database'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
+    public function toBroadcast($notifiable)
     {
-        return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+        return new BroadcastMessage([
+            'id' => $this->id,
+            'type' => 'Rating',
+            'read_at' => null,
+            'data' => [
+                'following_id' => $this->member->id,
+                'following_name' => $this->member->name,
+                'following_username' => $this->member->username,
+                'following_picture' => $this->member->profile_picture,
+                'question_id' => $this->question->id,
+                'question_title' => $this->question->title,
+                'url' => 'questions/' . $this->question->id,
+                'rate' => $this->rating->rate,
+            ],
+        ]);
     }
+
 
     /**
      * Get the array representation of the notification.
@@ -54,7 +71,15 @@ class QuestionRated extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
+            'type' => 'Rating',
+            'following_id' => $this->member->id,
+            'following_name' => $this->member->name,
+            'following_username' => $this->member->username,
+            'following_picture' => $this->member->profile_picture,
+            'question_id' => $this->question->id,
+            'question_title' => $this->question->title,
+            'url' => 'questions/' . $this->question->id,
+            'rate' => $this->rating->rate,
         ];
     }
 }
