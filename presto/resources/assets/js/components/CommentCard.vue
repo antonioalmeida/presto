@@ -29,7 +29,7 @@
                 <p>
                     {{ comment.content }}
                 </p>
-                <div class="d-flex justify-content-between">
+                <div v-if="!comment.author.isSelf" class="d-flex justify-content-between">
                     <div>
                         <a @click.stop.prevent="rateComment(1)" class="text-muted">Upvote</a> <span class="text-muted">&bull;</span>
                         <a class="text-muted" @click.stop.prevent="rateComment(-1)">Downvote</a>
