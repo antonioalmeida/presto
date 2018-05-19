@@ -17,10 +17,10 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', 'HomeController@index')->name('index');
+// Route::get('/', 'HomeController@index')->name('index');
 
 //Index
-Route::view('index', 'layouts.master')->name('index');
+Route::view('', 'layouts.master')->name('index');
 Route::view('about', 'layouts.master')->name('about');
 Route::view('404', 'layouts.master')->name('404');
 
@@ -106,6 +106,10 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 Auth::routes();
 
 Route::prefix('admin')->group(function () {
@@ -145,6 +149,3 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
 
-// OAuth Routes
-Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');

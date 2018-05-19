@@ -26,6 +26,7 @@ window.axios.interceptors.response.use(
 
         if (error.response.status === 401) {
             window.Vue.router.push({path: '/404'});
+            // window.location.href = "/login";
         }
 
         return Promise.reject(error);
