@@ -34,10 +34,8 @@
     <script defer src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script defer src="{{ asset('js/app.js') }}"></script>
 
-    </script>
 
-    <
-    script >
+    <script>
     window.Laravel = {!! json_encode([
       'csrfToken' => csrf_token(),
     ]) !!};
