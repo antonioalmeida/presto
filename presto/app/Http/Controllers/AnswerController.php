@@ -44,6 +44,8 @@ class AnswerController extends Controller
 
     public function rate(Question $question, Answer $answer)
     {
+        $this->authorize('rate', $answer);
+
         $existing_rate = AnswerRating::withTrashed()->whereAnswerId($answer->id)->whereMemberId(Auth::id())->first();
 
         if (is_null($existing_rate)) {

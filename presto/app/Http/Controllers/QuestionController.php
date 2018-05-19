@@ -63,6 +63,8 @@ class QuestionController extends Controller
 
     public function rate(Question $question)
     {
+        $this->authorize('rate', $question);
+
         $existing_rate = QuestionRating::withTrashed()->whereQuestionId($question->id)->whereMemberId(Auth::id())->first();
 
         if (is_null($existing_rate)) {
