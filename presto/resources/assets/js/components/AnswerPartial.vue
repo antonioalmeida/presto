@@ -13,7 +13,9 @@
                     <h5>{{ answer.author.name }}</h5>
                 </router-link>
                 <h6>
+                    <router-link :to="'/questions/' + answer.question.id + '/answers/' + answer.id" class="text-dark btn-link">
                     <small class="text-muted">answered {{ answer.date | moment("from") }}</small>
+                    </router-link>
                 </h6>
             </div>
             <div class="ml-3">
@@ -25,7 +27,6 @@
                 >
                 </follow-button>
 
-                <!--@include('partials.follow', ['followTarget' => answer.member])-->
             </div>
             <!--
             @can('update', $answer)
@@ -44,7 +45,7 @@
             <p v-html="answer.content">
             </p>
 
-            <div class="d-flex">
+            <div v-if="!answer.author.isSelf" class="d-flex">
                 <div>
                     <a @click.stop.prevent="rateAnswer(1)" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote
                         <span class="badge badge-primary">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>

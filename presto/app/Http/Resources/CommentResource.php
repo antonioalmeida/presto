@@ -16,11 +16,7 @@ class CommentResource extends Resource
     {
         $response = parent::toArray($request);
 
-        $response['author'] = [
-            'username' => $this->member->username,
-            'name' => $this->member->name,
-            'profile_picture' => $this->member->profile_picture,
-        ];
+        $response['author'] = new MemberPartialResource($this->member);
 
         return $response;
     }

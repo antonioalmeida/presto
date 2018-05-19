@@ -77,7 +77,7 @@
 
                                     <button @click="onAnswerSubmit" class="mt-1 btn btn-sm btn-primary">Submit</button>
 
-                                    <button class="mt-1 btn btn-sm btn-link">Cancel</button>
+                                    <button v-b-toggle.accordion1 class="mt-1 btn btn-sm btn-link">Cancel</button>
                                 </div>
                             </div>
 
