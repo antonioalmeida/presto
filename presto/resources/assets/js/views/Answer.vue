@@ -67,7 +67,15 @@
 
         data() {
             return {
-                answer: {},
+                answer: {
+                    question: {
+                        topics: [],
+                    },
+                    
+                    author: [],
+                    comments: [],
+                    
+                },
                 commentText: '',
                 showError: false,
                 showSuccess: false,
@@ -79,12 +87,12 @@
             this.getData(this.q_id, this.a_id);
         },
 
-        // watch: {
-        //     '$route' (to, from) {
-        //         this.loader = this.$loading.show();
-        //         this.getData(to.params.id);
-        //     }
-        // },
+        watch: {
+            '$route' (to, from) {
+                this.loader = this.$loading.show();
+                this.getData(to.params.q_id, to.params.a_id);
+            }
+        },
 
         methods: {
             getData: function (q_id, a_id) {

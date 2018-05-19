@@ -39,7 +39,7 @@
 
         data() {
             return {
-                showingMore: false
+                showingMore: false,
             }
         }
     }
