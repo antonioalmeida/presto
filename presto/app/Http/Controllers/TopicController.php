@@ -12,7 +12,7 @@ class TopicController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'get']);
+        $this->middleware('auth')->except(['get']);
     }
 
     public function get(Topic $topic)
@@ -22,11 +22,6 @@ class TopicController extends Controller
 
     public function getAllTopics() {
         return TopicListResource::collection(Topic::all());
-    }
-
-    public function show(Topic $topic)
-    {
-        return view('pages.topic', compact('topic'));
     }
 
     public function toggleFollow(Topic $topic)
@@ -41,18 +36,4 @@ class TopicController extends Controller
         return ['following' => $member->isFollowingTopic($topic)];
     }
 
-    public function follow(Topic $topic)
-    {
-        if (Auth::user()->followTopic($topic))
-            return "ola";
-
-        return "adeus";
-        //return back();
-    }
-
-    public function unFollow(Topic $topic)
-    {
-        Auth::user()->unFollowTopic($topic);
-        return back();
-    }
 }

@@ -14,17 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'index', 'error']);
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('pages.index');
+        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'error']);
     }
 
     public function getTopContent()
@@ -56,6 +46,7 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('date', 'DESC');
         dd($data->get());
+        return;
     }
 
     public function getRecommendedContent()
@@ -73,12 +64,11 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('score', 'DESC');
         dd($data->get());
+        return;
     }
-
 
     public function error()
     {
-
         return view('pages.404');
     }
 

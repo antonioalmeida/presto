@@ -9,11 +9,11 @@ use App\Http\Resources\CommentResource;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 
-class CommentController extends ApiBaseController
+class CommentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'get']);
+        $this->middleware('auth')->except(['get']);
     }
 
     public function storeQuestionComment(Question $question)

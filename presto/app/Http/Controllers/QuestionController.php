@@ -14,12 +14,7 @@ class QuestionController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['show', 'get', 'getAnswers']);
-    }
-
-    public function show(Question $question)
-    {
-        return view('pages.question.show', compact('question'));
+        $this->middleware('auth')->except(['get', 'getAnswers']);
     }
 
     public function get(Question $question)
@@ -91,6 +86,9 @@ class QuestionController extends Controller
             }
         }
 
-        return back();
+        $upvotes = $question->questionRatings->where('rate', 1)->count();
+        $downvotes = $question->questionRatings->where('rate', -1)->count();
+
+        return compact('upvotes', 'downvotes');
     }
 }
