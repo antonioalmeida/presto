@@ -53,6 +53,8 @@ class CommentController extends Controller
 
     public function rate(Comment $comment)
     {
+        $this->authorize('rate', $comment);
+
         $existing_rate = CommentRating::withTrashed()->whereCommentId($comment->id)->whereMemberId(Auth::id())->first();
 
         if (is_null($existing_rate)) {
