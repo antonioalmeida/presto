@@ -9,12 +9,6 @@ use App\Http\Resources\TopicCardResource;
 
 class SearchController extends Controller
 {
-    //
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
-
     public function get($query)
     {
         // Content type being searched
@@ -45,7 +39,6 @@ class SearchController extends Controller
 
     private function getQuestions($search_input)
     {
-
         $questions = \App\Question::whereRaw('search @@ to_tsquery(\'english\', replace(plainto_tsquery(\'english\', ?)::text, \'&\', \'|\'))', [$search_input])
             ->orderByRaw('ts_rank(search, to_tsquery(\'english\', replace(plainto_tsquery(\'english\', ?)::text, \'&\', \'|\'))) DESC', [$search_input])
             ->get();
