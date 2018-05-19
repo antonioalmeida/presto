@@ -88,7 +88,7 @@
                             {text: 'Answers ' + this.notifications.Answers, value: 'Answer'},
                             {text: 'Comments ' + this.notifications.Comments, value: 'Comment'},
                             {text: 'People ' + this.notifications.Follows, value: 'Follow'},
-                            {text: 'Rating ' + this.notifications.Rating, value: 'Rate'}
+                            {text: 'Rating ' + this.notifications.Rating, value: 'Rating'}
                         ];
                         this.loader.hide();
                     })
