@@ -26,7 +26,7 @@ class TopicResource extends Resource
         $response['nrViews'] = $answerStats['views'];
 
         $isFollowing = false;
-        if (Auth::user()->isFollowingTopic($request['topic']))
+        if (Auth::user() != null && Auth::user()->isFollowingTopic($request['topic']))
             $isFollowing = true;
 
         $response['isFollowing'] = $isFollowing;

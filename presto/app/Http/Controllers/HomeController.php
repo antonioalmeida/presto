@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'index', 'about', 'error']);
+        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'index', 'error']);
     }
 
     /**
@@ -75,11 +75,6 @@ class HomeController extends Controller
         dd($data->get());
     }
 
-    public function about()
-    {
-
-        return view('pages.about');
-    }
 
     public function error()
     {
