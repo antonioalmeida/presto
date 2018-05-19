@@ -46,49 +46,49 @@ Route::view('questions/{question}', 'layouts.master');
 // Topic
 Route::view('topic/{topic}', 'layouts.master');
 
-Route::prefix('api')->group(function() {
-	// Profile API
-	Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
-	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
-	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
-	Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
-	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
-	Route::get('profile/', 'ProfileController@getLoggedIn');
-	Route::get('notifications', 'ProfileController@getNotifications');
-	Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
-	Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
-	Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
+Route::prefix('api')->group(function () {
+    // Profile API
+    Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
+    Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+    Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
+    Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
+    Route::get('profile/{member}', 'ProfileController@get')->name('profile');
+    Route::get('profile/', 'ProfileController@getLoggedIn');
+    Route::get('notifications', 'ProfileController@getNotifications');
+    Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
+    Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+    Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
 
-	Route::post('profile/', 'ProfileController@update');
+    Route::post('profile/', 'ProfileController@update');
 
-	// Question API
-	Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
-	Route::get('questions/{question}', 'QuestionController@get');
-	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
-	Route::post('questions', 'QuestionController@store')->name('question-add');
+    // Question API
+    Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
+    Route::get('questions/{question}', 'QuestionController@get');
+    Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
+    Route::post('questions', 'QuestionController@store')->name('question-add');
 
-	// Comments
-	Route::get('comments/{comment}', 'CommentController@get');
-	Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
-	Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
+    // Comments
+    Route::get('comments/{comment}', 'CommentController@get');
+    Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
+    Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
 
-	// Topics API
-	Route::get('topic/{topic}', 'TopicController@get');
-	Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
-	//Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
+    // Topics API
+    Route::get('topic/{topic}', 'TopicController@get');
+    Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
+    //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
 
-	// Search API
-	Route::get('search/{query}', 'SearchController@get');
+    // Search API
+    Route::get('search/{query}', 'SearchController@get');
 
-	// Admin API
-	Route::get('admin/{query}/get-users', 'AdminController@getUsers');
-	Route::get('admin/get-banned', 'AdminController@getBanned');
-	Route::get('admin/get-flagged', 'AdminController@getFlagged');
-	Route::get('admin/get-moderators', 'AdminController@getModerators');
-	Route::get('admin/get-certified', 'AdminController@getCertified');
+    // Admin API
+    Route::get('admin/{query}/get-users', 'AdminController@getUsers');
+    Route::get('admin/get-banned', 'AdminController@getBanned');
+    Route::get('admin/get-flagged', 'AdminController@getFlagged');
+    Route::get('admin/get-moderators', 'AdminController@getModerators');
+    Route::get('admin/get-certified', 'AdminController@getCertified');
 
-  // Answer API
-	Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
+    // Answer API
+    Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 });
 
 //Search
@@ -108,7 +108,7 @@ Route::post('signup', 'Auth\RegisterController@register');
 
 Auth::routes();
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     //Route::get('/', 'AdminController@show')->name('admin.dashboard');

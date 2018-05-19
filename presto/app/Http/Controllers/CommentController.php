@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\ApiBaseController;
-
-use App\Http\Resources\CommentResource;
-
-use App\Comment;
 use App\Answer;
+use App\Comment;
+use App\CommentRating;
+use App\Http\Resources\CommentResource;
 use App\Question;
-use \App\CommentRating;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends ApiBaseController
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth')->except(['show', 'get']);
     }
 
@@ -30,12 +26,13 @@ class CommentController extends ApiBaseController
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
 
-        $comment = $question->comments()->create(compact('author_id','content','date'));
+        $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
 
         return new CommentResource($comment);
     }
 
-        public function storeAnswerComment(Answer $answer) {
+    public function storeAnswerComment(Answer $answer)
+    {
         $this->validate(request(), [
             'content' => 'required|min:2'
         ]);
@@ -44,12 +41,13 @@ class CommentController extends ApiBaseController
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
 
-        $comment = $answer->comments()->create(compact('author_id','content','date'));
+        $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
 
         return new CommentResource($comment);
     }
 
-    public function get(Comment $comment) {
+    public function get(Comment $comment)
+    {
         return new CommentResource($comment);
     }
 
@@ -65,10 +63,9 @@ class CommentController extends ApiBaseController
             ]);
         } else {
             if (is_null($existing_rate->deleted_at)) {
-                if($existing_rate->rate == request('rate')){
+                if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
-                }
-                else{
+                } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
                 }
@@ -79,9 +76,9 @@ class CommentController extends ApiBaseController
             }
         }
 
-        $upvotes = $comment->commentRatings->where('rate',1)->count();
-        $downvotes = $comment->commentRatings->where('rate',-1)->count();
-        
+        $upvotes = $comment->commentRatings->where('rate', 1)->count();
+        $downvotes = $comment->commentRatings->where('rate', -1)->count();
+
         return compact('upvotes', 'downvotes');
     }
 }

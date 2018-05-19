@@ -1,53 +1,53 @@
 <template>
-	<section class="container">
-		<div class="offset-md-3 col-md-7 mb-4">
-			<h4 class="mb-4">{{ username }}'s followers</h4>
-			
-			<div class="list-group">
+    <section class="container">
+        <div class="offset-md-3 col-md-7 mb-4">
+            <h4 class="mb-4">{{ username }}'s followers</h4>
 
-				<member-card :key="follower.id" :member="follower" v-for="follower in followers">
-				</member-card>
- 
-			</div>
-		</div>
-	</section>
+            <div class="list-group">
+
+                <member-card :key="follower.id" :member="follower" v-for="follower in followers">
+                </member-card>
+
+            </div>
+        </div>
+    </section>
 </template>
 
 <script>
 
-export default {
+    export default {
 
-	props:['username'],
+        props: ['username'],
 
-	name: 'Followers',
+        name: 'Followers',
 
-	components: {
-		MemberCard: require('../components/MemberCard'),
-	},
+        components: {
+            MemberCard: require('../components/MemberCard'),
+        },
 
-	mounted() {
-		this.loader = this.$loading.show();
-		this.getFollowers(this.username);
-	},
+        mounted() {
+            this.loader = this.$loading.show();
+            this.getFollowers(this.username);
+        },
 
-	data () {
-		return {
-			followers: []
-		}
-	},
+        data() {
+            return {
+                followers: []
+            }
+        },
 
-	methods: {
-		getFollowers: function(username)  {
-			axios.get('/api/profile/' + username + '/followers')
-			.then(({data}) => {
-				this.followers = data;
-				this.loader.hide();
-			})
-			.catch((error) => {
-				console.log(error);
-			});    
-		}
-	}
-}
+        methods: {
+            getFollowers: function (username) {
+                axios.get('/api/profile/' + username + '/followers')
+                    .then(({data}) => {
+                        this.followers = data;
+                        this.loader.hide();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
+        }
+    }
 </script>
 

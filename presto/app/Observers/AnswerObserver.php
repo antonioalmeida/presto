@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Notifications\NewAnswer;
 use App\Answer;
+use App\Notifications\NewAnswer;
 
 class AnswerObserver
 {
@@ -11,9 +11,9 @@ class AnswerObserver
     {
         $user = $answer->member;
         $author = $answer->question->member;
-       
-        if($author->id != $user->id)
-         $author->notify(new NewAnswer($user, $answer));
+
+        if ($author->id != $user->id)
+            $author->notify(new NewAnswer($user, $answer));
     }
 }
  

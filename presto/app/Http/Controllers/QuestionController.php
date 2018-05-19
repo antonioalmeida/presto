@@ -2,39 +2,41 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-use App\Http\Resources\QuestionResource;
-use App\Http\Resources\FullQuestionResource;
 use App\Http\Resources\AnswerResource;
-
-use \App\Question;
-use \App\Topic;
-use \App\QuestionRating;
+use App\Http\Resources\FullQuestionResource;
+use App\Http\Resources\QuestionResource;
+use App\Question;
+use App\QuestionRating;
+use App\Topic;
 
 class QuestionController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('auth')->except(['show', 'get', 'getAnswers']);
     }
 
-    public function show(Question $question) {
+    public function show(Question $question)
+    {
         return view('pages.question.show', compact('question'));
     }
 
-    public function get(Question $question) {
+    public function get(Question $question)
+    {
         return new FullQuestionResource($question);
     }
 
-    public function getAnswers(Question $question) {
+    public function getAnswers(Question $question)
+    {
         return AnswerResource::collection($question->answers);
     }
 
-    public function store(){
+    public function store()
+    {
         $this->validate(request(), [
             'title' => 'required',
-            'tags'  => 'required'
+            'tags' => 'required'
         ]);
 
         $question = new Question();
@@ -43,19 +45,19 @@ class QuestionController extends Controller
         request()->user()->questions()->save($question);
 
         $tags = request('tags');
-        foreach ($tags as $tag){
+        foreach ($tags as $tag) {
             // $topic[$tag] = Topic::where('name', 'ILIKE', $tag)->get();
             $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
 
-            if($topic->isEmpty()){
+            if ($topic->isEmpty()) {
                 $newTopic = new Topic();
                 $newTopic->name = $tag;
                 $newTopic->save();
                 $question->topics()->attach($newTopic);
             } else {
-                try{
+                try {
                     $question->addTopic($topic->first());
-                } catch (\Illuminate \Database\QueryException $e){
+                } catch (\Illuminate \Database\QueryException $e) {
 
                 }
             }
@@ -76,10 +78,9 @@ class QuestionController extends Controller
             ]);
         } else {
             if (is_null($existing_rate->deleted_at)) {
-                if($existing_rate->rate == request('rate')){
+                if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
-                }
-                else{
+                } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
                 }
