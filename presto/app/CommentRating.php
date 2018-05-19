@@ -36,7 +36,7 @@ class CommentRating extends Model
 
     public function comment()
     {
-        return $this->belongsTo('App\Comment');
+        return $this->belongsTo('App\Comment', 'comment_id');
     }
 
     public function member()

@@ -18,7 +18,10 @@ const NOTIFICATION_TYPES = {
     follow: 'App\\Notifications\\MemberFollowed',
     newQuestion: 'App\\Notifications\\NewQuestion',
     newAnswer: 'App\\Notifications\\NewAnswer',
-    newComment: 'App\\Notifications\\NewComment'
+    newComment: 'App\\Notifications\\NewComment',
+    answerRated: 'App\\Notifications\\AnswerRated',
+    questionRated: 'App\\Notifications\\QuestionRated',
+    commentRated: 'App\\Notifications\\CommentRated'
 };
 
 //${Laravel.userId}
@@ -68,21 +71,7 @@ function makeNotification(notification) {
 // get the notification route based on it's type
 function routeNotification(notification) {
     var to = '?read=' + notification.id;
-    if (notification.type === NOTIFICATION_TYPES.follow) {
-        const username = notification.data.follower_username;
-        to = 'profile/' + username + to;
-    } else if (notification.type === NOTIFICATION_TYPES.newQuestion ||
-        (notification.type === NOTIFICATION_TYPES.newComment
-            && notification.data.type == 'Question')) {
-        const questionId = notification.data.question_id;
-        to = 'questions/' + questionId + to;
-    } else if (notification.type === NOTIFICATION_TYPES.newAnswer ||
-        (notification.type === NOTIFICATION_TYPES.newComment
-            && notification.data.type == 'Answer')) {
-        const questionId = notification.data.question_id;
-        const answerId = notification.data.answer_id;
-        to = 'questions/' + questionId + '/answers/' + answerId + to;
-    }
+        to = notification.data.url + to;
 
     return '/' + to;
 }
@@ -115,6 +104,28 @@ function makeNotificationText(notification) {
         const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
             + name + '<span class="text-muted"> left a comment on your ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
+            + title;
+    } else if (notification.type === NOTIFICATION_TYPES.answerRated) {
+        const name = notification.data.following_name;
+        const picture = notification.data.following_picture;
+        const title = notification.data.question_title;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+            + name + '<span class="text-muted"> upvoted your answer to the question: </span>'
+            + title;
+    } else if (notification.type === NOTIFICATION_TYPES.questionRated) {
+        const name = notification.data.following_name;
+        const picture = notification.data.following_picture;
+        const title = notification.data.question_title;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+            + name + '<span class="text-muted"> upvoted your question: </span>'
+            + title;
+    } else if (notification.type === NOTIFICATION_TYPES.commentRated) {
+        const name = notification.data.following_name;
+        const picture = notification.data.following_picture;
+        const title = notification.data.question_title;
+        const type = notification.data.type_comment;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+            + name + '<span class="text-muted"> upvoted your comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
             + title;
     }
 
