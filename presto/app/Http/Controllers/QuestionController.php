@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\AnswerResource;
 use App\Http\Resources\FullQuestionResource;
 use App\Http\Resources\QuestionResource;
@@ -40,23 +41,24 @@ class QuestionController extends Controller
         request()->user()->questions()->save($question);
 
         $tags = request('tags');
-        foreach ($tags as $tag) {
-            // $topic[$tag] = Topic::where('name', 'ILIKE', $tag)->get();
-            $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
+        DB::transaction(function() use ($tags, $question) {
+          foreach ($tags as $tag) {
+              $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
 
-            if ($topic->isEmpty()) {
-                $newTopic = new Topic();
-                $newTopic->name = $tag;
-                $newTopic->save();
-                $question->topics()->attach($newTopic);
-            } else {
-                try {
-                    $question->addTopic($topic->first());
-                } catch (\Illuminate \Database\QueryException $e) {
+              if ($topic->isEmpty()) {
+                  $newTopic = new Topic();
+                  $newTopic->name = $tag;
+                  $newTopic->save();
+                  $question->topics()->attach($newTopic);
+              } else {
+                  try {
+                      $question->addTopic($topic->first());
+                  } catch (\Illuminate \Database\QueryException $e) {
 
-                }
-            }
-        }
+                  }
+              }
+          }
+        });
 
         return new QuestionResource($question);
     }
