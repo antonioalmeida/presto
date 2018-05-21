@@ -9,6 +9,7 @@
                          v-model="selectedTags"
                          :typeahead="true"
                          :existing-tags="existingTags"
+                         :placeholder="''"
                         ></tags-input>
             </div>
 
@@ -24,14 +25,14 @@
 </template>
 
 <script>
-    import VoerroTagsInput from '@voerro/vue-tagsinput';
+    import TagsInput from './TagsInput';
 
     export default {
 
         name: 'AddQuestionModal',
 
         components: {
-            'tags-input': VoerroTagsInput
+            'tags-input': TagsInput
         },
 
         data() {
@@ -100,5 +101,4 @@
 
     }
 </script>
-
 
