@@ -81,7 +81,7 @@ Route::prefix('api')->group(function() {
 	Route::get('search/{query}', 'SearchController@get');
 
 	// Admin API
-	Route::get('admin/{query}/get-users', 'AdminController@getUsers');
+	Route::get('admin/get-users', 'AdminController@getUsers');
 	Route::get('admin/get-banned', 'AdminController@getBanned');
 	Route::get('admin/get-flagged', 'AdminController@getFlagged');
 	Route::get('admin/get-moderators', 'AdminController@getModerators');

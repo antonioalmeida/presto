@@ -237,7 +237,7 @@ export default {
       banned: {},
       moderators: {},
       certified: {},
-      query: "derp"
+      query: ""
     }
   },
 
@@ -263,8 +263,7 @@ export default {
     getUsers: function(page = 1){
       console.log("Getting users");
 
-      console.log('/api/admin/'+this.query+'/get-users?page='+page);
-      axios.get('/api/admin/'+this.query+'/get-users?page='+page)
+      axios.get('/api/admin/get-users?query='+this.query+'&page='+page)
         .then(({data}) => {
             console.log("Done getting users");
             this.users = data;
@@ -290,7 +289,7 @@ export default {
       console.log("Getting banned...");
       axios.get('/api/admin/get-banned')
         .then(({data}) => {
-            console.log("Done getting banned");
+            console.log("Done getting buttonanned");
             this.banned = data;
         })
         .catch((error) => {
@@ -333,11 +332,15 @@ export default {
     },
 
     ban(userName){
-      let index, res;
+      let index, user, res;
 
       //Remove from all users
-      res = this.findUser(this.users,userName);
-      this.users.splice(res.pos,1);
+      res = this.findUser(this.users.data,userName);
+      console.log(res.pos);
+      if(res.pos != -1){
+        user = res.user;
+        this.getUsers(1);
+      }
 
       //Remove related flags
       for(let i=0;i<this.flagged.length;i++){
@@ -349,14 +352,25 @@ export default {
       }
 
       //Remove from moderators
-      if((index = this.findUser(this.moderators,userName).pos) != -1)
+      res = this.findUser(this.moderators,userName);
+      if(res.pos != -1){
+        user = res.user;
         this.moderators.splice(index,1);
+      }
+      console.log(res.pos);
 
       //Remove from certified
-      if((index = this.findUser(this.certified,userName).pos) != -1)
+      res = this.findUser(this.moderators,userName);
+      if(res.pos != -1){
+        user = res.user;
         this.certified.splice(index,1);
+      }
+      console.log(res.pos);
 
-      this.banned.splice(this.banned.length,0,res.user);
+      if(user == null)
+        this.getBanned();
+      else
+        this.banned.splice(this.banned.length,0,user);
     },
 
     //When user is banned from all_users/moderators/certified tabs
@@ -392,10 +406,13 @@ export default {
 
     toggle_moderator(userName,modStatus){
       let index, res;
+      console.log(modStatus);
 
       //Update user in all users
-      res = this.findUser(this.users,userName);
-      res.user.is_moderator = modStatus;
+      res = this.findUser(this.users.data,userName);
+      if(res.pos != -1){
+        res.user.is_moderator = modStatus;
+      }
 
       //Update moderators
       if(modStatus == true){
@@ -410,9 +427,9 @@ export default {
       }
 
       //Update certified if exists
-      let certified = this.findUser(this.certified,userName);
-      if(certified.pos != -1){
-        certified.user.is_moderator = modStatus;
+      res = this.findUser(this.certified,userName);
+      if(res.pos != -1){
+        res.user.is_moderator = modStatus;
       }
     },
 
@@ -423,7 +440,6 @@ export default {
 
       axios.post('/api/members/'+user.username+'/toggle-moderator')
         .then(({data}) => {
-          console.log(!!+data);
           this.toggle_moderator(user.username,!!+data);
         })
         .catch((error) => {
@@ -432,10 +448,7 @@ export default {
     },
 
     dismiss(flag){
-      axios.delete('/api/flags/'+flag.member['id']+'/'+flag.moderator['id']+'/dismiss')
-        .then(() => {
-          console.log(data);
-        })
+      axios.delete('/api/flags/'+flag.member['id']+'/'+flag.moderator['id']+'/dismiss') 
         .catch((error) => {
             console.log(error);
         });
@@ -450,6 +463,7 @@ export default {
     },
 
     filter(searchField){
+      /*
       let section = searchField.closest("section");
       let tr = section.querySelectorAll("tbody > tr")
       
@@ -467,9 +481,10 @@ export default {
            tr[j].style.display="";
         }
       }
+      */
 
-      //this.query = searchField.value;
-      //this.getUsers(1);
+      this.query = searchField.value;
+      this.getUsers(1);
     },
 
     filterBar(e){
