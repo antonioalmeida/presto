@@ -86,12 +86,9 @@
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
 
                             <div class="card">
-                                <b-form-textarea
-                                        v-model="commentText"
-                                        placeholder="Leave a comment..."
-                                        :rows="2"
-                                        :max-rows="6">
-                                </b-form-textarea>
+                                <div hidden id="mentions"></div>
+                                <textarea hidden v-model="commentText" id="text"></textarea>
+                                <div class="has-mentions" contenteditable="true" for="#text">oi</div>
                                 <div class="card-footer">
                                     <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
                                     <button v-b-toggle.accordion2 class="btn btn-sm btn-link">Cancel</button>
@@ -156,6 +153,7 @@
         mounted() {
             this.loader = this.$loading.show();
             this.getData(this.id);
+            this.generateMentions();
         },
 
         watch: {
@@ -166,6 +164,31 @@
         },
 
         methods: {
+              generateMentions: function() {
+                new Mentions({
+                    // Input element selector
+                    input: '.has-mentions',
+
+                    // Output form field selector
+                    output: '#mentions',
+
+                    // Pools
+                    pools: [{
+                        // Trigger the popup on the @ symbol
+                        // Defaults to @
+                        trigger: '@',
+
+                        // Pool name from the mentions config
+                        pool: 'users',
+
+                        // Same value as the pool's 'column' value
+                        display: 'username',
+
+                        // The model's primary key field name
+                        reference: 'id'
+                    }]
+                });
+            },
             getData: function (id) {
                 this.getQuestion(id);
                 this.getAnswers(id);
