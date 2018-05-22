@@ -86,12 +86,14 @@
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
 
                             <div class="card">
-                                <b-form-textarea
-                                        v-model="commentText"
-                                        placeholder="Leave a comment..."
-                                        :rows="2"
-                                        :max-rows="6">
-                                </b-form-textarea>
+                                <vue-tribute :options="options">
+                                  <b-form-textarea
+                                          v-model="commentText"
+                                          placeholder="Leave a comment..."
+                                          :rows="2"
+                                          :max-rows="6">
+                                  </b-form-textarea>
+                                </vue-tribute>
                                 <div class="card-footer">
                                     <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
                                     <button v-b-toggle.accordion2 class="btn btn-sm btn-link">Cancel</button>
@@ -117,6 +119,7 @@
     import CommentsList from '../components/CommentsList'
     import AnswerPartial from '../components/AnswerPartial'
     import Editor from '@tinymce/tinymce-vue';
+    import VueTribute from 'vue-tribute';
 
     export default {
 
@@ -133,7 +136,8 @@
             'CommentsList': CommentsList,
             'FormTextarea': FormTextarea,
             'Editor': Editor,
-            'AnswerPartial': AnswerPartial
+            'AnswerPartial': AnswerPartial,
+            'VueTribute': VueTribute
         },
 
         data() {
@@ -150,6 +154,15 @@
                 //error handling utils
                 answerShowError: false,
                 commentShowError: false,
+
+                options: {
+                  values: [
+                    { key: 'Collin Henderson', value: 'syropian' },
+                    { key: 'Sarah Drasner', value: 'sarah_edo' },
+                    { key: 'Evan You', value: 'youyuxi' },
+                    { key: 'Adam Wathan', value: 'adamwathan' }
+                  ]
+                }
             }
         },
 
@@ -166,6 +179,15 @@
         },
 
         methods: {
+            append: function() {
+              let kv = Math.random()
+                .toString(36)
+                .slice(2)
+              this.options.values.push({
+                key: kv,
+                value: kv
+              })
+            },
             getData: function (id) {
                 this.getQuestion(id);
                 this.getAnswers(id);
