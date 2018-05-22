@@ -1,14 +1,6 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import axios from 'axios';
-/**
- * Import tributejs for mentions
- */
-import Tribute from "tributejs";
-/**
- * Import Mentions class
- */
-import Mentions from './laravel-mentions';
 
 window.Vue = Vue;
 Vue.use(VueRouter);
@@ -32,9 +24,3 @@ window.axios.interceptors.response.use(
         return Promise.reject(error);
 
     });
-
-
-window.Tribute = Tribute;
-
-
-window.Mentions = Mentions;
