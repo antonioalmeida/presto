@@ -74,6 +74,8 @@
 
         @include('includes.footer')
         <add-question-modal></add-question-modal>
+
+        <alerts></alerts>
     </div>
 </body>
 
