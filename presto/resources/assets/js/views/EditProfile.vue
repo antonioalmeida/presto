@@ -83,6 +83,7 @@
                     .then(({data}) => {
                         this.loader.hide();
                         this.$router.push({path: '/profile/' + data.username});
+                        this.$alerts.addSuccess('Profile successfully edited!')
                     })
                     .catch(({response}) => {
                         this.loader.hide();

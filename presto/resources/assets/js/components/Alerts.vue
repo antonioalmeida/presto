@@ -41,7 +41,7 @@ export default {
 		addSuccess(text) {
 			this.dismissCountDown = 5;
 			this.text = text;
-			this.variant = 'success';
+			this.variant = 'primary';
 		},
 
 		countDownChanged (dismissCountDown) {
