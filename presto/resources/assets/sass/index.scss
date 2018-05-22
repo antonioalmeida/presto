@@ -237,3 +237,10 @@ footer {
   }
 }
 
+.white-url {
+  &:hover {
+    text-decoration: none;
+    text-shadow: 0 3px 3px rgba(170, 170, 170, 0.4) !important;
+  }
+}
+
