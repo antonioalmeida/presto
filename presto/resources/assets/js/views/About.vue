@@ -1,6 +1,7 @@
 <template>
-    <body class="grey-background">
-    <main role="main" class="mt-5">
+
+    <main role="main" class="mt-5 grey-background">
+        
         <section class="container text-justify">
             <h1 class="mt-5 text-center">About <em>Presto</em></h1>
 
@@ -33,9 +34,6 @@
 
     </main><!-- /.container -->
 
-
-    <!-- /.container -->
-    </body>
 </template>
 
 <script>

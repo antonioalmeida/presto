@@ -1,9 +1,6 @@
 <template>
-    <body class="grey-background">
-    <main class="mt-5" role="main">
+    <main class="mt-5 grey-background" role="main">
 
-        <!-- content -->
-        <!-- content -->
         <section class="container">
             <div class="row mt-5">
                 <div class="col-md-2 text-right side-menu text-collapse">
@@ -509,10 +506,8 @@
             </div>
         </section>
 
-    </main><!-- /.container -->
+    </main>
 
-    <!-- /.container -->
-    </body>
 </template>
 
 <script>
