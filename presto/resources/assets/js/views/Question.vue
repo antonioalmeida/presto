@@ -155,13 +155,26 @@
                 answerShowError: false,
                 commentShowError: false,
 
+                //vue-tribute mentions options
                 options: {
-                  values: [
-                    { key: 'Collin Henderson', value: 'syropian' },
-                    { key: 'Sarah Drasner', value: 'sarah_edo' },
-                    { key: 'Evan You', value: 'youyuxi' },
-                    { key: 'Adam Wathan', value: 'adamwathan' }
-                  ]
+                  noMatchTemplate: function() {
+                    return 'No members found!';
+                  },
+                  values: function (text, cb) {
+                  axios.get('/api/search/'+text, {
+                      params: {
+                          type: 'members'
+                      }
+                  })
+                      .then(({data}) => {
+                        cb(data);
+                      })
+                      .catch((error) => {
+                        cb([]);
+                      });
+                  },
+                lookup: 'username',
+                fillAttr: 'username'
                 }
             }
         },
