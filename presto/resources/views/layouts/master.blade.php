@@ -62,20 +62,20 @@
         -->
 @endverbatim
 
-<div id="app">
-    @auth('admin')
+<body>
+    <div id="app">
+        @auth('admin')
         @include('includes.nav_admin')
-    @else
+        @else
         @include('includes.nav')
-    @endauth
+        @endauth
 
-    <router-view></router-view>
+        <router-view></router-view>
 
-    @include('includes.footer')
-
-    <add-question-modal></add-question-modal>
-
-</div>
+        @include('includes.footer')
+        <add-question-modal></add-question-modal>
+    </div>
+</body>
 
 
 </html>

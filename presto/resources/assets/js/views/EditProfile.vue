@@ -1,6 +1,5 @@
 <template>
-    <body class="grey-background">
-    <main role="main" class="mt-5">
+    <main role="main" class="grey-background mt-5">
         <section>
             <div class="jumbotron profile-jumbotron">
                 <div class="container">
@@ -36,11 +35,7 @@
                 </div>
             </div>
         </section>
-
     </main>
-    </body>
-
-
 </template>
 
 <script>

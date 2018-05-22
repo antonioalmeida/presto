@@ -1,11 +1,8 @@
 <template>
 
-    <body class="grey-background">
-
-    <main role="main" class="mt-5">
+    <main role="main" class="mt-5 grey-background">
         <div class="container">
             <div class="row">
-
 
                 <div class="col-md-2 offset-1 text-collapse">
                     <div class="mt-4">
@@ -39,9 +36,7 @@
         </div>
         </div>
         </div>
-    </main><!-- /.container -->
-    <!-- /.container -->
-    </body>
+    </main>
 </template>
 
 <script>

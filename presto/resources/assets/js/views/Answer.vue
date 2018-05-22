@@ -1,6 +1,5 @@
 <template>
 
-    <body class="">
     <main role="main" class="mt-5">
 
         <section class="container pt-5">
@@ -37,9 +36,6 @@
 
 
     </main>
-    <!-- /.container -->
-    </body>
-
 
 </template>
 

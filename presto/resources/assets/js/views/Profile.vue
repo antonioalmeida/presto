@@ -1,8 +1,6 @@
 <template>
 
-    <body class="grey-background">
-
-    <main class="mt-5" role="main">
+    <main class="mt-5 grey-background" role="main">
 
         <section>
             <div class="jumbotron profile-jumbotron">
@@ -93,8 +91,6 @@
         <router-view></router-view>
 
     </main>
-
-    </body>
 
 </template>
 
