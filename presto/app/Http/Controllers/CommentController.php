@@ -27,7 +27,6 @@ class CommentController extends Controller
         $date = date('Y-m-d H:i:s');
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
-        $comment->mention(request('mentions'));
 
         return new CommentResource($comment);
     }

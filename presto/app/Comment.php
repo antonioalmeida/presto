@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Kingsley\Mentions\Traits\HasMentions;
 
 /**
  * @property int $id
@@ -20,9 +19,6 @@ use Kingsley\Mentions\Traits\HasMentions;
  */
 class Comment extends Model
 {
-
-    use HasMentions;
-
     // Don't add create and update timestamps in database.
     public $timestamps = false;
 
