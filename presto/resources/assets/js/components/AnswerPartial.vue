@@ -47,11 +47,15 @@
 
             <div v-if="!answer.author.isSelf" class="d-flex">
                 <div>
-                    <a @click.stop.prevent="rateAnswer(1)" class="btn"><i class="far fa-fw fa-arrow-up"></i> Upvote
-                        <span class="badge badge-primary">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>
+                    <a @click.stop.prevent="rateAnswer(1)" class="btn" :class="{'text-primary text-strong' : answer.isUpvoted}"><i class="far fa-fw fa-arrow-up"></i> 
+                        <template v-if="answer.isUpvoted">Upvoted</template>
+                        <template v-else>Upvote</template>
+                        <span :class="[answer.isUpvoted ? 'badge-primary' : 'badge-light']" class="badge">{{ answer.upvotes }}</span> <span class="sr-only">upvote number</span>
                     </a>
-                    <a @click.stop.prevent="rateAnswer(-1)" class="btn"><i class="far fa-fw fa-arrow-down"></i> Downvote
-                        <span class="badge badge-primary">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
+                    <a @click.stop.prevent="rateAnswer(-1)" class="btn"  :class="{'text-danger text-strong' : answer.isDownvoted}"><i class="far fa-fw fa-arrow-down"></i> 
+                        <template v-if="answer.isDownvoted">Downvoted</template>
+                        <template v-else>Downvote</template>
+                        <span :class="[answer.isDownvoted ? 'badge-danger' : 'badge-light']" class="badge">{{ answer.downvotes }} </span> <span class="sr-only">downvote number</span></a>
                 </div>
             </div>
 
@@ -98,7 +102,6 @@
         components: {
             'CommentsList': CommentsList,
             'FollowButton': FollowButton
-
         },
 
 
@@ -138,6 +141,8 @@
                     'rate': vote,
                 })
                     .then(({data}) => {
+                        this.answer.isUpvoted = data.isUpvoted;
+                        this.answer.isDownvoted = data.isDownvoted;
                         this.answer.upvotes = data.upvotes;
                         this.answer.downvotes = data.downvotes;
                     })

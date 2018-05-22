@@ -58,6 +58,7 @@ class AnswerController extends Controller
             if (is_null($existing_rate->deleted_at)) {
                 if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
+                    $existing_rate->rate = 0;
                 } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
@@ -69,9 +70,14 @@ class AnswerController extends Controller
             }
         }
 
-        $upvotes = $answer->answerRatings->where('rate', 1)->count();
-        $downvotes = $answer->answerRatings->where('rate', -1)->count();
+        //TODO: replace this with RateResource and use isLikedByMe
+        $response = [
+            'isUpvoted' => $existing_rate->rate == 1 ? true : false,
+            'isDownvoted' => $existing_rate->rate == -1 ? true : false,
+            'upvotes' => $answer->answerRatings->where('rate', 1)->count(),
+            'downvotes' => $answer->answerRatings->where('rate', -1)->count()
+        ];
 
-        return compact('upvotes', 'downvotes');
+        return $response;
     }
 }
