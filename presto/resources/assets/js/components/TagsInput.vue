@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="inputClass + ' tags-input'">
+        <div class='tags-input'>
             <i class="far fa-tags text-primary mr-1"></i> 
             <span class="badge badge-primary"
                 v-for="(badge, index) in tagBadges"
@@ -11,7 +11,7 @@
                 <i href="#" class="tags-input-remove" @click.prevent="removeTag(index)"></i>
             </span>
 
-            <input type="text"
+            <input class="pt-1" type="text"
                 :placeholder="placeholder"
                 v-model="input"
                 @keydown.enter.prevent="tagFromInput"
@@ -28,16 +28,18 @@
                 v-model="hiddenInput">
         </div>
 
-        <div v-show="searchResults.length" class="typeahead">
-            <span v-for="(tag, index) in searchResults"
+        <div class="wrapper">
+            <div v-show="searchResults.length" class="typeahead">
+                <span v-if="index < 5" v-for="(tag, index) in searchResults"
                 :key="index"
                 v-text="tag.text"
                 @click="tagFromSearch(tag)"
                 class="badge"
                 v-bind:class="{
-                    'badge-primary': index == searchSelection,
-                    'badge-dark': index != searchSelection
+                    'badge-dark': index == searchSelection,
+                    'badge-light': index != searchSelection
                 }"></span>
+            </div>
         </div>
     </div>
 </template>
@@ -46,11 +48,6 @@
 export default {
     props: {
         elementId: String,
-
-        inputClass: {
-            type: String,
-            default: 'tags-input-default-class'
-        },
 
         existingTags: {
             type: Object,
@@ -282,27 +279,3 @@ export default {
 }
 </script>
 
-<style>
-/* tags-input */
-.tags-input {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-}
-
-.tags-input input {
-    flex: 1;
-    background: transparent;
-    border: none;
-}
-
-.tags-input span {
-    margin-right: 0.3rem;
-    margin-bottom: 0.1rem;
-}
-
-.typeahead > span {
-    cursor: pointer;
-    margin-right: 0.3rem;
-}
-</style>
