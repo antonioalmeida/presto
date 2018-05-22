@@ -83,6 +83,7 @@
                 })
                     .then(({data}) => {
                         this.redirect(data.id);
+                        this.$alerts.addSuccess('Question successfuly created!')
                     })
                     .catch(({response}) => {
                         this.errors = response.data.errors;
