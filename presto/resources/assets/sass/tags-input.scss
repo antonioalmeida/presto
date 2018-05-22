@@ -7,7 +7,7 @@
     background-color: transparent;
     padding: 0 0.3em;
     margin: 0;
-    width: auto;
+    width: 8em;
     max-width: inherit;
   }
 
@@ -23,4 +23,51 @@
     color: white;
   }
 
+  span {
+    margin-right: 0.3rem;
+    margin-bottom: 0.1rem;
+  }
+
+  .tags-input-remove {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    overflow: hidden;
+  }
+
+  .tags-input-remove:before, .tags-input-remove:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    left: 0;
+    background: white;
+
+    height: 2px;
+    margin-top: -1px;
+  }
+
+  .tags-input-remove:before {
+    transform: rotate(45deg);
+  }
+  .tags-input-remove:after {
+    transform: rotate(-45deg);
+  }
+
+  .tags-input input:focus {
+    outline: none;
+  }
+
 }
+
+.wrapper {
+    min-height: 1.6rem;
+}
+
+.typeahead > span {
+    cursor: pointer;
+    margin-right: 0.3rem;
+}
+

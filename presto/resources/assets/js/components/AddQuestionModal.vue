@@ -9,7 +9,7 @@
                          v-model="selectedTags"
                          :typeahead="true"
                          :existing-tags="existingTags"
-                         :placeholder="''"
+                         :placeholder="'Add topics...'"
                         ></tags-input>
             </div>
 
@@ -41,7 +41,6 @@
                 
                 selectedTags: [
                     'Science',
-                    'Physics',
                   ],
 
                 existingTags: {},
