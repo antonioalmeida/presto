@@ -12,19 +12,21 @@
 
                         <div class="col-md-6 text-shadow mobile-center">
                             <h2 class="h2-adapt">{{ user.name }}</h2>
-                            <h4 class="h4-adapt">&#64;{{ user.username}}</h4>
+                            <router-link class="white-url" :to="/profile/ + username">
+                                <h4 class="h4-adapt">&#64;{{ user.username}}</h4>
+                            </router-link>
 
                             <!-- bio -->
 
                             <div class="bio mt-3">
                                 <div class="d-flex justify-content-sm-start justify-content-around">
-                                    <router-link :to="'/profile/' + username + '/followers'">
+                                    <router-link class="white-url" :to="'/profile/' + username + '/followers'">
                                         <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowers }}
                                             <small>followers</small>
                                         </h5>
                                     </router-link>
 
-                                    <router-link :to="'/profile/' + username + '/following'">
+                                    <router-link class="white-url" :to="'/profile/' + username + '/following'">
                                         <h5 class="p-2 h5-adapt"> {{ this.user.nrFollowing }}
                                             <small>following</small>
                                         </h5>
