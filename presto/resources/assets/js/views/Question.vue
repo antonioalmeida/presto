@@ -157,6 +157,9 @@
 
                 //vue-tribute mentions options
                 options: {
+                  menuItemTemplate: function (item) {
+                   return '<img style="width:10%;height:10%;" alt="'+item.string+'\'s profile picture" src="'+item.original.profile_picture + '">' + item.string;
+                  },
                   noMatchTemplate: function() {
                     return 'No members found!';
                   },
@@ -228,8 +231,18 @@
             },
 
             onCommentSubmit: function () {
+                //Extract mentions from comment
+                let currentMention;
+                let mentions = [];
+                var regex = /@(\w+)\W?/g;
+
+                while ((currentMention = regex.exec(this.commentText)) !== null)
+                  mentions.push(currentMention[1]);
+
+                //Store comment and notify possible mentioned members
                 axios.post('/api/comments/question/' + this.question.id, {
                     'content': this.commentText,
+                    'mentions': mentions
                 })
                     .then(({data}) => {
                         this.question.comments.push(data);
