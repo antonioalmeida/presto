@@ -25,6 +25,7 @@ class CommentController extends Controller
         $content = request('content');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
+        $mentions = request('mentions'); //TODO: Actually notify mentioned people
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
 
