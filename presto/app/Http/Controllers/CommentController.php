@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Comment;
 use App\CommentRating;
+use App\Member;
 use App\Http\Resources\CommentResource;
+use App\Notifications\MemberMention;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 
@@ -26,6 +28,14 @@ class CommentController extends Controller
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
         $mentions = request('mentions'); //TODO: Actually notify mentioned people
+
+        foreach ($mentions as $mention) {
+            $member = Member::where('username', 'ILIKE', trim($mention))->get();
+
+            if (!$member->isEmpty()) {
+                $member->first()->notify(new MemberMention(Auth::user()));  
+            } 
+        }
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
 
