@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Question;
 use App\Answer;
 use App\Http\Resources\QuestionResource;
-use App\Http\Resources\AnswerResource;
+use App\Http\Resources\AnswerCardResource;
 
 class HomeController extends Controller
 {
@@ -48,7 +48,7 @@ class HomeController extends Controller
             if($item->type == 'question'){
                 $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
-                $item->answer = new AnswerResource(Answer::find($item->id));
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
             return $item;
         });
@@ -72,7 +72,7 @@ class HomeController extends Controller
             if($item->type == 'question'){
                 $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
-                $item->answer = new AnswerResource(Answer::find($item->id));
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
             return $item;
         });
@@ -105,7 +105,7 @@ class HomeController extends Controller
             if($item->type == 'question'){
                 $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
-                $item->answer = new AnswerResource(Answer::find($item->id));
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
             return $item;
         });
