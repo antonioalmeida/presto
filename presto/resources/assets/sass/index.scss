@@ -29,6 +29,10 @@
   color: $white;
 }
 
+.text-strong {
+  font-weight: 500;
+}
+
 .alert-bottom {
   display: flex;
   justify-content: center;
@@ -42,19 +46,13 @@
   border-radius: 16px;
   animation: slideUp .5s;
   animation-timing-function: ease-out;
+  z-index: 1000;
 
   .alert-message {
     flex: 2 0 0;
     padding-right: 2em;
   }
 
-  .close-button {
-    flex: 1 0 1;
-
-    &:hover {
-      cursor: pointer;
-    }
-  }
 }
 
 @keyframes slideUp {
@@ -148,6 +146,7 @@ footer {
 
     }
   }
+  
   .input-h1 {
     font-size: $h1-font-size;
   }
