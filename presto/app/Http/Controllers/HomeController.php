@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['isLoggedIn', 'getNewContent', 'getTopContent', 'error']);
+        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent', 'error']);
     }
 
     public function isLoggedIn(){
@@ -108,6 +108,37 @@ class HomeController extends Controller
 
         return $data;
 
+    }
+
+    public function getTrendingTopics()
+    {
+        $data = DB::table('topic')
+        ->select(DB::raw('count(*) as nrTimes, name'))
+        ->join('question_topic', function ($join) {
+            $join->on('topic.id', '=', 'question_topic.topic_id');
+        })
+        ->groupBy('name')
+        ->orderByRaw('nrTimes DESC')
+        ->limit(5)
+        ->get();
+
+        // $data = $data->map(function ($item, $key) {
+        //         $item->question = new FullQuestionResource(Question::find($item->id)); 
+        //     return $item;
+        // });
+
+
+        return $data;
+    }
+
+    public function getTopMembers()
+    {
+        $data = DB::table('member')
+            ->orderBy('score', 'DESC')
+            ->limit(5)
+            ->get();
+
+        return $data;
     }
 
     public function error()
