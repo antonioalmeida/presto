@@ -5,23 +5,47 @@
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
-                    <h1>{{ question.title }}</h1>
-                    <h4>
-                        <small>{{ question.content }}</small>
-                    </h4>
-                    <h5>
-                        <small class="text-muted"><i class="far fa-fw fa-tags"></i>
 
-                            <router-link v-for="(topic, index) in question.topics" :key="topic.id"
-                                         :to="'/topic/' + topic.name" class="text-muted">
-                                {{ topic.name }}
-                                <template v-if="index != question.topics.length -1">,</template>
-                            </router-link>
+                    <template v-if="!isEditing">
+                        <h1>{{ question.title }}</h1>
+                        <h4>
+                            <small>{{ question.content }}</small>
+                        </h4>
+                        <h5>
+                            <small class="text-muted"><i class="far fa-fw fa-tags"></i>
 
-                            <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
+                                <router-link v-for="(topic, index) in question.topics" :key="topic.id"
+                                             :to="'/topic/' + topic.name" class="text-muted">
+                                    {{ topic.name }}
+                                    <template v-if="index != question.topics.length -1">,</template>
+                                </router-link>
 
-                        </small>
-                    </h5>
+                                <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
+
+                            </small>
+                        </h5>
+                    </template>
+
+                    <div v-else="isEditing" class="edit-profile">
+                        <input v-model="titleInput" type="text" class="form-control input-h2">
+                        <input v-model="contentInput" type="text" class="form-control input-h5 mt-2">
+
+                        <div class="mt-3">
+                          <tags-input element-id="tags" 
+                          v-model="tagsInput"
+                          :typeahead="true"
+                          :placeholder="'Add topics...'"
+                          ></tags-input>
+
+                            <div class="ml-1 mt-3">
+                                <button @click="" class="btn btn-light">Save</button>
+                                <button @click="isEditing = false" class="btn btn-danger">Cancel
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
 
                     <div class="card my-3">
                         <comments-list :comments="question.comments"></comments-list>
@@ -47,16 +71,12 @@
 
                             </div>
 
-                            <!--
-                            @can('update', $question)
-                            <div class="ml-auto mt-2">
+                            <div v-show="question.isOwner" class="ml-auto mt-2">
                                 <small>
-                                    <a href="btn" class="text-muted">Edit</a> |
-                                    <a href="btn" class="text-danger">Delete</a>
+                                    <a href="#" @click="isEditing = true" class="text-muted">Edit</a> |
+                                    <a class="text-danger">Delete</a>
                                 </small>
                             </div>
-                            @endcan
-                        	-->
                         </div>
 
                     </div>
@@ -117,6 +137,8 @@
     import CommentsList from '../components/CommentsList'
     import AnswerPartial from '../components/AnswerPartial'
     import Editor from '@tinymce/tinymce-vue';
+    import TagsInput from '../components/TagsInput';
+
 
     export default {
 
@@ -133,7 +155,8 @@
             'CommentsList': CommentsList,
             'FormTextarea': FormTextarea,
             'Editor': Editor,
-            'AnswerPartial': AnswerPartial
+            'AnswerPartial': AnswerPartial,
+            'TagsInput': TagsInput
         },
 
         data() {
@@ -146,6 +169,11 @@
                 commentText: '',
                 editorInit: require('../tiny-mce-config').default,
                 editorContent: '',
+                isEditing: false,
+
+                //editing data
+                titleInput: '',
+                contentInput: '',
 
                 //error handling utils
                 answerShowError: false,
@@ -173,7 +201,19 @@
 
             getQuestion: function (id) {
                 axios.get('/api/questions/' + id)
-                    .then(({data}) => this.question = data)
+                    .then(({data}) => {
+                        this.question = data;
+
+                        this.titleInput = data.title;
+                        this.contentInput = data.content;
+                        this.tagsInput = data.topics.map(tag => tag.name);
+                        /*
+                        this.tagsInput =  data.topics.reduce(function(result, item, index, array) {
+                           result[item] = item;
+                           return result;
+                       }, {});
+                       */
+                    })
                     .catch((error) => {
                         console.log(error);
                     });
