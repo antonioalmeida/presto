@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Question;
+use App\Answer;
+use App\Http\Resources\FullQuestionResource;
+use App\Http\Resources\AnswerResource;
+
 class HomeController extends Controller
 {
     /**
@@ -37,9 +42,18 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC');
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new FullQuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerResource(Answer::find($item->id));
+            }
+            return $item;
+        });
 
-        return $data->get();
+        return $data;
     }
 
     public function getNewContent()
@@ -52,8 +66,19 @@ class HomeController extends Controller
             ->selectRaw('id, date')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('date', 'DESC');
-        return $data->get();
+        $data = $query1->union($query2)->orderBy('date', 'DESC')->limit(10)->get();
+
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new FullQuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerResource(Answer::find($item->id));
+            }
+            return $item;
+        });
+
+
+        return $data;
     }
 
     public function getRecommendedContent()
@@ -69,9 +94,20 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0 and answer.author_id in (select following_id from follow_member where follower_id = ?) ', ['user_id' => $user_id])
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC');
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
 
-        return $data->get(); 
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new FullQuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerResource(Answer::find($item->id));
+            }
+            return $item;
+        });
+
+
+        return $data;
+
     }
 
     public function error()
