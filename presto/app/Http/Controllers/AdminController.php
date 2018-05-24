@@ -13,15 +13,18 @@ class AdminController extends Controller
     {
         $this->middleware('auth:admin');
     }
+    
+    public function getUsers(Request $request){
+        $query = $request->input('query');
+        $search_query = '%'.$query.'%';
 
-    public function getUsers(String $query)
-    {
-        $search_query = '%' . $query . '%';
-        if (strcmp($query, "derp") == 0)
+        if(strcmp($query,"") == 0)
             return Member::where('is_banned', false)->paginate(10);
         else
-            return Member::where('is_banned', false)->paginate(10);
-        //return Member::where('is_banned', false)->whereRaw('("name" LIKE ? OR "username" LKE ?)',[$search_query,$search_query])->paginate(10);
+        $search_query = '%'.$query.'%';
+            return Member::where([['is_banned', false],['name', 'ILIKE', $search_query]])->orWhere([['is_banned', false],['username','ILIKE',$search_query]])->paginate(10);
+
+        //whereRaw('("name" LIKE ? OR "username" LKE ?)',[$search_query,$search_query])->paginate(10);
     }
 
     public function getFlagged()
