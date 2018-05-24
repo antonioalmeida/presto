@@ -9,7 +9,6 @@ DROP TABLE IF EXISTS follow_member CASCADE;
 DROP TABLE IF EXISTS follow_topic CASCADE;
 DROP TABLE IF EXISTS question_topic CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;
-DROP TABLE IF EXISTS notification CASCADE;
 DROP TABLE IF EXISTS comment CASCADE;
 DROP TABLE IF EXISTS answer CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
@@ -67,6 +66,8 @@ DROP FUNCTION IF EXISTS notify_on_comment_answer();
 DROP FUNCTION IF EXISTS notify_on_question_rating();
 DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TYPE notification_origin AS ENUM (
     'Answer',
@@ -139,20 +140,6 @@ CREATE TABLE follow_member (
     CONSTRAINT follow_member_follower_fk FOREIGN KEY (follower_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT follow_member_following_fk FOREIGN KEY (following_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-
--- CREATE TABLE notification (
---     id SERIAL NOT NULL,
---     type notification_origin NOT NULL,
---     "date" TIMESTAMP WITH TIME zone NOT NULL,
---     content text NOT NULL,
---     member_id INTEGER NOT NULL,
---     -- IDs to identify which user and/or post caused notification
---     message_id INTEGER,
---     user_id INTEGER,
---     read BOOLEAN NOT NULL DEFAULT false,
---     CONSTRAINT notification_pk PRIMARY KEY (id),
---     CONSTRAINT notification_fk FOREIGN KEY (member_id) REFERENCES member (id)
--- );
 
 CREATE TABLE topic (
     id SERIAL NOT NULL,
@@ -631,23 +618,34 @@ CREATE TRIGGER answer_search_update
   FOR EACH ROW
     EXECUTE PROCEDURE answer_search_update();
 
--- -- A member is notified when someone else answers his question
--- CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
--- BEGIN
---   IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
---     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Answer', now(),
---       (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id) || ' answered your question: ' || (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
---       (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id),
---       NEW.id);
---   END IF;
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
+-- A member is notified when someone else answers his question
+CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
+BEGIN
+  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
+    INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
+      'App\Notifications\NewAnswer',
+      (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id),
+      'App\Member',
+      json_build_object(
+        'type', 'Answer',
+        'following_id', NEW.author_id,
+        'following_name', (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
+        'following_username', (SELECT username FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
+        'following_picture', (SELECT profile_picture FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
+        'question_id', NEW.question_id,
+        'question_title', (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
+        'url', 'questions/' || NEW.question_id || '/answers/' || NEW.id
+      ),
+      null);
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER notify_on_answer
---   AFTER INSERT ON answer
---   FOR EACH ROW
---     EXECUTE PROCEDURE notify_on_answer();
+CREATE TRIGGER notify_on_answer
+  AFTER INSERT ON answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE notify_on_answer();
 
 -- -- A member is notified when someone else comments his question
 -- CREATE FUNCTION notify_on_comment_question() RETURNS TRIGGER AS $$
@@ -705,39 +703,58 @@ CREATE TRIGGER answer_search_update
 --   WHEN (NEW.rate = 1)
 --     EXECUTE PROCEDURE notify_on_question_rating();
 
--- -- A member is notified when someone else upvotes his answer
--- CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
--- BEGIN
---   INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
---     (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id) || ' upvoted your answer to the question ' || (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
---     (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id),
---     NEW.member_id,
---     NEW.answer_id);
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
+-- A member is notified when someone else upvotes his answer
+CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
+    'App\Notifications\AnswerRated',
+    (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id),
+    'App\Member',
+    json_build_object(
+      'type', 'Rating',
+      'following_id', NEW.member_id,
+      'following_name', (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
+      'following_username', (SELECT username FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
+      'following_picture', (SELECT profile_picture FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
+      'question_id', (SELECT question.id FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
+      'question_title', (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
+      'url', 'questions/' || (SELECT question.id FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id) || '/answers/' || NEW.answer_id
+    ),
+    null);
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER notify_on_answer_rating
---   AFTER INSERT ON answer_rating
---   FOR EACH ROW
---   WHEN (NEW.rate = 1)
---     EXECUTE PROCEDURE notify_on_answer_rating();
+CREATE TRIGGER notify_on_answer_rating
+  AFTER INSERT ON answer_rating
+  FOR EACH ROW
+  WHEN (NEW.rate = 1)
+    EXECUTE PROCEDURE notify_on_answer_rating();
 
--- -- A member is notified when someone else follows him
--- CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
--- BEGIN
---   INSERT INTO notification (type, "date", content, member_id, user_id) VALUES ('Follow', now(),
---     (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id) || ' followed you',
---     NEW.following_id,
---     NEW.follower_id);
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
+-- A member is notified when someone else follows him
+CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
+BEGIN
+  INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
+    'App\Notifications\MemberFollowed',
+    NEW.following_id,
+    'App\Member',
+    json_build_object(
+      'type', 'Follow',
+      'follower_id', NEW.follower_id,
+      'follower_name', (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
+      'follower_username', (SELECT username FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
+      'follower_picture', (SELECT profile_picture FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
+      'url', 'profile/' || (SELECT username FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id)
+    ),
+    null);
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
 
--- CREATE TRIGGER notify_on_follow
---   AFTER INSERT ON follow_member
---   FOR EACH ROW
---     EXECUTE PROCEDURE notify_on_follow();
+CREATE TRIGGER notify_on_follow
+  AFTER INSERT ON follow_member
+  FOR EACH ROW
+    EXECUTE PROCEDURE notify_on_follow();
 
 --Indexes
 CREATE UNIQUE INDEX idx_topic_name ON topic USING btree (lower(name));
