@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\DB;
 
 use App\Question;
 use App\Answer;
-use App\Http\Resources\FullQuestionResource;
+use App\Http\Resources\QuestionResource;
 use App\Http\Resources\AnswerResource;
 
 class HomeController extends Controller
@@ -19,7 +19,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent', 'error']);
+        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent','getRecommendedContent', 'error']);
     }
 
     public function isLoggedIn(){
@@ -46,7 +46,7 @@ class HomeController extends Controller
         
         $data = $data->map(function ($item, $key) {
             if($item->type == 'question'){
-                $item->question = new FullQuestionResource(Question::find($item->id)); 
+                $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
                 $item->answer = new AnswerResource(Answer::find($item->id));
             }
@@ -70,7 +70,7 @@ class HomeController extends Controller
 
         $data = $data->map(function ($item, $key) {
             if($item->type == 'question'){
-                $item->question = new FullQuestionResource(Question::find($item->id)); 
+                $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
                 $item->answer = new AnswerResource(Answer::find($item->id));
             }
@@ -83,7 +83,12 @@ class HomeController extends Controller
 
     public function getRecommendedContent()
     {
+        if(Auth::user() == null){
+            return [];
+        }
+        
         $user_id = Auth::user()->id;
+
         $query1 = DB::table('question')
             ->selectRaw('id, (((select count(*) from question_rating where question_id = question.id and rate = 1) + 1.9208) / ((select count(*) from question_rating where question_id = question.id)) - 1.96 * SQRT(((select count(*) from question_rating where question_id = question.id and rate = 1) * (select count(*) from question_rating where question_id = question.id and rate = -1)) / ((select count(*) from question_rating where question_id = question.id)) + 0.9604) / ((select count(*) from question_rating where question_id = question.id))) / (1 + 3.8416 / ((select count(*) from question_rating where question_id = question.id))) as score')
             ->whereRaw('(select count(*) from question_rating where question_id = question.id) > 0 and question.author_id in (select following_id from follow_member where follower_id = ?)', ['user_id' => $user_id])
@@ -98,7 +103,7 @@ class HomeController extends Controller
 
         $data = $data->map(function ($item, $key) {
             if($item->type == 'question'){
-                $item->question = new FullQuestionResource(Question::find($item->id)); 
+                $item->question = new QuestionResource(Question::find($item->id)); 
             } else {
                 $item->answer = new AnswerResource(Answer::find($item->id));
             }
@@ -121,12 +126,6 @@ class HomeController extends Controller
         ->orderByRaw('nrTimes DESC')
         ->limit(5)
         ->get();
-
-        // $data = $data->map(function ($item, $key) {
-        //         $item->question = new FullQuestionResource(Question::find($item->id)); 
-        //     return $item;
-        // });
-
 
         return $data;
     }

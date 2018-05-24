@@ -1,7 +1,7 @@
 <template>
     <main class="mt-5 grey-background" role="main">
 
-            <section v-if="isLoggedIn" class="jumbotron">
+            <section v-if="!isLoggedIn" class="jumbotron">
                 <div class="container">
                     <div class="row">
                         <div class="col-sm-7 align-self-center my-3 text-shadow">
@@ -95,7 +95,7 @@
                                role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
                             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                                role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
-                                <a v-if="IsLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
+                                <a v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
                                    href="#nav-recommended" role="tab" aria-controls="nav-recommended"
                                    aria-selected="false">Recommended</a>
                         </div>
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                         
-                            <div v-if="IsLoggedIn" class="tab-pane fade" id="nav-recommended" role="tabpanel"
+                            <div v-if="isLoggedIn" class="tab-pane fade" id="nav-recommended" role="tabpanel"
                                  aria-labelledby="nav-recommended-tab">
 
                                 <div class="list-group">
@@ -216,6 +216,7 @@
                 this.getIsLoggedIn();
                 this.getNewContent();
                 this.getTopContent();
+                this.getRecommendedContent();
                 this.getTopMembers();
                 this.getTrendingTopics();
             },
@@ -223,7 +224,7 @@
             getIsLoggedIn: function () {
                 axios.get('/api/isLoggedIn')
                     .then(({data}) => {
-                        this.isLoggedIn = data;
+                        this.isLoggedIn = data.isLoggedIn;
                     })
                     .catch((error) => {
                         console.log(error);
