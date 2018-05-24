@@ -46,7 +46,7 @@ Route::view('questions/{question}', 'layouts.master');
 // Topic
 Route::view('topic/{topic}', 'layouts.master');
 
-Route::prefix('api')->group(function () {
+  Route::prefix('api')->group(function () {
     // Profile API
     Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
     Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
@@ -82,11 +82,11 @@ Route::prefix('api')->group(function () {
     Route::get('search/{query}', 'SearchController@get');
 
     // Admin API
-    Route::get('admin/{query}/get-users', 'AdminController@getUsers');
-    Route::get('admin/get-banned', 'AdminController@getBanned');
-    Route::get('admin/get-flagged', 'AdminController@getFlagged');
-    Route::get('admin/get-moderators', 'AdminController@getModerators');
-    Route::get('admin/get-certified', 'AdminController@getCertified');
+	Route::get('admin/get-users', 'AdminController@getUsers');
+	Route::get('admin/get-banned', 'AdminController@getBanned');
+	Route::get('admin/get-flagged', 'AdminController@getFlagged');
+	Route::get('admin/get-moderators', 'AdminController@getModerators');
+	Route::get('admin/get-certified', 'AdminController@getCertified');
 
     // Answer API
     Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');

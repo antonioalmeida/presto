@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Auth;
+
 
 class AnswerResource extends Resource
 {
@@ -25,6 +27,9 @@ class AnswerResource extends Resource
 
         $response['upvotes'] = $this->answerRatings()->where('rate', 1)->count();
         $response['downvotes'] = $this->answerRatings()->where('rate', -1)->count();
+
+        $response['isUpvoted'] = $this->answerRatings()->where('rate', 1)->where('member_id', Auth::id())->count() == 1;
+        $response['isDownvoted'] = $this->answerRatings()->where('rate', -1)->where('member_id', Auth::id())->count() == 1;
 
         return $response;
     }

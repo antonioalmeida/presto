@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Auth;
 
 
 class FullQuestionResource extends Resource
@@ -17,6 +18,13 @@ class FullQuestionResource extends Resource
     {
         $response = parent::toArray($request);
 
+        $isOwner = false;
+        $member = Auth::user();
+        if ($member != null && $member->can('update',  $this->resource))
+            $isOwner = true;
+
+        $response['isOwner'] = $isOwner;
+
         $response['author'] = [
             'username' => $this->member->username,
             'name' => $this->member->name,
@@ -24,7 +32,6 @@ class FullQuestionResource extends Resource
         ];
 
         $response['topics'] = $this->topics;
-
         $response['comments'] = CommentResource::collection($this->comments);
 
         return $response;
