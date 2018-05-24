@@ -1,7 +1,6 @@
 <template>
    
-    <body class="grey-background">
-    <main role="main">
+    <main class="grey-background" role="main">
     <div class="container pt-4 mt-4">
       <div class="row">
         <div class="col-md-2 mt-2">
@@ -222,9 +221,6 @@
         </div>
       </div>
     </main>
-  
-    <!-- /.container -->
-    </body>
 </template>
 
 <script>
