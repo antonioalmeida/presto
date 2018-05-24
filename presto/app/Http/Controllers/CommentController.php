@@ -27,14 +27,14 @@ class CommentController extends Controller
         $content = request('content');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
-        $mentions = request('mentions'); //TODO: Actually notify mentioned people
+        $mentions = request('mentions');
 
         foreach ($mentions as $mention) {
             $member = Member::where('username', 'ILIKE', trim($mention))->get();
 
             if (!$member->isEmpty()) {
-                $member->first()->notify(new MemberMention(Auth::user()));  
-            } 
+                $member->first()->notify(new MemberMention(Auth::user()));
+            }
         }
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
@@ -51,6 +51,15 @@ class CommentController extends Controller
         $content = request('content');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
+        $mentions = request('mentions');
+
+        foreach ($mentions as $mention) {
+            $member = Member::where('username', 'ILIKE', trim($mention))->get();
+
+            if (!$member->isEmpty()) {
+                $member->first()->notify(new MemberMention(Auth::user()));
+            }
+        }
 
         $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
 

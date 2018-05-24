@@ -85,8 +85,17 @@
                 else
                     this.showError = false;
 
+               //Extract mentions from comment
+               let currentMention;
+               let mentions = [];
+               var regex = /@(\w+)\W?/g;
+
+               while ((currentMention = regex.exec(this.commentText)) !== null)
+                 mentions.push(currentMention[1]);
+
                 axios.post('/api/comments/' + this.parentType + '/' + this.parent.id, {
                     'content': this.commentText,
+                    'mentions': mentions
                 })
                     .then(({data}) => {
                         this.parent.comments.unshift(data);
