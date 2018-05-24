@@ -35,9 +35,9 @@
                 <div class="">
                   <div class="input-group">
                     <label for="userName" class="sr-only">Search Users</label>
-                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
+                    <input v-on:keyup="filterBarAllUsers" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
                     <div class="input-group-append">
-                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                      <button v-on:click="filterButtonAllUsers" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>
@@ -462,10 +462,14 @@ export default {
       this.flagged.splice(this.flagged.indexOf(flag),1);
     },
 
+    filterAllUsers(filter){
+      this.query = filter;
+      this.getUsers(1);
+    },
+
     filter(searchField){
-      /*
       let section = searchField.closest("section");
-      let tr = section.querySelectorAll("tbody > tr")
+      let tr = section.querySelectorAll("tbody > tr");
       
       let search = new RegExp(searchField.value,'i');
 
@@ -481,11 +485,21 @@ export default {
            tr[j].style.display="";
         }
       }
-      */
-
-      this.query = searchField.value;
-      this.getUsers(1);
     },
+
+
+    filterBarAllUsers(e){
+      if(e.keyCode === 13){
+        this.filterAllUsers(e.target.value);
+      }
+    },
+
+
+    filterButtonAllUsers(e){
+      let searchBar = e.target.closest(".input-group").children[1];
+      this.filterAllUsers(searchBar.value);
+    },
+
 
     filterBar(e){
       if(e.keyCode === 13){
@@ -495,7 +509,7 @@ export default {
 
     filterButton(e){
       let searchBar = e.target.closest(".input-group").children[1];
-      this.filter(searchField);
+      this.filter(searchBar);
     }
   }
 }

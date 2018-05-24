@@ -26,7 +26,7 @@ class AdminController extends Controller
             return Member::where('is_banned', false)->paginate(10);
         else
         $search_query = '%'.$query.'%';
-            return Member::where('is_banned', false)->where('name', 'ILIKE', $search_query)->orWhere('username','ILIKE',$search_query)->paginate(10);
+            return Member::where([['is_banned', false],['name', 'ILIKE', $search_query]])->orWhere([['is_banned', false],['username','ILIKE',$search_query]])->paginate(10);
 
         //whereRaw('("name" LIKE ? OR "username" LKE ?)',[$search_query,$search_query])->paginate(10);
     }
