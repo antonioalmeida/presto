@@ -31,7 +31,7 @@
                         <input v-model="contentInput" type="text" class="form-control input-h5 mt-2">
 
                         <div class="mt-3">
-                          <tags-input element-id="tags" 
+                          <tags-input element-id="tags"
                           v-model="tagsInput"
                           :typeahead="true"
                           :placeholder="'Add topics...'"
@@ -104,20 +104,7 @@
                         </b-collapse>
 
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-
-                            <div class="card">
-                                <b-form-textarea
-                                        v-model="commentText"
-                                        placeholder="Leave a comment..."
-                                        :rows="2"
-                                        :max-rows="6">
-                                </b-form-textarea>
-                                <div class="card-footer">
-                                    <button @click="onCommentSubmit" class="btn btn-sm btn-primary">Submit</button>
-                                    <button v-b-toggle.accordion2 class="btn btn-sm btn-link">Cancel</button>
-                                </div>
-                            </div>
-
+                          <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
                         </b-collapse>
                     </div>
 
@@ -138,6 +125,7 @@
     import AnswerPartial from '../components/AnswerPartial'
     import Editor from '@tinymce/tinymce-vue';
     import TagsInput from '../components/TagsInput';
+    import CommentBox from '../components/CommentBox';
 
 
     export default {
@@ -156,7 +144,8 @@
             'FormTextarea': FormTextarea,
             'Editor': Editor,
             'AnswerPartial': AnswerPartial,
-            'TagsInput': TagsInput
+            'TagsInput': TagsInput,
+            'CommentBox': CommentBox
         },
 
         data() {
@@ -166,7 +155,6 @@
                     topics: [],
                 },
                 answers: {},
-                commentText: '',
                 editorInit: require('../tiny-mce-config').default,
                 editorContent: '',
                 isEditing: false,
@@ -177,7 +165,6 @@
 
                 //error handling utils
                 answerShowError: false,
-                commentShowError: false,
             }
         },
 
@@ -226,19 +213,6 @@
                     .then(({data}) => {
                         this.answers = data;
                         this.loader.hide();
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            },
-
-            onCommentSubmit: function () {
-                axios.post('/api/comments/question/' + this.question.id, {
-                    'content': this.commentText,
-                })
-                    .then(({data}) => {
-                        this.question.comments.push(data);
-                        this.commentText = '';
                     })
                     .catch((error) => {
                         console.log(error);
