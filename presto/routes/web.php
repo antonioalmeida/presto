@@ -17,12 +17,12 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', 'HomeController@index')->name('index');
+// Route::get('/', 'HomeController@index')->name('index');
 
 //Index
-Route::view('index', 'layouts.master')->name('index');
+Route::view('', 'layouts.master')->name('index');
 Route::view('about', 'layouts.master')->name('about');
-Route::get('404', 'HomeController@error')->name('404');
+Route::view('404', 'layouts.master')->name('404');
 
 
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
@@ -46,49 +46,50 @@ Route::view('questions/{question}', 'layouts.master');
 // Topic
 Route::view('topic/{topic}', 'layouts.master');
 
-Route::prefix('api')->group(function() {
-	// Profile API
-	Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
-	Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
-	Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
-	Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
-	Route::get('profile/{member}', 'ProfileController@get')->name('profile');
-	Route::get('profile/', 'ProfileController@getLoggedIn');
-	Route::get('notifications', 'ProfileController@getNotifications');
-	Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
-	Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
-	Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
+  Route::prefix('api')->group(function () {
+    // Profile API
+    Route::get('profile/{member}/answers', 'ProfileController@getAnswers');
+    Route::get('profile/{member}/questions', 'ProfileController@getQuestions');
+    Route::get('profile/{member}/followers', 'ProfileController@getFollowers')->name('followers');
+    Route::get('profile/{member}/following', 'ProfileController@getFollowing')->name('following');
+    Route::get('profile/{member}', 'ProfileController@get')->name('profile');
+    Route::get('profile/', 'ProfileController@getLoggedIn');
+    Route::get('notifications', 'ProfileController@getNotifications');
+    Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
+    Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+    Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
 
-	Route::post('profile/', 'ProfileController@update');
+    Route::post('profile/', 'ProfileController@update');
 
-	// Question API
-	Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
-	Route::get('questions/{question}', 'QuestionController@get');
-	Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
-	Route::post('questions', 'QuestionController@store')->name('question-add');
+    // Question API
+    Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
+    Route::get('questions/{question}', 'QuestionController@get');
+    Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
+    Route::post('questions', 'QuestionController@store')->name('question-add');
 
-	// Comments
-	Route::get('comments/{comment}', 'CommentController@get');
-	Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
-	Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
+    // Comments
+    Route::get('comments/{comment}', 'CommentController@get');
+    Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
+    Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
 
-	// Topics API
-	Route::get('topic/{topic}', 'TopicController@get');
-	Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
-	//Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
+    // Topics API
+    Route::get('topic/{topic}', 'TopicController@get');
+    Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
+    //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
+    Route::get('topic/', 'TopicController@getAllTopics');
 
-	// Search API
-	Route::get('search/{query}', 'SearchController@get');
+    // Search API
+    Route::get('search/{query}', 'SearchController@get');
 
-	// Admin API
+    // Admin API
 	Route::get('admin/get-users', 'AdminController@getUsers');
 	Route::get('admin/get-banned', 'AdminController@getBanned');
 	Route::get('admin/get-flagged', 'AdminController@getFlagged');
 	Route::get('admin/get-moderators', 'AdminController@getModerators');
 	Route::get('admin/get-certified', 'AdminController@getCertified');
 
-  // Answer API
-	Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
+    // Answer API
+    Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
 });
 
 //Search
@@ -106,13 +107,17 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
+// OAuth Routes
+Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 Auth::routes();
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     //Route::get('/', 'AdminController@show')->name('admin.dashboard');
-    Route::view('/', 'layouts.master_admin')->name('admin.dashboard');
+    Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
 
@@ -144,3 +149,4 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
+

@@ -1,5 +1,5 @@
 @php
-use Carbon\Carbon;
+    use Carbon\Carbon;
 @endphp
 
 @extends('layouts.master')
@@ -22,11 +22,21 @@ use Carbon\Carbon;
                         <h4 class="pt-4">Notifications</h4>
                         <div class="dropdown-divider"></div>
                         <ul class="no-bullets pl-0">
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a> <div><span class="badge badge-danger ">{{$counters['Questions']}}</span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a> <div><span class="badge badge-danger ">{{$counters['Answers']}}</span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a> <div><span class="badge badge-danger ">{{$counters['Comments']}}</span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-danger ">{{$counters['Follows']}}</span></div></li>
-                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-danger ">{{$counters['Rating']}}</span></div></li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Questions</a>
+                                <div><span class="badge badge-danger ">{{$counters['Questions']}}</span></div>
+                            </li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Answers</a>
+                                <div><span class="badge badge-danger ">{{$counters['Answers']}}</span></div>
+                            </li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Comments</a>
+                                <div><span class="badge badge-danger ">{{$counters['Comments']}}</span></div>
+                            </li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a>
+                                <div><span class="badge badge-danger ">{{$counters['Follows']}}</span></div>
+                            </li>
+                            <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a>
+                                <div><span class="badge badge-danger ">{{$counters['Rating']}}</span></div>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -35,26 +45,25 @@ use Carbon\Carbon;
                         <h4 class="text-mobile">Notifications</h4>
 
                         @foreach($notifications_p as $notification)
-                       
+
                             @include('partials.notifications-card', $notification)
 
-                                <div>
-                                    <span class="mb-1 text-muted"><small>{{Carbon::parse($notification->created_at)->diffForHumans(Carbon::now(), true)}} ago</small></span>
-                                </div>
+                            <div>
+                                <span class="mb-1 text-muted"><small>{{Carbon::parse($notification->created_at)->diffForHumans(Carbon::now(), true)}}
+                                        ago</small></span>
                             </div>
-                        </div>
-                        @endforeach
+                    </div>
+                </div>
+                @endforeach
 
                 {{ $notifications_p->links('pagination.default') }}
 
-                       
 
-                    </div>
-                </div>
             </div>
         </div>
+        </div>
+        </div>
     </main><!-- /.container -->
-
 
 
     <!-- /.container -->

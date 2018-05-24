@@ -1,5 +1,4 @@
 <template>
-   
     <body class="grey-background">
     <main role="main">
     <div class="container pt-4 mt-4">
@@ -39,192 +38,217 @@
                     <div class="input-group-append">
                       <button v-on:click="filterButtonAllUsers" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="my-3 table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Username</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="user in users.data">
-                      <td>{{user.username}}</td>
-                      <td>{{user.name}}</td>
-                      <td>{{user.email}}</td>
-                      <td class="admin-actions">
-                        <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
-                        <a v-if="user.is_moderator == true" v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
-                        <a v-else v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-              <div class="col-md-6 offset-md-3 d-flex justify-content-center pt-4">
-                <pagination :data="users" @pagination-change-page="getUsers"></pagination>
-              </div>
-            </section>
-          </div>
-          <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-            <section class="pb-3">
-              <div class="d-flex justify-content-center">
-                <div class="">
-                  <div class="input-group">
-                    <label for="userName" class="sr-only">Search Users</label>
-                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
-                    <div class="input-group-append">
-                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                <div class="col-md-10 tab-content my-5" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <section class="pb-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <div class="input-group">
+                                        <label for="userName" class="sr-only">Search Users</label>
+                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
+                                               placeholder="Search for users" autofocus="">
+                                        <div class="input-group-append">
+                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
+                                                    type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-3 table-responsive">
+                                <table class="table table-hover admin-table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="user in users.data">
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td class="admin-actions">
+                                            <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
+                                            <a v-if="user.is_moderator == true"
+                                               v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
+                                            <a v-else v-on:click="toggleModerator(user,$event)" href=""
+                                               class="text-info">Promote</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6 offset-md-3 d-flex justify-content-center pt-4">
+                                <pagination :data="users" @pagination-change-page="getUsers"></pagination>
+                            </div>
+                        </section>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="my-3 table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Reported username</th>
-                      <th scope="col">Moderator</th>
-                      <th scope="col">Reason</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody> 
-                    <tr v-for="flag in flagged">
-                      <td>{{flag.member.username}}</td>
-                      <td>{{flag.moderator.username}}</td>
-                      <td>{{flag.reason}}</td>
-                      <td class="admin-actions">
-                        <a v-on:click="banFlagged(flag, $event)" href="" class="text-danger">Ban</a> |
-                        <a v-on:click="dismissFlag(flag, $event)" href="" class="text-info">Dismiss</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-          <div class="tab-pane fade" id="nav-recommended" role="tabpanel" aria-labelledby="nav-recommended-tab">
-            <section class="pb-3">
-              <div class="d-flex justify-content-center">
-                <div class="">
-                  <div class="input-group">
-                    <label for="userName" class="sr-only">Search Users</label>
-                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
-                    <div class="input-group-append">
-                      <button v-on:click="filterButton"  class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <section class="pb-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <div class="input-group">
+                                        <label for="userName" class="sr-only">Search Users</label>
+                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
+                                               placeholder="Search for users" autofocus="">
+                                        <div class="input-group-append">
+                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
+                                                    type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-3 table-responsive">
+                                <table class="table table-hover admin-table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Reported username</th>
+                                        <th scope="col">Moderator</th>
+                                        <th scope="col">Reason</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="flag in flagged">
+                                        <td>{{flag.member.username}}</td>
+                                        <td>{{flag.moderator.username}}</td>
+                                        <td>{{flag.reason}}</td>
+                                        <td class="admin-actions">
+                                            <a v-on:click="banFlagged(flag, $event)" href="" class="text-danger">Ban</a>
+                                            |
+                                            <a v-on:click="dismissFlag(flag, $event)" href=""
+                                               class="text-info">Dismiss</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="my-3 table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Username</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="user in banned">
-                      <td>{{user.username}}</td>
-                      <td>{{user.name}}</td>
-                      <td>{{user.email}}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-          <div class="tab-pane fade" id="nav-moderators" role="tabpanel" aria-labelledby="nav-moderators-tab">
-            <section class="pb-3">
-              <div class="d-flex justify-content-center">
-                <div class="">
-                  <div class="input-group">
-                    <label for="userName" class="sr-only">Search Users</label>
-                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users"  autofocus="">
-                    <div class="input-group-append">
-                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                    <div class="tab-pane fade" id="nav-recommended" role="tabpanel"
+                         aria-labelledby="nav-recommended-tab">
+                        <section class="pb-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <div class="input-group">
+                                        <label for="userName" class="sr-only">Search Users</label>
+                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
+                                               placeholder="Search for users" autofocus="">
+                                        <div class="input-group-append">
+                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
+                                                    type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-3 table-responsive">
+                                <table class="table table-hover admin-table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="user in banned">
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="my-3 table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Username</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="user in moderators">
-                      <td>{{user.username}}</td>
-                      <td>{{user.name}}</td>
-                      <td>{{user.email}}</td>
-                      <td class="admin-actions">
-                        <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
-                        <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
-          <div class="tab-pane fade" id="nav-certified" role="tabpanel" aria-labelledby="nav-moderators-tab">
-            <section class="pb-3">
-              <div class="d-flex justify-content-center">
-                <div class="">
-                  <div class="input-group">
-                    <label for="userName" class="sr-only">Search Users</label>
-                    <input v-on:keyup="filterBar" type="text" id="userName" class="form-control" placeholder="Search for users" autofocus="">
-                    <div class="input-group-append">
-                      <button v-on:click="filterButton" class="btn btn-outline-primary" type="button"><i class="fas fa-search"></i></button>
+                    <div class="tab-pane fade" id="nav-moderators" role="tabpanel" aria-labelledby="nav-moderators-tab">
+                        <section class="pb-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <div class="input-group">
+                                        <label for="userName" class="sr-only">Search Users</label>
+                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
+                                               placeholder="Search for users" autofocus="">
+                                        <div class="input-group-append">
+                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
+                                                    type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-3 table-responsive">
+                                <table class="table table-hover admin-table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="user in moderators">
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td class="admin-actions">
+                                            <a v-on:click="banUser(user,$event)" href="" class="text-danger">Ban</a> |
+                                            <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Demote</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
                     </div>
-                  </div>
+                    <div class="tab-pane fade" id="nav-certified" role="tabpanel" aria-labelledby="nav-moderators-tab">
+                        <section class="pb-3">
+                            <div class="d-flex justify-content-center">
+                                <div class="">
+                                    <div class="input-group">
+                                        <label for="userName" class="sr-only">Search Users</label>
+                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
+                                               placeholder="Search for users" autofocus="">
+                                        <div class="input-group-append">
+                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
+                                                    type="button"><i class="fas fa-search"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="my-3 table-responsive">
+                                <table class="table table-hover admin-table">
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Username</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Email</th>
+                                        <th scope="col">Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="user in certified">
+                                        <td>{{user.username}}</td>
+                                        <td>{{user.name}}</td>
+                                        <td>{{user.email}}</td>
+                                        <td class="admin-actions">ss="admin-actions">
+                                            <a v-on:click="banUser(user,$event)" href="" lass="text-danger">Ban</a> |
+                                            <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
                 </div>
-              </div>
-              <div class="my-3 table-responsive">
-                <table class="table table-hover admin-table">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th scope="col">Username</th>
-                      <th scope="col">Name</th>
-                      <th scope="col">Email</th>
-                      <th scope="col">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr v-for="user in certified">
-                      <td>{{user.username}}</td>
-                      <td>{{user.name}}</td>
-                      <td>{{user.email}}</td>
-                      <td class="admin-actions">ss="admin-actions">
-                        <a v-on:click="banUser(user,$event)" href="" lass="text-danger">Ban</a> |
-                        <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </section>
-          </div>
+            </div>
         </div>
-        </div>
-      </div>
     </main>
-  
-    <!-- /.container -->
-    </body>
+
 </template>
 
 <script>
@@ -510,8 +534,7 @@ export default {
     filterButton(e){
       let searchBar = e.target.closest(".input-group").children[1];
       this.filter(searchBar);
+
     }
-  }
-}
 
 </script>

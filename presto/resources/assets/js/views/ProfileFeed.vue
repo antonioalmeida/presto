@@ -1,35 +1,38 @@
 <template>
-	<section class="small-container">
-		<div class="container">
-			<router-view></router-view>
-		</div>
-		<div class="container">
+    <section class="small-container">
+        <div class="container">
+            <router-view></router-view>
+        </div>
+        <div class="container">
 
-			<div class="row">
-				<div class="col-md-8 offset-md-2">
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
 
-					<nav>
-						<div class="nav nav-tabs" id="nav-tab" role="tablist">
-							<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
-							<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
-						</div>
-					</nav>
-					<div class="tab-content mb-5" id="nav-tabContent">
-						<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                    <nav>
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home"
+                               role="tab" aria-controls="nav-home" aria-selected="true">Questions</a>
+                            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
+                               role="tab" aria-controls="nav-profile" aria-selected="false">Answers</a>
+                        </div>
+                    </nav>
+                    <div class="tab-content mb-5" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                             aria-labelledby="nav-home-tab">
 
                             <div class="list-group">
-                            	<template v-for="question in sortedQuestions">
-                            		<question-card v-bind:question="question"></question-card> 
-                            	</template>
+                                <template v-for="question in sortedQuestions">
+                                    <question-card v-bind:question="question"></question-card>
+                                </template>
                             </div>
 
                         </div>
                         <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
 
-                                <div class="list-group">
-                            	<template v-for="answer in sortedAnswers">
-                            		<answer-card v-bind:answer="answer"></answer-card> 
-                            	</template>
+                            <div class="list-group">
+                                <template v-for="answer in sortedAnswers">
+                                    <answer-card v-bind:answer="answer"></answer-card>
+                                </template>
                             </div>
 
                         </div>
@@ -43,89 +46,89 @@
 </template>
 
 <script>
-export default {
+    export default {
 
-	props: ['username'],
+        props: ['username'],
 
-	name: 'ProfileFeed',
+        name: 'ProfileFeed',
 
-	components: {
-		QuestionCard: require('../components/QuestionCard'),
-		AnswerCard: require('../components/AnswerCard')
-	},
+        components: {
+            QuestionCard: require('../components/QuestionCard'),
+            AnswerCard: require('../components/AnswerCard')
+        },
 
-	mounted() {
-		this.loader = this.$loading.show();
-		this.getQuestions(this.username);
-		this.getAnswers(this.username);
-	},
+        mounted() {
+            this.loader = this.$loading.show();
+            this.getQuestions(this.username);
+            this.getAnswers(this.username);
+        },
 
-	data () {
-		return {
-			questions: null,
-			answers: null
-		}
-	},
+        data() {
+            return {
+                questions: null,
+                answers: null
+            }
+        },
 
-	methods: {
-		getQuestions: function(username) {
-			let request = '/api/profile';
-			if(username)
-				request += '/' + username;
-			request += '/questions';
+        methods: {
+            getQuestions: function (username) {
+                let request = '/api/profile';
+                if (username)
+                    request += '/' + username;
+                request += '/questions';
 
-			axios.get(request)
-			.then(({data}) => {
-				this.questions = data;
-				this.loader.hide();
-			})
-			.catch((error) => {
-				console.log(error);
-			}); 
-		},
+                axios.get(request)
+                    .then(({data}) => {
+                        this.questions = data;
+                        this.loader.hide();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            },
 
-		getAnswers: function(username) {
-			let request = '/api/profile';
-			if(username)
-				request += '/' + username;
-			request += '/answers';
+            getAnswers: function (username) {
+                let request = '/api/profile';
+                if (username)
+                    request += '/' + username;
+                request += '/answers';
 
-			axios.get(request)
-			.then(({data}) => {
-				this.answers = data;
-				this.loader.hide();
-			})
-			.catch((error) => {
-				console.log(error);
-			}); 
-		}
-	
-	},
+                axios.get(request)
+                    .then(({data}) => {
+                        this.answers = data;
+                        this.loader.hide();
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            }
 
-	 computed: {
-			sortedQuestions: function() {
-				if (!this.questions)
-					return null;
-	
-				let comparator = (a, b) => {
-					return a.date < b.date
-				};
-	
-				return this.questions.sort(comparator);
-			},
+        },
 
-			sortedAnswers: function() {
-				if (!this.answers)
-					return null;
-	
-				let comparator = (a, b) => {
-					return a.date < b.date
-				};
-	
-				return this.answers.sort(comparator);
-			}
+        computed: {
+            sortedQuestions: function () {
+                if (!this.questions)
+                    return null;
 
-	 }
-}
+                let comparator = (a, b) => {
+                    return a.date < b.date
+                };
+
+                return this.questions.sort(comparator);
+            },
+
+            sortedAnswers: function () {
+                if (!this.answers)
+                    return null;
+
+                let comparator = (a, b) => {
+                    return a.date < b.date
+                };
+
+                return this.answers.sort(comparator);
+            }
+
+        }
+    }
 </script>
 
