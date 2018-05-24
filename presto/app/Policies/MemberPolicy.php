@@ -12,7 +12,7 @@ class MemberPolicy
     /**
      * Determine whether the user can update the member.
      *
-     * @param  \App\Member  $member
+     * @param  \App\Member $member
      * @return mixed
      */
     public function update(Member $user, Member $member)
@@ -20,7 +20,8 @@ class MemberPolicy
         return $user->id === $member->id;
     }
 
-    public function follow(Member $user, Member $followTarget){
+    public function follow(Member $user, Member $followTarget)
+    {
         return $user->id != $followTarget->id;
     }
 }

@@ -9,15 +9,15 @@ class MarkNotificationAsRead
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if($request->has('read')) {
+        if ($request->has('read')) {
             $notification = $request->user()->notifications()->where('id', $request->read)->first();
-            if($notification) {
+            if ($notification) {
                 $notification->markAsRead();
             }
         }

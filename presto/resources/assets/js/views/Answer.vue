@@ -1,50 +1,46 @@
 <template>
 
-    <body class="">
-        <main role="main" class="mt-5">
+    <main role="main" class="mt-5">
 
-            <section class="container pt-5">
-                <div class="row">
-                    <div class="offset-md-2 col-md-8">
-                        <h1>{{answer.question.title}}</h1>
-                        <h4>
-                            <!-- <small>This is the question's description.</small> -->
-                        </h4>
-                        <h5>
-                            <small class="text-muted">
-                                <i class="far fa-fw fa-tags"></i>
-                                <router-link v-for="(topic, index) in answer.question.topics" :key="topic.id" :to="'/topic/' + topic.name" class="text-muted">
-                                    {{ topic.name }}
-                                    <template v-if="index != answer.question.topics.length -1">,
-                                    </template>
-                                </router-link>
+        <section class="container pt-5">
+            <div class="row">
+                <div class="offset-md-2 col-md-8">
+                     <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
+                    <h1>{{answer.question.title}}</h1>
+                    </router-link>
+                    <h4>
+                        <!-- <small>This is the question's description.</small> -->
+                    </h4>
+                    <h5>
+                        <small class="text-muted">
+                            <i class="far fa-fw fa-tags"></i>
+                            <router-link v-for="(topic, index) in answer.question.topics" :key="topic.id"
+                                         :to="'/topic/' + topic.name" class="text-muted">
+                                {{ topic.name }}
+                                <template v-if="index != answer.question.topics.length -1">,
+                                </template>
+                            </router-link>
 
-                                <span v-if="answer.question.topics.length === 0" class="text-muted">No topics</span>
-                            </small>
-                        </h5>
+                            <span v-if="answer.question.topics.length === 0" class="text-muted">No topics</span>
+                        </small>
+                    </h5>
 
-                        <div class="mt-4">
+                    <div class="mt-4">
 
                         <AnswerPartial v-bind:answerData="answer" :key="answer.id"></AnswerPartial>
-                    
-                    </div>
+
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
 
-        </main>
-        <!-- /.container -->
-    </body>
-
+    </main>
 
 </template>
 
 <script>
-    import {
-        Collapse,
-        FormTextarea
-    } from 'bootstrap-vue/es/components'
+    import {Collapse, FormTextarea} from 'bootstrap-vue/es/components'
     import CommentsList from '../components/CommentsList'
     import AnswerPartial from '../components/AnswerPartial'
 
@@ -54,16 +50,28 @@
 
         name: 'Answer',
 
+         created() {
+            document.title = "Answer | Presto";
+        },
+
         components: {
             'Collapse': Collapse,
             'FormTextarea': FormTextarea,
             'CommentsList': CommentsList,
-            'AnswerPartial' : AnswerPartial
+            'AnswerPartial': AnswerPartial
         },
 
         data() {
             return {
-                answer: {},
+                answer: {
+                    question: {
+                        topics: [],
+                    },
+                    
+                    author: [],
+                    comments: [],
+                    
+                },
                 commentText: '',
                 showError: false,
                 showSuccess: false,
@@ -75,12 +83,12 @@
             this.getData(this.q_id, this.a_id);
         },
 
-        // watch: {
-        //     '$route' (to, from) {
-        //         this.loader = this.$loading.show();
-        //         this.getData(to.params.id);
-        //     }
-        // },
+        watch: {
+            '$route' (to, from) {
+                this.loader = this.$loading.show();
+                this.getData(to.params.q_id, to.params.a_id);
+            }
+        },
 
         methods: {
             getData: function (q_id, a_id) {
@@ -92,8 +100,8 @@
 
                 axios.get(request)
                     .then(({
-                        data
-                    }) => {
+                               data
+                           }) => {
                         this.answer = data;
                         this.loader.hide();
                     })
@@ -110,12 +118,12 @@
                     this.showError = false;
 
                 axios.post('/api/comments/answer', {
-                        'answer_id': this.answer.id,
-                        'content': this.commentText,
-                    })
+                    'answer_id': this.answer.id,
+                    'content': this.commentText,
+                })
                     .then(({
-                        data
-                    }) => {
+                               data
+                           }) => {
                         this.answer.comments.push(data);
                         this.commentText = '';
                         this.showSuccess = true;

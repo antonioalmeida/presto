@@ -9,18 +9,14 @@ class CommentResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
     {
         $response = parent::toArray($request);
 
-        $response['author'] = [
-            'username' => $this->member->username,
-            'name' => $this->member->name,
-            'profile_picture' => $this->member->profile_picture,
-        ];
+        $response['author'] = new MemberPartialResource($this->member);
 
         return $response;
     }

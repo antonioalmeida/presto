@@ -10,6 +10,12 @@ use App\Observers\AnswerObserver;
 use App\Answer;
 use App\Observers\CommentObserver;
 use App\Comment;
+use App\Observers\AnswerRatingObserver;
+use App\AnswerRating;
+use App\Observers\CommentRatingObserver;
+use App\CommentRating;
+use App\Observers\QuestionRatingObserver;
+use App\QuestionRating;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,6 +32,10 @@ class AppServiceProvider extends ServiceProvider
         Question::observe(QuestionObserver::class);
         Answer::observe(AnswerObserver::class);
         Comment::observe(CommentObserver::class);
+        AnswerRating::observe(AnswerRatingObserver::class);
+        QuestionRating::observe(QuestionRatingObserver::class);
+        CommentRating::observe(CommentRatingObserver::class);
+
         //
     }
 

@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use DB;
-require_once app_path().'/Utils.php';
+use Illuminate\Database\Eloquent\Model;
+
+require_once app_path() . '/Utils.php';
 
 /**
  * @property int $id
@@ -17,7 +18,7 @@ require_once app_path().'/Utils.php';
 class Topic extends Model
 {
     // Don't add create and update timestamps in database.
-    public $timestamps  = false;
+    public $timestamps = false;
 
     /**
      * The table associated with the model.
@@ -28,15 +29,18 @@ class Topic extends Model
 
     protected $hidden = ['pivot'];
 
-    public function getRouteKeyName(){
+    public function getRouteKeyName()
+    {
         return 'name';
     }
 
-    public function getNumFollowers(){
+    public function getNumFollowers()
+    {
         return $this->followers->count();
     }
 
-    public function getNumViews() {
+    public function getNumViews()
+    {
         $nrViews = 0.0;
 
         foreach ($this->questions as $question)
@@ -45,11 +49,12 @@ class Topic extends Model
         return print_number_count($nrViews);
     }
 
-    public function getAnswersStats(){
+    public function getAnswersStats()
+    {
         $no_answers = 0.0;
         $no_views = 0.0;
 
-        foreach ($this->questions as $question){
+        foreach ($this->questions as $question) {
             $no_answers += $question->answers->count();
             $no_views += $question->answers->sum('views');
         }
@@ -57,14 +62,15 @@ class Topic extends Model
         return ['number' => $no_answers, 'views' => print_number_count($no_views)];
     }
 
-    public function getRelatedTopics(){
+    public function getRelatedTopics()
+    {
         $sub_query = DB::table('question_topic')
             ->where('topic_id', $this->id)
             ->pluck('question_id');
 
         $query = DB::table('topic')
             ->select(DB::raw('count(*) as nrTimes, name'))
-            ->join('question_topic', function($join) {
+            ->join('question_topic', function ($join) {
                 $join->on('topic.id', '=', 'question_topic.topic_id');
             })
             ->whereIn('question_id', $sub_query)

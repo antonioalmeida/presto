@@ -3,8 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\MemberResource;
-use App\Http\Resources\CommentResource;
 
 
 class FullQuestionResource extends Resource
@@ -12,7 +10,7 @@ class FullQuestionResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)

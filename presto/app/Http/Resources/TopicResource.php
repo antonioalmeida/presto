@@ -3,7 +3,6 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
-use App\Http\Resources\QuestionResource;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -12,7 +11,7 @@ class TopicResource extends Resource
     /**
      * Transform the resource into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return array
      */
     public function toArray($request)
@@ -27,7 +26,7 @@ class TopicResource extends Resource
         $response['nrViews'] = $answerStats['views'];
 
         $isFollowing = false;
-        if (Auth::user()->isFollowingTopic($request['topic']))
+        if (Auth::user() != null && Auth::user()->isFollowingTopic($request['topic']))
             $isFollowing = true;
 
         $response['isFollowing'] = $isFollowing;

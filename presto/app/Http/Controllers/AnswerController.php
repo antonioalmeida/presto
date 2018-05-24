@@ -2,31 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-
 use App\Answer;
-use App\Question;
-use \App\AnswerRating;
+use App\AnswerRating;
 use App\Http\Resources\AnswerResource;
-
+use App\Question;
+use Illuminate\Support\Facades\Auth;
 use Purifier;
 
 class AnswerController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth')->except(['show', 'getAnswer']);
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['getAnswer']);
     }
 
-    public function show(Question $question, Answer $answer){
-        return view('pages.answer', compact('answer'));
-    }
-
-    public function getAnswer(Question $question, Answer $answer) {
+    public function getAnswer(Question $question, Answer $answer)
+    {
         return new AnswerResource($answer);
     }
 
-    public function create(Question $question){
+    public function create(Question $question)
+    {
 
         $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
         $author_id = Auth::id();
@@ -40,7 +36,7 @@ class AnswerController extends Controller
     public function isLikedByMe($id, $rate)
     {
         $answer = Answer::findOrFail($id)->first();
-        if (AnswerRating::whereMemberId(Auth::id())->whereAnswerId($answer->id)->where('rate',$rate)->exists()){
+        if (AnswerRating::whereMemberId(Auth::id())->whereAnswerId($answer->id)->where('rate', $rate)->exists()) {
             return true;
         }
         return false;
@@ -48,7 +44,10 @@ class AnswerController extends Controller
 
     public function rate(Question $question, Answer $answer)
     {
+        $this->authorize('rate', $answer);
+
         $existing_rate = AnswerRating::withTrashed()->whereAnswerId($answer->id)->whereMemberId(Auth::id())->first();
+        $finalValue = request('rate');
 
         if (is_null($existing_rate)) {
             AnswerRating::create([
@@ -58,10 +57,10 @@ class AnswerController extends Controller
             ]);
         } else {
             if (is_null($existing_rate->deleted_at)) {
-                if($existing_rate->rate == request('rate')){
+                if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
-                }
-                else{
+                    $finalValue = 0;
+                } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
                 }
@@ -72,9 +71,14 @@ class AnswerController extends Controller
             }
         }
 
-        $upvotes = $answer->answerRatings->where('rate',1)->count();
-        $downvotes = $answer->answerRatings->where('rate',-1)->count();
-        
-        return compact('upvotes', 'downvotes');
+        //TODO: replace this with RateResource and use isLikedByMe
+        $response = [
+            'isUpvoted' => $finalValue == 1 ? true : false,
+            'isDownvoted' => $finalValue == -1 ? true : false,
+            'upvotes' => $answer->answerRatings->where('rate', 1)->count(),
+            'downvotes' => $answer->answerRatings->where('rate', -1)->count()
+        ];
+
+        return $response;
     }
 }

@@ -13,8 +13,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can update the question.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Question  $question
+     * @param  \App\Member $user
+     * @param  \App\Question $question
      * @return mixed
      */
     public function update(Member $user, Question $question)
@@ -30,8 +30,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can delete the question.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Question  $question
+     * @param  \App\Member $user
+     * @param  \App\Question $question
      * @return mixed
      */
     public function delete(Member $user, Question $question)

@@ -1,10 +1,10 @@
 <?php
+
 namespace App\Presto;
 
 use App\Member;
-use App\Topic;
-
 use App\Notifications\MemberFollowed;
+use App\Topic;
 
 trait Follow
 {
@@ -19,7 +19,7 @@ trait Follow
      */
     public function isFollowedBy(Member $member)
     {
-        return !! $this->followers()->where('follower_id', $member->id)->count();
+        return !!$this->followers()->where('follower_id', $member->id)->count();
     }
 
     /**
@@ -30,10 +30,9 @@ trait Follow
      */
     public function follow(Member $member)
     {
-        if (! $this->isFollowing($member) && $this->id != $member->id)
-        {
+        if (!$this->isFollowing($member) && $this->id != $member->id) {
             $member->notify(new MemberFollowed($this));
-            
+
             return $this->followings()->attach($member);
         }
 
@@ -48,7 +47,7 @@ trait Follow
      */
     public function isFollowing(Member $member)
     {
-        return !! $this->followings()->where('following_id', $member->id)->count();
+        return !!$this->followings()->where('following_id', $member->id)->count();
     }
 
     /**
@@ -66,17 +65,17 @@ trait Follow
 
     public function followTopic(Topic $topic)
     {
-        if (! $this->isFollowingTopic($topic)) {
+        if (!$this->isFollowingTopic($topic)) {
             $this->topics()->attach($topic);
             return true;
         }
-        
+
         return false;
     }
 
     public function isFollowingTopic(Topic $topic)
     {
-        return !! $this->topics()->where('topic_id', $topic->id)->count();
+        return !!$this->topics()->where('topic_id', $topic->id)->count();
     }
 
     public function unFollowTopic(Topic $topic)
