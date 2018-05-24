@@ -124,7 +124,6 @@
     import CommentsList from '../components/CommentsList'
     import AnswerPartial from '../components/AnswerPartial'
     import Editor from '@tinymce/tinymce-vue';
-    import VueTribute from 'vue-tribute';
     import TagsInput from '../components/TagsInput';
     import CommentBox from '../components/CommentBox';
 
@@ -144,7 +143,6 @@
             'FormTextarea': FormTextarea,
             'Editor': Editor,
             'AnswerPartial': AnswerPartial,
-            'VueTribute': VueTribute
             'TagsInput': TagsInput,
             'CommentBox': CommentBox
         },
@@ -165,32 +163,7 @@
                 contentInput: '',
 
                 //error handling utils
-                answerShowError: false,
-
-                //vue-tribute mentions options
-                options: {
-                  menuItemTemplate: function (item) {
-                   return '<img style="width:10%;height:10%;" alt="'+item.string+'\'s profile picture" src="'+item.original.profile_picture + '">' + item.string;
-                  },
-                  noMatchTemplate: function() {
-                    return 'No members found!';
-                  },
-                  values: function (text, cb) {
-                  axios.get('/api/search/'+text, {
-                      params: {
-                          type: 'members'
-                      }
-                  })
-                      .then(({data}) => {
-                        cb(data);
-                      })
-                      .catch((error) => {
-                        cb([]);
-                      });
-                  },
-                lookup: 'username',
-                fillAttr: 'username'
-                }
+                answerShowError: false
             }
         },
 
@@ -207,15 +180,6 @@
         },
 
         methods: {
-            append: function() {
-              let kv = Math.random()
-                .toString(36)
-                .slice(2)
-              this.options.values.push({
-                key: kv,
-                value: kv
-              })
-            },
             getData: function (id) {
                 this.getQuestion(id);
                 this.getAnswers(id);
@@ -253,7 +217,7 @@
                         console.log(error);
                     });
             },
-            
+
             onAnswerSubmit: function () {
                 if (this.editorContent.length === 0) {
                     this.answerShowError = true;
