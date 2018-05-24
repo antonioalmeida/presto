@@ -14,7 +14,16 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'error']);
+        $this->middleware('auth')->except(['isLoggedIn', 'getNewContent', 'getTopContent', 'error']);
+    }
+
+    public function isLoggedIn(){
+        $isLoggedIn = false;
+        $member = Auth::user();
+        if ($member != null)
+            $isLoggedIn = true;
+           
+        return compact('isLoggedIn');
     }
 
     public function getTopContent()
@@ -30,8 +39,7 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('score', 'DESC');
 
-        dd($data->get());
-        return;
+        return $data->get();
     }
 
     public function getNewContent()
@@ -45,8 +53,7 @@ class HomeController extends Controller
             ->addSelect(DB::raw("'answer' as type"));
 
         $data = $query1->union($query2)->orderBy('date', 'DESC');
-        dd($data->get());
-        return;
+        return $data->get();
     }
 
     public function getRecommendedContent()
@@ -63,8 +70,8 @@ class HomeController extends Controller
             ->addSelect(DB::raw("'answer' as type"));
 
         $data = $query1->union($query2)->orderBy('score', 'DESC');
-        dd($data->get());
-        return;
+
+        return $data->get(); 
     }
 
     public function error()

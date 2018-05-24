@@ -81,6 +81,12 @@ Route::view('topic/{topic}', 'layouts.master');
     // Search API
     Route::get('search/{query}', 'SearchController@get');
 
+    //Feed API
+    Route::get('isLoggedIn', 'HomeController@isLoggedIn');
+    Route::get('feed/getNewContent', 'HomeController@getNewContent');
+    Route::get('feed/getTopContent', 'HomeController@getTopContent');
+    Route::get('feed/getRecommendedContent', 'HomeController@getRecommendedContent');
+
     // Admin API
 	Route::get('admin/get-users', 'AdminController@getUsers');
 	Route::get('admin/get-banned', 'AdminController@getBanned');
