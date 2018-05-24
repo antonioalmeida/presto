@@ -131,8 +131,11 @@ function makeNotificationText(notification) {
     } else if (notification.type === NOTIFICATION_TYPES.mention) {
         const name = notification.data.follower_name;
         const picture = notification.data.follower_picture;
+        const title = notification.data.question_title;
+        const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
-            + name + '<span class="text-muted"> mention you on cenas.</span>';
+            + name + '<span class="text-muted"> mentioned you on their comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
+            + title;
 
     }
 

@@ -29,15 +29,15 @@ class CommentController extends Controller
         $date = date('Y-m-d H:i:s');
         $mentions = request('mentions');
 
+        $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
+
         foreach ($mentions as $mention) {
             $member = Member::where('username', 'ILIKE', trim($mention))->get();
 
             if (!$member->isEmpty()) {
-                $member->first()->notify(new MemberMention(Auth::user()));
+                $member->first()->notify(new MemberMention(Auth::user(), $comment));
             }
         }
-
-        $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
 
         return new CommentResource($comment);
     }
@@ -53,15 +53,15 @@ class CommentController extends Controller
         $date = date('Y-m-d H:i:s');
         $mentions = request('mentions');
 
+        $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
+
         foreach ($mentions as $mention) {
             $member = Member::where('username', 'ILIKE', trim($mention))->get();
 
             if (!$member->isEmpty()) {
-                $member->first()->notify(new MemberMention(Auth::user()));
+                $member->first()->notify(new MemberMention(Auth::user(), $comment));
             }
         }
-
-        $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
 
         return new CommentResource($comment);
     }

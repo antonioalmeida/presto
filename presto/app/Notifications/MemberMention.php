@@ -19,9 +19,17 @@ class MemberMention extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct(Member $follower)
+    public function __construct(Member $follower, Comment $comment)
     {
         $this->follower = $follower;
+        $this->comment = $comment;
+        if ($this->comment->question_id != null) {
+            $this->type = 'Question';
+            $this->question = Question::find($comment->question_id);
+        } else {
+            $this->type = 'Answer';
+            $this->answer = Answer::find($comment->answer_id);
+        }
     }
 
     /**
@@ -47,7 +55,10 @@ class MemberMention extends Notification implements ShouldQueue
                 'follower_name' => $this->follower->name,
                 'follower_username' => $this->follower->username,
                 'follower_picture' => $this->follower->profile_picture,
-                'url' => 'profile/' . $this->follower->username, //TODO: switch url to comment
+                'type_comment' => $this->type,
+                'question_title' => $this->answer->question->title,
+                'url' => 'questions/' . ($this->type == 'Question' ? $this->question->id : $this->answer->question->id)
+                    . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '')
             ],
         ]);
     }
@@ -66,7 +77,10 @@ class MemberMention extends Notification implements ShouldQueue
             'follower_name' => $this->follower->name,
             'follower_username' => $this->follower->username,
             'follower_picture' => $this->follower->profile_picture,
-            'url' => 'profile/' . $this->follower->username,
+            'type_comment' => $this->type,
+            'question_title' => $this->answer->question->title,
+            'url' => 'questions/' . ($this->type == 'Question' ? $this->question->id : $this->answer->question->id)
+                . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '')
         ];
     }
 
