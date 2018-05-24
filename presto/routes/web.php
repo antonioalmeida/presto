@@ -86,6 +86,8 @@ Route::view('topic/{topic}', 'layouts.master');
     Route::get('feed/getNewContent', 'HomeController@getNewContent');
     Route::get('feed/getTopContent', 'HomeController@getTopContent');
     Route::get('feed/getRecommendedContent', 'HomeController@getRecommendedContent');
+    Route::get('feed/getTrendingTopics', 'HomeController@getTrendingTopics');
+    Route::get('feed/getTopMembers', 'HomeController@getTopMembers');
 
     // Admin API
 	Route::get('admin/get-users', 'AdminController@getUsers');
