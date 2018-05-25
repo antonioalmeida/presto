@@ -16,6 +16,5 @@ mix.sass('resources/assets/sass/app.scss', 'public/css').js([
     'resources/assets/js/app.js',
     'resources/assets/js/script.js',
     'resources/assets/js/notifications.js',
-    'resources/assets/js/tagsinput.js',
-    'resources/assets/js/admin.js'
+    'resources/assets/js/tagsinput.js'
 ], 'public/js/app.js');
