@@ -21,7 +21,8 @@ const NOTIFICATION_TYPES = {
     newComment: 'App\\Notifications\\NewComment',
     answerRated: 'App\\Notifications\\AnswerRated',
     questionRated: 'App\\Notifications\\QuestionRated',
-    commentRated: 'App\\Notifications\\CommentRated'
+    commentRated: 'App\\Notifications\\CommentRated',
+    mention: 'App\\Notifications\\MemberMention',
 };
 
 //${Laravel.userId}
@@ -127,6 +128,15 @@ function makeNotificationText(notification) {
         text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
             + name + '<span class="text-muted"> upvoted your comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
             + title;
+    } else if (notification.type === NOTIFICATION_TYPES.mention) {
+        const name = notification.data.follower_name;
+        const picture = notification.data.follower_picture;
+        const title = notification.data.question_title;
+        const type = notification.data.type_comment;
+        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+            + name + '<span class="text-muted"> mentioned you on their comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
+            + title;
+
     }
 
     return text;

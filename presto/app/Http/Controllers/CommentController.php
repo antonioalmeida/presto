@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Comment;
 use App\CommentRating;
+use App\Member;
 use App\Http\Resources\CommentResource;
+use App\Notifications\MemberMention;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,8 +27,17 @@ class CommentController extends Controller
         $content = request('content');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
+        $mentions = request('mentions');
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
+
+        foreach ($mentions as $mention) {
+            $member = Member::where('username', 'ILIKE', trim($mention))->get();
+
+            if (!$member->isEmpty()) {
+                $member->first()->notify(new MemberMention(Auth::user(), $comment));
+            }
+        }
 
         return new CommentResource($comment);
     }
@@ -40,8 +51,17 @@ class CommentController extends Controller
         $content = request('content');
         $author_id = Auth::id();
         $date = date('Y-m-d H:i:s');
+        $mentions = request('mentions');
 
         $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
+
+        foreach ($mentions as $mention) {
+            $member = Member::where('username', 'ILIKE', trim($mention))->get();
+
+            if (!$member->isEmpty()) {
+                $member->first()->notify(new MemberMention(Auth::user(), $comment));
+            }
+        }
 
         return new CommentResource($comment);
     }

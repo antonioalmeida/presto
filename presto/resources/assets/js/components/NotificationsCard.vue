@@ -42,6 +42,15 @@
                             v-if="notification.data['type_comment'] == 'Answer' "> answer to the </span> question: </span><a
                         :href="'/questions/' + notification.data['question_id']" class="pb-1">{{notification.data['question_title']}}</a>
                 </template>
+
+                 <template v-if="notification.data['type'] == 'Mention'">
+                    <a :href="'/profile/' + notification.data['following_username']" class="pb-1">
+                        <img class="rounded-circle pr-1" width="36px" heigth="36px"
+                             :src="notification.data['following_picture']">{{notification.data['following_name']}}</a>
+                    <span class="text-muted"> mentioned you on their comment to the <span
+                            v-if="notification.data['type_comment'] == 'Answer' "> answer to the </span> question: </span><a
+                        :href="'/questions/' + notification.data['question_id']" class="pb-1">{{notification.data['question_title']}}</a>
+                </template>
             </div>
 
             <div>
