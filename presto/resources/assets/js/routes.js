@@ -22,6 +22,16 @@ let routes = [
         component: require('./views/Register')
     },
 
+    {
+        path: '/password/reset',
+        component: require('./views/Email')
+    },
+
+    {
+        path: '/password/reset/:token',
+        component: require('./views/Reset'),
+        props: true,
+    },
 
     {
         path: '/profile/:username',

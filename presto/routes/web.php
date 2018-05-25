@@ -120,9 +120,9 @@ Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 // Password Reset Routes...
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.email');
-Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
+Route::view('password/reset', 'layouts.master_aux')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::view('password/reset/{token}', 'layouts.master_aux')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
 // Auth::routes();
