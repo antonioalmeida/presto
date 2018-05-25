@@ -17,6 +17,8 @@ class MemberResource extends Resource
     public function toArray($request)
     {
         $response = parent::toArray($request);
+        $response['score'] = $this->getScore();
+        
         $response['answers_views'] = $this->getAnswerViews();
 
         $response['nrFollowers'] = $this->followers()->count();
