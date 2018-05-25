@@ -146,7 +146,7 @@ footer {
 
     }
   }
-  
+
   .input-h1 {
     font-size: $h1-font-size;
   }
@@ -240,6 +240,25 @@ footer {
   &:hover {
     text-decoration: none;
     text-shadow: 0 3px 3px rgba(170, 170, 170, 0.4) !important;
+  }
+}
+
+.tribute-container {
+  ul {
+    margin: 0;
+    margin-top: 2px;
+    padding: 0;
+    font-size: 14px !important;
+
+    li, li.no-match {
+      padding: 5px 10px !important;
+      cursor: pointer;
+    }
+
+    li.highlight, li:hover {
+        background-color: $primary !important;
+        color: white;
+      }
   }
 }
 
