@@ -19,6 +19,9 @@ class CommentRated extends Notification
     public $member;
     public $comment;
     public $rating;
+    public $type;
+    public $question;
+    public $answer;
 
     /**
      * Create a new notification instance.
@@ -48,7 +51,6 @@ class CommentRated extends Notification
     public function via($notifiable)
     {
         return ['database', 'broadcast'];
-        // return ['database'];
     }
 
     public function toBroadcast($notifiable)

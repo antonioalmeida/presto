@@ -36,7 +36,6 @@ class NewAnswer extends Notification implements ShouldQueue
     public function via($notifiable)
     {
         return ['database', 'broadcast'];
-        // return ['database'];
     }
 
     public function toBroadcast($notifiable)
