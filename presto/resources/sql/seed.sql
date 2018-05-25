@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS chosen_answer CASCADE;
 DROP TABLE IF EXISTS flag CASCADE;
 DROP TABLE IF EXISTS answer_rating CASCADE;
 DROP TABLE IF EXISTS answer_report CASCADE;
@@ -43,6 +44,8 @@ DROP TRIGGER IF EXISTS notify_on_comment_answer ON comment;
 DROP TRIGGER IF EXISTS notify_on_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS notify_on_answer_rating ON answer_rating;
 DROP TRIGGER IF EXISTS notify_on_follow ON follow_member;
+DROP TRIGGER IF EXISTS chosen_answer_on_solve ON chosen_answer;
+DROP TRIGGER IF EXISTS chosen_answer_on_unsolve ON chosen_answer;
 DROP FUNCTION IF EXISTS member_question_rating();
 DROP FUNCTION IF EXISTS member_answer_rating();
 DROP FUNCTION IF EXISTS member_comment_rating();
@@ -66,6 +69,8 @@ DROP FUNCTION IF EXISTS notify_on_comment_answer();
 DROP FUNCTION IF EXISTS notify_on_question_rating();
 DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
+DROP FUNCTION IF EXISTS verify_chosen_answer();
+DROP FUNCTION IF EXISTS delete_chosen_answer_association();
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
@@ -182,6 +187,14 @@ CREATE TABLE answer (
     CONSTRAINT answer_pk PRIMARY KEY (id),
     CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)
+);
+
+CREATE TABLE chosen_answer (
+    question_id INTEGER NOT NULL,
+    answer_id INTEGER NOT NULL,
+    CONSTRAINT chosen_answer_pk PRIMARY KEY (question_id, answer_id),
+    CONSTRAINT chosen_answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT chosen_answer_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE comment (
@@ -755,6 +768,37 @@ CREATE TRIGGER notify_on_follow
   AFTER INSERT ON follow_member
   FOR EACH ROW
     EXECUTE PROCEDURE notify_on_follow();
+
+CREATE FUNCTION verify_chosen_answer() RETURNS TRIGGER AS $$
+BEGIN
+  IF (SELECT question_id FROM answer WHERE id = NEW.answer_id) <> NEW.question_id THEN --Chosen answer must actually answer the given question
+    RAISE EXCEPTION 'The answer must be associated to the question!';
+  ELSIF (SELECT solved FROM question WHERE id = NEW.question_id) <> true THEN --Can't choose a correct answer for unsolved questions
+    RAISE EXCEPTION 'Can not choose an answer for an unsolved question!';
+  ELSIF (SELECT count(*) FROM chosen_answer WHERE question_id = NEW.question_id) > 0 THEN --Question has 1 and only 1 chosen answer (testing against 0 because trigger is before event)
+    RAISE EXCEPTION 'Question can only have 1 chosen answer';
+  END IF;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE FUNCTION delete_chosen_answer_association() RETURNS TRIGGER AS $$
+BEGIN
+  DELETE FROM chosen_answer WHERE question_id = NEW.id;
+  RETURN NEW;
+END
+$$ LANGUAGE 'plpgsql';
+
+CREATE TRIGGER chosen_answer_on_solve
+  BEFORE INSERT OR UPDATE ON chosen_answer
+  FOR EACH ROW
+    EXECUTE PROCEDURE verify_chosen_answer();
+
+CREATE TRIGGER chosen_answer_on_unsolve
+  BEFORE UPDATE OF solved ON question
+  FOR EACH ROW
+    WHEN (NEW.solved = false)
+      EXECUTE PROCEDURE delete_chosen_answer_association();
 
 --Indexes
 CREATE UNIQUE INDEX idx_topic_name ON topic USING btree (lower(name));
