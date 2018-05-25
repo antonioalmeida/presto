@@ -14,15 +14,11 @@
                             <div class="card sign-up-card">
                                 <div class="card-body">
                                     <div class="d-flex align-items-center flex-column">
-                                        <div class="m-2 g-signin2" data-width="254" data-height="40"
-                                             data-longtitle="true"></div>
-
-                                        <div class="fb-login-button m-2" data-max-rows="1" data-size="large"
-                                             data-button-type="continue_with" data-show-faces="false"
-                                             data-auto-logout-link="false" data-use-continue-as="false"></div>
+                                        <span @click="loginGoogleAPI" class="btn btn-google"><i class="fab fa-google"></i> Sign in
+                            with Google</span>
                                     </div>
-
-                                    <div class="d-flex justify-content-center">
+                                       
+                                    <div class="pt-2 d-flex justify-content-center">
                                         <h6 class="text-muted">
                                             <small>OR</small>
                                         </h6>
@@ -311,7 +307,7 @@
                  return true;
             },
 
-            onSubmit: function (e) {
+            onSubmit: function () {
                if(!this.checkForm()){
                    return;
                }
@@ -339,7 +335,17 @@
                             }
                         }
                     });
-            }
+            },
+
+            loginGoogleAPI: function () {
+                axios.get('/auth/google')
+                    .then(({data}) => {
+                        window.location.href = data;
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+            },
         }
 
     }
