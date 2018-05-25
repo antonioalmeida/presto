@@ -114,12 +114,17 @@
                         </div>
                         <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
                             <div class="list-group">
-                                <!-- <question-card :key="question.id" v-for="question in this.sortedOldest" :question="question"></question-card> 
-                                -->
+
+                                <question-card :key="question.id" v-for="question in this.sortedOldest"
+                                               :question="question"></question-card>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
+                            <div class="list-group">
 
+                                <question-card :key="question.id" v-for="question in this.sortedRating"
+                                               :question="question"></question-card>
+                            </div>
                         </div>
                     </div>
 
@@ -197,6 +202,15 @@
 
                 return this.topic.questions.sort((a, b) => {
                     return a.date > b.date;
+                })
+            },
+
+                sortedRating: function () {
+                if (!this.topic.questions)
+                    return [];
+
+                return this.topic.questions.sort((a, b) => {
+                    return a.rating < b.rating;
                 })
             }
         }
