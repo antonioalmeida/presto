@@ -42,7 +42,7 @@ class LoginController extends Controller
 
     public function redirectToProvider($provider)
     {
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->redirect()->getTargetUrl();
     }
 
     public function handleProviderCallback($provider)
@@ -51,6 +51,7 @@ class LoginController extends Controller
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
+
         return redirect($this->redirectTo);
     }
 
