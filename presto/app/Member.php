@@ -77,6 +77,11 @@ class Member extends Authenticatable
         return print_number_count($this->answers->sum('views'));
     }
 
+    public function getScore()
+    {
+        return print_number_count($this->score);
+    }
+
     /*
     * Relations
     */

@@ -18,7 +18,8 @@ class MemberPartialResource extends Resource
     public function toArray($request)
     {
         $response = parent::toArray($request);
-
+        $response['score'] = $this->getScore();
+        
         $isSelf = false;
         $member = Member::find($this->id);
         if (Auth::user() != null && Auth::id() == $this->id)

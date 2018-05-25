@@ -9,6 +9,7 @@ use App\Question;
 use App\Answer;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\AnswerCardResource;
+use App\Http\Resources\MemberPartialResource;
 
 class HomeController extends Controller
 {
@@ -132,12 +133,12 @@ class HomeController extends Controller
 
     public function getTopMembers()
     {
-        $data = DB::table('member')
-            ->orderBy('score', 'DESC')
+        $data = \App\Member::
+            orderBy('score', 'DESC')
             ->limit(5)
             ->get();
 
-        return $data;
+        return MemberPartialResource::collection($data);
     }
 
     public function error()
