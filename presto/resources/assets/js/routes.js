@@ -18,6 +18,12 @@ let routes = [
     },
 
     {
+        path: '/signup',
+        component: require('./views/Register')
+    },
+
+
+    {
         path: '/profile/:username',
         component: require('./views/Profile'),
         props: true,
