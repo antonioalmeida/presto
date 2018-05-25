@@ -3,6 +3,9 @@
 namespace App\Notifications;
 
 use App\Member;
+use App\Comment;
+use App\Question;
+use App\Answer;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
@@ -13,6 +16,10 @@ class MemberMention extends Notification implements ShouldQueue
     use Queueable;
 
     public $follower;
+    public $type;
+    public $question;
+    public $answer;
+    public $comment;
 
     /**
      * Create a new notification instance.
@@ -56,7 +63,7 @@ class MemberMention extends Notification implements ShouldQueue
                 'follower_username' => $this->follower->username,
                 'follower_picture' => $this->follower->profile_picture,
                 'type_comment' => $this->type,
-                'question_title' => $this->answer->question->title,
+                'question_title' => ($this->type == 'Question' ? $this->question->title : $this->answer->question->title),
                 'url' => 'questions/' . ($this->type == 'Question' ? $this->question->id : $this->answer->question->id)
                     . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '')
             ],
@@ -78,7 +85,7 @@ class MemberMention extends Notification implements ShouldQueue
             'follower_username' => $this->follower->username,
             'follower_picture' => $this->follower->profile_picture,
             'type_comment' => $this->type,
-            'question_title' => $this->answer->question->title,
+            'question_title' => ($this->type == 'Question' ? $this->question->title : $this->answer->question->title),
             'url' => 'questions/' . ($this->type == 'Question' ? $this->question->id : $this->answer->question->id)
                 . ($this->type == 'Answer' ? '/answers/' . $this->answer->id : '')
         ];
