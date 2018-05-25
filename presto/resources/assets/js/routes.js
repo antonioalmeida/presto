@@ -13,6 +13,11 @@ let routes = [
     },
 
     {
+        path: '/login',
+        component: require('./views/Login')
+    },
+
+    {
         path: '/profile/:username',
         component: require('./views/Profile'),
         props: true,

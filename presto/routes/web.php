@@ -109,17 +109,17 @@ Route::view('search/{query}', 'layouts.master');
 
 
 // Authentication
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::view('login', 'layouts.master_aux')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::view('signup', 'layouts.master_aux')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Auth::routes();
+// Auth::routes();
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
