@@ -2,6 +2,7 @@
   <div class="card-footer">
     <vue-tribute :options="options">
       <b-form-textarea
+      class="commentBox"
       v-model="commentText"
       placeholder="Leave a comment..."
       :rows="2"
@@ -34,6 +35,15 @@
       'VueTribute': VueTribute
   },
 
+  mounted() {
+    let allBoxes = document.querySelectorAll('.commentBox');
+    allBoxes.forEach((item, index) => {
+      item.addEventListener('tribute-replaced', e => {
+        this.commentText = this.commentText.replace(/@\w+\W?(?!@\w+\W?)/, '@'+e.detail.item.original.username+' ');
+      });
+    });
+  },
+
   data() {
       return {
         commentText: '',
@@ -43,22 +53,20 @@
                 //vue-tribute mentions options
                 options: {
                   menuItemTemplate: function (item) {
-                   //return '<img style="width:10%;height:10%;" alt="" src="'+item.original.profile_picture + '">' + item.string;
                    return item.string;
-               },
-               /*
-                  noMatchTemplate: function() {
-                    return '<small>No match</small>';
                   },
-                  */
                   values: function (text, cb) {
+                    if(text == '') {
+                      cb([]);
+                      return;
+                    }
                     axios.get('/api/search/'+text, {
                       params: {
                         type: 'members'
                     }
                 })
                     .then(({data}) => {
-                      cb(data);
+                      cb(data.slice(0,6));
                   })
                     .catch((error) => {
                       cb([]);
@@ -113,4 +121,3 @@
 
  }
 </script>
-
