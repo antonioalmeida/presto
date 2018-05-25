@@ -81,6 +81,14 @@ Route::view('topic/{topic}', 'layouts.master');
     // Search API
     Route::get('search/{query}', 'SearchController@get');
 
+    //Feed API
+    Route::get('isLoggedIn', 'HomeController@isLoggedIn');
+    Route::get('feed/getNewContent', 'HomeController@getNewContent');
+    Route::get('feed/getTopContent', 'HomeController@getTopContent');
+    Route::get('feed/getRecommendedContent', 'HomeController@getRecommendedContent');
+    Route::get('feed/getTrendingTopics', 'HomeController@getTrendingTopics');
+    Route::get('feed/getTopMembers', 'HomeController@getTopMembers');
+
     // Admin API
 	Route::get('admin/get-users', 'AdminController@getUsers');
 	Route::get('admin/get-banned', 'AdminController@getBanned');
@@ -101,17 +109,17 @@ Route::view('search/{query}', 'layouts.master');
 
 
 // Authentication
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::view('login', 'layouts.master_aux')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::view('signup', 'layouts.master_aux')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Auth::routes();
+// Auth::routes();
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');

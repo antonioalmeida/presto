@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use App\Question;
+use App\Answer;
+use App\Http\Resources\QuestionResource;
+use App\Http\Resources\AnswerCardResource;
+
 class HomeController extends Controller
 {
     /**
@@ -14,7 +19,16 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getNewContent', 'getTopContent', 'error']);
+        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent','getRecommendedContent', 'error']);
+    }
+
+    public function isLoggedIn(){
+        $isLoggedIn = false;
+        $member = Auth::user();
+        if ($member != null)
+            $isLoggedIn = true;
+           
+        return compact('isLoggedIn');
     }
 
     public function getTopContent()
@@ -28,10 +42,18 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC');
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new QuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
+            }
+            return $item;
+        });
 
-        dd($data->get());
-        return;
+        return $data;
     }
 
     public function getNewContent()
@@ -44,14 +66,29 @@ class HomeController extends Controller
             ->selectRaw('id, date')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('date', 'DESC');
-        dd($data->get());
-        return;
+        $data = $query1->union($query2)->orderBy('date', 'DESC')->limit(10)->get();
+
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new QuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
+            }
+            return $item;
+        });
+
+
+        return $data;
     }
 
     public function getRecommendedContent()
     {
+        if(Auth::user() == null){
+            return [];
+        }
+        
         $user_id = Auth::user()->id;
+
         $query1 = DB::table('question')
             ->selectRaw('id, (((select count(*) from question_rating where question_id = question.id and rate = 1) + 1.9208) / ((select count(*) from question_rating where question_id = question.id)) - 1.96 * SQRT(((select count(*) from question_rating where question_id = question.id and rate = 1) * (select count(*) from question_rating where question_id = question.id and rate = -1)) / ((select count(*) from question_rating where question_id = question.id)) + 0.9604) / ((select count(*) from question_rating where question_id = question.id))) / (1 + 3.8416 / ((select count(*) from question_rating where question_id = question.id))) as score')
             ->whereRaw('(select count(*) from question_rating where question_id = question.id) > 0 and question.author_id in (select following_id from follow_member where follower_id = ?)', ['user_id' => $user_id])
@@ -62,9 +99,45 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0 and answer.author_id in (select following_id from follow_member where follower_id = ?) ', ['user_id' => $user_id])
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC');
-        dd($data->get());
-        return;
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+
+        $data = $data->map(function ($item, $key) {
+            if($item->type == 'question'){
+                $item->question = new QuestionResource(Question::find($item->id)); 
+            } else {
+                $item->answer = new AnswerCardResource(Answer::find($item->id));
+            }
+            return $item;
+        });
+
+
+        return $data;
+
+    }
+
+    public function getTrendingTopics()
+    {
+        $data = DB::table('topic')
+        ->select(DB::raw('count(*) as nrTimes, name'))
+        ->join('question_topic', function ($join) {
+            $join->on('topic.id', '=', 'question_topic.topic_id');
+        })
+        ->groupBy('name')
+        ->orderByRaw('nrTimes DESC')
+        ->limit(5)
+        ->get();
+
+        return $data;
+    }
+
+    public function getTopMembers()
+    {
+        $data = DB::table('member')
+            ->orderBy('score', 'DESC')
+            ->limit(5)
+            ->get();
+
+        return $data;
     }
 
     public function error()
