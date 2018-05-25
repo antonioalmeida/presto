@@ -39,7 +39,7 @@
     let allBoxes = document.querySelectorAll('.commentBox');
     allBoxes.forEach((item, index) => {
       item.addEventListener('tribute-replaced', e => {
-        this.commentText = this.commentText.replace(/@\w+\W?(?!@\w+\W?)/, '@'+e.detail.item.original.username+' ');
+        this.commentText = this.commentText.replace(/@\w+\W?(?!.*@\w+\W?)/, '@'+e.detail.item.original.username+' ');
       });
     });
   },
