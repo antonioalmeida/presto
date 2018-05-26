@@ -100,11 +100,22 @@ class QuestionController extends Controller
     public function solve(Question $question) {
         $this->authorize('solve', $question);
 
+        $this->validate(request(), [
+            'answerId' => 'required|numeric'
+        ]);
+
         $question->solved = true;
         $question->save();
 
         $answer = Answer::find(request('answerId'));
         $answer->is_chosen_answer = true;
         $answer->save();
+    }
+
+    public function unsolve(Question $question) {
+        $this->authorize('solve', $question);
+
+        $question->solved = false;
+        $question->save();
     }
 }

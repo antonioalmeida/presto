@@ -65,11 +65,9 @@
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
 
-                                <b-btn v-if="question.solved" href="#" v-b-toggle.accordion3 variant="link">
-                                    <i class="far fa-fw fa-unlock-alt"></i> Reopen
-                                </b-btn>
-
+                                <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i class="far fa-fw fa-unlock-alt"></i> Reopen</button>
                             </div>
+
 
                             <div v-show="question.isOwner" class="ml-auto mt-2">
                                 <small>
@@ -211,6 +209,14 @@
                 axios.get(request)
                     .then(({data}) => {
                         this.answers = data;
+                        //Guarantee that, if there is a chosen answer, it comes first
+                        if(this.question.solved)
+                          this.answers.sort((a,b) => {
+                            if(a.is_chosen_answer) return -1;
+                            if(b.is_chosen_answer) return 1;
+                            return a.date - b.date;
+                          });
+
                         this.loader.hide();
                     })
                     .catch((error) => {
@@ -251,6 +257,18 @@
                         this.errors = response.data.errors;
                         console.log(this.errors);
                     });
+            },
+
+            unsolve: function() {
+              axios.post('/api/questions/' + this.question.id + '/unsolve', {
+              })
+                  .then(({data}) => {
+                    window.location.reload();
+                  })
+                  .catch(({response}) => {
+                      this.errors = response.data.errors;
+                      console.log(this.errors);
+                  });
             }
         }
     }

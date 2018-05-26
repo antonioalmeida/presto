@@ -1,6 +1,8 @@
 <template>
     <div class="mt-4">
         <hr>
+        <div v-bind:class="{'card': answer.is_chosen_answer, 'card-body': answer.is_chosen_answer, 'border-primary': answer.is_chosen_answer}">
+        <h5 v-if="answer.is_chosen_answer"><span class="badge badge-primary">Chosen answer</span></h5>
         <div class="d-flex flex-wrap">
             <div class="align-self-center">
                 <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -43,9 +45,6 @@
         </div>
         <hr>
         <div>
-            <p v-if="answer.is_chosen_answer">
-              I AM THE CHOSEN ONE
-            </p>
             <p v-html="answer.content">
             </p>
 
@@ -70,6 +69,7 @@
 
             <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
         </div>
+      </div>
     </div>
 </template>
 
