@@ -27,6 +27,10 @@ class QuestionPolicy
         return $user->id !== $comment->author_id;
     }
 
+    public function solve(Member $user, Question $question) {
+        return $user->id === $question->author_id;
+    }
+
     /**
      * Determine whether the user can delete the question.
      *

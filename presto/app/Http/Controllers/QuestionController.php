@@ -9,6 +9,7 @@ use App\Http\Resources\QuestionResource;
 use App\Question;
 use App\QuestionRating;
 use App\Topic;
+use App\Answer;
 
 class QuestionController extends Controller
 {
@@ -94,5 +95,16 @@ class QuestionController extends Controller
         $downvotes = $question->questionRatings->where('rate', -1)->count();
 
         return compact('upvotes', 'downvotes');
+    }
+
+    public function solve(Question $question) {
+        $this->authorize('solve', $question);
+
+        $question->solved = true;
+        $question->save();
+
+        $answer = Answer::find(request('answerId'));
+        $answer->is_chosen_answer = true;
+        $answer->save();
     }
 }
