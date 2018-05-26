@@ -153,10 +153,4 @@ class ProfileController extends Controller
 
         return ['following' => $member->isFollowing($follower), 'no_followings' => $member->followings->count()];
     }
-
-    public function settings()
-    {
-        return view('pages.profile.settings');
-    }
-
 }
