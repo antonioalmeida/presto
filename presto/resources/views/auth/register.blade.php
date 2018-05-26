@@ -7,7 +7,7 @@
 @section('content')
 
     <body class="img-background">
-    <main role="main" class="mt-5">
+    <main  class="mt-5">
         <section class="container">
             <div class="card my-3 py-3">
                 <div class="card-body">

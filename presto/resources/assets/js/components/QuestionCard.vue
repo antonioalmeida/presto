@@ -1,15 +1,16 @@
 <template>
-    <!-- TODO: add link to question -->
-    <router-link :to="'/questions/' + question.id"
-                 class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between flex-md-nowrap flex-wrap-reverse">
-
-            <h4 class="mb-1 max-w-70">{{ question.title }}</h4>
+          <router-link :to="'/questions/' + question.id" class="btn-link">
+            <h4 class="mb-1 max-w-71">{{ question.title }}</h4>
+          </router-link>
 
             <small class="pb-1">
-                <router-link :to="'/profile/' + question.author.username" class="btn-link"><img
-                        class="user-preview rounded-circle pr-1" width="36px" heigth="36px"
-                        :src="question.author.profile_picture"> {{question.author.name}}
+                <router-link :to="'/profile/' + question.author.username" class="btn-link">
+                        <img
+                        class="user-preview rounded-circle pr-1" width="36" height="36"
+                        :src="question.author.profile_picture"
+                        :alt="question.author.name + '\'s profile picture'"> {{question.author.name}}
                 </router-link>
                 <span class="text-muted">asked</span>
             </small>
@@ -26,7 +27,7 @@
             <span v-if="question.topics.length === 0" class="text-muted">No topics</span>
         </small>
 
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -41,4 +42,3 @@
         }
     }
 </script>
-

@@ -1,5 +1,5 @@
 <template>
-    <main class="mt-5 grey-background" role="main">
+    <main class="mt-5 grey-background" >
 
             <section v-if="!isLoggedIn" class="jumbotron">
                 <div class="container">
@@ -17,7 +17,7 @@
                                         <span @click="loginGoogleAPI" class="btn btn-google"><i class="fab fa-google"></i> Sign in
                             with Google</span>
                                     </div>
-                                       
+
                                     <div class="pt-2 d-flex justify-content-center">
                                         <h6 class="text-muted">
                                             <small>OR</small>
@@ -38,7 +38,7 @@
                                                 <div class="input-group-text"><i class="far fa-at"></i></div>
                                             </div>
                                             <input v-model="email" type="text" class="form-control"
-                                                   id="inlineFormInputGroup" placeholder="your@email.com"> 
+                                                   id="inlineFormInputGroup" placeholder="your@email.com">
                                         </div>
 
                                         <div class="input-group mb-2">
@@ -105,7 +105,7 @@
                                     <answer-card v-if="content.type == 'answer'" v-bind:answer="content.answer"></answer-card>
                                     <question-card v-if="content.type == 'question'" v-bind:question="content.question"></question-card>
                                 </template>
-                                
+
                             </div>
                         </div>
 
@@ -117,10 +117,10 @@
                                     <answer-card v-if="content.type == 'answer'" v-bind:answer="content.answer"></answer-card>
                                     <question-card v-if="content.type == 'question'" v-bind:question="content.question"></question-card>
                                 </template>
-                                
+
                             </div>
                         </div>
-                        
+
                             <div v-if="isLoggedIn" class="tab-pane fade" id="nav-recommended" role="tabpanel"
                                  aria-labelledby="nav-recommended-tab">
 
@@ -141,12 +141,12 @@
                         <div class="card-body">
                             <h6>Who to Follow</h6>
                             <div class="list-group list-group-flush short-padding">
-                                    
+
                                 <template v-for="member in topMembers">
                                 <div class="list-group-item d-flex justify-content-begin">
                                     <div class="align-self-center">
-                                        <img class="user-preview rounded-circle mr-2" width="50px" heigth="50px"
-                                             :src="member.profile_picture">
+                                        <img class="user-preview rounded-circle mr-2" width="50" height="50"
+                                             :alt="member.name + '\'s profile picture'":src="member.profile_picture">
                                     </div>
                                     <div>
                                         <router-link :to="'/profile/' + member.username" class="text-dark">{{member.name}}</router-link>
@@ -302,7 +302,7 @@
                    this.$alerts.addError("Terms required.");
                    return false;
                 }
-               
+
                 if(!this.$alerts.length)
                  return true;
             },
@@ -311,7 +311,7 @@
                if(!this.checkForm()){
                    return;
                }
-                
+
                 axios.post('/signup', {
                     'username': this.username,
                     'email': this.email,

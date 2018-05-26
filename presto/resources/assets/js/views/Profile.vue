@@ -1,6 +1,6 @@
 <template>
 
-    <main class="mt-5 grey-background" role="main">
+    <main class="mt-5 grey-background" >
 
         <section>
             <div class="jumbotron profile-jumbotron">

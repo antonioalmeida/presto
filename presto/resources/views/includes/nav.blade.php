@@ -57,7 +57,7 @@
                         <li class="nav-item dropdown">
                             <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="{{Auth::user()->profile_picture}}" width="40px" height="40px"
+                                <img src="{{Auth::user()->profile_picture}}" alt="Your profile picture" width="40" height="40"
                                      class="rounded-circle border border-primary profile-photo">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -77,4 +77,3 @@
         </div>
     </nav>
 </header>
-

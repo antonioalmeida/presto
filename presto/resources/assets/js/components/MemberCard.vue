@@ -4,7 +4,7 @@
 
         <div class="d-flex w-100 justify-content-begin">
             <div class="align-self-center">
-                <img class="rounded-circle pr-2" width="60px" heigth="60px" :src="member.profile_picture">
+                <img class="rounded-circle pr-2" width="60" height="60" :alt="member.name + '\'s profile picture'":src="member.profile_picture">
             </div>
             <div class="d-flex flex-column">
                 <h6 class="mb-1">{{ member.name }}</h6>
@@ -49,4 +49,3 @@
         }
     }
 </script>
-
