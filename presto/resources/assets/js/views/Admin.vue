@@ -1,6 +1,6 @@
 <template>
    
-    <main class="grey-background" role="main">
+    <main class="grey-background" >
     <div class="container pt-4 mt-4">
       <div class="row">
         <div class="col-md-2 mt-2">

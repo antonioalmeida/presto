@@ -1,5 +1,5 @@
 <template>
-    <main class="img-background" role="main">
+    <main class="img-background" >
         <section class="pt-5 container">
             <div class="card py-5 my-5">
                 <div class="card-body">

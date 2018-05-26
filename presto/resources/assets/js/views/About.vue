@@ -1,6 +1,6 @@
 <template>
 
-    <main role="main" class="mt-5 grey-background">
+    <main  class="mt-5 grey-background">
         
         <section class="container text-justify">
             <h1 class="mt-5 text-center">About <em>Presto</em></h1>

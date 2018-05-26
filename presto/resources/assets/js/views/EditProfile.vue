@@ -1,5 +1,5 @@
 <template>
-    <main role="main" class="grey-background mt-5">
+    <main  class="grey-background mt-5">
         <section>
             <div class="jumbotron profile-jumbotron">
                 <div class="container">

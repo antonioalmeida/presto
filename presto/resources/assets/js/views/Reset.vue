@@ -1,5 +1,5 @@
 <template>
-    <main class="img-background" role="main">
+    <main class="img-background" >
       <section class="pt-5 container">
              <div class="row">
             <div class="col-md-8 col-md-offset-2">
