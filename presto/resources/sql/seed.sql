@@ -1,4 +1,3 @@
-DROP TABLE IF EXISTS chosen_answer CASCADE;
 DROP TABLE IF EXISTS flag CASCADE;
 DROP TABLE IF EXISTS answer_rating CASCADE;
 DROP TABLE IF EXISTS answer_report CASCADE;
@@ -44,8 +43,8 @@ DROP TRIGGER IF EXISTS notify_on_comment_answer ON comment;
 DROP TRIGGER IF EXISTS notify_on_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS notify_on_answer_rating ON answer_rating;
 DROP TRIGGER IF EXISTS notify_on_follow ON follow_member;
-DROP TRIGGER IF EXISTS chosen_answer_on_solve ON chosen_answer;
-DROP TRIGGER IF EXISTS chosen_answer_on_unsolve ON chosen_answer;
+DROP TRIGGER IF EXISTS chosen_answer_on_solve ON answer;
+DROP TRIGGER IF EXISTS chosen_answer_on_unsolve ON question;
 DROP FUNCTION IF EXISTS member_question_rating();
 DROP FUNCTION IF EXISTS member_answer_rating();
 DROP FUNCTION IF EXISTS member_comment_rating();
@@ -69,10 +68,6 @@ DROP FUNCTION IF EXISTS notify_on_comment_answer();
 DROP FUNCTION IF EXISTS notify_on_question_rating();
 DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
-DROP FUNCTION IF EXISTS verify_chosen_answer();
-DROP FUNCTION IF EXISTS delete_chosen_answer_association();
-
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TYPE notification_origin AS ENUM (
     'Answer',
@@ -173,7 +168,7 @@ CREATE TABLE question (
     author_id INTEGER NOT NULL,
     search tsvector NOT NULL,
     CONSTRAINT question_pk PRIMARY KEY (id),
-    CONSTRAINT question_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
+    CONSTRAINT question_fk_member FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE answer (
@@ -183,18 +178,11 @@ CREATE TABLE answer (
     views INTEGER NOT NULL CHECK (views >= 0) DEFAULT 0,
     question_id INTEGER NOT NULL,
     author_id INTEGER NOT NULL,
+    is_chosen_answer BOOLEAN NOT NULL DEFAULT false,
     search tsvector NOT NULL,
     CONSTRAINT answer_pk PRIMARY KEY (id),
     CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)
-);
-
-CREATE TABLE chosen_answer (
-    question_id INTEGER NOT NULL,
-    answer_id INTEGER NOT NULL,
-    CONSTRAINT chosen_answer_pk PRIMARY KEY (question_id, answer_id),
-    CONSTRAINT chosen_answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT chosen_answer_answer_fk FOREIGN KEY (answer_id) REFERENCES answer (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE comment (
@@ -631,168 +619,29 @@ CREATE TRIGGER answer_search_update
   FOR EACH ROW
     EXECUTE PROCEDURE answer_search_update();
 
--- A member is notified when someone else answers his question
-CREATE FUNCTION notify_on_answer() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION verify_chosen_answer() RETURNS TRIGGER AS $$
 BEGIN
-  IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id) THEN --Avoid notification when answering one's own question
-    INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
-      'App\Notifications\NewAnswer',
-      (SELECT member.id FROM question INNER JOIN answer ON question.id = answer.question_id INNER JOIN member ON question.author_id = member.id WHERE answer.id = NEW.id),
-      'App\Member',
-      json_build_object(
-        'type', 'Answer',
-        'following_id', NEW.author_id,
-        'following_name', (SELECT name FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
-        'following_username', (SELECT username FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
-        'following_picture', (SELECT profile_picture FROM answer INNER JOIN member ON author_id = member.id WHERE answer.id = NEW.id),
-        'question_id', NEW.question_id,
-        'question_title', (SELECT title FROM question INNER JOIN answer ON question.id = answer.question_id WHERE answer.id = NEW.id),
-        'url', 'questions/' || NEW.question_id || '/answers/' || NEW.id
-      ),
-      null);
-  END IF;
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER notify_on_answer
-  AFTER INSERT ON answer
-  FOR EACH ROW
-    EXECUTE PROCEDURE notify_on_answer();
-
--- -- A member is notified when someone else comments his question
--- CREATE FUNCTION notify_on_comment_question() RETURNS TRIGGER AS $$
--- BEGIN
---   IF NEW.author_id <> (SELECT question.author_id FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
---     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
---       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your question: ' || (SELECT title FROM question INNER JOIN comment ON question.id = comment.question_id WHERE comment.id = NEW.id),
---       (SELECT member.id FROM question INNER JOIN comment ON question.id = comment.question_id INNER JOIN member ON question.author_id = member.id WHERE comment.id = NEW.id),
---       NEW.id);
---   END IF;
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
-
--- CREATE TRIGGER notify_on_comment_question
---   AFTER INSERT ON comment
---   FOR EACH ROW
---   WHEN (NEW.question_id IS NOT NULL)
---     EXECUTE PROCEDURE notify_on_comment_question();
-
--- -- A member is notified when someone else comments his answer
--- CREATE FUNCTION notify_on_comment_answer() RETURNS TRIGGER AS $$
--- BEGIN
---   IF NEW.author_id <> (SELECT answer.author_id FROM answer INNER JOIN comment ON answer.id = comment.answer_id WHERE comment.id = NEW.id) THEN --Avoid notification when answering one's own question
---     INSERT INTO notification (type, "date", content, member_id, message_id) VALUES ('Comment', now(),
---       (SELECT name FROM comment INNER JOIN member ON author_id = member.id WHERE comment.id = NEW.id) || ' left a comment on your answer to the question ' || (SELECT title FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN question ON answer.question_id = question.id WHERE comment.id = NEW.id),
---       (SELECT member.id FROM answer INNER JOIN comment ON answer.id = comment.answer_id INNER JOIN member ON answer.author_id = member.id WHERE comment.id = NEW.id),
---       NEW.id);
---   END IF;
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
-
--- CREATE TRIGGER notify_on_comment_answer
---   AFTER INSERT ON comment
---   FOR EACH ROW
---   WHEN (NEW.answer_id IS NOT NULL)
---     EXECUTE PROCEDURE notify_on_comment_answer();
-
--- -- A member is notified when someone else upvotes his question
--- CREATE FUNCTION notify_on_question_rating() RETURNS TRIGGER AS $$
--- BEGIN
---   INSERT INTO notification (type, "date", content, member_id, user_id, message_id) VALUES ('Rating', now(),
---     (SELECT name from question_rating INNER JOIN member ON question_rating.member_id = member.id WHERE question_rating.question_id = NEW.question_id AND member.id = NEW.member_id) || ' upvoted your question: ' || (SELECT title FROM question INNER JOIN question_rating ON question_rating.question_id = question.id WHERE question_rating.member_id = NEW.member_id AND question.id = NEW.question_id),
---     (SELECT member.id FROM question INNER JOIN member ON question.author_id = member.id WHERE question.id = NEW.question_id),
---     NEW.member_id,
---     NEW.question_id);
---   RETURN NEW;
--- END
--- $$ LANGUAGE 'plpgsql';
-
--- CREATE TRIGGER notify_on_question_rating
---   AFTER INSERT ON question_rating
---   FOR EACH ROW
---   WHEN (NEW.rate = 1)
---     EXECUTE PROCEDURE notify_on_question_rating();
-
--- A member is notified when someone else upvotes his answer
-CREATE FUNCTION notify_on_answer_rating() RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
-    'App\Notifications\AnswerRated',
-    (SELECT member.id FROM answer INNER JOIN member ON answer.author_id = member.id WHERE answer.id = NEW.answer_id),
-    'App\Member',
-    json_build_object(
-      'type', 'Rating',
-      'following_id', NEW.member_id,
-      'following_name', (SELECT name FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
-      'following_username', (SELECT username FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
-      'following_picture', (SELECT profile_picture FROM answer_rating INNER JOIN member ON answer_rating.member_id = member.id WHERE answer_rating.answer_id = NEW.answer_id AND member.id = NEW.member_id),
-      'question_id', (SELECT question.id FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
-      'question_title', (SELECT title FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id),
-      'url', 'questions/' || (SELECT question.id FROM answer INNER JOIN question ON answer.question_id = question.id WHERE answer.id = NEW.answer_id) || '/answers/' || NEW.answer_id
-    ),
-    null);
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER notify_on_answer_rating
-  AFTER INSERT ON answer_rating
-  FOR EACH ROW
-  WHEN (NEW.rate = 1)
-    EXECUTE PROCEDURE notify_on_answer_rating();
-
--- A member is notified when someone else follows him
-CREATE FUNCTION notify_on_follow() RETURNS TRIGGER AS $$
-BEGIN
-  INSERT INTO notifications (id, type, notifiable_id, notifiable_type, data, read_at) VALUES (uuid_generate_v4(),
-    'App\Notifications\MemberFollowed',
-    NEW.following_id,
-    'App\Member',
-    json_build_object(
-      'type', 'Follow',
-      'follower_id', NEW.follower_id,
-      'follower_name', (SELECT name FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
-      'follower_username', (SELECT username FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
-      'follower_picture', (SELECT profile_picture FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id),
-      'url', 'profile/' || (SELECT username FROM follow_member INNER JOIN member ON follow_member.follower_id = member.id WHERE follow_member.following_id = NEW.following_id AND member.id = NEW.follower_id)
-    ),
-    null);
-  RETURN NEW;
-END
-$$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER notify_on_follow
-  AFTER INSERT ON follow_member
-  FOR EACH ROW
-    EXECUTE PROCEDURE notify_on_follow();
-
-CREATE FUNCTION verify_chosen_answer() RETURNS TRIGGER AS $$
-BEGIN
-  IF (SELECT question_id FROM answer WHERE id = NEW.answer_id) <> NEW.question_id THEN --Chosen answer must actually answer the given question
-    RAISE EXCEPTION 'The answer must be associated to the question!';
-  ELSIF (SELECT solved FROM question WHERE id = NEW.question_id) <> true THEN --Can't choose a correct answer for unsolved questions
+  IF (SELECT solved FROM question WHERE id = NEW.question_id) <> true THEN --Can't choose a correct answer for unsolved questions
     RAISE EXCEPTION 'Can not choose an answer for an unsolved question!';
-  ELSIF (SELECT count(*) FROM chosen_answer WHERE question_id = NEW.question_id) > 0 THEN --Question has 1 and only 1 chosen answer (testing against 0 because trigger is before event)
+  ELSIF (SELECT count(*) FROM answer WHERE is_chosen_answer = true AND question_id = NEW.question_id) > 0 THEN --Question has 1 chosen answer max
     RAISE EXCEPTION 'Question can only have 1 chosen answer';
   END IF;
   RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
-CREATE FUNCTION delete_chosen_answer_association() RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION delete_chosen_answer_association() RETURNS TRIGGER AS $$
 BEGIN
-  DELETE FROM chosen_answer WHERE question_id = NEW.id;
+  UPDATE answer SET is_chosen_answer = false WHERE question_id = NEW.id AND is_chosen_answer = true;
   RETURN NEW;
 END
 $$ LANGUAGE 'plpgsql';
 
 CREATE TRIGGER chosen_answer_on_solve
-  BEFORE INSERT OR UPDATE ON chosen_answer
+  BEFORE INSERT OR UPDATE OF is_chosen_answer ON answer
   FOR EACH ROW
-    EXECUTE PROCEDURE verify_chosen_answer();
+    WHEN (NEW.is_chosen_answer = true)
+      EXECUTE PROCEDURE verify_chosen_answer();
 
 CREATE TRIGGER chosen_answer_on_unsolve
   BEFORE UPDATE OF solved ON question
