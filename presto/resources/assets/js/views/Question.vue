@@ -57,16 +57,16 @@
 
                             <div>
 
-                                <b-btn href="#" v-b-toggle.accordion1 variant="primary">
+                                <b-btn v-if="!question.solved" href="#" v-b-toggle.accordion1 variant="primary">
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
 
-                                <b-btn href="#" v-b-toggle.accordion2 variant="outline-primary">
+                                <b-btn v-if="!question.solved" href="#" v-b-toggle.accordion2 variant="outline-primary">
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
 
-                                <b-btn href="#" v-b-toggle.accordion3 variant="link">
-                                    <i class="far fa-fw fa-check"></i> Solve
+                                <b-btn v-if="question.solved" href="#" v-b-toggle.accordion3 variant="link">
+                                    <i class="far fa-fw fa-unlock-alt"></i> Reopen
                                 </b-btn>
 
                             </div>
@@ -110,7 +110,7 @@
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
 
-                    <AnswerPartial v-for="answer in answers" v-bind:answerData="answer"
+                    <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question" v-on:solve-question="solve(answer.id)"
                                    :key="answer.id"></AnswerPartial>
 
                 </div>
@@ -238,6 +238,19 @@
                         this.showError = true;
                     });
 
+            },
+
+            solve: function(chosenAnswerId) {
+                axios.post('/api/questions/' + this.question.id + '/solve', {
+                    'answerId': chosenAnswerId
+                })
+                    .then(({data}) => {
+                      window.location.reload();
+                    })
+                    .catch(({response}) => {
+                        this.errors = response.data.errors;
+                        console.log(this.errors);
+                    });
             }
         }
     }

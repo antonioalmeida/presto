@@ -66,6 +66,7 @@ Route::view('topic/{topic}', 'layouts.master');
     Route::get('questions/{question}', 'QuestionController@get');
     Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
     Route::post('questions', 'QuestionController@store')->name('question-add');
+    Route::post('questions/{question}/solve', 'QuestionController@solve');
 
     // Comments
     Route::get('comments/{comment}', 'CommentController@get');
@@ -149,4 +150,3 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
-

@@ -26,6 +26,7 @@
                                :path="'/api/member/' + answer.author.username + '/toggle-follow'"
                 >
                 </follow-button>
+                <button v-on:click="$emit('solve-question')" class="btn btn-primary" v-if="!parent.solved"><i class="far fa-fw fa-lock-alt"></i> Choose as correct answer</button>
 
             </div>
             <!--
@@ -42,6 +43,9 @@
         </div>
         <hr>
         <div>
+            <p v-if="answer.is_chosen_answer">
+              I AM THE CHOSEN ONE
+            </p>
             <p v-html="answer.content">
             </p>
 
@@ -64,7 +68,7 @@
         <div class="card my-3">
             <comments-list :comments="answer.comments"></comments-list>
 
-            <CommentBox v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
+            <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
         </div>
     </div>
 </template>
@@ -76,7 +80,7 @@
 
     export default {
 
-        props: ['answerData'],
+        props: ['answerData', 'parent'],
 
         name: 'AnswerPartial',
 
