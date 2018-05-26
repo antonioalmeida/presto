@@ -17,17 +17,22 @@
 
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="far fa-user"></i></div>
+                                    <div class="input-group-text">
+                                      <i class="far fa-user"></i>
+                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"><sup>(?)</sup></b>
+                                    </div>
                                 </div>
                                 <input v-model="username" type="text" class="form-control" id="inlineFormInputGroup"
                                        placeholder="Your Username"
                                        pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
-                                       title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"
                                 required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="far fa-at"></i></div>
+                                    <div class="input-group-text">
+                                      <i class="far fa-at"></i>
+                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="Insert you real email, it's your only way to recover your account if you forget your password"><sup>(?)</sup></b>
+                                    </div>
                                 </div>
                                 <input v-model="email" type="email" class="form-control" id="inlineFormInputGroup"
                                        placeholder="your@email.com"
@@ -35,17 +40,22 @@
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="far fa-key"></i></div>
+                                    <div class="input-group-text">
+                                      <i class="far fa-key"></i>
+                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
+                                    </div>
                                 </div>
                                 <input v-model="password" type="password" class="form-control"
                                        id="inlineFormInputGroup" placeholder="Password"
                                        pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
-                                       title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="
                                 required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text"><i class="fas fa-key"></i></div>
+                                    <div class="input-group-text">
+                                      <i class="fas fa-key"></i>
+                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
+                                    </div>
                                 </div>
                                 <input v-model="password_confirmation" type="password" class="form-control"
                                        id="inlineFormInputGroup" placeholder="Confirm Password"
