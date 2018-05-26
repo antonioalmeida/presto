@@ -6,6 +6,7 @@
                 <div class="d-flex">
                     <div class="align-self-center">
                         <img class="rounded-circle mr-2" width="36" height="36"
+                             :alt="comment.author.name + '\'s profile picture'"
                              :src="comment.author.profile_picture">
                     </div>
                     <div class="d-flex flex-column">
