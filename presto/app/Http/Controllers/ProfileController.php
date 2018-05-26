@@ -10,6 +10,7 @@ use App\Http\Resources\QuestionResource;
 use App\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 
 class ProfileController extends Controller
@@ -74,7 +75,8 @@ class ProfileController extends Controller
         $member = Auth::user();
 
         $this->validate(request(), [
-
+          'username' => ['required','string','alpha_dash',Rule::unique('member')->ignore($member->id)],
+          'name' => 'required|max:35'
         ]);
 
         $member->name = request('name');
@@ -105,7 +107,7 @@ class ProfileController extends Controller
         $member = Auth::user();
 
         $request->validate([
-            'email' => 'required|string|email|max:255|unique:member'
+            'email' => ['required','string','email','max:255',Rule::unique('member')->ignore($member->id)]
         ]);
 
         $member->email = request('email');
@@ -156,5 +158,5 @@ class ProfileController extends Controller
     {
         return view('pages.profile.settings');
     }
-    
+
 }
