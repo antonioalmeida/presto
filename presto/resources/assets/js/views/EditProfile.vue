@@ -15,8 +15,14 @@
 
                         <div class="col-md-6 mobile-center text-shadow edit-profile">
 
-                            <input v-model="nameInput" type="text" class="form-control input-h2">
-                            <input v-model="usernameInput" type="text" class="form-control input-h4 mt-2">
+                            <input v-model="nameInput" type="text" class="form-control input-h2"
+                              pattern="^[a-zA-Z\s]{1,35}$"
+                              title="Name can only contain letters. 35 characters max allowed"
+                            required>
+                            <input v-model="usernameInput" type="text" class="form-control input-h4 mt-2"
+                              pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
+                              title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"
+                            required>
 
                             <div class="mt-3">
                                 <input v-model="bioInput" type="text" class="form-control input-h6 lead-adapt mt-2">
@@ -93,4 +99,3 @@
         }
     }
 </script>
-
