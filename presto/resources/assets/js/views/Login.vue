@@ -6,8 +6,7 @@
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <h1 class="text-center">Welcome back.</h1>
-                            <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras et nibh ac
-                                massa tristique semper.</p>
+                            <p class="lead">Log in to your account to access your personalized feed and see what your favorite writers have been up to.</p>
                         </div>
                     </div>
                 </div>
@@ -18,7 +17,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-at"></i></div>
                                 </div>
-                                <input v-model="email" type="text" class="form-control" id="inlineFormInputGroup"
+                                <input v-model="email" type="email" class="form-control" id="inlineFormInputGroup"
                                        placeholder="your@email.com">
                             </div>
                             <div class="input-group mb-2">
@@ -26,7 +25,8 @@
                                     <div class="input-group-text"><i class="far fa-key"></i></div>
                                 </div>
                                 <input v-model="password" type="password" class="form-control" id="inlineFormInputGroup"
-                                       placeholder="Password">
+                                       placeholder="Password"
+                                required>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Login</button>
@@ -93,7 +93,7 @@
                if(!this.checkForm()){
                    return;
                }
-                
+
                 axios.post('/login', {
                     'email': this.email,
                     'password': this.password,
