@@ -14,40 +14,48 @@
                 <div class="row">
                     <div class="offset-lg-2 mb-2 col-md-6 col-lg-4 d-flex flex-column align-items-center">
                         <form id="signupForm" @submit.prevent="onSubmit">
-                            
+
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-user"></i></div>
                                 </div>
                                 <input v-model="username" type="text" class="form-control" id="inlineFormInputGroup"
-                                       placeholder="Your Username">
+                                       placeholder="Your Username"
+                                       pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
+                                       title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"
+                                required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-at"></i></div>
                                 </div>
                                 <input v-model="email" type="email" class="form-control" id="inlineFormInputGroup"
-                                       placeholder="your@email.com">
+                                       placeholder="your@email.com"
+                                required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-key"></i></div>
                                 </div>
                                 <input v-model="password" type="password" class="form-control"
-                                       id="inlineFormInputGroup" placeholder="Password" >
+                                       id="inlineFormInputGroup" placeholder="Password"
+                                       pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
+                                       title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="
+                                required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="fas fa-key"></i></div>
                                 </div>
                                 <input v-model="password_confirmation" type="password" class="form-control"
-                                       id="inlineFormInputGroup" placeholder="Confirm Password">
+                                       id="inlineFormInputGroup" placeholder="Confirm Password"
+                                required>
                             </div>
                             <div class="form-check mb-2 mx-1">
                                 <input v-model="terms" class="form-check-input" type="checkbox" id="defaultCheck1"
                                        >
                                 <label class="form-check-label" for="defaultCheck1">
-                                    <small>I accept Presto's <a href="">Terms and Conditions</a>.</small>
+                                    <small>I accept Presto's <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="I am at least 13 years old and will not try to hack Preso.">Terms and Conditions</b>.</small>
                                 </label>
                             </div>
                             <div class="d-flex justify-content-center">
@@ -69,6 +77,10 @@
 </template>
 
 <script>
+    window.onload = function() {
+      //Activate tooltip
+      $('[data-toggle="tooltip"]').tooltip();
+    };
     export default {
 
         name: 'Login',
@@ -119,7 +131,7 @@
                    this.$alerts.addError("Terms required.");
                    return false;
                 }
-               
+
                 if(!this.$alerts.length)
                  return true;
             },
@@ -128,7 +140,7 @@
                if(!this.checkForm()){
                    return;
                }
-                
+
                 axios.post('/signup', {
                     'username': this.username,
                     'email': this.email,
