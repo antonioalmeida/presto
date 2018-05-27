@@ -63,8 +63,8 @@
                                 <router-link class="dropdown-item" to="/profile/{{Auth::user()->username}}"><i
                                             class="far text-muted fa-fw fa-user"></i> Profile
                                 </router-link>
-                                <a class="dropdown-item" href={{Route('settings')}}><i
-                                            class="far text-muted fa-fw fa-cog"></i> Settings</a>
+                                <router-link class="dropdown-item" to="/settings"><i
+                                            class="far text-muted fa-fw fa-cog"></i> Settings</router-link>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{Route('logout')}}"><i
                                             class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
