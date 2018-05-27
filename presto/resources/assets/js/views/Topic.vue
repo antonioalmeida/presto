@@ -191,7 +191,7 @@
                 if (!this.topic.questions)
                     return [];
 
-                return this.topic.questions.sort((a, b) => {
+                return this.topic.questions.slice().sort((a, b) => {
                     return a.date < b.date;
                 })
             },
@@ -200,7 +200,7 @@
                 if (!this.topic.questions)
                     return [];
 
-                return this.topic.questions.sort((a, b) => {
+                return this.topic.questions.slice().sort((a, b) => {
                     return a.date > b.date;
                 })
             },
@@ -209,11 +209,10 @@
                 if (!this.topic.questions)
                     return [];
 
-                return this.topic.questions.sort((a, b) => {
+                return this.topic.questions.slice().sort((a, b) => {
                     return a.rating < b.rating;
                 })
             }
         }
     }
 </script>
-
