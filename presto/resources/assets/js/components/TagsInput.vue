@@ -16,8 +16,8 @@
                 v-model="input"
                 @keydown.enter.prevent="tagFromInput"
                 @keydown.8="removeLastTag"
-                @keydown.down="nextSearchResult"
-                @keydown.up="prevSearchResult"
+                @keydown.right="nextSearchResult"
+                @keydown.left="prevSearchResult"
                 @keyup.esc="ignoreSearchResults"
                 @keyup="searchTag"
                 @value="tags">
