@@ -31,7 +31,13 @@ trait Follow
     public function follow(Member $member)
     {
         if (!$this->isFollowing($member) && $this->id != $member->id) {
-            $member->notify(new MemberFollowed($this));
+            $notifications_self = $member->notifications
+                ->where('data.follower_id', $this->id)
+                ->where('type', 'App\Notifications\MemberFollowed');
+
+            if($notifications_self->isEmpty()){
+                $member->notify(new MemberFollowed($this));
+            }
 
             return $this->followings()->attach($member);
         }
