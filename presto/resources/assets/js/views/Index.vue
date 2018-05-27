@@ -30,7 +30,7 @@
                                                 <div class="input-group-text"><i class="far fa-user"></i></div>
                                             </div>
                                             <input v-model="username" type="text" class="form-control"
-                                                   id="inlineFormInputGroup" placeholder="Your Username">
+                                                   placeholder="Your Username">
                                         </div>
 
                                         <div class="input-group mb-2">
@@ -38,7 +38,7 @@
                                                 <div class="input-group-text"><i class="far fa-at"></i></div>
                                             </div>
                                             <input v-model="email" type="text" class="form-control"
-                                                   id="inlineFormInputGroup" placeholder="your@email.com">
+                                                   placeholder="your@email.com">
                                         </div>
 
                                         <div class="input-group mb-2">

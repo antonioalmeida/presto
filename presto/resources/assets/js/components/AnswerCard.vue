@@ -1,5 +1,5 @@
 <template>
-    <div class="list-group-item list-group-item-action flex-column align-items-start">
+    <div @click.capture="onClickRedirect" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between flex-column mb-1">
 
             <h4 class="mb-3">{{ answer.question.title }}</h4>
@@ -70,7 +70,14 @@
             newTopic.encodedName = encodeURI(topic.name);
             return newTopic;
           })
+        },
+
+
+    methods: {
+        onClickRedirect: function() {
+            this.$router.push({path: '/questions/' + this.answer.question.id + '/answers/' + this.answer.id});
         }
+    },
 
     }
 </script>

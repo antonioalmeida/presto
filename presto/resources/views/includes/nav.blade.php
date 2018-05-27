@@ -19,11 +19,10 @@
                         </li>
                     </ul>
                     <div>
-                        <a href={{Route('login')}}>
-                            <button class="btn btn-link">Login</button>
+                        <a href="{{Route('login')}}"
+                            class="btn btn-link">Login
                         </a>
-                        <a href={{Route('signup')}}>
-                            <button class="btn btn-primary">Sign Up</button>
+                        <a href="{{Route('signup')}}" class="btn btn-primary">Sign Up
                         </a>
                     </div>
                 </div>

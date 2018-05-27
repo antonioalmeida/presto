@@ -1,9 +1,8 @@
 <template>
-    <div class="list-group-item list-group-item-action flex-column align-items-start">
+    <div @click.capture="onClickRedirect" class="list-group-item list-group-item-action flex-column align-items-start">
         <div class="d-flex w-100 justify-content-between flex-md-nowrap flex-wrap-reverse">
-          <router-link :to="'/questions/' + question.id" class="btn-link">
+
             <h4 class="mb-1 max-w-71">{{ question.title }}</h4>
-          </router-link>
 
             <small class="pb-1">
                 <router-link :to="'/profile/' + question.author.username" class="btn-link">
@@ -39,6 +38,12 @@
 
         data() {
             return {}
+        },
+
+        methods: {
+            onClickRedirect:function() {
+                this.$router.push({path: '/questions/' + this.question.id});
+            }
         }
     }
 </script>

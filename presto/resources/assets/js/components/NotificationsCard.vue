@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="'/' + notification.data['url']"
+    <div @click.capture="onClickRedirect"
                  class="list-group-item list-group-item-action flex-column align-items-start">
 
         <div class="notifications-card d-flex w-100 justify-content-between flex-wrap">
@@ -62,7 +62,7 @@
         </div>
 
 
-    </router-link>
+    </div>
 </template>
 
 <script>
@@ -74,6 +74,14 @@
 
         data() {
             return {}
+        },
+
+
+    methods: {
+        onClickRedirect:function() {
+            this.$router.push({path: '/' + this.notification.data['url']});
         }
+    }
+
     }
 </script>
