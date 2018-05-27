@@ -28,7 +28,7 @@
                                         :classesDefault="'btn btn-outline-light'"
                                         :classesActive="'btn btn-danger'"
                                         :path="'/api/topic/' + topic.name + '/toggle-follow'"
-                                        :data="followData" @update:data="value => topic.nrFollowers = value.no_followers"
+                                        :data="followData" @update:data="value => topic.nrFollowers = value.no_follow"
                                 >
                                 </follow-button>
 
