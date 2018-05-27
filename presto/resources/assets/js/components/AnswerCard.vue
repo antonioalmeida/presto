@@ -65,7 +65,7 @@
 
         created() {
           //So whitespaces are encoded in the href attribute
-          this.topicsEncoded = this.answer.topics.map(topic => {
+          this.topicsEncoded = this.answer.question.topics.map(topic => {
             let newTopic = topic;
             newTopic.encodedName = encodeURI(topic.name);
             return newTopic;
