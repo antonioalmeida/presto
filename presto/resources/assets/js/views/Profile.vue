@@ -90,7 +90,7 @@
             </div>
         </section>
 
-        <router-view></router-view>
+        <router-view :data="followData" @update:data="value => user.nrFollowing = value.no_follow"></router-view>
 
     </main>
 
@@ -112,6 +112,7 @@
         data() {
             return {
                 user: {},
+                followData: null,
             }
         },
 

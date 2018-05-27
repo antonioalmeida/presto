@@ -151,7 +151,7 @@ class ProfileController extends Controller
         else
             $member->follow($follower);
 
-        return ['following' => $member->isFollowing($follower), 'no_followings' => $member->followings->count()];
+        return ['following' => $member->isFollowing($follower), 'no_follow' => $member->followings->count()];
     }
 
     public function settings()

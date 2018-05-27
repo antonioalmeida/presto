@@ -22,6 +22,7 @@
                         :classesDefault="'btn btn-sm btn-primary'"
                         :classesActive="'btn btn-sm btn-outline-primary'"
                         :path="'/api/member/' + member.username + '/toggle-follow'"
+                        @update:data="value => this.$parent.$emit('update:data', value)"
                 >
                 </follow-button>
 
