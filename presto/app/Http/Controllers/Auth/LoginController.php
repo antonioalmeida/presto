@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Member;
+use App\Rules\BannedMember;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
@@ -67,6 +68,14 @@ class LoginController extends Controller
             'provider' => $provider,
             'provider_id' => $user->id,
             'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $user->email
+        ]);
+    }
+
+    protected function validateLogin($request)
+    {
+        $this->validate($request, [
+            $this->username() => ['required','string', new BannedMember],
+            'password' => 'required|string',
         ]);
     }
 }
