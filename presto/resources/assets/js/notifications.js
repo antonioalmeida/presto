@@ -25,6 +25,8 @@ const NOTIFICATION_TYPES = {
     mention: 'App\\Notifications\\MemberMention',
 };
 
+var NOTIFICATION_TEXT_LIMIT = 20;
+
 //${Laravel.userId}
 
 $(document).ready(function () {
@@ -46,8 +48,8 @@ $(document).ready(function () {
 function addNotifications(newNotifications, target) {
     notifications = _.concat(notifications, newNotifications);
     // show only last 5 notifications
-    notifications.slice(0, 5);
-    showNotifications(notifications, target);
+    let sliced = notifications.slice(0, 5);
+    showNotifications(sliced, target);
 }
 
 function showNotifications(notifications, target) {
@@ -97,7 +99,7 @@ function makeNotificationText(notification) {
         const title = notification.data.question_title;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> answered your question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
     } else if (notification.type === NOTIFICATION_TYPES.newComment) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
@@ -105,21 +107,21 @@ function makeNotificationText(notification) {
         const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> left a comment on your ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
     } else if (notification.type === NOTIFICATION_TYPES.answerRated) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your answer to the question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
     } else if (notification.type === NOTIFICATION_TYPES.questionRated) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
     } else if (notification.type === NOTIFICATION_TYPES.commentRated) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
@@ -127,7 +129,7 @@ function makeNotificationText(notification) {
         const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
     } else if (notification.type === NOTIFICATION_TYPES.mention) {
         const name = notification.data.follower_name;
         const picture = notification.data.follower_picture;
@@ -135,7 +137,7 @@ function makeNotificationText(notification) {
         const type = notification.data.type_comment;
         text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> mentioned you on their comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
-            + title;
+            + (title.length < NOTIFICATION_TEXT_LIMIT ? title : title.substring(0, NOTIFICATION_TEXT_LIMIT) + '...');
 
     }
 
