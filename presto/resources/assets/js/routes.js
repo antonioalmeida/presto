@@ -66,6 +66,12 @@ let routes = [
     },
 
     {
+        path: '/settings',
+        component: require('./views/Settings'),
+        props: true,
+    },
+
+    {
         path: '/questions/:q_id/answers/:a_id',
         component: require('./views/Answer'),
         props: true,
@@ -115,4 +121,3 @@ export default new VueRouter({
         return {x: 0, y: 0};
     }
 });
-
