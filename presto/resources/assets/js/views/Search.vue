@@ -1,99 +1,102 @@
 <template>
+
     <main class="grey-background mt-5 mb-2">
-        <section class="container wrapper mt-5">
-            <div class="row">
-                <div class="col-md-3 mt-2">
-                    <div class="offcanvas-collapse" :class="{ open: isOffcanvasOpen }">
-                        <div>
-                            <h4 class="pt-4">Type</h4>
-                            <div class="dropdown-divider"></div>
+        <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="0">
+            <section class="container wrapper mt-5">
+                <div class="row">
+                    <div class="col-md-3 mt-2">
+                        <div class="offcanvas-collapse" :class="{ open: isOffcanvasOpen }">
+                            <div>
+                                <h4 class="pt-4">Type</h4>
+                                <div class="dropdown-divider"></div>
 
-                            <b-form-radio-group class="text-muted" v-model="type"
-                                                :options="typeOptions"
-                                                stacked
-                                                name="typeRadio">
-                            </b-form-radio-group>
+                                <b-form-radio-group class="text-muted" v-model="type"
+                                                    :options="typeOptions"
+                                                    stacked
+                                                    name="typeRadio">
+                                </b-form-radio-group>
 
-                        </div>
-
-                        <div>
-                            <h4 class="pt-4">Time</h4>
-                            <div class="dropdown-divider"></div>
-
-                            <b-form-radio-group class="text-muted" v-model="time"
-                                                :options="timeOptions"
-                                                stacked
-                                                name="timeRadio"
-                                                :disabled="!showSorting">
-                            </b-form-radio-group>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <h3>
-                            <small class="text-muted">Results for</small>
-                            {{ query }}
-                        </h3>
-                        <button @click="isOffcanvasOpen = !isOffcanvasOpen" class="btn btn-link text-mobile">
-                            <i class="far fa-fw fa-filter"></i> Filter
-                        </button>
-                    </div>
-
-                    <template v-if="results == null">
-                    </template>
-
-                    <h5 v-else-if="sortedResults.length === 0">
-                        <small> No results.</small>
-                    </h5>
-
-                    <template v-else>
-
-                        <nav v-if="showSorting">
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <a class="nav-item nav-link active" data-toggle="tab" role="tab" href=""
-                                   @click="sortOrder = 'newest'" aria-controls="nav-newest"
-                                   aria-selected="true">Newest</a>
-
-                                <a class="nav-item nav-link" id="nav-oldest-tab" href="" @click="sortOrder = 'oldest'"
-                                   data-toggle="tab" role="tab" aria-controls="nav-oldest"
-                                   aria-selected="false">Oldest</a>
-
-                                <a class="nav-item nav-link" id="nav-rating-tab" href="" @click="sortOrder = 'rating'"
-                                   data-toggle="tab" role="tab" aria-controls="nav-rating"
-                                   aria-selected="false">Rating</a>
                             </div>
-                        </nav>
 
-                        <div class="list-group">
+                            <div>
+                                <h4 class="pt-4">Time</h4>
+                                <div class="dropdown-divider"></div>
 
-                            <template v-if="type == 'questions'">
-                                <question-card :key="question.id" v-for="question in sortedResults"
-                                               :question="question"></question-card>
-                            </template>
+                                <b-form-radio-group class="text-muted" v-model="time"
+                                                    :options="timeOptions"
+                                                    stacked
+                                                    name="timeRadio"
+                                                    :disabled="!showSorting">
+                                </b-form-radio-group>
 
-                            <template v-if="type == 'answers'">
-                                <answer-card :key="answer.id" v-for="answer in sortedResults"
-                                             :answer="answer"></answer-card>
-                            </template>
-
-                            <template v-if="type == 'members'">
-                                <member-card :key="member.id" v-for="member in sortedResults"
-                                             :member="member"></member-card>
-                            </template>
-
-                            <template v-if="type == 'topics'">
-                                <topic-card :key="topic.id" v-for="topic in sortedResults" :topic="topic"></topic-card>
-                            </template>
-
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="d-flex justify-content-between flex-wrap">
+                            <h3>
+                                <small class="text-muted">Results for</small>
+                                {{ query }}
+                            </h3>
+                            <button @click="isOffcanvasOpen = !isOffcanvasOpen" class="btn btn-link text-mobile">
+                                <i class="far fa-fw fa-filter"></i> Filter
+                            </button>
                         </div>
 
-                    </template>
+                        <template v-if="results == null">
+                        </template>
 
+                        <h5 v-else-if="sortedResults.length === 0">
+                            <small> No results.</small>
+                        </h5>
+
+                        <template v-else>
+
+                            <nav v-if="showSorting">
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    <a class="nav-item nav-link active" data-toggle="tab" role="tab" href=""
+                                       @click="sortOrder = 'newest'" aria-controls="nav-newest"
+                                       aria-selected="true">Newest</a>
+
+                                    <a class="nav-item nav-link" id="nav-oldest-tab" href="" @click="sortOrder = 'oldest'"
+                                       data-toggle="tab" role="tab" aria-controls="nav-oldest"
+                                       aria-selected="false">Oldest</a>
+
+                                    <a class="nav-item nav-link" id="nav-rating-tab" href="" @click="sortOrder = 'rating'"
+                                       data-toggle="tab" role="tab" aria-controls="nav-rating"
+                                       aria-selected="false">Rating</a>
+                                </div>
+                            </nav>
+
+                            <div class="list-group">
+
+                                <template v-if="type == 'questions'">
+                                    <question-card :key="question.id" v-for="question in sortedResults"
+                                                   :question="question"></question-card>
+                                </template>
+
+                                <template v-if="type == 'answers'">
+                                    <answer-card :key="answer.id" v-for="answer in sortedResults"
+                                                 :answer="answer"></answer-card>
+                                </template>
+
+                                <template v-if="type == 'members'">
+                                    <member-card :key="member.id" v-for="member in sortedResults"
+                                                 :member="member"></member-card>
+                                </template>
+
+                                <template v-if="type == 'topics'">
+                                    <topic-card :key="topic.id" v-for="topic in sortedResults" :topic="topic"></topic-card>
+                                </template>
+
+                            </div>
+
+                        </template>
+
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
     </main>
 
 </template>
@@ -124,12 +127,14 @@
         watch: {
             type: function () {
                 this.results = null;
+                this.currDataChunk = 0; 
                 this.loader = this.$loading.show();
                 this.getResults(this.query);
             },
 
             query: function () {
                 this.results = null;
+                this.currDataChunk = 0;
                 this.loader = this.$loading.show();
                 this.getResults(this.query);
             }
@@ -138,6 +143,9 @@
         data() {
             return {
                 results: null,
+                busy: false,
+                currDataChunk: 0,
+                allData: false,
 
                 // Active filters
                 type: 'questions',
@@ -175,16 +183,43 @@
 
                 axios.get(request, {
                     params: {
-                        type: this.type
+                        type: this.type,
+                        chunk: this.currDataChunk
                     }
                 })
                     .then(({data}) => {
-                        this.results = data;
+                        if(this.results == null)
+                            this.results = data.data;
+                        else
+                            this.joinArray(data.data);
+                        this.allData = data.last;
+                        this.busy = false;
                         this.loader.hide();
                     })
                     .catch((error) => {
                         console.log(error);
                     });
+            },
+
+            loadMore: function(query){
+                if(this.allData){
+                    console.log("no more");
+                    this.busy = true;
+                    return
+                }
+
+                console.log("Loading More");
+                this.busy = true;
+                this.loader = this.$loading.show();
+                this.currDataChunk++;
+
+                this.getResults(this.query);
+                //setTimeOut(function() { self.busy = false; },5000);
+            },
+
+            joinArray: function(data){
+                for(let i=0;i<data.length;i++)
+                    this.results.splice(this.results.length,0,data[i]);
             }
         },
 
@@ -228,6 +263,9 @@
 
                 if (!this.results)
                     return null;
+
+                console.log(this.results);
+
 
                 let limitDate;
 
