@@ -14,7 +14,7 @@ class AnswerRated extends Notification implements ShouldQueue
     use Queueable;
 
     public $member;
-    public $question;
+    public $answer;
     public $rating;
 
     /**
