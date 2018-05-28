@@ -108,12 +108,14 @@
                         this.$alerts.addError(response.data.message);
 
                         let errors = response.data.errors;
+                        let messages = [];
                         for (let key in errors) {
                             for (let message of errors[key]) {
-                                console.log(message);
-                                this.$alerts.addError(message);
+                                messages.push(message);
                             }
                         }
+                        this.$alerts.addArrayError(messages);
+
                     });
             },
 
