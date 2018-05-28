@@ -119,22 +119,16 @@
                     'password_confirmation': this.password_confirmation,
                 })
                     .then(({data}) => {
-                        console.log(data);
                         // this.$router.push({path: '/'});
-                        window.location.href = '/';
-                        this.$alerts.addSuccess('Recovery password successfully!');
-                    })
-                    .catch(({response}) => {
-                        console.log(response);
-                        // this.$alerts.addError(response.data.message);
+                        if(data.response.data != null){
+                            this.$alerts.addSuccess(data.response.data);
+                            // window.location.href = '/';
 
-                        // let errors = response.data.errors;
-                        // for(let key in errors){
-                        //     for(let message of errors[key]){
-                        //         console.log(message);
-                        //         this.$alerts.addError(message);
-                        //     }
-                        // }
+                        } else if(data.response.error != null){
+                            this.$alerts.addError(data.response.error);
+                        }
+                    })
+                    .catch(({error}) => {
                     });
             },
 
