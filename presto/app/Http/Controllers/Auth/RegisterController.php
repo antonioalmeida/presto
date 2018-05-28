@@ -69,7 +69,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $data['username']
+            'profile_picture' => 'http://identicon.org/?t=' . $data['username'] . '&s=256'
         ]);
 
     }
