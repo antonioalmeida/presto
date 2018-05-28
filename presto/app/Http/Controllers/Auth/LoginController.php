@@ -65,7 +65,8 @@ class LoginController extends Controller
             'username' => $user->name,
             'email' => $user->email,
             'provider' => $provider,
-            'provider_id' => $user->id
+            'provider_id' => $user->id,
+            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $user->email
         ]);
     }
 }
