@@ -4,7 +4,6 @@
   height: 0;
   padding: 0;
   margin-top: 0.5em;
-  border: 0;
   transition: width 0.5s ease-in-out;
 }
 
@@ -14,7 +13,7 @@
   height: 2em;
 }
 
-@media (max-width: 768px){
+@media (max-width: 768px) {
   #nav-search-bar.open {
     width: 5.5em;
   }
@@ -25,9 +24,9 @@
     width: 10em;
     padding: 0.25em;
     height: 2em;
-    border-style: solid;
-    border-width: 1px;
-    border-color: $gray-300;
   }
 }
 
+#notifications.has-notifications {
+  color: #bf5329
+}

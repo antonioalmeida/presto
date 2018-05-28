@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Member;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Validator;
+use App\Member;
+use App\Rules\BannedMember;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -42,14 +43,14 @@ class RegisterController extends Controller
     /**
      * Get a validator for an incoming registration request.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'username' => 'required|string|max:255|unique:member',
-            'email' => 'required|string|email|max:255|unique:member|unique:admin',
+            'username' => 'required|string|alpha_dash|max:20|unique:member',
+            'email' => ['required', 'string', 'email','max:255','unique:member','unique:admin', new BannedMember],
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -57,17 +58,19 @@ class RegisterController extends Controller
     /**
      * Create a new user instance after a valid registration.
      *
-     * @param  array  $data
+     * @param  array $data
      * @return \App\Member
      */
     protected function create(array $data)
     {
+
         return Member::create([
-                'name' => $data['username'],
-                'username' => $data['username'],
-                'email' => $data['email'],
-                'password' => bcrypt($data['password']),
+            'name' => $data['username'],
+            'username' => $data['username'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $data['username']
         ]);
-       
+
     }
 }

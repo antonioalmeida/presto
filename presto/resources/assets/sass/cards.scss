@@ -1,78 +1,78 @@
 .list-group-item-action:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 .list-group-item {
-	.notifications-card a {
-		color: $body-color !important;
-	}
+  .notifications-card a {
+    color: $body-color !important;
+  }
 
-	.answer-image-preview img {
-		max-width: 100%;
-		height: auto;
-		max-height: 8em;
-	}
+  .answer-image-preview img {
+    max-width: 100%;
+    height: auto;
+    max-height: 8em;
+  }
 
-	@media (max-width: 768px) {
-		.user-preview {
-			display: none;
-		}
-	}
+  @media (max-width: 768px) {
+    .user-preview {
+      display: none;
+    }
+  }
 
-	// Make a button look and behave like a link
-	.btn-link {
-		border: $btn-border-width solid transparent;
-		color: inherit;
+  // Make a button look and behave like a link
+  .btn-link {
+    border: $btn-border-width solid transparent;
+    color: inherit;
 
-		@include hover {
-			color: inherit;
-		}
-	}
+    @include hover {
+      color: inherit;
+    }
+  }
 }
 
 .modal {
-	.modal-content {
-		border-top-width: 0.5em;
-		border-top-color: $primary;
-	}
+  .modal-content {
+    border-top-width: 0.5em;
+    border-top-color: $primary;
+  }
 
-	.main-question {
-		width: 100%;
-		font-size: $font-size-base*1.5;
-		padding: 0.5em;
-		border: none;
+  .main-question {
+    width: 100%;
+    font-size: $font-size-base*1.5;
+    padding: 0.5em;
+    border: none;
 
-		&::placeholder{
-			color: $gray-300;
-		}
+    &::placeholder {
+      color: $gray-300;
+    }
 
-		&:focus{
-			outline: none;
-		}
-	}
+    &:focus {
+      outline: none;
+    }
+  }
 }
 
 .nav-tabs {
-	border-bottom: 0;
+  border-bottom: 0;
 
-	.nav-item {
-		border-top-width: 0.25em;
-	}
+  .nav-item {
+    border-top-width: 0.25em;
+  }
 
-	.active {
-		border-top-color: $primary !important;
-	}
+  .active {
+    border-top-color: $primary !important;
+  }
 
-	.nav-link {
-		color: $gray-600;
+  .nav-link {
+    color: $gray-600;
 
-		&:hover {
-			color: $body-color;
-		}
+    &:hover {
+      color: $body-color;
+    }
 
-	}
+  }
 }
 
 .transparent-input {
-	background-color: transparent;
+  background-color: transparent;
 }

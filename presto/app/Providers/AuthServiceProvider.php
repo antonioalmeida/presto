@@ -2,16 +2,14 @@
 
 namespace App\Providers;
 
-use App\Member;
-use App\Question;
 use App\Answer;
 use App\Comment;
-use App\Policies\MemberPolicy;
-use App\Policies\QuestionPolicy;
+use App\Member;
 use App\Policies\AnswerPolicy;
 use App\Policies\CommentPolicy;
-
-use Illuminate\Support\Facades\Gate;
+use App\Policies\MemberPolicy;
+use App\Policies\QuestionPolicy;
+use App\Question;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider

@@ -1,6 +1,7 @@
 <?php
 
-function print_number_count($number) {
+function print_number_count($number)
+{
     $precision = 0;
 
 // Setup default $divisors if not provided

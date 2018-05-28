@@ -1,236 +1,264 @@
 .navbar-nav {
-	.profile-photo {
-		margin-bottom: 0.25em;
-	}
+  .profile-photo {
+    margin-bottom: 0.25em;
+  }
 
-	.nav-link {
-		font-size: $font-size-base*1.3;
-	}
+  .nav-link {
+    font-size: $font-size-base*1.3;
+  }
 }
 
 .jumbotron {
-	background-image: url('../img/background.svg');
+  background-image: url('../img/background.svg');
 
-	h1, h2, h4, h5 {
-		color: $white; }
+  h1, h2, h4, h5 {
+    color: $white;
+  }
 
-	h3  {
-		color: $white;
-		font-weight: normal; }
+  h3 {
+    color: $white;
+    font-weight: normal;
+  }
 }
 
 .text-shadow {
-	text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2) !important;
 }
 
 .text-white {
-	color: $white;
+  color: $white;
+}
+
+.text-strong {
+  font-weight: 500;
 }
 
 .alert-bottom {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: fixed;
-    bottom: 1em;
-    left: 50%;
-    transform: translate(-50%, 0);
-    margin: 1.5em;
-    padding: 1em;
-    border-radius: 16px;
-    animation: slideUp .5s;
-    animation-timing-function: ease-out;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 1em;
+  left: 50%;
+  transform: translate(-50%, 0);
+  margin: 1.5em;
+  padding: 1em;
+  border-radius: 16px;
+  animation: slideUp .5s;
+  animation-timing-function: ease-out;
+  z-index: 1000;
 
-    .alert-message {
-    	flex: 2 0 0;
-    	padding-right: 2em;
-    }
+  .alert-message {
+    flex: 2 0 0;
+    padding-right: 2em;
+  }
 
-    .close-button {
-    	flex: 1 0 1;
-
-    	&:hover {
-    		cursor: pointer;
-    	}
-    }
 }
 
 @keyframes slideUp {
-    from {
-    	bottom: 0;
-    	opacity: 0.3;
-    }
+  from {
+    bottom: 0;
+    opacity: 0.3;
+  }
 
-    to {
-    	bottom: 1em;
-    	opacity: 1;
-    }
+  to {
+    bottom: 1em;
+    opacity: 1;
+  }
 }
 
 .profile-jumbotron {
-	background-image: url('../img/background.svg');
+  background-image: url('../img/background.svg');
 
-	.bio {
-		color: $white; }
+  .bio {
+    color: $white;
+  }
 
-	h4 {
-		color: $white;
-		font-weight: normal; }
+  h4 {
+    color: $white;
+    font-weight: normal;
+  }
 
-	small {
-		font-weight: normal; }
+  small {
+    font-weight: normal;
+  }
 
-	.lead {
-		color: $white; }
+  .lead {
+    color: $white;
+  }
 }
 
 html {
-	height: 100%; }
+  height: 100%;
+}
 
-body {
-	height: 100%;
-	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 main {
-	flex: 1;
+  flex: 1;
 }
 
 .grey-background {
-	background-color: $gray-100;
+  background-color: $gray-100;
 }
 
 .white-background {
-	background-color: $white;
+  background-color: $white;
 }
 
 .img-background {
-	background-image: url('../img/background.svg');
+  background-image: url('../img/background.svg');
 }
 
 footer {
-	background-color: $white;
-	padding: 1em;
+  background-color: $white;
+  padding: 1em;
 
-	border: 1px solid rgba(0, 0, 0, 0.1);
-	border-width: 1px 0 0 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-width: 1px 0 0 0;
+  flex-shrink: 0;
 }
 
 .side-menu {
-	margin-top: 2.45em;
+  margin-top: 2.45em;
 }
 
 .no-bullets {
-	list-style: none;
+  list-style: none;
 }
 
 .short-padding {
-	.list-group-item {
-		padding: 0.75em 0.25em;
-	}
+  .list-group-item {
+    padding: 0.75em 0.25em;
+  }
 }
 
 .edit-profile {
-	input {
-		border: none;
-		padding-left: 0.2em;
+  input {
+    border: none;
+    padding-left: 0.2em;
 
-		&:focus {
+    &:focus {
 
-		}
-	}
-	.input-h1 {
-		font-size: $h1-font-size; }
+    }
+  }
 
-	.input-h2 {
-		font-size: $h2-font-size; }
+  .input-h1 {
+    font-size: $h1-font-size;
+  }
 
-	.input-h3 {
-		font-size: $h3-font-size; }
+  .input-h2 {
+    font-size: $h2-font-size;
+  }
 
-	.input-h4 {
-		font-size: $h4-font-size; }
+  .input-h3 {
+    font-size: $h3-font-size;
+  }
 
-	.input-h5 {
-		font-size: $h5-font-size; }
+  .input-h4 {
+    font-size: $h4-font-size;
+  }
 
-	.input-h6 {
-		font-size: $h6-font-size; }
+  .input-h5 {
+    font-size: $h5-font-size;
+  }
+
+  .input-h6 {
+    font-size: $h6-font-size;
+  }
 
 }
 
 .text-collapse {
-	@media (max-width: 768px){
-		display: none;
-	}
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 
 .text-mobile {
-	@media (min-width: 768px){
-		display: none;
-	}
+  @media (min-width: 768px) {
+    display: none;
+  }
 }
 
 .h2-adapt {
-	@media (max-width: 768px){
-		font-size: $h3-font-size;
-	}
+  @media (max-width: 768px) {
+    font-size: $h3-font-size;
+  }
 }
 
 .h4-adapt {
-	@media (max-width: 768px){
-		font-size: $h5-font-size;
-	}
+  @media (max-width: 768px) {
+    font-size: $h5-font-size;
+  }
 }
 
 .h5-adapt {
-	@media (max-width: 768px){
-		font-size: $h6-font-size;
-	}
+  @media (max-width: 768px) {
+    font-size: $h6-font-size;
+  }
 }
 
 .lead-adapt {
-	@media (max-width: 768px){
-		font-size: $font-size-base;
-	}
+  @media (max-width: 768px) {
+    font-size: $font-size-base;
+  }
 }
 
 .profile-pic {
-	@media (max-width: 768px){
-		max-width: 100px;
-		max-height: 100px;
-	}
+  @media (max-width: 768px) {
+    max-width: 100px;
+    max-height: 100px;
+  }
 }
 
 .mobile-center {
-	@media (max-width: 768px){
-		text-align: center;
-	}
+  @media (max-width: 768px) {
+    text-align: center;
+  }
 }
 
 .max-w-70 {
-	max-width: 72.5%;
+  @media (min-width: 768px) {
+    max-width: 72.5%;
+  }
 }
 
 .btn-unfollow {
-	.after {
-		display: none;
-	}
+  &:hover, &:active {
+    border-color: $danger !important;
+    background-color: $danger;
+    color: $white;
+  }
+}
 
-	&:hover, &:active {
-		border-color: $danger !important;
-		background-color: $danger;
-		color: $white;
+.white-url {
+  &:hover {
+    text-decoration: none;
+    text-shadow: 0 3px 3px rgba(170, 170, 170, 0.4) !important;
+  }
+}
 
-		.after {
-			display: inline-block;
-		}
+.tribute-container {
+  ul {
+    margin: 0;
+    margin-top: 2px;
+    padding: 0;
+    font-size: 14px !important;
 
-		.before {
-			display: none;
-		}
-	}
+    li, li.no-match {
+      padding: 5px 10px !important;
+      cursor: pointer;
+    }
+
+    li.highlight, li:hover {
+      background-color: $primary !important;
+      color: white;
+    }
+  }
 }
 
