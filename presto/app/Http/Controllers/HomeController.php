@@ -20,15 +20,16 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent','getRecommendedContent', 'error']);
+        $this->middleware('auth')->except(['getTopMembers', 'getTrendingTopics', 'isLoggedIn', 'getNewContent', 'getTopContent', 'getRecommendedContent', 'error']);
     }
 
-    public function isLoggedIn(){
+    public function isLoggedIn()
+    {
         $isLoggedIn = false;
         $member = Auth::user();
         if ($member != null)
             $isLoggedIn = true;
-           
+
         return compact('isLoggedIn');
     }
 
@@ -44,10 +45,10 @@ class HomeController extends Controller
             ->addSelect(DB::raw("'answer' as type"));
 
         $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
-        
+
         $data = $data->map(function ($item, $key) {
-            if($item->type == 'question'){
-                $item->question = new QuestionResource(Question::find($item->id)); 
+            if ($item->type == 'question') {
+                $item->question = new QuestionResource(Question::find($item->id));
             } else {
                 $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
@@ -70,8 +71,8 @@ class HomeController extends Controller
         $data = $query1->union($query2)->orderBy('date', 'DESC')->limit(10)->get();
 
         $data = $data->map(function ($item, $key) {
-            if($item->type == 'question'){
-                $item->question = new QuestionResource(Question::find($item->id)); 
+            if ($item->type == 'question') {
+                $item->question = new QuestionResource(Question::find($item->id));
             } else {
                 $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
@@ -84,10 +85,10 @@ class HomeController extends Controller
 
     public function getRecommendedContent()
     {
-        if(Auth::user() == null){
+        if (Auth::user() == null) {
             return [];
         }
-        
+
         $user_id = Auth::user()->id;
 
         $query1 = DB::table('question')
@@ -103,8 +104,8 @@ class HomeController extends Controller
         $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
 
         $data = $data->map(function ($item, $key) {
-            if($item->type == 'question'){
-                $item->question = new QuestionResource(Question::find($item->id)); 
+            if ($item->type == 'question') {
+                $item->question = new QuestionResource(Question::find($item->id));
             } else {
                 $item->answer = new AnswerCardResource(Answer::find($item->id));
             }
@@ -119,14 +120,14 @@ class HomeController extends Controller
     public function getTrendingTopics()
     {
         $data = DB::table('topic')
-        ->select(DB::raw('count(*) as nrTimes, name'))
-        ->join('question_topic', function ($join) {
-            $join->on('topic.id', '=', 'question_topic.topic_id');
-        })
-        ->groupBy('name')
-        ->orderByRaw('nrTimes DESC')
-        ->limit(5)
-        ->get();
+            ->select(DB::raw('count(*) as nrTimes, name'))
+            ->join('question_topic', function ($join) {
+                $join->on('topic.id', '=', 'question_topic.topic_id');
+            })
+            ->groupBy('name')
+            ->orderByRaw('nrTimes DESC')
+            ->limit(5)
+            ->get();
 
         return $data;
     }
@@ -134,7 +135,7 @@ class HomeController extends Controller
     public function getTopMembers()
     {
         $data = \App\Member::
-            orderBy('score', 'DESC')
+        orderBy('score', 'DESC')
             ->limit(5)
             ->get();
 

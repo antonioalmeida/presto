@@ -1,12 +1,12 @@
 <template>
 
-    <main  class="mt-5">
+    <main class="mt-5">
 
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
-                     <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
-                    <h1>{{answer.question.title}}</h1>
+                    <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
+                        <h1>{{answer.question.title}}</h1>
                     </router-link>
                     <h5>
                         <small class="text-muted">
@@ -47,7 +47,7 @@
 
         name: 'Answer',
 
-         created() {
+        created() {
             document.title = "Answer | Presto";
         },
 
@@ -81,7 +81,7 @@
         },
 
         watch: {
-            '$route' (to, from) {
+            '$route'(to, from) {
                 this.loader = this.$loading.show();
                 this.getData(to.params.q_id, to.params.a_id);
             }

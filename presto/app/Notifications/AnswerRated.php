@@ -2,15 +2,14 @@
 
 namespace App\Notifications;
 
-use App\Member;
-use App\Answer;
 use App\AnswerRating;
+use App\Member;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 
-class AnswerRated extends Notification
+class AnswerRated extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -81,7 +80,7 @@ class AnswerRated extends Notification
             'answer_id' => $this->answer->id,
             'question_title' => $this->answer->question->title,
             'url' => 'questions/' . $this->answer->question->id
-                    . '/answers/' . $this->answer->id,
+                . '/answers/' . $this->answer->id,
             'rate' => $this->rating->rate,
         ];
     }

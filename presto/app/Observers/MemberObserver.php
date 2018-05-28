@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\Member;
 use App\Mail\Welcome;
+use App\Member;
 
 
 class MemberObserver

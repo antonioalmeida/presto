@@ -9,7 +9,7 @@
 @section('content')
 
     <body class="grey-background">
-    <main >
+    <main>
         <div class="container pt-1 mt-2">
             <div class="row">
                 <div class="col-md-2 mt-2">

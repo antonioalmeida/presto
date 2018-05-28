@@ -1,6 +1,6 @@
 <template>
 
-    <main  class="mt-5">
+    <main class="mt-5">
 
         <section class="container pt-5">
             <div class="row">
@@ -31,11 +31,11 @@
                         <input v-model="contentInput" type="text" class="form-control input-h5 mt-2">
 
                         <div class="mt-3">
-                          <tags-input element-id="tags"
-                          v-model="tagsInput"
-                          :typeahead="true"
-                          :placeholder="'Add topics...'"
-                          ></tags-input>
+                            <tags-input element-id="tags"
+                                        v-model="tagsInput"
+                                        :typeahead="true"
+                                        :placeholder="'Add topics...'"
+                            ></tags-input>
 
                             <div class="ml-1 mt-3">
                                 <button @click="" class="btn btn-light">Save</button>
@@ -65,7 +65,9 @@
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
 
-                                <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i class="far fa-fw fa-unlock-alt"></i> Reopen</button>
+                                <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i
+                                        class="far fa-fw fa-unlock-alt"></i> Reopen
+                                </button>
                             </div>
 
 
@@ -102,13 +104,14 @@
                         </b-collapse>
 
                         <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-                          <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
+                            <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
                         </b-collapse>
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
 
-                    <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question" v-on:solve-question="solve(answer.id)"
+                    <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question"
+                                   v-on:solve-question="solve(answer.id)"
                                    :key="answer.id"></AnswerPartial>
 
                 </div>
@@ -210,12 +213,12 @@
                     .then(({data}) => {
                         this.answers = data;
                         //Guarantee that, if there is a chosen answer, it comes first
-                        if(this.question.solved)
-                          this.answers.sort((a,b) => {
-                            if(a.is_chosen_answer) return -1;
-                            if(b.is_chosen_answer) return 1;
-                            return a.date - b.date;
-                          });
+                        if (this.question.solved)
+                            this.answers.sort((a, b) => {
+                                if (a.is_chosen_answer) return -1;
+                                if (b.is_chosen_answer) return 1;
+                                return a.date - b.date;
+                            });
 
                         this.loader.hide();
                     })
@@ -246,12 +249,12 @@
 
             },
 
-            solve: function(chosenAnswerId) {
+            solve: function (chosenAnswerId) {
                 axios.post('/api/questions/' + this.question.id + '/solve', {
                     'answerId': chosenAnswerId
                 })
                     .then(({data}) => {
-                      window.location.reload();
+                        window.location.reload();
                     })
                     .catch(({response}) => {
                         this.errors = response.data.errors;
@@ -259,16 +262,15 @@
                     });
             },
 
-            unsolve: function() {
-              axios.post('/api/questions/' + this.question.id + '/unsolve', {
-              })
-                  .then(({data}) => {
-                    window.location.reload();
-                  })
-                  .catch(({response}) => {
-                      this.errors = response.data.errors;
-                      console.log(this.errors);
-                  });
+            unsolve: function () {
+                axios.post('/api/questions/' + this.question.id + '/unsolve', {})
+                    .then(({data}) => {
+                        window.location.reload();
+                    })
+                    .catch(({response}) => {
+                        this.errors = response.data.errors;
+                        console.log(this.errors);
+                    });
             }
         }
     }

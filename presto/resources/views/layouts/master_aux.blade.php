@@ -31,8 +31,8 @@
     <script defer src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script defer src="{{ asset('js/app.js') }}"></script>
 
-     <script>
-    window.Laravel = {!! json_encode([
+    <script>
+        window.Laravel = {!! json_encode([
       'csrfToken' => csrf_token(),
     ]) !!};
     </script>
@@ -46,12 +46,12 @@
 
 </head>
 <body>
-    <div id="app">
+<div id="app">
 
-        <router-view></router-view>
+    <router-view></router-view>
 
-        <alerts></alerts>
-    </div>
+    <alerts></alerts>
+</div>
 </body>
 
 </html>

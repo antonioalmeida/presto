@@ -42,24 +42,24 @@ class QuestionController extends Controller
         request()->user()->questions()->save($question);
 
         $tags = request('tags');
-        DB::transaction(function() use ($tags, $question) {
-          foreach ($tags as $tag) {
-              $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
+        DB::transaction(function () use ($tags, $question) {
+            foreach ($tags as $tag) {
+                $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
 
-              if ($topic->isEmpty()) {
-                  $newTopic = new Topic();
-                  $newTopic->name = $tag;
-                  $newTopic->picture = 'https://dummyimage.com/250/000000/ffffff.png&text=' . $tag;
-                  $newTopic->save();
-                  $question->topics()->attach($newTopic);
-              } else {
-                  try {
-                      $question->addTopic($topic->first());
-                  } catch (\Illuminate \Database\QueryException $e) {
+                if ($topic->isEmpty()) {
+                    $newTopic = new Topic();
+                    $newTopic->name = $tag;
+                    $newTopic->picture = 'https://dummyimage.com/250/000000/ffffff.png&text=' . $tag;
+                    $newTopic->save();
+                    $question->topics()->attach($newTopic);
+                } else {
+                    try {
+                        $question->addTopic($topic->first());
+                    } catch (\Illuminate \Database\QueryException $e) {
 
-                  }
-              }
-          }
+                    }
+                }
+            }
         });
 
         return new QuestionResource($question);
@@ -98,7 +98,8 @@ class QuestionController extends Controller
         return compact('upvotes', 'downvotes');
     }
 
-    public function solve(Question $question) {
+    public function solve(Question $question)
+    {
         $this->authorize('solve', $question);
 
         $this->validate(request(), [
@@ -113,7 +114,8 @@ class QuestionController extends Controller
         $answer->save();
     }
 
-    public function unsolve(Question $question) {
+    public function unsolve(Question $question)
+    {
         $this->authorize('solve', $question);
 
         $question->solved = false;

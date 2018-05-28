@@ -72,7 +72,7 @@ function makeNotification(notification) {
 // get the notification route based on it's type
 function routeNotification(notification) {
     var to = '?read=' + notification.id;
-        to = notification.data.url + to;
+    to = notification.data.url + to;
 
     return '/' + to;
 }
