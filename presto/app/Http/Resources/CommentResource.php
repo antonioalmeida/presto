@@ -3,6 +3,8 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\Resource;
+use Illuminate\Support\Facades\Auth;
+
 
 class CommentResource extends Resource
 {
@@ -16,7 +18,7 @@ class CommentResource extends Resource
     {
         $response = parent::toArray($request);
 
-        $response['author'] = new MemberPartialResource($this->member);
+        $response['author'] = new MemberCommentResource($this->member);
 
         return $response;
     }
