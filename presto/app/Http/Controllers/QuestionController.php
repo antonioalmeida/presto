@@ -49,7 +49,7 @@ class QuestionController extends Controller
                 if ($topic->isEmpty()) {
                     $newTopic = new Topic();
                     $newTopic->name = $tag;
-                    $newTopic->picture = 'https://dummyimage.com/250/000000/ffffff.png&text=' . $tag;
+                    $newTopic->picture = 'http://identicon.org/?t=' . $tag . '&s=256';
                     $newTopic->save();
                     $question->topics()->attach($newTopic);
                 } else {
