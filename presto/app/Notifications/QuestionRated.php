@@ -7,8 +7,9 @@ use App\QuestionRating;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class QuestionRated extends Notification
+class QuestionRated extends Notification implements ShouldQueue
 {
     use Queueable;
 

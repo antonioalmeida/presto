@@ -10,8 +10,9 @@ use App\Question;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
-class CommentRated extends Notification
+class CommentRated extends Notification implements ShouldQueue
 {
     use Queueable;
 
