@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AnswerResource;
 use App\Http\Resources\FullQuestionResource;
 use App\Http\Resources\QuestionResource;
@@ -70,6 +71,7 @@ class QuestionController extends Controller
         $this->authorize('rate', $question);
 
         $existing_rate = QuestionRating::withTrashed()->whereQuestionId($question->id)->whereMemberId(Auth::id())->first();
+        $finalValue = request('rate');
 
         if (is_null($existing_rate)) {
             QuestionRating::create([
@@ -81,6 +83,7 @@ class QuestionController extends Controller
             if (is_null($existing_rate->deleted_at)) {
                 if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
+                    $finalValue = 0;
                 } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
@@ -95,7 +98,14 @@ class QuestionController extends Controller
         $upvotes = $question->questionRatings->where('rate', 1)->count();
         $downvotes = $question->questionRatings->where('rate', -1)->count();
 
-        return compact('upvotes', 'downvotes');
+          $response = [
+            'isUpvoted' => $finalValue == 1 ? true : false,
+            'isDownvoted' => $finalValue == -1 ? true : false,
+            'upvotes' => $question->questionRatings->where('rate', 1)->count(),
+            'downvotes' => $question->questionRatings->where('rate', -1)->count()
+        ];
+
+        return $response;
     }
 
     public function solve(Question $question)

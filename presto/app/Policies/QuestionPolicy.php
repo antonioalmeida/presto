@@ -22,9 +22,9 @@ class QuestionPolicy
         return $user->id === $question->author_id || $user->is_moderator;
     }
 
-    public function rate(Member $user, Comment $comment)
+    public function rate(Member $user, Question $question)
     {
-        return $user->id !== $comment->author_id;
+        return $user->id !== $question->author_id;
     }
 
     public function solve(Member $user, Question $question)
