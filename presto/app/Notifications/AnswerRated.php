@@ -5,9 +5,9 @@ namespace App\Notifications;
 use App\AnswerRating;
 use App\Member;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class AnswerRated extends Notification implements ShouldQueue
 {
