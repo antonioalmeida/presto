@@ -43,14 +43,6 @@
                                 <div class="d-flex flex-column justify-content-around flex-wrap">
                                     <div class="d-flex p-1">
                                         <div class="mx-2">
-                                            <i class="far fa-fw fa-eye"></i>
-                                        </div>
-                                        <h6> {{ topic.nrViews }}
-                                            <small class="text-muted">answer views</small>
-                                        </h6>
-                                    </div>
-                                    <div class="d-flex p-1">
-                                        <div class="mx-2">
                                             <i class="far fa-fw fa-question"></i>
                                         </div>
                                         <h6>{{ topic.nrQuestions }}

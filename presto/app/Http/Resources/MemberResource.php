@@ -18,8 +18,6 @@ class MemberResource extends Resource
     {
         $response = parent::toArray($request);
         $response['score'] = $this->getScore();
-        
-        $response['answers_views'] = $this->getAnswerViews();
 
         $response['nrFollowers'] = $this->followers()->count();
         $response['nrFollowing'] = $this->followings()->count();

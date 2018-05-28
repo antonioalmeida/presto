@@ -23,7 +23,6 @@ class TopicResource extends Resource
         $response['nrQuestions'] = $this->questions()->count();
         $response['nrAnswers'] = $answerStats['number'];
         $response['related'] = $this->getRelatedTopics();
-        $response['nrViews'] = $answerStats['views'];
 
         $isFollowing = false;
         if (Auth::user() != null && Auth::user()->isFollowingTopic($request['topic']))

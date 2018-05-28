@@ -72,11 +72,6 @@ class Member extends Authenticatable
      * Queries
      */
 
-    public function getAnswerViews()
-    {
-        return print_number_count($this->answers->sum('views'));
-    }
-
     public function getScore()
     {
         return print_number_count($this->score);
