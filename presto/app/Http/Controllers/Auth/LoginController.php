@@ -63,11 +63,12 @@ class LoginController extends Controller
             return $authUser;
         }
         return Member::create([
-            'username' => $user->name,
+            'name' => $user->name,
+            'username' => $user->email,
             'email' => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id,
-            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $user->email
+            'profile_picture' => 'http://identicon.org/?t=' . $user->email . '&s=256'
         ]);
     }
 

@@ -95,7 +95,7 @@ CREATE TABLE country (
 
 CREATE TABLE member (
     id SERIAL NOT NULL,
-    username VARCHAR(20) NOT NULL,
+    username text NOT NULL,
     email VARCHAR(40) NOT NULL,
     password VARCHAR(60),
     remember_token VARCHAR(100),
