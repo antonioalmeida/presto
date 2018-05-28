@@ -81,19 +81,15 @@
                 })
                     .then(({data}) => {
                         // this.$router.push({path: '/'});
-                        // window.location.href = '/';
-                        this.$alerts.addSuccess('Recovery email successfully sended!');
-                    })
-                    .catch(({response}) => {
-                        this.$alerts.addError("Problem with sending recovery e-mail!");
+                        if(data.response.data != null){
+                            this.$alerts.addSuccess(data.response.data);
+                            // window.location.href = '/';
 
-                        // let errors = response.data.errors;
-                        // for(let key in errors){
-                        //     for(let message of errors[key]){
-                        //         console.log(message);
-                        //         this.$alerts.addError(message);
-                        //     }
-                        // }
+                        } else if(data.response.error != null){
+                            this.$alerts.addError(data.response.error);
+                        }
+                    })
+                    .catch(({error}) => {
                     });
             },
 
