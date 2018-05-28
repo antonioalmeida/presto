@@ -13,16 +13,16 @@ Vue.use(require('vue-moment'));
 Vue.router = router;
 Vue.alerts = Alerts;
 
-if (document.getElementById('app') != null){
-new Vue({
-    el: '#app',
-    router,
-    components: {
-        'AddQuestionModal': AddQuestionModal,
-        'SearchBar': SearchBar,
-        'Alerts': Alerts
-    }
-});
+if (document.getElementById('app') != null) {
+    new Vue({
+        el: '#app',
+        router,
+        components: {
+            'AddQuestionModal': AddQuestionModal,
+            'SearchBar': SearchBar,
+            'Alerts': Alerts
+        }
+    });
 
 
 }

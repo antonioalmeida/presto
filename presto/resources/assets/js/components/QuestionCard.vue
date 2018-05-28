@@ -6,10 +6,10 @@
 
             <small class="pb-1">
                 <router-link :to="'/profile/' + question.author.username" class="btn-link">
-                        <img
-                        class="user-preview rounded-circle pr-1" width="36" height="36"
-                        :src="question.author.profile_picture"
-                        :alt="question.author.name + '\'s profile picture'"> {{question.author.name}}
+                    <img
+                            class="user-preview rounded-circle pr-1" width="36" height="36"
+                            :src="question.author.profile_picture"
+                            :alt="question.author.name + '\'s profile picture'"> {{question.author.name}}
                 </router-link>
                 <span class="text-muted">asked</span>
             </small>
@@ -38,21 +38,21 @@
 
         data() {
             return {
-              topicsEncoded: []
+                topicsEncoded: []
             }
         },
 
         created() {
-          //So whitespaces are encoded in the href attribute
-          this.topicsEncoded = this.question.topics.map(topic => {
-            let newTopic = topic;
-            newTopic.encodedName = encodeURI(topic.name);
-            return newTopic;
-          })
+            //So whitespaces are encoded in the href attribute
+            this.topicsEncoded = this.question.topics.map(topic => {
+                let newTopic = topic;
+                newTopic.encodedName = encodeURI(topic.name);
+                return newTopic;
+            })
         },
 
         methods: {
-            onClickRedirect:function() {
+            onClickRedirect: function () {
                 this.$router.push({path: '/questions/' + this.question.id});
             }
         }

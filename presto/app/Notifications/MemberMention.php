@@ -2,10 +2,10 @@
 
 namespace App\Notifications;
 
-use App\Member;
-use App\Comment;
-use App\Question;
 use App\Answer;
+use App\Comment;
+use App\Member;
+use App\Question;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;

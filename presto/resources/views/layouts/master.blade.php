@@ -31,7 +31,7 @@
 
 
     <script>
-    window.Laravel = {!! json_encode([
+        window.Laravel = {!! json_encode([
       'csrfToken' => csrf_token(),
     ]) !!};
     </script>
@@ -46,20 +46,20 @@
 </head>
 
 <body>
-    <div id="app">
-        @auth('admin')
+<div id="app">
+    @auth('admin')
         @include('includes.nav_admin')
-        @else
+    @else
         @include('includes.nav')
-        @endauth
+    @endauth
 
-        <router-view></router-view>
+    <router-view></router-view>
 
-        @include('includes.footer')
-        <add-question-modal></add-question-modal>
+    @include('includes.footer')
+    <add-question-modal></add-question-modal>
 
-        <alerts></alerts>
-    </div>
+    <alerts></alerts>
+</div>
 </body>
 
 

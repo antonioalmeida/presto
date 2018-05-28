@@ -20,7 +20,7 @@
                     </ul>
                     <div>
                         <a href="{{Route('login')}}"
-                            class="btn btn-link">Login
+                           class="btn btn-link">Login
                         </a>
                         <a href="{{Route('signup')}}" class="btn btn-primary">Sign Up
                         </a>
@@ -56,7 +56,8 @@
                         <li class="nav-item dropdown">
                             <a class="" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">
-                                <img src="{{Auth::user()->profile_picture}}" alt="Your profile picture" width="40" height="40"
+                                <img src="{{Auth::user()->profile_picture}}" alt="Your profile picture" width="40"
+                                     height="40"
                                      class="rounded-circle border border-primary profile-photo">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -64,7 +65,8 @@
                                             class="far text-muted fa-fw fa-user"></i> Profile
                                 </router-link>
                                 <router-link class="dropdown-item" to="/settings"><i
-                                            class="far text-muted fa-fw fa-cog"></i> Settings</router-link>
+                                            class="far text-muted fa-fw fa-cog"></i> Settings
+                                </router-link>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="{{Route('logout')}}"><i
                                             class="far text-muted fa-fw fa-sign-out"></i> Logout</a>

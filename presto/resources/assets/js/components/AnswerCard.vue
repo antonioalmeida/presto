@@ -5,7 +5,9 @@
             <h4 class="mb-3">{{ answer.question.title }}</h4>
             <div class="d-flex">
                 <div>
-                    <img class="rounded-circle pr-1" width="36" height="36" :alt="answer.author.profile_picture + '\'s profile picture'":src="answer.author.profile_picture">
+                    <img class="rounded-circle pr-1" width="36" height="36"
+                         :alt="answer.author.profile_picture + '\'s profile picture'"
+                         :src="answer.author.profile_picture">
                 </div>
                 <h6>
                     <router-link :to="'/profile/' + answer.author.username" class="btn-link">{{answer.author.name}}
@@ -45,7 +47,7 @@
 
         data() {
             return {
-              topicsEncoded: []
+                topicsEncoded: []
             }
         },
 
@@ -64,20 +66,20 @@
         },
 
         created() {
-          //So whitespaces are encoded in the href attribute
-          this.topicsEncoded = this.answer.question.topics.map(topic => {
-            let newTopic = topic;
-            newTopic.encodedName = encodeURI(topic.name);
-            return newTopic;
-          })
+            //So whitespaces are encoded in the href attribute
+            this.topicsEncoded = this.answer.question.topics.map(topic => {
+                let newTopic = topic;
+                newTopic.encodedName = encodeURI(topic.name);
+                return newTopic;
+            })
         },
 
 
-    methods: {
-        onClickRedirect: function() {
-            this.$router.push({path: '/questions/' + this.answer.question.id + '/answers/' + this.answer.id});
-        }
-    },
+        methods: {
+            onClickRedirect: function () {
+                this.$router.push({path: '/questions/' + this.answer.question.id + '/answers/' + this.answer.id});
+            }
+        },
 
     }
 </script>

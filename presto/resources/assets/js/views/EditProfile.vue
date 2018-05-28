@@ -55,7 +55,8 @@
                             <div>
                                 <h6><label for="profilePicture">Change your photo</label></h6>
                                 <div class="input-group">
-                                    <input type="text" v-model="profilePicture" class="form-control" placeholder="New URL"
+                                    <input type="text" v-model="profilePicture" class="form-control"
+                                           placeholder="New URL"
                                            aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
                             </div>

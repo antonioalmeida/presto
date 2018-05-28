@@ -3,10 +3,8 @@
 namespace App\Notifications;
 
 use App\Member;
-use App\Question;
 use App\QuestionRating;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
 

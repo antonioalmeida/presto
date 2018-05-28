@@ -1,12 +1,13 @@
 <template>
-    <main class="img-background" >
+    <main class="img-background">
         <section class="pt-5 container">
             <div class="card py-5 my-5">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 offset-md-3">
                             <h1 class="text-center">Welcome back.</h1>
-                            <p class="lead">Log in to your account to access your personalized feed and see what your favorite writers have been up to.</p>
+                            <p class="lead">Log in to your account to access your personalized feed and see what your
+                                favorite writers have been up to.</p>
                         </div>
                     </div>
                 </div>
@@ -26,7 +27,7 @@
                                 </div>
                                 <input v-model="password" type="password" class="form-control" id="inlineFormInputGroup"
                                        placeholder="Password"
-                                required>
+                                       required>
                             </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Login</button>
@@ -74,25 +75,25 @@
         },
 
         methods: {
-            checkForm:function() {
-                if(!this.email) {
+            checkForm: function () {
+                if (!this.email) {
                     this.$alerts.addError("Email required.");
                     return false;
                 }
 
-                if(!this.password) {
-                   this.$alerts.addError("Password required.");
-                   return false;
+                if (!this.password) {
+                    this.$alerts.addError("Password required.");
+                    return false;
                 }
 
-                if(!this.$alerts.length)
-                 return true;
+                if (!this.$alerts.length)
+                    return true;
             },
 
             onSubmit: function (e) {
-               if(!this.checkForm()){
-                   return;
-               }
+                if (!this.checkForm()) {
+                    return;
+                }
 
                 axios.post('/login', {
                     'email': this.email,
@@ -107,8 +108,8 @@
                         this.$alerts.addError(response.data.message);
 
                         let errors = response.data.errors;
-                        for(let key in errors){
-                            for(let message of errors[key]){
+                        for (let key in errors) {
+                            for (let message of errors[key]) {
                                 console.log(message);
                                 this.$alerts.addError(message);
                             }

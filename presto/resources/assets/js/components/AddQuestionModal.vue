@@ -5,12 +5,12 @@
                 <input v-model="title" placeholder="Write your question" type="text" class="main-question"
                        @input="showError = false">
 
-                        <tags-input element-id="tags" 
-                         v-model="selectedTags"
-                         :typeahead="true"
-                         :existing-tags="existingTags"
-                         :placeholder="'Add topics...'"
-                        ></tags-input>
+                <tags-input element-id="tags"
+                            v-model="selectedTags"
+                            :typeahead="true"
+                            :existing-tags="existingTags"
+                            :placeholder="'Add topics...'"
+                ></tags-input>
             </div>
 
             <div v-if="showError" class="ml-1">
@@ -38,10 +38,10 @@
         data() {
             return {
                 title: '',
-                
+
                 selectedTags: [
                     'Science',
-                  ],
+                ],
 
                 existingTags: {},
 
@@ -66,10 +66,10 @@
 
                 axios.get(request)
                     .then(({data}) => {
-                      this.existingTags =  data.reduce(function(result, item, index, array) {
-                         result[item] = item;
-                        return result;
-                    }, {});
+                        this.existingTags = data.reduce(function (result, item, index, array) {
+                            result[item] = item;
+                            return result;
+                        }, {});
                     })
                     .catch((error) => {
                         console.log(error);
@@ -95,7 +95,7 @@
                 this.$router.push({path: '/questions/' + id});
                 this.showModal = false;
                 this.title = '';
-                this.selectedTags = ['Science','Physics'];
+                this.selectedTags = ['Science', 'Physics'];
             }
         },
 
