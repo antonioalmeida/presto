@@ -6,6 +6,7 @@ use App\Http\Resources\TopicResource;
 use App\Http\Resources\TopicListResource;
 use App\Topic;
 use Illuminate\Support\Facades\Auth;
+use App\Rules\TopicUnique;
 
 class TopicController extends Controller
 {
@@ -37,4 +38,33 @@ class TopicController extends Controller
         return ['following' => $member->isFollowingTopic($topic), 'no_follow' => $topic->followers->count()];
     }
 
+    public function update(Topic $topic)
+    {
+      $this->validate(request(), [
+          'name' => ['required', 'max:35', new TopicUnique($topic->id)]
+      ]);
+
+      $topic->name = request('name');
+      $topic->description = request('description', '');
+
+      $topic->save();
+
+      return new TopicResource($topic);
+    }
+
+    public function updatePicture(Request $request)
+    {
+      /*
+      $member = Auth::user();
+
+        $request->validate([
+            'profile-pic-url' => 'required|url'
+        ]);
+
+        $member->profile_picture = request('profile-pic-url');
+        $member->save();
+
+        return ['profile-pic-url' => $member->profile_picture];
+        */
+    }
 }
