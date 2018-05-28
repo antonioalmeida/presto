@@ -142,6 +142,7 @@ Route::prefix('admin')->group(function () {
 //API
 //Profile
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
+Route::patch('api/topic/{topic}/edit-pic', 'TopicController@updatePicture');
 
 //Settings
 Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
