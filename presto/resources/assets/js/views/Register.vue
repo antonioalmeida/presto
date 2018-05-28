@@ -1,6 +1,6 @@
 <template>
-    <main class="img-background" >
-      <section class="pt-5 container">
+    <main class="img-background">
+        <section class="pt-5 container">
             <div class="card my-3 py-3">
                 <div class="card-body">
                     <div class="row">
@@ -18,54 +18,62 @@
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                      <i class="far fa-user"></i>
-                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"><sup>(?)</sup></b>
+                                        <i class="far fa-user"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"><sup>(?)</sup></b>
                                     </div>
                                 </div>
                                 <input v-model="username" type="text" class="form-control" id="inlineFormInputGroup"
                                        placeholder="Your Username"
                                        pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
-                                required>
+                                       required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                      <i class="far fa-at"></i>
-                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="Insert you real email, it's your only way to recover your account if you forget your password"><sup>(?)</sup></b>
+                                        <i class="far fa-at"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title="Insert you real email, it's your only way to recover your account if you forget your password"><sup>(?)</sup></b>
                                     </div>
                                 </div>
                                 <input v-model="email" type="email" class="form-control" id="inlineFormInputGroup"
                                        placeholder="your@email.com"
-                                required>
+                                       required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                      <i class="far fa-key"></i>
-                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
+                                        <i class="far fa-key"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
                                     </div>
                                 </div>
                                 <input v-model="password" type="password" class="form-control"
                                        id="inlineFormInputGroup" placeholder="Password"
                                        pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
-                                required>
+                                       required>
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">
-                                      <i class="fas fa-key"></i>
-                                      <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
+                                        <i class="fas fa-key"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
                                     </div>
                                 </div>
                                 <input v-model="password_confirmation" type="password" class="form-control"
                                        id="inlineFormInputGroup" placeholder="Confirm Password"
-                                required>
+                                       required>
                             </div>
                             <div class="form-check mb-2 mx-1">
                                 <input v-model="terms" class="form-check-input" type="checkbox" id="defaultCheck1"
-                                       >
+                                >
                                 <label class="form-check-label" for="defaultCheck1">
-                                    <small>I accept Presto's <b href="#" data-placement="top" data-toggle="tooltip" role="help" title="" data-original-title="I am at least 13 years old and will not try to hack Preso.">Terms and Conditions</b>.</small>
+                                    <small>I accept Presto's <b href="#" data-placement="top" data-toggle="tooltip"
+                                                                role="help" title=""
+                                                                data-original-title="I am at least 13 years old and will not try to hack Preso.">Terms
+                                        and Conditions</b>.
+                                    </small>
                                 </label>
                             </div>
                             <div class="d-flex justify-content-center">
@@ -87,9 +95,9 @@
 </template>
 
 <script>
-    window.onload = function() {
-      //Activate tooltip
-      $('[data-toggle="tooltip"]').tooltip();
+    window.onload = function () {
+        //Activate tooltip
+        $('[data-toggle="tooltip"]').tooltip();
     };
     export default {
 
@@ -121,35 +129,35 @@
         },
 
         methods: {
-            checkForm:function() {
-                if(!this.username) {
+            checkForm: function () {
+                if (!this.username) {
                     this.$alerts.addError("Username required.");
                     return false;
                 }
 
-                if(!this.email) {
+                if (!this.email) {
                     this.$alerts.addError("Email required.");
                     return false;
                 }
 
-                if(!this.password) {
-                   this.$alerts.addError("Password required.");
-                   return false;
+                if (!this.password) {
+                    this.$alerts.addError("Password required.");
+                    return false;
                 }
 
-                if(!this.terms) {
-                   this.$alerts.addError("Terms required.");
-                   return false;
+                if (!this.terms) {
+                    this.$alerts.addError("Terms required.");
+                    return false;
                 }
 
-                if(!this.$alerts.length)
-                 return true;
+                if (!this.$alerts.length)
+                    return true;
             },
 
             onSubmit: function () {
-               if(!this.checkForm()){
-                   return;
-               }
+                if (!this.checkForm()) {
+                    return;
+                }
 
                 axios.post('/signup', {
                     'username': this.username,
@@ -167,8 +175,8 @@
                         this.$alerts.addError(response.data.message);
 
                         let errors = response.data.errors;
-                        for(let key in errors){
-                            for(let message of errors[key]){
+                        for (let key in errors) {
+                            for (let message of errors[key]) {
                                 console.log(message);
                                 this.$alerts.addError(message);
                             }

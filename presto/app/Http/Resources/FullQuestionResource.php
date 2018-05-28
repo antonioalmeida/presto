@@ -20,7 +20,7 @@ class FullQuestionResource extends Resource
 
         $isOwner = false;
         $member = Auth::user();
-        if ($member != null && $member->can('update',  $this->resource))
+        if ($member != null && $member->can('update', $this->resource))
             $isOwner = true;
 
         $response['isOwner'] = $isOwner;

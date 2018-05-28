@@ -1,53 +1,53 @@
 <template>
     <b-alert class="alert-bottom" :variant="variant"
-    	dismissible
-    	:show="dismissCountDown"
-    	@dismissed="dismissCountDown=0"
-        @dismiss-count-down="countDownChanged">
+             dismissible
+             :show="dismissCountDown"
+             @dismissed="dismissCountDown=0"
+             @dismiss-count-down="countDownChanged">
 
-    	<div class="alert-message">
-    		<strong v-if="variant == 'danger'">Oh no!</strong> 
-    		<strong v-else>Yes!</strong> 
-    		<template v-for="message in text"> {{ message }} <br></template>
-    	</div>
+        <div class="alert-message">
+            <strong v-if="variant == 'danger'">Oh no!</strong>
+            <strong v-else>Yes!</strong>
+            <template v-for="message in text"> {{ message }} <br></template>
+        </div>
 
-	</b-alert>
+    </b-alert>
 </template>
 
 <script>
-export default {
+    export default {
 
-	name: 'Alerts',
+        name: 'Alerts',
 
-	data () {
-		return {
-			dismissCountDown: 0,
-			text: [],
-			variant: 'danger'
-		}
-	},
+        data() {
+            return {
+                dismissCountDown: 0,
+                text: [],
+                variant: 'danger'
+            }
+        },
 
-	created() {
-		Vue.prototype.$alerts = this;
-	},
+        created() {
+            Vue.prototype.$alerts = this;
+        },
 
-	methods: {
-		addError(text) {
-			this.dismissCountDown = 5;
-			this.text.push(text);
-			this.variant = 'danger';
-		},
+        methods: {
+            addError(text) {
+                this.dismissCountDown = 5;
+                this.text.push(text);
+                this.variant = 'danger';
+            },
 
-		addSuccess(text) {
-			this.dismissCountDown = 5;
-			this.text.push(text);
-			this.variant = 'primary';
-		},
+            addSuccess(text) {
+                this.dismissCountDown = 5;
+                this.text.push(text);
+                this.variant = 'primary';
+            },
 
-		countDownChanged (dismissCountDown) {
-			this.dismissCountDown = dismissCountDown
-		},
-	}
-}
+            countDownChanged(dismissCountDown) {
+                this.dismissCountDown = dismissCountDown
+            },
+        }
+    }
 </script>
 

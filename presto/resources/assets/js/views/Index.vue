@@ -1,77 +1,78 @@
 <template>
-    <main class="mt-5 grey-background" >
+    <main class="mt-5 grey-background">
 
-            <section v-if="!isLoggedIn" class="jumbotron">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-7 align-self-center my-3 text-shadow">
-                            <h1>Be a part of the knowledge community.</h1>
-                            <h3>
-                                <small>Join <strong>Presto</strong> and help grow the world's knowledge.</small>
-                            </h3>
-                        </div>
-                        <div class="col-sm-5 align-self-center">
-                            <div class="card sign-up-card">
-                                <div class="card-body">
-                                    <div class="d-flex align-items-center flex-column">
-                                        <span @click="loginGoogleAPI" class="btn btn-google"><i class="fab fa-google"></i> Sign in
+        <section v-if="!isLoggedIn" class="jumbotron">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-7 align-self-center my-3 text-shadow">
+                        <h1>Be a part of the knowledge community.</h1>
+                        <h3>
+                            <small>Join <strong>Presto</strong> and help grow the world's knowledge.</small>
+                        </h3>
+                    </div>
+                    <div class="col-sm-5 align-self-center">
+                        <div class="card sign-up-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center flex-column">
+                                        <span @click="loginGoogleAPI" class="btn btn-google"><i
+                                                class="fab fa-google"></i> Sign in
                             with Google</span>
+                                </div>
+
+                                <div class="pt-2 d-flex justify-content-center">
+                                    <h6 class="text-muted">
+                                        <small>OR</small>
+                                    </h6>
+                                </div>
+
+                                <div id="indexSignupForm">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="far fa-user"></i></div>
+                                        </div>
+                                        <input v-model="username" type="text" class="form-control"
+                                               placeholder="Your Username">
                                     </div>
 
-                                    <div class="pt-2 d-flex justify-content-center">
-                                        <h6 class="text-muted">
-                                            <small>OR</small>
-                                        </h6>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="far fa-at"></i></div>
+                                        </div>
+                                        <input v-model="email" type="text" class="form-control"
+                                               placeholder="your@email.com">
                                     </div>
 
-                                    <div id="indexSignupForm">
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="far fa-user"></i></div>
-                                            </div>
-                                            <input v-model="username" type="text" class="form-control"
-                                                   placeholder="Your Username">
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="far fa-key"></i></div>
                                         </div>
-
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="far fa-at"></i></div>
-                                            </div>
-                                            <input v-model="email" type="text" class="form-control"
-                                                   placeholder="your@email.com">
-                                        </div>
-
-                                        <div class="input-group mb-2">
-                                            <div class="input-group-prepend">
-                                                <div class="input-group-text"><i class="far fa-key"></i></div>
-                                            </div>
-                                            <input v-model="password" type="password" class="form-control"
-                                                   id="passwordForm" placeholder="Password">
-                                            <input v-model="password_confirmation" type="hidden"
-                                                   id="passwordFormConfirmed">
-                                        </div>
-                                        <div class="form-check mb-2 mx-1">
-                                            <input v-model="terms" class="form-check-input" type="checkbox"
-                                                   id="defaultCheck1">
-                                            <label class="form-check-label" for="defaultCheck1">
-                                                <small>I accept Presto's <a href="">Terms and Conditions</a>.</small>
-                                            </label>
-                                        </div>
-                                        <div class="d-flex justify-content-center">
-                                            <button @click="onSubmit" class="btn btn-primary">Sign Up</button>
-                                        </div>
-
-                                        <!-- @include ('includes.errors') -->
-
+                                        <input v-model="password" type="password" class="form-control"
+                                               id="passwordForm" placeholder="Password">
+                                        <input v-model="password_confirmation" type="hidden"
+                                               id="passwordFormConfirmed">
                                     </div>
+                                    <div class="form-check mb-2 mx-1">
+                                        <input v-model="terms" class="form-check-input" type="checkbox"
+                                               id="defaultCheck1">
+                                        <label class="form-check-label" for="defaultCheck1">
+                                            <small>I accept Presto's <a href="">Terms and Conditions</a>.</small>
+                                        </label>
+                                    </div>
+                                    <div class="d-flex justify-content-center">
+                                        <button @click="onSubmit" class="btn btn-primary">Sign Up</button>
+                                    </div>
+
+                                    <!-- @include ('includes.errors') -->
+
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
+
                 </div>
-            </section>
+            </div>
+        </section>
 
         <!-- content -->
         <section class="container">
@@ -79,9 +80,12 @@
                 <div class="col-md-2 text-right side-menu text-collapse">
                     <h6>Trending Topics</h6>
                     <ul class="no-bullets">
-                    <template v-for="topic in trendingTopics">
-                        <li><router-link :to="'/topic/' + topic.name" class="text-muted">{{topic.name}}</router-link></li>
-                    </template>
+                        <template v-for="topic in trendingTopics">
+                            <li>
+                                <router-link :to="'/topic/' + topic.name" class="text-muted">{{topic.name}}
+                                </router-link>
+                            </li>
+                        </template>
                     </ul>
                 </div>
                 <div class="col-md-7">
@@ -91,9 +95,9 @@
                                role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
                             <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                                role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
-                                <a v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
-                                   href="#nav-recommended" role="tab" aria-controls="nav-recommended"
-                                   aria-selected="false">Recommended</a>
+                            <a v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
+                               href="#nav-recommended" role="tab" aria-controls="nav-recommended"
+                               aria-selected="false">Recommended</a>
                         </div>
                     </nav>
                     <div class="tab-content mb-5" id="nav-tabContent">
@@ -102,8 +106,10 @@
 
                             <div class="list-group">
                                 <template v-for="content in topContent">
-                                    <answer-card v-if="content.type == 'answer'" v-bind:answer="content.answer"></answer-card>
-                                    <question-card v-if="content.type == 'question'" v-bind:question="content.question"></question-card>
+                                    <answer-card v-if="content.type == 'answer'"
+                                                 v-bind:answer="content.answer"></answer-card>
+                                    <question-card v-if="content.type == 'question'"
+                                                   v-bind:question="content.question"></question-card>
                                 </template>
 
                             </div>
@@ -114,24 +120,28 @@
                             <div class="list-group">
 
                                 <template v-for="content in newContent">
-                                    <answer-card v-if="content.type == 'answer'" v-bind:answer="content.answer"></answer-card>
-                                    <question-card v-if="content.type == 'question'" v-bind:question="content.question"></question-card>
+                                    <answer-card v-if="content.type == 'answer'"
+                                                 v-bind:answer="content.answer"></answer-card>
+                                    <question-card v-if="content.type == 'question'"
+                                                   v-bind:question="content.question"></question-card>
                                 </template>
 
                             </div>
                         </div>
 
-                            <div v-if="isLoggedIn" class="tab-pane fade" id="nav-recommended" role="tabpanel"
-                                 aria-labelledby="nav-recommended-tab">
+                        <div v-if="isLoggedIn" class="tab-pane fade" id="nav-recommended" role="tabpanel"
+                             aria-labelledby="nav-recommended-tab">
 
-                                <div class="list-group">
+                            <div class="list-group">
                                 <template v-for="content in recommendedContent">
-                                    <answer-card v-if="content.type == 'answer'" v-bind:answer="content.answer"></answer-card>
-                                    <question-card v-if="content.type == 'question'" v-bind:question="content.question"></question-card>
+                                    <answer-card v-if="content.type == 'answer'"
+                                                 v-bind:answer="content.answer"></answer-card>
+                                    <question-card v-if="content.type == 'question'"
+                                                   v-bind:question="content.question"></question-card>
                                 </template>
-                                </div>
-
                             </div>
+
+                        </div>
                     </div>
                 </div>
 
@@ -143,22 +153,25 @@
                             <div class="list-group list-group-flush short-padding">
 
                                 <template v-for="member in topMembers">
-                                <div class="list-group-item d-flex justify-content-begin">
-                                    <div class="align-self-center">
-                                        <img class="user-preview rounded-circle mr-2" width="50" height="50"
-                                             :alt="member.name + '\'s profile picture'":src="member.profile_picture">
-                                    </div>
-                                    <div>
-                                        <router-link :to="'/profile/' + member.username" class="text-dark">{{member.name}}</router-link>
-                                        <br>
-                                        <span class="text-muted"><i
+                                    <div class="list-group-item d-flex justify-content-begin">
+                                        <div class="align-self-center">
+                                            <img class="user-preview rounded-circle mr-2" width="50" height="50"
+                                                 :alt="member.name + '\'s profile picture'"
+                                                 :src="member.profile_picture">
+                                        </div>
+                                        <div>
+                                            <router-link :to="'/profile/' + member.username" class="text-dark">
+                                                {{member.name}}
+                                            </router-link>
+                                            <br>
+                                            <span class="text-muted"><i
                                                     class="fas fa-gem text-primary"></i> {{member.score}} points</span>
+                                        </div>
+                                        <div class="ml-auto align-self-center">
+                                            <a href=""><i class="far fa-fw fa-user-plus"></i></a>
+                                        </div>
                                     </div>
-                                    <div class="ml-auto align-self-center">
-                                        <a href=""><i class="far fa-fw fa-user-plus"></i></a>
-                                    </div>
-                                </div>
-                               </template>
+                                </template>
                             </div>
                         </div>
                     </div>
@@ -262,7 +275,7 @@
                     });
             },
 
-             getTrendingTopics: function () {
+            getTrendingTopics: function () {
                 axios.get('/api/feed/getTrendingTopics')
                     .then(({data}) => {
                         this.trendingTopics = data;
@@ -272,7 +285,7 @@
                     });
             },
 
-             getTopMembers: function () {
+            getTopMembers: function () {
                 axios.get('/api/feed/getTopMembers')
                     .then(({data}) => {
                         this.topMembers = data;
@@ -282,35 +295,35 @@
                     });
             },
 
-            checkForm:function() {
-                if(!this.username) {
+            checkForm: function () {
+                if (!this.username) {
                     this.$alerts.addError("Username required.");
                     return false;
                 }
 
-                if(!this.email) {
+                if (!this.email) {
                     this.$alerts.addError("Email required.");
                     return false;
                 }
 
-                if(!this.password) {
-                   this.$alerts.addError("Password required.");
-                   return false;
+                if (!this.password) {
+                    this.$alerts.addError("Password required.");
+                    return false;
                 }
 
-                if(!this.terms) {
-                   this.$alerts.addError("Terms required.");
-                   return false;
+                if (!this.terms) {
+                    this.$alerts.addError("Terms required.");
+                    return false;
                 }
 
-                if(!this.$alerts.length)
-                 return true;
+                if (!this.$alerts.length)
+                    return true;
             },
 
             onSubmit: function () {
-               if(!this.checkForm()){
-                   return;
-               }
+                if (!this.checkForm()) {
+                    return;
+                }
 
                 axios.post('/signup', {
                     'username': this.username,
@@ -328,8 +341,8 @@
                         this.$alerts.addError(response.data.message);
 
                         let errors = response.data.errors;
-                        for(let key in errors){
-                            for(let message of errors[key]){
+                        for (let key in errors) {
+                            for (let message of errors[key]) {
                                 console.log(message);
                                 this.$alerts.addError(message);
                             }

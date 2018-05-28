@@ -20,7 +20,8 @@ class TopicController extends Controller
         return new TopicResource($topic);
     }
 
-    public function getAllTopics() {
+    public function getAllTopics()
+    {
         return TopicListResource::collection(Topic::all());
     }
 
