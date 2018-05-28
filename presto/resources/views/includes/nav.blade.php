@@ -45,6 +45,7 @@
                                aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
                                 <div id="notificationsMenu">
+                                    <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <router-link to="/notifications" class="text-center dropdown-item">See All Notifications
@@ -70,6 +71,11 @@
                                 <a class="dropdown-item" href="{{Route('logout')}}"><i
                                             class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
                             </div>
+                        </li>
+
+                        <li class="nav-item pl-2">
+                          <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                             data-original-title="If you're lost, at any time click the Presto logo to come back to the index. To access your profile and settings, click your profile picture."><i class="far fa-2x fa-question-circle"></i></b>
                         </li>
                     </ul>
                 </div>
