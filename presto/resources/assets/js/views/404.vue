@@ -1,5 +1,5 @@
 <template>
-    <main role="main" class="mt-5 grey-background">
+    <main  class="mt-5 grey-background">
         <section class="container mt-5 pt-5 d-flex justify-content-center">
 
             <div class="align-self-center">

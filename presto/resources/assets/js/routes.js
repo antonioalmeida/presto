@@ -13,6 +13,27 @@ let routes = [
     },
 
     {
+        path: '/login',
+        component: require('./views/Login')
+    },
+
+    {
+        path: '/signup',
+        component: require('./views/Register')
+    },
+
+    {
+        path: '/password/reset',
+        component: require('./views/Email')
+    },
+
+    {
+        path: '/password/reset/:token',
+        component: require('./views/Reset'),
+        props: true,
+    },
+
+    {
         path: '/profile/:username',
         component: require('./views/Profile'),
         props: true,
@@ -41,6 +62,12 @@ let routes = [
     {
         path: '/edit-profile',
         component: require('./views/EditProfile'),
+        props: true,
+    },
+
+    {
+        path: '/settings',
+        component: require('./views/Settings'),
         props: true,
     },
 
@@ -94,4 +121,3 @@ export default new VueRouter({
         return {x: 0, y: 0};
     }
 });
-

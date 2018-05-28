@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $content
  * @property string $date
- * @property int $views
  * @property boolean $solved
  * @property string $search
  * @property Member $member
@@ -35,7 +34,7 @@ class Question extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author_id', 'title', 'content', 'date', 'views', 'solved', 'search'];
+    protected $fillable = ['author_id', 'title', 'content', 'date', 'solved', 'search'];
 
     protected $hidden = ['search'];
 

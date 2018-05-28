@@ -6,7 +6,8 @@
         <div class="d-flex flex-wrap">
             <div class="align-self-center">
                 <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
-                    <img class="rounded-circle ml-1 mr-2" width="50px" heigth="50px"
+                    <img class="rounded-circle ml-1 mr-2" width="50" height="50"
+                         :alt="answer.author.name + '\'s profile picture'"
                          :src="answer.author.profile_picture">
                 </router-link>
             </div>

@@ -5,12 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="favicon.ico">
 
-    <!-- <meta name="google-signin-client_id" content="266862467671-5lbu1466hug0nb8naoqbvo3kq7uj4s1d.apps.googleusercontent.com"> -->
-    <!-- google platform -->
-    <!-- <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script> -->
-    <!-- facebook sdk -->
-    <!-- <div id="fb-root"></div> -->
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -18,7 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script type="text/javascript">
+    <script>
         // Fix for Firefox autofocus CSS bug
         // See: http://stackoverflow.com/questions/18943276/html-5-autofocus-messes-up-css-loading/18945951#18945951
     </script>
@@ -36,10 +30,28 @@
             crossorigin="anonymous"></script>
     <script defer src="{{ asset('js/tinymce/tinymce.min.js') }}"></script>
     <script defer src="{{ asset('js/app.js') }}"></script>
+
+     <script>
+    window.Laravel = {!! json_encode([
+      'csrfToken' => csrf_token(),
+    ]) !!};
+    </script>
+
+    <!-- This makes the current user's id available in javascript -->
+    @if(!auth()->guest())
+        <script>
+            window.Laravel.userId = <?php echo auth()->user()->id; ?>
+        </script>
+    @endif
+
 </head>
+<body>
+    <div id="app">
 
-@include('includes.errors')
+        <router-view></router-view>
 
-@yield('content')
+        <alerts></alerts>
+    </div>
+</body>
 
 </html>

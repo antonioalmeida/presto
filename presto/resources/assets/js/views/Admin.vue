@@ -1,6 +1,6 @@
 <template>
    
-    <main class="grey-background" role="main">
+    <main class="grey-background" >
     <div class="container pt-4 mt-4">
       <div class="row">
         <div class="col-md-2 mt-2">
@@ -475,7 +475,7 @@ export default {
           if(search.test(tr[j].children[0].innerHTML+" "+tr[j].children[1].innerHTML))
             tr[j].style.display="";
           else
-              tr[j].style.display="none";
+            tr[j].style.display="none";
         }
         else{
            tr[j].style.display="";
