@@ -71,7 +71,7 @@
                                 <label class="form-check-label" for="defaultCheck1">
                                     <small>I accept Presto's <b href="#" data-placement="top" data-toggle="tooltip"
                                                                 role="help" title=""
-                                                                data-original-title="I am at least 13 years old and will not try to hack Preso.">Terms
+                                                                data-original-title="I am at least 13 years old and will not try to hack Presto.">Terms
                                         and Conditions</b>.
                                     </small>
                                 </label>
