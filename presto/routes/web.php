@@ -26,13 +26,13 @@ Route::view('404', 'layouts.master')->name('404');
 
 
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
-Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::view('notifications', 'layouts.master')->name('notifications');
 
 // Profile
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
 Route::view('profile/{member}/following', 'layouts.master');
+Route::view('settings', 'layouts.master')->name('settings');
 Route::view('edit-profile', 'layouts.master')->name('profile.edit');
 
 
@@ -140,8 +140,8 @@ Route::prefix('admin')->group(function () {
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
 
 //Settings
-Route::put('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
-Route::put('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
+Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
+Route::post('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
 
 //Follows Member
 // Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
@@ -163,4 +163,3 @@ Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('a
 
 //Answers
 Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
-
