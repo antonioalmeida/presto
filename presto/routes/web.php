@@ -130,7 +130,7 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 // Auth::routes();
 
 Route::prefix('admin')->group(function () {
-    Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+    Route::view('/login', 'layouts.master_aux')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     //Route::get('/', 'AdminController@show')->name('admin.dashboard');
     Route::view('/', 'layouts.master')->name('admin.dashboard');
