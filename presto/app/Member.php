@@ -60,7 +60,7 @@ class Member extends Authenticatable
      */
     protected $hidden = [
         //       'password', 'remember_token', 'positive_votes', 'total_votes', 'is_banned',
-        'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot'
+        'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot', 'provider', 'provider_id'
     ];
 
     public function getRouteKeyName()

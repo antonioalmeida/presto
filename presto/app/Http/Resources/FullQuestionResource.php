@@ -29,6 +29,7 @@ class FullQuestionResource extends Resource
             'username' => $this->member->username,
             'name' => $this->member->name,
             'profile_picture' => $this->member->profile_picture,
+            'isMod' => $this->member->is_moderator
         ];
 
         $response['topics'] = $this->topics;
