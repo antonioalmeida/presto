@@ -8,9 +8,9 @@ use App\CommentRating;
 use App\Member;
 use App\Question;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class CommentRated extends Notification implements ShouldQueue
 {

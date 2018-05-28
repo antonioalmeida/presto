@@ -3,10 +3,11 @@
 namespace App\Observers;
 
 use App\Notifications\QuestionRated;
+use App\QuestionRating;
 
 class QuestionRatingObserver
 {
-    public function created(AnswerRating $rating)
+    public function created(QuestionRating $rating)
     {
         $question = \App\Question::find($rating->question_id);
         $user = \App\Member::find($rating->member_id);
