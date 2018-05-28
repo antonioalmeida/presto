@@ -38,22 +38,17 @@
                             ></tags-input>
 
                             <div class="ml-1 mt-3">
-                                <button @click="" class="btn btn-light">Save</button>
-                                <button @click="isEditing = false" class="btn btn-danger">Cancel
+                                <button @click="" class="btn btn-outline-primary">Save</button>
+                                <button @click="isEditing = false" class="btn btn-outline-danger">Cancel
                                 </button>
                             </div>
 
                         </div>
                     </div>
 
+                    <div :id="'questionAcordion'" class="mt-2">
 
-                    <div class="card my-3">
-                        <comments-list :comments="question.comments"></comments-list>
-                    </div>
-
-                    <div :id="'questionAcordion'" class="mt-3">
-
-                        <div class="d-flex justify-content-between flex-wrap">
+                        <div class="mt-2 d-flex justify-content-between flex-wrap">
 
                             <div>
 
@@ -61,25 +56,48 @@
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
 
-                                <b-btn v-if="!question.solved" href="#" v-b-toggle.accordion2 variant="outline-primary">
-                                    <i class="far fa-fw fa-comment"></i> Comment
-                                </b-btn>
-
                                 <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i
                                         class="far fa-fw fa-unlock-alt"></i> Reopen
                                 </button>
                             </div>
 
+                            <div class="mt-2 d-flex justify-content-between flex-wrap">
+                                
+                                <b-btn id="questionComment" v-if="!question.solved" href="#" v-b-toggle.accordion2 variant="link">
+                                    <i class="far fa-fw fa-comment"></i> 
+                                </b-btn>
+                                <b-tooltip target="questionComment" title="Leave a comment"></b-tooltip>
 
-                            <div v-show="question.isOwner" class="ml-auto mt-2">
-                                <small>
-                                    <a href="#" @click="isEditing = true" class="text-muted">Edit</a> |
-                                    <a class="text-danger">Delete</a>
-                                </small>
+
+                                <b-dropdown variant="link" id="ddown1" size="lg" no-caret right>
+                                    <template slot="button-content">
+                                        <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
+                                        <b-tooltip target="questionOptions" title="More options"></b-tooltip>
+                                    </template>
+                            
+                                    <template v-show="question.isOwner">
+                                        <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
+                                        <b-dropdown-item>Delete</b-dropdown-item>
+                                        <b-dropdown-item>Reopen</b-dropdown-item>
+                                        <b-dropdown-divider></b-dropdown-divider>
+                                    </template>
+                                    <b-dropdown-item>Report</b-dropdown-item>
+                                </b-dropdown>
                             </div>
                         </div>
 
                     </div>
+
+                    <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
+                        <div class="card my-2">
+                            <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
+                        </div>
+                        </b-collapse>
+
+                    <div class="card my-3">
+                        <comments-list :comments="question.comments"></comments-list>
+                    </div>
+
 
                     <div class="mt-3" role="tablist">
                         <b-collapse id="accordion1" accordion="my-accordion" role="tabpanel">
@@ -103,9 +121,7 @@
 
                         </b-collapse>
 
-                        <b-collapse id="accordion2" accordion="my-accordion" role="tabpanel">
-                            <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
-                        </b-collapse>
+               
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
@@ -127,6 +143,8 @@
     import Editor from '@tinymce/tinymce-vue';
     import TagsInput from '../components/TagsInput';
     import CommentBox from '../components/CommentBox';
+    import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
+    import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
 
     export default {
 
@@ -145,7 +163,9 @@
             'Editor': Editor,
             'AnswerPartial': AnswerPartial,
             'TagsInput': TagsInput,
-            'CommentBox': CommentBox
+            'CommentBox': CommentBox,
+            'bDropdown': bDropdown,
+            'bTooltip': bTooltip,
         },
 
         data() {
