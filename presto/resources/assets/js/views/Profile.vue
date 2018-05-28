@@ -54,7 +54,7 @@
                                             <i class="fa fa-lg fa-gem"></i>
                                         </div>
                                         <h6>{{user.score}}
-                                            <small class="text-muted">points</small>
+                                            <a href=""><small class="text-muted">points</small></a>
                                         </h6>
                                     </div>
                                     <div class="d-flex p-1">
