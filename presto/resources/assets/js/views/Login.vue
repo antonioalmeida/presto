@@ -29,6 +29,9 @@
                                        placeholder="Password"
                                        required>
                             </div>
+                            <div>
+                                <a href="/password/reset"><p>Forgot your password?</p></a>
+                            </div>
                             <div class="d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
