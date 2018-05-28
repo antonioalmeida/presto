@@ -127,17 +127,18 @@
             },
 
             onPicSubmit: function () {
-                axios.patch('api/member/edit-profile-pic', {
-                    'profile-pic-url': this.profilePicture
+                axios.patch('/api/topic/' + this.name + '/edit-pic', {
+                    'pic-url': this.picture
                 })
                     .then(({data}) => {
                         $('#editPicture').modal('toggle');
-                        this.user.profile_picture = this.profilePicture;
-                        this.$alerts.addSuccess('Photo successfully updated!');
+                        this.topic.picture = this.picture;
+                        this.$alerts.addSuccess('Picture successfully updated!');
                         location.reload();
                     })
                     .catch(({response}) => {
-
+                        this.loader.hide();
+                        this.$alerts.addError(response.data.errors.name[0]);
                     });
             },
         }

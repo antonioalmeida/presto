@@ -52,19 +52,15 @@ class TopicController extends Controller
       return new TopicResource($topic);
     }
 
-    public function updatePicture(Request $request)
+    public function updatePicture(Topic $topic)
     {
-      /*
-      $member = Auth::user();
-
-        $request->validate([
-            'profile-pic-url' => 'required|url'
+        $this->validate(request(), [
+            'pic-url' => 'required|url'
         ]);
 
-        $member->profile_picture = request('profile-pic-url');
-        $member->save();
+        $topic->picture = request('pic-url');
+        $topic->save();
 
-        return ['profile-pic-url' => $member->profile_picture];
-        */
+        return ['pic-url' => $topic->picture];
     }
 }
