@@ -9,7 +9,7 @@
                 © 2018 Presto
             </div>
             <div class="col-12 col-md-4 mt-4 mt-md-0 text-center text-md-right">
-                <a href="{{route('about')}}">About</a>
+                <router-link to="/about">About</router-link>
             </div>
         </div>
     </div>

@@ -13,9 +13,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Flag extends Model
 {
-     // Don't add create and update timestamps in database.
-     public $timestamps  = false;
-     
+    // Don't add create and update timestamps in database.
+    public $timestamps = false;
+
     /**
      * The table associated with the model.
      */
@@ -23,10 +23,14 @@ class Flag extends Model
 
     protected $fillable = ['date', 'reason'];
 
-
     public function member()
     {
-        return $this->belongsTo('App\Member');
+        return $this->belongsTo('App\Member', 'member_id');
     }
 
+
+    public function moderator()
+    {
+        return $this->belongsTo('App\Member', 'moderator_id');
+    }
 }

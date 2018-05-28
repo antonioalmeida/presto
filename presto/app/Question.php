@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $title
  * @property string $content
  * @property string $date
- * @property int $views
  * @property boolean $solved
  * @property string $search
  * @property Member $member
@@ -23,11 +22,11 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     // Don't add create and update timestamps in database.
-    public $timestamps  = false;
+    public $timestamps = false;
 
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'question';
@@ -35,30 +34,47 @@ class Question extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author_id', 'title', 'content', 'date', 'views', 'solved', 'search'];
+    protected $fillable = ['author_id', 'title', 'content', 'date', 'solved', 'search'];
+
+    protected $hidden = ['search'];
 
     /**
      * Queries
      */
 
-    public function getTopics() {
+    public function getTopics()
+    {
         return $this->topics;
     }
 
-    public function getAnswers() {
+    public function getAnswers()
+    {
         return $this->answers;
     }
 
-    public function getNumAnswers() {
+    public function getNumAnswers()
+    {
         return count($this->answers);
     }
 
-    public function addComment($comment) {
+    public function addComment($comment)
+    {
         return $this->comments()->create($comment);
     }
 
-    public function addTopic($topic) {
+    public function comments()
+    {
+        return $this->hasMany('App\Comment');
+    }
+
+    public function addTopic($topic)
+    {
         return $this->topics()->attach($topic);
+    }
+
+    public function topics()
+    {
+        return $this->belongsToMany('App\Topic');
     }
 
     /**
@@ -74,19 +90,9 @@ class Question extends Model
         return $this->hasMany('App\QuestionReport');
     }
 
-    public function topics()
-    {
-        return $this->belongsToMany('App\Topic');
-    }
-
     public function answers()
     {
         return $this->hasMany('App\Answer');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
     }
 
     public function questionRatings()

@@ -1,24 +1,15 @@
 <?php
+
 namespace App\Presto;
 
 use App\Member;
+use App\Notifications\MemberFollowed;
 use App\Topic;
 
 trait Follow
 {
 
     //Follow members
-
-    /**
-     * Check if a given user is following this user.
-     *
-     * @param Member $member
-     * @return bool
-     */
-    public function isFollowing(Member $member)
-    {
-        return !! $this->followings()->where('following_id', $member->id)->count();
-    }
 
     /**
      * Check if a given user is being followed by this user.
@@ -28,7 +19,7 @@ trait Follow
      */
     public function isFollowedBy(Member $member)
     {
-        return !! $this->followers()->where('follower_id', $member->id)->count();
+        return !!$this->followers()->where('follower_id', $member->id)->count();
     }
 
     /**
@@ -39,10 +30,30 @@ trait Follow
      */
     public function follow(Member $member)
     {
-        if (! $this->isFollowing($member) && $this->id != $member->id)
-        {
-            $this->followings()->attach($member);
+        if (!$this->isFollowing($member) && $this->id != $member->id) {
+            $notifications_self = $member->notifications
+                ->where('data.follower_id', $this->id)
+                ->where('type', 'App\Notifications\MemberFollowed');
+
+            if ($notifications_self->isEmpty()) {
+                $member->notify(new MemberFollowed($this));
+            }
+
+            return $this->followings()->attach($member);
         }
+
+        return false;
+    }
+
+    /**
+     * Check if a given user is following this user.
+     *
+     * @param Member $member
+     * @return bool
+     */
+    public function isFollowing(Member $member)
+    {
+        return !!$this->followings()->where('following_id', $member->id)->count();
     }
 
     /**
@@ -57,17 +68,20 @@ trait Follow
     }
 
     //Follow topics
-    public function isFollowingTopic(Topic $topic)
-    {
-        return !! $this->topics()->where('topic_id', $topic->id)->count();
-    }
-   
+
     public function followTopic(Topic $topic)
     {
-        if (! $this->isFollowingTopic($topic))
-        {
+        if (!$this->isFollowingTopic($topic)) {
             $this->topics()->attach($topic);
+            return true;
         }
+
+        return false;
+    }
+
+    public function isFollowingTopic(Topic $topic)
+    {
+        return !!$this->topics()->where('topic_id', $topic->id)->count();
     }
 
     public function unFollowTopic(Topic $topic)

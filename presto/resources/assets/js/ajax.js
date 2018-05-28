@@ -4,24 +4,24 @@ $.ajaxSetup({
     }
 });
 
-$('#question-add-comment').submit(function(event) {
-	event.preventDefault();
+$('#question-add-comment').submit(function (event) {
+    event.preventDefault();
 
-	let questionID = parseInt(event.target.getAttribute('data-question-id'));
-	let content = event.target.querySelector('textarea[name="content"]').value;
+    let questionID = parseInt(event.target.getAttribute('data-question-id'));
+    let content = event.target.querySelector('textarea[name="content"]').value;
 
-	console.log(questionID);
-	console.log(content);
+    console.log(questionID);
+    console.log(content);
 
-	$.post('/api/comments/question', {'question_id': questionID, 'content': content})
-	.done(function(response) {
-		console.log(response);
-		let parent = document.getElementById('questionComments');
-		let html = document.createRange().createContextualFragment(response.data);
-		parent.prepend(html);
-	})
-	.fail(function() {
-		console.log("error");
-	});
+    $.post('/api/comments/question', {'question_id': questionID, 'content': content})
+        .done(function (response) {
+            console.log(response);
+            let parent = document.getElementById('questionComments');
+            let html = document.createRange().createContextualFragment(response.data);
+            parent.prepend(html);
+        })
+        .fail(function () {
+            console.log("error");
+        });
 
 });
