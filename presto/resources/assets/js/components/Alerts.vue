@@ -8,7 +8,7 @@
     	<div class="alert-message">
     		<strong v-if="variant == 'danger'">Oh no!</strong> 
     		<strong v-else>Yes!</strong> 
-    		{{ text }}
+    		<template v-for="message in text"> {{ message }} <br></template>
     	</div>
 
 	</b-alert>
@@ -22,7 +22,7 @@ export default {
 	data () {
 		return {
 			dismissCountDown: 0,
-			text: '',
+			text: [],
 			variant: 'danger'
 		}
 	},
@@ -34,13 +34,13 @@ export default {
 	methods: {
 		addError(text) {
 			this.dismissCountDown = 5;
-			this.text = text;
+			this.text.push(text);
 			this.variant = 'danger';
 		},
 
 		addSuccess(text) {
 			this.dismissCountDown = 5;
-			this.text = text;
+			this.text.push(text);
 			this.variant = 'primary';
 		},
 

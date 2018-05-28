@@ -83,19 +83,19 @@ function makeNotificationText(notification) {
     if (notification.type === NOTIFICATION_TYPES.follow) {
         const name = notification.data.follower_name;
         const picture = notification.data.follower_picture;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> started following you.</span>';
 
     } else if (notification.type === NOTIFICATION_TYPES.newQuestion) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> posted a question.</span>';
     } else if (notification.type === NOTIFICATION_TYPES.newAnswer) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> answered your question: </span>'
             + title;
     } else if (notification.type === NOTIFICATION_TYPES.newComment) {
@@ -103,21 +103,21 @@ function makeNotificationText(notification) {
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
         const type = notification.data.type_comment;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> left a comment on your ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
             + title;
     } else if (notification.type === NOTIFICATION_TYPES.answerRated) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your answer to the question: </span>'
             + title;
     } else if (notification.type === NOTIFICATION_TYPES.questionRated) {
         const name = notification.data.following_name;
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your question: </span>'
             + title;
     } else if (notification.type === NOTIFICATION_TYPES.commentRated) {
@@ -125,7 +125,7 @@ function makeNotificationText(notification) {
         const picture = notification.data.following_picture;
         const title = notification.data.question_title;
         const type = notification.data.type_comment;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> upvoted your comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
             + title;
     } else if (notification.type === NOTIFICATION_TYPES.mention) {
@@ -133,7 +133,7 @@ function makeNotificationText(notification) {
         const picture = notification.data.follower_picture;
         const title = notification.data.question_title;
         const type = notification.data.type_comment;
-        text += '<img class="user-preview rounded-circle pr-1" heigth="36px" src="' + picture + '" width="36px">'
+        text += '<img class="user-preview rounded-circle pr-1" height="36" alt="' + name + '\'s profile picture" src="' + picture + '" width="36">'
             + name + '<span class="text-muted"> mentioned you on their comment to the ' + (type == 'Answer' ? 'answer to the ' : '') + 'question: </span>'
             + title;
 

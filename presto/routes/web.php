@@ -26,13 +26,13 @@ Route::view('404', 'layouts.master')->name('404');
 
 
 Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
-Route::get('settings', 'ProfileController@settings')->name('settings');
 Route::view('notifications', 'layouts.master')->name('notifications');
 
 // Profile
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
 Route::view('profile/{member}/following', 'layouts.master');
+Route::view('settings', 'layouts.master')->name('settings');
 Route::view('edit-profile', 'layouts.master')->name('profile.edit');
 
 
@@ -83,6 +83,14 @@ Route::view('topic/{topic}', 'layouts.master');
     // Search API
     Route::get('search/{query}', 'SearchController@get');
 
+    //Feed API
+    Route::get('isLoggedIn', 'HomeController@isLoggedIn');
+    Route::get('feed/getNewContent', 'HomeController@getNewContent');
+    Route::get('feed/getTopContent', 'HomeController@getTopContent');
+    Route::get('feed/getRecommendedContent', 'HomeController@getRecommendedContent');
+    Route::get('feed/getTrendingTopics', 'HomeController@getTrendingTopics');
+    Route::get('feed/getTopMembers', 'HomeController@getTopMembers');
+
     // Admin API
 	Route::get('admin/get-users', 'AdminController@getUsers');
 	Route::get('admin/get-banned', 'AdminController@getBanned');
@@ -103,17 +111,23 @@ Route::view('search/{query}', 'layouts.master');
 
 
 // Authentication
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::view('login', 'layouts.master_aux')->name('login');
 Route::post('login', 'Auth\LoginController@login');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
-Route::get('signup', 'Auth\RegisterController@showRegistrationForm')->name('signup');
+Route::view('signup', 'layouts.master_aux')->name('signup');
 Route::post('signup', 'Auth\RegisterController@register');
 
 // OAuth Routes
 Route::get('auth/{provider}', 'Auth\LoginController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
-Auth::routes();
+// Password Reset Routes...
+Route::view('password/reset', 'layouts.master_aux')->name('password.request');
+Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::view('password/reset/{token}', 'layouts.master_aux')->name('password.reset');
+Route::post('password/reset', 'Auth\ResetPasswordController@reset');
+
+// Auth::routes();
 
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -128,8 +142,8 @@ Route::prefix('admin')->group(function () {
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
 
 //Settings
-Route::put('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
-Route::put('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
+Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
+Route::post('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
 
 //Follows Member
 // Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');

@@ -1,5 +1,5 @@
 <template>
-    <main class="mt-5 grey-background" role="main">
+    <main class="mt-5 grey-background" >
 
         <section>
             <div class="jumbotron profile-jumbotron">
@@ -28,7 +28,7 @@
                                         :classesDefault="'btn btn-outline-light'"
                                         :classesActive="'btn btn-danger'"
                                         :path="'/api/topic/' + topic.name + '/toggle-follow'"
-                                        :data="followData" @update:data="value => topic.nrFollowers = value.no_followers"
+                                        :data="followData" @update:data="value => topic.nrFollowers = value.no_follow"
                                 >
                                 </follow-button>
 
@@ -41,14 +41,6 @@
                                 <h5 class="text-dark">Stats</h5>
                                 <div class="dropdown-divider"></div>
                                 <div class="d-flex flex-column justify-content-around flex-wrap">
-                                    <div class="d-flex p-1">
-                                        <div class="mx-2">
-                                            <i class="far fa-fw fa-eye"></i>
-                                        </div>
-                                        <h6> {{ topic.nrViews }}
-                                            <small class="text-muted">answer views</small>
-                                        </h6>
-                                    </div>
                                     <div class="d-flex p-1">
                                         <div class="mx-2">
                                             <i class="far fa-fw fa-question"></i>
@@ -114,12 +106,17 @@
                         </div>
                         <div class="tab-pane fade" id="nav-oldest" role="tabpanel" aria-labelledby="nav-oldest-tab">
                             <div class="list-group">
-                                <!-- <question-card :key="question.id" v-for="question in this.sortedOldest" :question="question"></question-card> 
-                                -->
+
+                                <question-card :key="question.id" v-for="question in this.sortedOldest"
+                                               :question="question"></question-card>
                             </div>
                         </div>
                         <div class="tab-pane fade" id="nav-rating" role="tabpanel" aria-labelledby="nav-rating-tab">
+                            <div class="list-group">
 
+                                <question-card :key="question.id" v-for="question in this.sortedRating"
+                                               :question="question"></question-card>
+                            </div>
                         </div>
                     </div>
 
@@ -186,7 +183,7 @@
                 if (!this.topic.questions)
                     return [];
 
-                return this.topic.questions.sort((a, b) => {
+                return this.topic.questions.slice().sort((a, b) => {
                     return a.date < b.date;
                 })
             },
@@ -195,11 +192,19 @@
                 if (!this.topic.questions)
                     return [];
 
-                return this.topic.questions.sort((a, b) => {
+                return this.topic.questions.slice().sort((a, b) => {
                     return a.date > b.date;
+                })
+            },
+
+                sortedRating: function () {
+                if (!this.topic.questions)
+                    return [];
+
+                return this.topic.questions.slice().sort((a, b) => {
+                    return a.rating < b.rating;
                 })
             }
         }
     }
 </script>
-

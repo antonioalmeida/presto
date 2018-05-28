@@ -1,6 +1,6 @@
 <template>
 
-    <main role="main" class="mt-5">
+    <main  class="mt-5">
 
         <section class="container pt-5">
             <div class="row">
@@ -8,9 +8,6 @@
                      <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
                     <h1>{{answer.question.title}}</h1>
                     </router-link>
-                    <h4>
-                        <!-- <small>This is the question's description.</small> -->
-                    </h4>
                     <h5>
                         <small class="text-muted">
                             <i class="far fa-fw fa-tags"></i>
@@ -67,10 +64,10 @@
                     question: {
                         topics: [],
                     },
-                    
+
                     author: [],
                     comments: [],
-                    
+
                 },
                 commentText: '',
                 showError: false,

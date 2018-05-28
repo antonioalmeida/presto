@@ -1,6 +1,6 @@
 <template>
 
-    <main class="mt-5 grey-background" role="main">
+    <main class="mt-5 grey-background" >
 
         <section>
             <div class="jumbotron profile-jumbotron">
@@ -51,18 +51,10 @@
                                 <div class="d-flex flex-column justify-content-around flex-wrap">
                                     <div class="d-flex p-1">
                                         <div class="mx-2">
-                                            <a href="#"><i class="fa fa-gem"></i></a>
+                                            <i class="fa fa-lg fa-gem"></i>
                                         </div>
                                         <h6>{{user.score}}
                                             <small class="text-muted">points</small>
-                                        </h6>
-                                    </div>
-                                    <div class="d-flex p-1">
-                                        <div class="mx-2">
-                                            <i class="far fa-fw fa-eye"></i>
-                                        </div>
-                                        <h6>{{ user.answers_views }}
-                                            <small class="text-muted">answer views</small>
                                         </h6>
                                     </div>
                                     <div class="d-flex p-1">
@@ -90,7 +82,7 @@
             </div>
         </section>
 
-        <router-view></router-view>
+        <router-view :data="followData" @update:data="value => user.nrFollowing = value.no_follow"></router-view>
 
     </main>
 
@@ -112,6 +104,7 @@
         data() {
             return {
                 user: {},
+                followData: null,
             }
         },
 
@@ -146,4 +139,3 @@
 
     }
 </script>
-
