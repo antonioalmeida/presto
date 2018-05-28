@@ -35,6 +35,12 @@ class FullQuestionResource extends Resource
         $response['topics'] = $this->topics;
         $response['comments'] = CommentResource::collection($this->comments);
 
+        $response['upvotes'] = $this->questionRatings()->where('rate', 1)->count();
+        $response['downvotes'] = $this->questionRatings()->where('rate', -1)->count();
+
+        $response['isUpvoted'] = $this->questionRatings()->where('rate', 1)->where('member_id', Auth::id())->count() == 1;
+        $response['isDownvoted'] = $this->questionRatings()->where('rate', -1)->where('member_id', Auth::id())->count() == 1;
+
         return $response;
     }
 }
