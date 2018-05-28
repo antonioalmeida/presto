@@ -8,7 +8,7 @@
 
     <body class="">
 
-    <main  class="mt-5">
+    <main class="mt-5">
 
         <section class="container mt-5 pt-5 d-flex justify-content-center">
 

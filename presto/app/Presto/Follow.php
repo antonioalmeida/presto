@@ -35,7 +35,7 @@ trait Follow
                 ->where('data.follower_id', $this->id)
                 ->where('type', 'App\Notifications\MemberFollowed');
 
-            if($notifications_self->isEmpty()){
+            if ($notifications_self->isEmpty()) {
                 $member->notify(new MemberFollowed($this));
             }
 

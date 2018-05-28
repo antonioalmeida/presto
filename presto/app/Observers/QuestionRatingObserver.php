@@ -2,7 +2,6 @@
 
 namespace App\Observers;
 
-use App\QuestionRating;
 use App\Notifications\QuestionRated;
 
 class QuestionRatingObserver
