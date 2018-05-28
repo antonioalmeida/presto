@@ -45,7 +45,6 @@
                                aria-haspopup="true" aria-expanded="false"><i class="far fa-bell"></i></a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationsDropdown">
                                 <div id="notificationsMenu">
-                                    <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
                                 </div>
                                 <div class="dropdown-divider"></div>
                                 <router-link to="/notifications" class="text-center dropdown-item">See All Notifications
