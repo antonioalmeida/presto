@@ -1,4 +1,3 @@
-window._ = require('lodash');
 window.$ = window.jQuery = jQuery;
 window.Pusher = require('pusher-js');
 import Echo from "laravel-echo";
@@ -46,7 +45,7 @@ $(document).ready(function () {
 });
 
 function addNotifications(newNotifications, target) {
-    notifications = _.concat(notifications, newNotifications);
+    notifications = notifications.concat(newNotifications);
     // show only last 5 notifications
     let sliced = notifications.slice(0, 5);
     showNotifications(sliced, target);
