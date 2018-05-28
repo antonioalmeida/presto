@@ -251,6 +251,10 @@
 <script>
     export default {
 
+        created() {
+            document.title = "Admin | Presto";
+        },
+
         data() {
             return {
                 users: {},

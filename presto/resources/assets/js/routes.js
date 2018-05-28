@@ -96,9 +96,15 @@ let routes = [
     },
 
     {
+        path: '/admin/login',
+        component: require('./views/AdminLogin'),
+    },
+
+    {
         path: '/admin',
         component: require('./views/Admin'),
     },
+
 
     {
         path: '/notifications',
