@@ -7,7 +7,9 @@
                         <i class="far fa-bars"></i>
                     </a>
                 </li>
-                <a class="navbar-brand" href="admin"><h4>Presto</h4></a>
+                <router-link class="navbar-brand" :to="'/admin'">
+                    <h4>Presto</h4>
+                </router-link>
             </ul>
             <div class="navbar-collapse" id="navbarsExampleDefault">
                 <ul class="navbar-nav ml-auto align-items-end">
@@ -20,9 +22,6 @@
                                  class="rounded-circle border border-primary profile-photo">
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="profilesettings.html"><i
-                                        class="far text-muted fa-fw fa-cog"></i> Settings</a>
-                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{Route('admin.logout')}}"><i
                                         class="far text-muted fa-fw fa-sign-out"></i> Logout</a>
                         </div>
