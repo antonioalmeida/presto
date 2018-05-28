@@ -1,6 +1,8 @@
 <template>
     <div class="mt-4">
         <hr>
+        <div v-bind:class="{'card': answer.is_chosen_answer, 'card-body': answer.is_chosen_answer, 'border-primary': answer.is_chosen_answer}">
+        <h5 v-if="answer.is_chosen_answer"><span class="badge badge-primary">Chosen answer</span></h5>
         <div class="d-flex flex-wrap">
             <div class="align-self-center">
                 <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -27,6 +29,7 @@
                                :path="'/api/member/' + answer.author.username + '/toggle-follow'"
                 >
                 </follow-button>
+                <button v-on:click="$emit('solve-question')" class="btn btn-primary" v-if="!parent.solved"><i class="far fa-fw fa-lock-alt"></i> Choose as correct answer</button>
 
             </div>
             <!--
@@ -65,8 +68,9 @@
         <div class="card my-3">
             <comments-list :comments="answer.comments"></comments-list>
 
-            <CommentBox v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
+            <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
         </div>
+      </div>
     </div>
 </template>
 
@@ -77,7 +81,7 @@
 
     export default {
 
-        props: ['answerData'],
+        props: ['answerData', 'parent'],
 
         name: 'AnswerPartial',
 
