@@ -24,7 +24,7 @@
 
                     <div class="mt-4">
 
-                        <AnswerPartial v-bind:answerData="answer" :key="answer.id"></AnswerPartial>
+                        <AnswerPartial v-bind:answerData="answer" :key="answer.id" v-bind:parent="answer.question" v-on:solve-question="solve()"></AnswerPartial>
 
                     </div>
                 </div>
@@ -128,7 +128,20 @@
                     .catch((error) => {
                         console.log(error);
                     });
-            }
+            },
+
+            solve: function() {
+                axios.post('/api/questions/' + this.answer.question.id + '/solve', {
+                    'answerId': this.answer.id
+                })
+                    .then(({data}) => {
+                      window.location.reload();
+                    })
+                    .catch(({response}) => {
+                        this.errors = response.data.errors;
+                        console.log(this.errors);
+                    });
+            },
         }
     }
 </script>
