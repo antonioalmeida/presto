@@ -48,6 +48,7 @@ class QuestionController extends Controller
               if ($topic->isEmpty()) {
                   $newTopic = new Topic();
                   $newTopic->name = $tag;
+                  $newTopic->picture = 'https://dummyimage.com/250/000000/ffffff.png&text=' . $tag;
                   $newTopic->save();
                   $question->topics()->attach($newTopic);
               } else {
