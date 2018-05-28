@@ -99,7 +99,7 @@ class ProfileController extends Controller
         $member->profile_picture = request('profile-pic-url');
         $member->save();
 
-        return redirect()->route('profile.edit', $member);
+        return ['profile-pic-url' => $member->profile_picture];
     }
 
     public function updateEmail(Request $request)
