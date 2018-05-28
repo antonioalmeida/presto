@@ -1,7 +1,7 @@
 <template>
-  <div class="container mt-5">
     <main class="grey-background mt-5">
-          <div class="container p-1 align-items-center">
+      <section>
+        <div class="container align-items-center mt-5">
               <h4>Account</h4>
               <hr>
               <div class="row">
@@ -25,7 +25,6 @@
                   </div>
               </div>
           </div>
-    </main>
 
     <div class="modal fade" id="editEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
@@ -73,7 +72,8 @@
             </div>
         </div>
     </div>
-  </div>
+  </section>
+  </main>
 </template>
 
 <script>
