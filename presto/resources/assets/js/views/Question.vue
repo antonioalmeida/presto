@@ -50,22 +50,23 @@
 
                         <div class="mt-2 d-flex justify-content-between flex-wrap">
 
-                            <div>
-
-                                <b-btn v-if="!question.solved" href="#" v-b-toggle.accordion1 variant="primary">
-                                    <i class="far fa-fw fa-pen"></i> Answer
-                                </b-btn>
-
-                                <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i
-                                        class="far fa-fw fa-unlock-alt"></i> Reopen
-                                </button>
-                            </div>
+                            <rate-content 
+                                class="mt-2"
+                                v-if="!question.isOwner"
+                                :content="question"
+                                :endpoint="rateEndpoint"
+                            ></rate-content>
 
                             <div class="mt-2 d-flex justify-content-between flex-wrap">
-                                
-                                <b-btn id="questionComment" v-if="!question.solved" href="#" v-b-toggle.accordion2 variant="link">
-                                    <i class="far fa-fw fa-comment"></i> 
+
+                                <b-btn v-if="!question.solved" v-b-toggle.accordion1 variant="link">
+                                    <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
+                                
+                                <b-btn id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
+                                    <i class="far fa-fw fa-comment"></i> Comment
+                                </b-btn>
+
                                 <b-tooltip target="questionComment" title="Leave a comment"></b-tooltip>
 
 
@@ -75,7 +76,7 @@
                                         <b-tooltip target="questionOptions" title="More options"></b-tooltip>
                                     </template>
                             
-                                    <template v-show="question.isOwner">
+                                    <template v-if="question.isOwner">
                                         <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
                                         <b-dropdown-item>Delete</b-dropdown-item>
                                         <b-dropdown-item>Reopen</b-dropdown-item>
@@ -92,22 +93,16 @@
                         <div class="card my-2">
                             <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
                         </div>
-                        </b-collapse>
+                    </b-collapse>
 
-                    <div class="card my-3">
-                        <comments-list :comments="question.comments"></comments-list>
-                    </div>
-
-
-                    <div class="mt-3" role="tablist">
+                    <div class="mt-3">
                         <b-collapse id="accordion1" accordion="my-accordion" role="tabpanel">
 
                             <div class="card">
-
                                 <editor
-                                        v-model="editorContent"
-                                        :init="editorInit"
-                                        @onChange="answerShowError = false">
+                                    v-model="editorContent"
+                                    :init="editorInit"
+                                    @onChange="answerShowError = false">
                                 </editor>
 
                                 <div class="card-footer">
@@ -120,15 +115,18 @@
                             </div>
 
                         </b-collapse>
+                    </div>
 
-               
+                    <div class="card my-3">
+                        <comments-list :comments="question.comments"></comments-list>
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
 
                     <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question"
                                    v-on:solve-question="solve(answer.id)"
-                                   :key="answer.id"></AnswerPartial>
+                                   :key="answer.id">
+                    </AnswerPartial>
 
                 </div>
             </div>
@@ -143,6 +141,7 @@
     import Editor from '@tinymce/tinymce-vue';
     import TagsInput from '../components/TagsInput';
     import CommentBox from '../components/CommentBox';
+    import RateContent from '../components/RateContent';
     import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
     import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
 
@@ -164,6 +163,7 @@
             'AnswerPartial': AnswerPartial,
             'TagsInput': TagsInput,
             'CommentBox': CommentBox,
+            'RateContent': RateContent,
             'bDropdown': bDropdown,
             'bTooltip': bTooltip,
         },
@@ -291,6 +291,12 @@
                         this.errors = response.data.errors;
                         console.log(this.errors);
                     });
+            }
+        },
+
+        computed: {
+            rateEndpoint: function() {
+                return '/api/questions/' + this.question.id + '/rate/';
             }
         }
     }
