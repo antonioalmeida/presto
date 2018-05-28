@@ -17,8 +17,8 @@
 
 
         <small class="text-muted"><i class="far fa-tags"></i>
-            <router-link v-for="(topic, index) in question.topics" class="text-muted" :key="topic.id"
-                         :to="'/topic/' + topic.name">
+            <router-link v-for="(topic, index) in this.topicsEncoded" class="text-muted" :key="topic.id"
+                         :to="'/topic/' + topic.encodedName">
                 {{ topic.name }}
                 <template v-if="index != question.topics.length -1">,</template>
             </router-link>
@@ -37,7 +37,18 @@
         name: 'QuestionCard',
 
         data() {
-            return {}
+            return {
+              topicsEncoded: []
+            }
+        },
+
+        created() {
+          //So whitespaces are encoded in the href attribute
+          this.topicsEncoded = this.question.topics.map(topic => {
+            let newTopic = topic;
+            newTopic.encodedName = encodeURI(topic.name);
+            return newTopic;
+          })
         },
 
         methods: {
