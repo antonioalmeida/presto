@@ -167,7 +167,9 @@ Route::post('api/members/{username}/toggle-moderator', 'AdminController@toggleMo
 //Dismiss Flag
 Route::delete('api/flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');
 
-Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.rateComment');
+Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.comment.rate');
+Route::post('api/comments/{comment}/report', 'CommentController@report')->name('api.comment.report');
+
 
 //Questions
 Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('api.rateQuestion');
