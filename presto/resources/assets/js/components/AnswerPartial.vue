@@ -25,8 +25,9 @@
                 <div class="ml-3">
                     <follow-button v-if="!answer.author.isSelf"
                                    v-model="answer.author.isFollowing"
-                                   :classesDefault="'btn btn-sm btn-primary'"
-                                   :classesActive="'btn btn-sm btn-outline-primary'"
+                                   :classesDefault="'btn btn-sm btn-outline-primary'"
+                                   :classesValue="'btn btn-sm btn-primary'"
+                                   :classesActive="'btn btn-sm btn-danger'"
                                    :path="'/api/member/' + answer.author.username + '/toggle-follow'"
                     >
                     </follow-button>
