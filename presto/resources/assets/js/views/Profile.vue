@@ -50,6 +50,8 @@
                                 <router-link v-if="user.isOwner" :to="'/edit-profile'" class="btn btn-outline-light">
                                     Edit Profile
                                 </router-link>
+
+                                <a v-if="!user.isOwner && logged.is_moderator" href="" class="btn btn-outline-light" data-toggle="modal" data-target="#flagModal">Flag member</a>
                             </div>
                         </div>
 
@@ -93,6 +95,29 @@
 
         <router-view :data="followData" @update:data="value => user.nrFollowing = value.no_follow"></router-view>
 
+        <!-- Flag modal -->
+        <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <h6><label for="email">Flag this member</label></h6>
+                            <div class="input-group">
+                                <input v-model="flagReason" type="text"
+                                       class="form-control" placeholder="Why is this member being flagged?"
+                                       aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                        <button @click="onFlagSubmit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
 </template>
@@ -117,13 +142,16 @@
         data() {
             return {
                 user: {},
+                logged: {},
                 followData: null,
+                flagReason: ''
             }
         },
 
         mounted() {
             this.loader = this.$loading.show();
             this.getData(this.username);
+            this.getLogged();
         },
 
         watch: {
@@ -148,6 +176,30 @@
                         console.log(error);
                     });
             },
+
+            getLogged: function () {
+              axios.get('/api/profile/')
+                  .then(({data}) => {
+                      this.logged = data;
+                  })
+                  .catch((error) => {
+                      this.logged.is_moderator = false; //In case not logged in
+                  });
+            },
+
+            onFlagSubmit: function() {
+              console.log(this.username);
+              axios.post('/api/profile/' + this.username + '/flag', {
+                'reason': this.flagReason
+              })
+                  .then(({data}) => {
+                    $('#flagModal').modal('toggle');
+                    this.$alerts.addSuccess('Member successfully flagged!');
+                  })
+                  .catch((error) => {
+                      console.log(error);
+                  });
+            }
         }
 
     }
