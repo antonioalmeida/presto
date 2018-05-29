@@ -20,8 +20,9 @@
             <div class="ml-auto align-self-center flex-wrap">
                 <follow-button
                         v-model="member.isFollowing"
-                        :classesDefault="'btn btn-sm btn-primary'"
-                        :classesActive="'btn btn-sm btn-outline-primary'"
+                        :classesDefault="'btn btn-sm btn-outline-primary'"
+                        :classesValue="'btn btn-sm btn-primary'"
+                        :classesActive="'btn btn-sm btn-danger'"
                         :path="'/api/member/' + member.username + '/toggle-follow'"
                         @update:data="value => this.$parent.$emit('update:data', value)"
                 >
