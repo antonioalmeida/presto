@@ -56,7 +56,7 @@ class HomeController extends Controller
         else
             $last = false;
 
-        $chuhk = $chunk->map(function ($item, $key) {
+        $chunk = $chunk->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {

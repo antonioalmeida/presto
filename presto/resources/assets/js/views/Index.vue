@@ -176,6 +176,7 @@
                                             >
                                             </follow-simple-button>
                                         </div>
+                                      </div>
                                     </template>
                                 </div>
                             </div>
@@ -183,7 +184,7 @@
                     </div>
                 </div>
             </section>
-        
+
         </div>
     </main><!-- /.container -->
 </template>
@@ -397,7 +398,7 @@
                     });
             },
 
-            loadMore: function(){ 
+            loadMore: function(){
                 if(this.currTab == 'Top'){
                     if(this.allTopContent){
                         console.log("No more");
