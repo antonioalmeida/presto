@@ -90,14 +90,9 @@ class HomeController extends Controller
     public function getDataChunk($data,$maxNr){
         $chunkNr = request('chunk');
 
-        $chunk = $data->forPage($chunkNr,$maxNr);
-        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
-        if(count($chunk) < $maxNr || count($nextChunk) == 0)
-            $last = true;
-        else
-            $last = false;
-
-        $chunk = $chunk->map(function ($item, $key) {
+        $res = getDataChunk($data,$chunkNr,$maxNr);
+        
+        $res['data'] = $res['data']->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {
@@ -107,7 +102,7 @@ class HomeController extends Controller
         });
 
 
-        return ['data' => $chunk, 'last' => $last];
+        return $res;
     }
 
     public function getTrendingTopics()
