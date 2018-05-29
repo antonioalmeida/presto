@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * @property int $id
@@ -21,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Question extends Model
 {
+    use SoftDeletes;
+    
     // Don't add create and update timestamps in database.
     public $timestamps = false;
 

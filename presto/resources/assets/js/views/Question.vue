@@ -75,7 +75,7 @@
                             
                                     <template v-if="question.isOwner">
                                         <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
-                                        <b-dropdown-item>Delete</b-dropdown-item>
+                                        <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
                                         <b-dropdown-item>Reopen</b-dropdown-item>
                                         <b-dropdown-divider></b-dropdown-divider>
                                     </template>
@@ -128,6 +128,20 @@
                 </div>
             </div>
         </section>
+
+        <!-- delete question modal -->
+
+        <b-modal lazy centered
+        title="Delete Question"
+        id="deleteQuestionModal"
+        ok-variant="primary"
+        cancel-variant="link"
+        ok-title="Confirm"
+        cancel-title="Cancel"
+        @ok="onDelete"
+        >
+        <h5><small>Are you sure you wish to delete this question? You cannot restore it.</small></h5>
+        </b-modal>
     </main>
 </template>
 
@@ -283,6 +297,20 @@
                 }
                 this.$alerts.addArrayError(messages);
                 });
+            },
+
+            onDelete: function() {
+                axios.delete('/api/questions/' + this.question.id)
+                .then(({data}) => {
+                        if(data.result) {
+                            this.$router.push({path: '/'});
+                            this.$alerts.addSuccess('Question successfully deleted!');
+                        }
+                    })
+                .catch(({response}) => {
+                        this.errors = response.data.errors;
+                        console.log(this.errors);
+                    });            
             },
 
             solve: function (chosenAnswerId) {

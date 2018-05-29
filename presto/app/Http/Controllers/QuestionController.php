@@ -111,6 +111,14 @@ class QuestionController extends Controller
         return $response;
     }
 
+    public function delete(Question $question) {
+        $result = false;
+        if($question->delete())
+            $result = true;
+
+        return compact('result');
+    }
+
     public function rate(Question $question)
     {
         $this->authorize('rate', $question);
