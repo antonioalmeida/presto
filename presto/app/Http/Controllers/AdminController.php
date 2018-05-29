@@ -47,10 +47,12 @@ class AdminController extends Controller
         return MemberListResource::collection(Member::where(['is_moderator' => true, 'is_banned' => false])->get());
     }
 
+    /*
     public function getCertified()
     {
         return MemberListResource::collection(Member::where(['is_certified' => true, 'is_banned' => false])->get());
     }
+    */
 
     public function ban(String $username)
     {
