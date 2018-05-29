@@ -42,7 +42,7 @@
                                     Edit Profile
                                 </router-link>
 
-                                <a v-if="!user.isOwner" href="" class="btn btn-outline-light" data-toggle="modal" data-target="#flagModal">Flag member</a>
+                                <a v-if="!user.isOwner && logged.is_moderator" href="" class="btn btn-outline-light" data-toggle="modal" data-target="#flagModal">Flag member</a>
                             </div>
                         </div>
 
@@ -129,6 +129,7 @@
         data() {
             return {
                 user: {},
+                logged: {},
                 followData: null,
                 flagReason: ''
             }
@@ -137,6 +138,7 @@
         mounted() {
             this.loader = this.$loading.show();
             this.getData(this.username);
+            this.getLogged();
         },
 
         watch: {
@@ -160,6 +162,16 @@
                     .catch((error) => {
                         console.log(error);
                     });
+            },
+
+            getLogged: function () {
+              axios.get('/api/profile/')
+                  .then(({data}) => {
+                      this.logged = data;
+                  })
+                  .catch((error) => {
+                      this.logged.is_moderator = false; //In case not logged in
+                  });
             },
 
             onFlagSubmit: function() {
