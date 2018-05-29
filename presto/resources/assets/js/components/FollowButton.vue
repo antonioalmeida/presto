@@ -1,25 +1,35 @@
 <template>
     <button @click.stop.prevent="toggleFollow()"
-            :class="{ [classesDefault]: (!isActive || !value), [classesActive]: (isActive && value) }"
+            :class="{ [classesDefault]: (!value), [classesActive]: (isActive && value), [classesValue]: (value && !isActive)}"
             @mouseover="handleHover()" @mouseleave="handleLeave()">
 
                 <i v-if="value && !isActive" class="far fa-fw fa-user"></i>
                 <i v-if="value && isActive" class="far fa-fw fa-user-times"></i>
                 <i v-if="!value" class="far fa-fw fa-user-plus"></i>
-        {{ text }}
+        <span v-if="useText" class="text-collapse">{{ text }}</span>
     </button>
 </template>
 
 <script>
     export default {
 
-        props: ['value', 'classesDefault', 'classesActive', 'path'],
+        props: {
+            value: Boolean,
+            classesDefault: String,
+            classesValue: String,
+            classesActive:  String,
+            path: String,
+            useText: {
+                default: true,
+                type: Boolean
+            }
+        },
 
         name: 'FollowButton',
 
         data() {
             return {
-                isActive: false
+                isActive: false,
             }
         },
 
@@ -57,6 +67,3 @@
         }
     }
 </script>
-
-<style lang="css" scoped>
-</style>
