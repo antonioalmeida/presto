@@ -35,28 +35,50 @@
                     </button>
 
                 </div>
-                <!--
-                @can('update', $answer)
-                <div class="ml-auto ">
-                    <small>
-                      <a href="#" class="text-muted">Edit</a> |
-                      <a href="#" class="text-danger">Delete</a>
-                  </small>
-              </div>
-              @endcan
-          -->
 
             </div>
             <hr>
             <div>
-                <p v-html="answer.content">
-                </p>
+                <p v-if="!isEditing" v-html="answer.content"></p>
+                <div v-else class="card">
+                    <editor
+                        v-model="editorContent"
+                        :init="editorInit"
+                        @onChange="answerShowError = false">
+                    </editor>
 
-                <div v-if="!answer.author.isSelf" class="d-flex">
-                    <rate-content 
-                    :content="answer"
-                    :endpoint="rateEndpoint"
-                    ></rate-content>
+                    <div class="card-footer">
+                        <span v-if="answerShowError" class="text-danger"><small>You can't submit an empty answer.<br></small></span>
+
+                        <button @click="onAnswerSubmit" class="mt-1 btn btn-sm btn-primary">Submit</button>
+
+                        <button @click="isEditing = false" class="mt-1 btn btn-sm btn-link">Cancel</button>
+                    </div>
+                </div>
+
+                <div class="mt-2 d-flex justify-content-between flex-wrap">
+
+                    <div v-if="!answer.author.isSelf" class="d-flex">
+                        <rate-content 
+                        :content="answer"
+                        :endpoint="rateEndpoint"
+                        ></rate-content>
+                    </div>
+
+                    <b-dropdown class="ml-auto" variant="link" id="ddown1" size="lg" no-caret right>
+                        <template slot="button-content">
+                            <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
+                            <b-tooltip target="questionOptions" title="More options"></b-tooltip>
+                        </template>
+                    
+                        <template v-if="answer.author.isSelf">
+                            <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
+                            <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
+                            <b-dropdown-item>Reopen</b-dropdown-item>
+                            <b-dropdown-divider></b-dropdown-divider>
+                        </template>
+                        <b-dropdown-item>Report</b-dropdown-item>
+                    </b-dropdown>
                 </div>
 
             </div>
@@ -75,6 +97,7 @@
     import FollowButton from './FollowButton'
     import CommentBox from './CommentBox'
     import RateContent from './RateContent'
+    import Editor from '@tinymce/tinymce-vue';
 
     export default {
 
@@ -86,14 +109,42 @@
             'CommentsList': CommentsList,
             'FollowButton': FollowButton,
             'CommentBox': CommentBox,
-            'RateContent': RateContent
+            'RateContent': RateContent,
+            'Editor': Editor,
         },
-
 
         data() {
             return {
                 answer: this.answerData,
+
+                isEditing: false,
+                answerShowError: false,
+                editorContent: this.answerData.content,
+                editorInit: require('../tiny-mce-config').default,
             }
+        },
+
+        methods: {
+            onAnswerSubmit: function () {
+                if (this.editorContent.length === 0) {
+                    this.answerShowError = true;
+                    return;
+                }
+
+                axios.post('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id, {
+                    'content': this.editorContent,
+                })
+                .then(({data}) => {
+                    this.$alerts.addSuccess('Answer successfully edited!');
+                    this.answer = data;
+                    this.editorContent = data.content;
+                    this.isEditing = false;
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    this.showError = true;
+                });
+            },
         },
 
         computed: {
