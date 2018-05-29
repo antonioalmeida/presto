@@ -168,7 +168,13 @@
                                                     class="fas fa-gem text-primary"></i> {{member.score}} points</span>
                                         </div>
                                         <div class="ml-auto align-self-center">
-                                            <a href=""><i class="far fa-fw fa-user-plus"></i></a>
+                                            <follow-simple-button
+                                                    v-model="member.isFollowing"
+                                                    :classesDefault="'btn btn-sm btn-primary'"
+                                                    :classesActive="'btn btn-sm btn-outline-primary'"
+                                                    :path="'/api/member/' + member.username + '/toggle-follow'"
+                                            >
+                                            </follow-simple-button>
                                         </div>
                                     </div>
                                 </template>
@@ -193,7 +199,8 @@
 
         components: {
             QuestionCard: require('../components/QuestionCard'),
-            AnswerCard: require('../components/AnswerCard')
+            AnswerCard: require('../components/AnswerCard'),
+            FollowSimpleButton: require('../components/FollowSimpleButton'),
         },
 
         data() {
@@ -359,6 +366,7 @@
                         console.log(error);
                     });
             },
+
         }
 
     }
