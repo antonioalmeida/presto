@@ -50,6 +50,9 @@ Route::prefix('api')->group(function () {
     Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
     Route::post('profile/{member}/flag', 'ProfileController@flag')->middleware('moderator');
     Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
+    Route::patch('member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
+    Route::post('members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
+    Route::post('members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
 
     Route::post('profile/', 'ProfileController@update');
 
@@ -63,17 +66,21 @@ Route::prefix('api')->group(function () {
     Route::post('questions/{question}/solve', 'QuestionController@solve');
     Route::post('questions/{question}/unsolve', 'QuestionController@unsolve');
     Route::delete('questions/{question}','QuestionController@delete')->name('question.delete');
+    Route::post('questions/{question}/rate', 'QuestionController@rate')->name('api.rateQuestion');
 
     // Comments
     Route::get('comments/{comment}', 'CommentController@get');
     Route::post('comments/question/{question}', 'CommentController@storeQuestionComment')->name('question.add.comment');
     Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
+    Route::post('comments/{comment}/rate', 'CommentController@rate')->name('api.comment.rate');
+    Route::post('comments/{comment}/report', 'CommentController@report')->name('api.comment.report');
 
     // Topics API
     Route::get('topic/{topic}', 'TopicController@get');
     Route::post('topic/{topic}', 'TopicController@update')->middleware('moderator');
     Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
     Route::get('topic/', 'TopicController@getAllTopics');
+    Route::patch('topic/{topic}/edit-pic', 'TopicController@updatePicture')->middleware('moderator');
 
     // Search API
     Route::get('search/{query}', 'SearchController@get');
@@ -91,10 +98,14 @@ Route::prefix('api')->group(function () {
     Route::get('admin/get-banned', 'AdminController@getBanned');
     Route::get('admin/get-flagged', 'AdminController@getFlagged');
     Route::get('admin/get-moderators', 'AdminController@getModerators');
+    Route::post('members/{username}/ban', 'AdminController@ban')->name('api.ban');
+    Route::post('members/{username}/toggle-moderator', 'AdminController@toggleModerator')->name('api.promote');
+    Route::delete('flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');
 
     // Answer API
     Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
     Route::delete('questions/{question}/answers/{answer}','AnswerController@delete')->name('answer.delete');
+    Route::post('questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
 
 });
 
@@ -118,38 +129,10 @@ Route::post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail'
 Route::view('password/reset/{token}', 'layouts.master_aux')->name('password.reset');
 Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 
-// Auth::routes();
-
+// Administration
 Route::prefix('admin')->group(function () {
     Route::view('/login', 'layouts.master_aux')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
     Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
-
-//API
-//Profile
-Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
-Route::patch('api/topic/{topic}/edit-pic', 'TopicController@updatePicture')->middleware('moderator');
-
-//Settings
-Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
-Route::post('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
-
-//Ban Member
-Route::post('api/members/{username}/ban', 'AdminController@ban')->name('api.ban');
-
-//Promote Moderator
-Route::post('api/members/{username}/toggle-moderator', 'AdminController@toggleModerator')->name('api.promote');
-
-//Dismiss Flag
-Route::delete('api/flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');
-
-Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.comment.rate');
-Route::post('api/comments/{comment}/report', 'CommentController@report')->name('api.comment.report');
-
-//Questions
-Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('api.rateQuestion');
-
-//Answers
-Route::post('api/questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
