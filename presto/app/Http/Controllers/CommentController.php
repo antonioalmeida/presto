@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\Comment;
 use App\CommentRating;
+use App\CommentReport;
 use App\Member;
 use App\Http\Resources\CommentResource;
 use App\Notifications\MemberMention;
@@ -110,5 +111,20 @@ class CommentController extends Controller
         ];
 
         return $response;
+    }
+
+    public function report(Comment $comment) {
+        $this->validate(request(), [
+            'reason' => 'required|min:5'
+        ]);
+
+        $result = CommentReport::create([
+            'comment_id' => $comment->id,
+            'member_id' => Auth::id(),
+            'reason' => request('reason'),
+            'date' => now()
+        ]);
+
+        return compact('result');
     }
 }

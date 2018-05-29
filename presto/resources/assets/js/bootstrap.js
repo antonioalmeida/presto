@@ -16,11 +16,11 @@ window.axios.interceptors.response.use(
     (error) => {
         console.log(error); //TODO: Delete this
 
-        if (error.response.status === 401) {
+        if (error.response.status === 401)
             window.location.href = "/login";
-        } else if (error.response.status === 404 || error.response.status === 500) {
-            window.location.href = "/404";
-        }
+        //} else if (error.response.status === 404 || error.response.status === 500) {
+         //   window.location.href = "/404";
+        //}
 
         return Promise.reject(error);
 
