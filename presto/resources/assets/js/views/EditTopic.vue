@@ -117,7 +117,6 @@
                         this.loader.hide();
                         this.$router.push({path: '/topic/' + data.name});
                         this.$alerts.addSuccess('Topic successfully updated!');
-                        location.reload();
                     })
                     .catch(({response}) => {
                         this.loader.hide();
