@@ -57,6 +57,7 @@ Route::prefix('api')->group(function () {
     Route::get('notifications', 'ProfileController@getNotifications');
     Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
     Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+    Route::post('profile/{member}/flag', 'ProfileController@flag');
     Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
 
     Route::post('profile/', 'ProfileController@update');
