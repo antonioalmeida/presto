@@ -2,8 +2,10 @@
     <button @click.stop.prevent="toggleFollow()"
             :class="{ [classesDefault]: (!isActive || !value), [classesActive]: (isActive && value) }"
             @mouseover="handleHover()" @mouseleave="handleLeave()">
-        <i v-if="value" :class="{'far fa-fw': true, 'fa-user': !isActive, 'fa-user-times': isActive }"></i>
-        <i v-else class="far fa-fw fa-user-plus"></i>
+
+                <i v-if="value && !isActive" class="far fa-fw fa-user"></i>
+                <i v-if="value && isActive" class="far fa-fw fa-user-times"></i>
+                <i v-if="!value" class="far fa-fw fa-user-plus"></i>
         {{ text }}
     </button>
 </template>
@@ -18,17 +20,6 @@
         data() {
             return {
                 isActive: false
-            }
-        },
-
-        computed: {
-            text: function () {
-                if (this.value) {
-                    if (this.isActive)
-                        return 'Unfollow';
-                    return 'Following';
-                }
-                return 'Follow';
             }
         },
 
@@ -50,8 +41,20 @@
                     .catch((error) => {
                         console.log(error);
                     });
-            }
+            },
         },
+
+        computed: {
+
+            text: function () {
+                if (this.value) {
+                    if (this.isActive)
+                        return 'Unfollow';
+                    return 'Following';
+                }
+                return 'Follow';
+            }
+        }
     }
 </script>
 
