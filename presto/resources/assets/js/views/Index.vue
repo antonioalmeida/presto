@@ -437,8 +437,6 @@
                     this.currRecommendedDataChunk++;
                     this.getRecommendedContent();
                 }
-                //let self = this;
-                //setTimeOut(function() { self.busy = false; },5000);
             },
 
             joinArray: function(array,data){
