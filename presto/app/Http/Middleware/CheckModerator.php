@@ -19,10 +19,13 @@ class CheckModerator
      */
     public function handle($request, Closure $next)
     {
-        $member = Auth::user();
-        if(!$member->is_moderator) {
+        if(!Auth::check())
           return redirect('404');
-        }
+
+        $member = Auth::user();
+
+        if(!$member->is_moderator)
+          return redirect('404');
 
         return $next($request);
     }

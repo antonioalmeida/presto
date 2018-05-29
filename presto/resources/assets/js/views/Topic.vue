@@ -32,7 +32,7 @@
                                 >
                                 </follow-button>
 
-                                <router-link v-if="this.member.is_moderator" :to="'/topics/'+topic.name+'/edit'" class="btn btn-outline-light">
+                                <router-link v-if="this.member.is_moderator" :to="'/topic/'+topic.name+'/edit'" class="btn btn-outline-light">
                                     Edit Topic
                                 </router-link>
 
