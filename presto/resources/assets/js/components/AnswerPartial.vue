@@ -56,7 +56,7 @@
                 <div class="mt-2 d-flex justify-content-between flex-wrap">
 
                     <div v-if="!answer.author.isSelf" class="d-flex">
-                        <rate-content 
+                        <rate-content
                         :content="answer"
                         :endpoint="rateEndpoint"
                         ></rate-content>
@@ -67,14 +67,14 @@
                             <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
                             <b-tooltip target="questionOptions" title="More options"></b-tooltip>
                         </template>
-                    
+
                         <template v-if="answer.author.isSelf">
                             <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
                             <b-dropdown-item v-b-modal="'deleteAnswerModal' + answer.id">Delete</b-dropdown-item>
-                            <b-dropdown-item>Reopen</b-dropdown-item>
+                            <b-dropdown-item v-if="parent.isOwner">Reopen</b-dropdown-item>
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
-                        <b-dropdown-item v-if="!parent.solved" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
+                        <b-dropdown-item v-if="!parent.solved && parent.isOwner" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
                         <b-dropdown-item>Report</b-dropdown-item>
                     </b-dropdown>
                 </div>
@@ -168,7 +168,7 @@
                 .catch(({response}) => {
                     this.errors = response.data.errors;
                     console.log(this.errors);
-                });            
+                });
             },
         },
 
