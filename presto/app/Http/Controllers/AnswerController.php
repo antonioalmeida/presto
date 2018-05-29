@@ -96,4 +96,12 @@ class AnswerController extends Controller
 
         return new AnswerPartialResource($answer);
     }
+
+    public function delete(Question $question, Answer $answer) {
+        $result = false;
+        if($answer->delete())
+            $result = true;
+
+        return compact('result');
+    }
 }

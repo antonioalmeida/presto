@@ -130,15 +130,14 @@
         </section>
 
         <!-- delete question modal -->
-
         <b-modal lazy centered
-        title="Delete Question"
-        id="deleteQuestionModal"
-        ok-variant="primary"
-        cancel-variant="link"
-        ok-title="Confirm"
-        cancel-title="Cancel"
-        @ok="onDelete"
+            title="Delete Question"
+            id="deleteQuestionModal"
+            ok-variant="primary"
+            cancel-variant="link"
+            ok-title="Confirm"
+            cancel-title="Cancel"
+            @ok="onDelete"
         >
         <h5><small>Are you sure you wish to delete this question? You cannot restore it.</small></h5>
         </b-modal>
