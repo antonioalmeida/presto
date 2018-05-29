@@ -51,7 +51,7 @@
                                     Edit Profile
                                 </router-link>
 
-                                <a v-if="!user.isOwner && logged.is_moderator" href="" class="btn btn-outline-light" data-toggle="modal" data-target="#flagModal">Flag member</a>
+                                <b-btn v-if="!user.isOwner && logged.is_moderator" variant="outline-light" v-b-modal.flagModal>Flag member</b-btn>
                             </div>
                         </div>
 
@@ -95,28 +95,22 @@
 
         <router-view :data="followData" @update:data="value => user.nrFollowing = value.no_follow"></router-view>
 
-        <!-- Flag modal -->
-        <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <div>
-                            <h6><label for="email">Flag this member</label></h6>
-                            <div class="input-group">
-                                <input v-model="flagReason" type="text"
-                                       class="form-control" placeholder="Why is this member being flagged?"
-                                       aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                        <button @click="onFlagSubmit" class="btn btn-primary">Save</button>
-                    </div>
-                </div>
-            </div>
+        <!-- flag member modal -->
+        <b-modal lazy centered
+            title="Flag Member"
+            id="flagModal"
+            ok-variant="primary"
+            cancel-variant="link"
+            ok-title="Submit"
+            cancel-title="Cancel"
+            @ok="onFlagSubmit"
+        >
+        <div class="input-group">
+            <input v-model="flagReason" type="text"
+            class="form-control" placeholder="Why is this member being flagged?"
+            aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
         </div>
+    </b-modal>
 
     </main>
 
@@ -188,12 +182,10 @@
             },
 
             onFlagSubmit: function() {
-              console.log(this.username);
               axios.post('/api/profile/' + this.username + '/flag', {
                 'reason': this.flagReason
               })
                   .then(({data}) => {
-                    $('#flagModal').modal('toggle');
                     this.$alerts.addSuccess('Member successfully flagged!');
                   })
                   .catch((error) => {
