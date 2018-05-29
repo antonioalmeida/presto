@@ -29,3 +29,14 @@ function print_number_count($number)
     return number_format($number / $divisor, $precision) . $shorthand;
 
 }
+
+function getDataChunk($data,$chunkNr,$maxNr){
+    $chunk = $data->forPage($chunkNr,$maxNr);
+    $nextChunk = $data->forPage(++$chunkNr,$maxNr);
+    if(count($chunk) < $maxNr || count($nextChunk) == 0)
+        $last = true;
+    else
+        $last = false;
+
+    return ['data' => $chunk, 'last' => $last];
+}
