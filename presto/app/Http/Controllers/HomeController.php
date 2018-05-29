@@ -46,26 +46,7 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        $maxNr = 10;
-        $chunkNr = request('chunk');
-
-        $chunk = $data->forPage($chunkNr,$maxNr);
-        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
-        if(count($chunk) < $maxNr || count($nextChunk) == 0)
-            $last = true;
-        else
-            $last = false;
-
-        $chunk = $chunk->map(function ($item, $key) {
-            if ($item->type == 'question') {
-                $item->question = new QuestionResource(Question::find($item->id));
-            } else {
-                $item->answer = new AnswerCardResource(Answer::find($item->id));
-            }
-            return $item;
-        });
-
-        return ['data' => $chunk, 'last' => $last];
+        return $this->getDataChunk($data,10);
     }
 
     public function getNewContent()
@@ -80,27 +61,7 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('date', 'DESC')->get();
 
-        $maxNr = 10;
-        $chunkNr = request('chunk');
-
-        $chunk = $data->forPage($chunkNr,$maxNr);
-        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
-        if(count($chunk) < $maxNr || count($nextChunk) == 0)
-            $last = true;
-        else
-            $last = false;
-
-        $chunk = $chunk->map(function ($item, $key) {
-            if ($item->type == 'question') {
-                $item->question = new QuestionResource(Question::find($item->id));
-            } else {
-                $item->answer = new AnswerCardResource(Answer::find($item->id));
-            }
-            return $item;
-        });
-
-
-        return ['data' => $chunk, 'last' => $last];
+        return $this->getDataChunk($data,10);
     }
 
     public function getRecommendedContent()
@@ -123,9 +84,10 @@ class HomeController extends Controller
 
         $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        //dd(count($data));
+        return $this->getDataChunk($data,10);
+    }
 
-        $maxNr = 10;
+    public function getDataChunk($data,$maxNr){
         $chunkNr = request('chunk');
 
         $chunk = $data->forPage($chunkNr,$maxNr);
@@ -146,7 +108,6 @@ class HomeController extends Controller
 
 
         return ['data' => $chunk, 'last' => $last];
-
     }
 
     public function getTrendingTopics()
