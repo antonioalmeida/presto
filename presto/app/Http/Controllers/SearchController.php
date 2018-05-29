@@ -46,15 +46,10 @@ class SearchController extends Controller
             ->orderByRaw('ts_rank(search, to_tsquery(\'english\', replace(plainto_tsquery(\'english\', ?)::text, \'&\', \'|\'))) DESC', [$search_input])
             ->get();
 
-        $chunk = $questions->forPage($chunkNr,$maxNr);
-        $nextChunk = $questions->forPage(++$chunkNr,$maxNr);
-        if(count($chunk) < $maxNr || count($nextChunk) == 0)
-            $last = true;
-        else
-            $last = false;
+        $res = getDataChunk($questions,$chunkNr,$maxNr);
 
-        $data = QuestionResource::collection($chunk);
-        return ['data' => $data, 'last' => $last];
+        $res['data'] = QuestionResource::collection($res['data']);
+        return $res;
     }
 
     private function getAnswers($search_input,$chunkNr,$maxNr)
@@ -63,14 +58,10 @@ class SearchController extends Controller
             ->orderByRaw('ts_rank(search, plainto_tsquery(\'english\', ?)) DESC', [$search_input])
             ->get();
 
-        $chunk = $answers->forPage($chunkNr,$maxNr);
-        if(count($chunk) < $maxNr)
-            $last = true;
-        else
-            $last = false;
+        $res = getDataChunk($answers,$chunkNr,$maxNr);
 
-        $data = AnswerCardResource::collection($chunk);
-        return ['data' => $data, 'last' => $last];
+        $res['data'] = AnswerCardResource::collection($res['data']);
+        return $res;
     }
 
     private function getTopics($search_input,$chunkNr,$maxNr)
@@ -78,13 +69,10 @@ class SearchController extends Controller
         $topics = \App\Topic::where('name', 'ILIKE', '%' . $search_input . '%')
             ->get();
 
-        $chunk = $topics->forPage($chunkNr,$maxNr);
-        if(count($chunk) < $maxNr)
-            $last = true;
-        else
-            $last = false;
-        $data = TopicCardResource::collection($chunk);
-        return ['data' => $data, 'last' => $last];
+        $res = getDataChunk($topics,$chunkNr,$maxNr);
+
+        $res['data'] = TopicCardResource::collection($res['data']);
+        return $res;
     }
 
     private function getMembers($search_input,$chunkNr,$maxNr)
@@ -93,13 +81,9 @@ class SearchController extends Controller
             ->orWhere('name', 'ILIKE', '%' . $search_input . '%')
             ->get();
 
-        $chunk = $members->forPage($chunkNr,$maxNr);
-        if(count($chunk) < $maxNr)
-            $last = true;
-        else
-            $last = false;
+        $res = getDataChunk($members,$chunkNr,$maxNr);
 
-        $data = MemberResource::collection($chunk);
-        return ['data' => $data, 'last' => $last];
+        $res['data'] = MemberResource::collection($res['data']);
+        return $res;
     }
 }
