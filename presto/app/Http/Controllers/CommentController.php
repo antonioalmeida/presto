@@ -26,6 +26,7 @@ class CommentController extends Controller
 
         $content = request('content');
         $author_id = Auth::id();
+        date_default_timezone_set('Europe/Lisbon');
         $date = date('Y-m-d H:i:s');
         $mentions = request('mentions');
 
