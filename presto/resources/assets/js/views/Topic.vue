@@ -26,6 +26,7 @@
                                 <follow-button
                                         v-model="topic.isFollowing"
                                         :classesDefault="'btn btn-outline-light'"
+                                        :classesValue="'btn btn-light'"
                                         :classesActive="'btn btn-danger'"
                                         :path="'/api/topic/' + topic.name + '/toggle-follow'"
                                         :data="followData" @update:data="value => topic.nrFollowers = value.no_follow"
@@ -142,7 +143,7 @@
         name: 'Topic',
 
         created() {
-            document.title = "Topic | Presto";
+            document.title = this.name + " | Presto";
         },
 
         components: {

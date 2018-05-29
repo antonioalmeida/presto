@@ -168,13 +168,15 @@
                                                     class="fas fa-gem text-primary"></i> {{member.score}} points</span>
                                         </div>
                                         <div class="ml-auto align-self-center">
-                                            <follow-simple-button
+                                            <follow-button
                                                     v-model="member.isFollowing"
-                                                    :classesDefault="'btn btn-sm btn-primary'"
-                                                    :classesActive="'btn btn-sm btn-outline-primary'"
+                                                    :classesDefault="'btn btn-sm btn-outline-primary'"
+                                                    :classesValue="'btn btn-sm btn-primary'"
+                                                    :classesActive="'btn btn-sm btn-danger'"
                                                     :path="'/api/member/' + member.username + '/toggle-follow'"
+                                                    :useText="false"
                                             >
-                                            </follow-simple-button>
+                                            </follow-button>
                                         </div>
                                       </div>
                                     </template>
@@ -186,7 +188,7 @@
             </section>
 
         </div>
-    </main><!-- /.container -->
+    </main>
 </template>
 
 <script>
@@ -201,7 +203,7 @@
         components: {
             QuestionCard: require('../components/QuestionCard'),
             AnswerCard: require('../components/AnswerCard'),
-            FollowSimpleButton: require('../components/FollowSimpleButton'),
+            FollowButton: require('../components/FollowButton'),
         },
 
         data() {

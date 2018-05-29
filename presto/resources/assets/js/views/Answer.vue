@@ -101,6 +101,7 @@
                                data
                            }) => {
                         this.answer = data;
+                        document.title = this.answer.question.title + " | Presto";
                         this.loader.hide();
                     })
                     .catch((error) => {
