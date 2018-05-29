@@ -44,9 +44,19 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
+        $maxNr = 10;
+        $chunkNr = request('chunk');
+
+        $chunk = $data->forPage($chunkNr,$maxNr);
+        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
+        if(count($chunk) < $maxNr || count($nextChunk) == 0)
+            $last = true;
+        else
+            $last = false;
+
+        $chuhk = $chunk->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {
@@ -55,7 +65,7 @@ class HomeController extends Controller
             return $item;
         });
 
-        return $data;
+        return ['data' => $chunk, 'last' => $last];
     }
 
     public function getNewContent()
@@ -68,9 +78,19 @@ class HomeController extends Controller
             ->selectRaw('id, date')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('date', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('date', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
+        $maxNr = 10;
+        $chunkNr = request('chunk');
+
+        $chunk = $data->forPage($chunkNr,$maxNr);
+        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
+        if(count($chunk) < $maxNr || count($nextChunk) == 0)
+            $last = true;
+        else
+            $last = false;
+
+        $chunk = $chunk->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {
@@ -80,7 +100,7 @@ class HomeController extends Controller
         });
 
 
-        return $data;
+        return ['data' => $chunk, 'last' => $last];
     }
 
     public function getRecommendedContent()
@@ -101,9 +121,21 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0 and answer.author_id in (select following_id from follow_member where follower_id = ?) ', ['user_id' => $user_id])
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
+        //dd(count($data));
+
+        $maxNr = 10;
+        $chunkNr = request('chunk');
+
+        $chunk = $data->forPage($chunkNr,$maxNr);
+        $nextChunk = $data->forPage(++$chunkNr,$maxNr);
+        if(count($chunk) < $maxNr || count($nextChunk) == 0)
+            $last = true;
+        else
+            $last = false;
+
+        $chunk = $chunk->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {
@@ -113,7 +145,7 @@ class HomeController extends Controller
         });
 
 
-        return $data;
+        return ['data' => $chunk, 'last' => $last];
 
     }
 
