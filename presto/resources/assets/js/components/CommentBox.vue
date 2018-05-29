@@ -53,7 +53,7 @@
                 //vue-tribute mentions options
                 options: {
                     menuItemTemplate: function (item) {
-                        return item.string;
+                        return '<strong>' + item.string + '</strong>';
                     },
                     values: function (text, cb) {
                         if (text == '') {
@@ -66,7 +66,7 @@
                             }
                         })
                             .then(({data}) => {
-                                cb(data.slice(0, 6));
+                                cb(data.data.slice(0, 6));
                             })
                             .catch((error) => {
                                 cb([]);

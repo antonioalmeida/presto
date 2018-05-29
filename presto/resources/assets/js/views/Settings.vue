@@ -37,10 +37,9 @@
                 @ok="onEmailSubmit"
             >
             <div class="input-group">
-                <input @input="updateErrors" v-model="emailInput" type="email"
+                <input v-model="emailInput" type="email"
                 class="form-control" placeholder="New email"
                 aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                <span v-if="emailError" class="text-danger"><small>New is not valid, please enter a valid email.</small></span>
             </div>
             </b-modal>
 
@@ -55,12 +54,12 @@
                 @ok="onPasswordSubmit"
             >
             <div class="input-group">
-                <input @input="updateErrors" v-model="passwordInput" type="password"
+                <input v-model="passwordInput" type="password"
                 class="form-control" placeholder="New password"
                 aria-label="Default" aria-describedby="inputGroup-sizing-default"
                 pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
+                title="New password is not valid. It must have 8-32 characters and contain alphanumeric and special (&quot;;-?!@#+*$%&/()=) characters"
                 required>
-                <span v-if="passwordError" class="text-danger"><small>New password is not valid. It must have 8-32 characters and contain alphanumeric and special (";-?!@#+*$%&/()=) characters.</small></span>
             </div>
             </b-modal>
         </section>
@@ -76,9 +75,7 @@
             return {
                 user: {},
                 emailInput: '',
-                passwordInput: '',
-                passwordError: true,
-                emailError: false
+                passwordInput: ''
             }
         },
 
@@ -112,7 +109,7 @@
                         this.$alerts.addSuccess('Email successfully updated!')
                     })
                     .catch(({response}) => {
-
+                        this.$alerts.addError(response.data.errors.email[0]);
                     });
 
             },
@@ -126,14 +123,9 @@
                         this.$alerts.addSuccess('Password successfully updated!')
                     })
                     .catch(({response}) => {
-
+                        this.$alerts.addError('Could not update password.');
                     });
 
-            },
-
-            updateErrors: function (evt) {
-                this.passwordError = !document.querySelector('input[type="password"]').validity.valid;
-                this.emailError = !document.querySelector('input[type="email"]').validity.valid;
             }
         }
     }
