@@ -39,27 +39,15 @@ class Topic extends Model
         return $this->followers->count();
     }
 
-    public function getNumViews()
-    {
-        $nrViews = 0.0;
-
-        foreach ($this->questions as $question)
-            $nrViews += $question->answers->sum('views');
-
-        return print_number_count($nrViews);
-    }
-
     public function getAnswersStats()
     {
         $no_answers = 0.0;
-        $no_views = 0.0;
 
         foreach ($this->questions as $question) {
             $no_answers += $question->answers->count();
-            $no_views += $question->answers->sum('views');
         }
 
-        return ['number' => $no_answers, 'views' => print_number_count($no_views)];
+        return ['number' => $no_answers];
     }
 
     public function getRelatedTopics()
