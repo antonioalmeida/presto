@@ -5,7 +5,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center ">
-                            <img class="profile-pic img-fluid rounded-circle m-2" :src="user.profile_picture"/>
+                            <img class="profile-pic img-fluid rounded-circle m-2" :src="topic.picture"/>
                             <span class="fa-layers fa-fw fa-2x">
                                  <i class="fas fa-circle text-shadow" style="color:white"></i>
                                 <a href="" data-toggle="modal" data-target="#editPicture"><i
@@ -14,26 +14,21 @@
 								</span>
                         </div>
 
-                        <div class="col-md-6 mobile-center text-shadow edit-content">
+                        <div class="col-md-6 mobile-center text-shadow edit-profile">
 
                             <input v-model="nameInput" type="text" class="form-control input-h2"
                                    pattern="^[a-zA-Z\s]{1,35}$"
                                    title="Name can only contain letters. 35 characters max allowed"
-                                   placeholder="Your name..."
-                                   required>
-                            <input v-model="usernameInput" type="text" class="form-control input-h4 mt-2"
-                                   pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
-                                   title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"
-                                   placeholder="Your username..."
+                                   placeholder="Topic name..."
                                    required>
 
                             <div class="mt-3">
-                                <input v-model="bioInput" type="text" class="form-control input-h6 lead-adapt mt-2"
-                                       placeholder="Your bio...">
+                                <input v-model="descriptionInput" type="text" class="form-control input-h6 lead-adapt mt-2"
+                                       placeholder="Small topic description...">
 
                                 <div class="ml-1 mt-3">
                                     <button @click="onSubmit" class="btn btn-light">Save</button>
-                                    <router-link :to="'/profile/' + user.username" class="btn btn-danger">Cancel
+                                    <router-link :to="'/topic/' + topic.name" class="btn btn-danger">Cancel
                                     </router-link>
                                 </div>
 
@@ -53,9 +48,9 @@
                     <div>
                         <div class="modal-body">
                             <div>
-                                <h6><label for="profilePicture">Change your photo</label></h6>
+                                <h6><label for="profilePicture">Change the topic's picture</label></h6>
                                 <div class="input-group">
-                                    <input type="text" v-model="profilePicture" class="form-control"
+                                    <input type="text" v-model="picture" class="form-control"
                                            placeholder="New URL"
                                            aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
                                 </div>
@@ -76,32 +71,34 @@
 <script>
     export default {
 
-        name: 'EditProfile',
+        props: ['name'],
+
+        name: 'EditTopic',
 
         data() {
             return {
-                user: {},
+                topic: {},
                 nameInput: '',
-                usernameInput: '',
-                bioInput: '',
-                profilePicture: '',
+                descriptionInput: '',
+                picture: '',
             }
         },
 
         created() {
-            document.title = "Edit Profile | Presto";
+            document.title = "Edit Topic | Presto";
             this.loader = this.$loading.show();
-            this.getUser();
+            this.getTopic();
         },
 
         methods: {
-            getUser: function () {
-                axios.get('/api/profile/')
+            getTopic: function () {
+                console.log(this.topicName);
+                axios.get('/api/topic/' + this.name)
                     .then(({data}) => {
-                        this.user = data;
+                        this.topic = data;
                         this.nameInput = data.name;
-                        this.usernameInput = data.username;
-                        this.bioInput = data.bio;
+                        this.descriptionInput = data.description;
+                        this.picture = data.picture;
 
                         this.loader.hide();
                     })
@@ -112,35 +109,36 @@
 
             onSubmit: function () {
                 this.loader = this.$loading.show();
-                axios.post('/api/profile/', {
+                axios.post('/api/topic/' + this.name, {
                     'name': this.nameInput,
-                    'username': this.usernameInput,
-                    'bio': this.bioInput,
+                    'description': this.descriptionInput,
                 })
                     .then(({data}) => {
                         this.loader.hide();
-                        this.$router.push({path: '/profile/' + data.username});
-                        this.$alerts.addSuccess('Profile successfully edited!');
+                        this.$router.push({path: '/topic/' + data.name});
+                        this.$alerts.addSuccess('Topic successfully updated!');
                         location.reload();
                     })
                     .catch(({response}) => {
                         this.loader.hide();
+                        this.$alerts.addError(response.data.errors.name[0]);
                     });
 
             },
 
             onPicSubmit: function () {
-                axios.patch('api/member/edit-profile-pic', {
-                    'profile-pic-url': this.profilePicture
+                axios.patch('/api/topic/' + this.name + '/edit-pic', {
+                    'pic-url': this.picture
                 })
                     .then(({data}) => {
                         $('#editPicture').modal('toggle');
-                        this.user.profile_picture = this.profilePicture;
-                        this.$alerts.addSuccess('Photo successfully updated!');
+                        this.topic.picture = this.picture;
+                        this.$alerts.addSuccess('Picture successfully updated!');
                         location.reload();
                     })
                     .catch(({response}) => {
-
+                        this.loader.hide();
+                        this.$alerts.addError(response.data.errors.name[0]);
                     });
             },
         }

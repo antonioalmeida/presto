@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Member;
+use App\Rules\BannedMember;
 use Auth;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
@@ -62,11 +63,20 @@ class LoginController extends Controller
             return $authUser;
         }
         return Member::create([
-            'username' => $user->name,
+            'name' => $user->name,
+            'username' => $user->email,
             'email' => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id,
-            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $user->email
+            'profile_picture' => 'http://identicon.org/?t=' . $user->email . '&s=256'
+        ]);
+    }
+
+    protected function validateLogin($request)
+    {
+        $this->validate($request, [
+            $this->username() => ['required','string', new BannedMember],
+            'password' => 'required|string',
         ]);
     }
 }

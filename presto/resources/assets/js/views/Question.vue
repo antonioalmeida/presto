@@ -26,7 +26,7 @@
                         </h5>
                     </template>
 
-                    <div v-else="isEditing" class="edit-profile">
+                    <div v-else class="edit-content">
                         <input v-model="titleInput" type="text" class="form-control input-h2">
                         <input v-model="contentInput" type="text" class="form-control input-h5 mt-2">
 
@@ -38,7 +38,7 @@
                             ></tags-input>
 
                             <div class="ml-1 mt-3">
-                                <button @click="" class="btn btn-outline-primary">Save</button>
+                                <button @click="onEditSubmit" class="btn btn-outline-primary">Save</button>
                                 <button @click="isEditing = false" class="btn btn-outline-danger">Cancel
                                 </button>
                             </div>
@@ -50,35 +50,32 @@
 
                         <div class="mt-2 d-flex justify-content-between flex-wrap">
 
-                            <div>
+                            <rate-content
+                                class="mt-2"
+                                v-if="!question.isOwner"
+                                :content="question"
+                                :endpoint="rateEndpoint"
+                            ></rate-content>
 
-                                <b-btn v-if="!question.solved" href="#" v-b-toggle.accordion1 variant="primary">
+                            <div>
+                                <b-btn v-if="!question.solved" v-b-toggle.accordion1 variant="link">
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
 
-                                <button v-on:click="unsolve()" class="btn btn-primary" v-if="question.solved"><i
-                                        class="far fa-fw fa-unlock-alt"></i> Reopen
-                                </button>
-                            </div>
-
-                            <div class="mt-2 d-flex justify-content-between flex-wrap">
-                                
-                                <b-btn id="questionComment" v-if="!question.solved" href="#" v-b-toggle.accordion2 variant="link">
-                                    <i class="far fa-fw fa-comment"></i> 
+                                <b-btn class="ml-auto" id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
+                                    <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
-                                <b-tooltip target="questionComment" title="Leave a comment"></b-tooltip>
 
-
-                                <b-dropdown variant="link" id="ddown1" size="lg" no-caret right>
+                                <b-dropdown class="ml-auto" variant="link" id="ddown1" size="lg" no-caret right>
                                     <template slot="button-content">
                                         <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
                                         <b-tooltip target="questionOptions" title="More options"></b-tooltip>
                                     </template>
-                            
-                                    <template v-show="question.isOwner">
-                                        <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
-                                        <b-dropdown-item>Delete</b-dropdown-item>
-                                        <b-dropdown-item>Reopen</b-dropdown-item>
+
+                                    <template v-if="question.isOwner">
+                                        <b-dropdown-item v-if="!question.solved" @click="isEditing = true">Edit</b-dropdown-item>
+                                        <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
+                                        <b-dropdown-item v-on:click="unsolve()" v-if="question.solved" >Reopen</b-dropdown-item>
                                         <b-dropdown-divider></b-dropdown-divider>
                                     </template>
                                     <b-dropdown-item>Report</b-dropdown-item>
@@ -92,22 +89,16 @@
                         <div class="card my-2">
                             <CommentBox v-bind:parentType="'question'" v-bind:parent="this.question"></CommentBox>
                         </div>
-                        </b-collapse>
+                    </b-collapse>
 
-                    <div class="card my-3">
-                        <comments-list :comments="question.comments"></comments-list>
-                    </div>
-
-
-                    <div class="mt-3" role="tablist">
+                    <div class="mt-3">
                         <b-collapse id="accordion1" accordion="my-accordion" role="tabpanel">
 
                             <div class="card">
-
                                 <editor
-                                        v-model="editorContent"
-                                        :init="editorInit"
-                                        @onChange="answerShowError = false">
+                                    v-model="editorContent"
+                                    :init="editorInit"
+                                    @onChange="answerShowError = false">
                                 </editor>
 
                                 <div class="card-footer">
@@ -120,19 +111,35 @@
                             </div>
 
                         </b-collapse>
+                    </div>
 
-               
+                    <div class="card my-3">
+                        <comments-list :comments="question.comments"></comments-list>
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
 
                     <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question"
                                    v-on:solve-question="solve(answer.id)"
-                                   :key="answer.id"></AnswerPartial>
+                                   :key="answer.id">
+                    </AnswerPartial>
 
                 </div>
             </div>
         </section>
+
+        <!-- delete question modal -->
+        <b-modal lazy centered
+            title="Delete Question"
+            id="deleteQuestionModal"
+            ok-variant="primary"
+            cancel-variant="link"
+            ok-title="Confirm"
+            cancel-title="Cancel"
+            @ok="onDelete"
+        >
+        <h5><small>Are you sure you wish to delete this question? You cannot restore it.</small></h5>
+        </b-modal>
     </main>
 </template>
 
@@ -143,6 +150,7 @@
     import Editor from '@tinymce/tinymce-vue';
     import TagsInput from '../components/TagsInput';
     import CommentBox from '../components/CommentBox';
+    import RateContent from '../components/RateContent';
     import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
     import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
 
@@ -164,6 +172,7 @@
             'AnswerPartial': AnswerPartial,
             'TagsInput': TagsInput,
             'CommentBox': CommentBox,
+            'RateContent': RateContent,
             'bDropdown': bDropdown,
             'bTooltip': bTooltip,
         },
@@ -182,6 +191,7 @@
                 //editing data
                 titleInput: '',
                 contentInput: '',
+                tagsInput:[],
 
                 //error handling utils
                 answerShowError: false
@@ -214,12 +224,6 @@
                         this.titleInput = data.title;
                         this.contentInput = data.content;
                         this.tagsInput = data.topics.map(tag => tag.name);
-                        /*
-                        this.tagsInput =  data.topics.reduce(function(result, item, index, array) {
-                           result[item] = item;
-                           return result;
-                       }, {});
-                       */
                     })
                     .catch((error) => {
                         console.log(error);
@@ -256,17 +260,55 @@
                 axios.post('/api/questions/' + this.question.id + '/answers/', {
                     'content': this.editorContent,
                 })
-                    .then(({data}) => {
-                        console.log(data);
-                        this.answers.push(data);
-                        this.editorContent = '';
+                .then(({data}) => {
+                    console.log(data);
+                    this.answers.push(data);
+                    this.editorContent = '';
 
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    this.showError = true;
+                });
+            },
+
+            onEditSubmit: function() {
+               axios.post('/api/questions/' + this.question.id, {
+                'title': this.titleInput,
+                'content': this.contentInput,
+                'topics': this.tagsInput,
+            })
+               .then(({data}) => {
+                this.question.title = data.title;
+                this.question.content = data.content;
+                this.question.topics = data.topics;
+                this.isEditing = false;
+                this.$alerts.addSuccess('Question successfully edited!');
+            })
+               .catch(({response}) => {
+                let errors = response.data.errors;
+                let messages = [];
+                for (let key in errors) {
+                    for (let message of errors[key]) {
+                        messages.push(message);
+                    }
+                }
+                this.$alerts.addArrayError(messages);
+                });
+            },
+
+            onDelete: function() {
+                axios.delete('/api/questions/' + this.question.id)
+                .then(({data}) => {
+                        if(data.result) {
+                            this.$router.push({path: '/'});
+                            this.$alerts.addSuccess('Question successfully deleted!');
+                        }
                     })
-                    .catch(({response}) => {
+                .catch(({response}) => {
                         this.errors = response.data.errors;
-                        this.showError = true;
+                        console.log(this.errors);
                     });
-
             },
 
             solve: function (chosenAnswerId) {
@@ -291,6 +333,12 @@
                         this.errors = response.data.errors;
                         console.log(this.errors);
                     });
+            }
+        },
+
+        computed: {
+            rateEndpoint: function() {
+                return '/api/questions/' + this.question.id + '/rate/';
             }
         }
     }

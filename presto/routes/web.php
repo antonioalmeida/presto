@@ -44,6 +44,7 @@ Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 Route::view('questions/{question}', 'layouts.master');
 
 // Topic
+Route::view('topic/{topic}/edit', 'layouts.master')->middleware('moderator');
 Route::view('topic/{topic}', 'layouts.master');
 
 Route::prefix('api')->group(function () {
@@ -57,6 +58,7 @@ Route::prefix('api')->group(function () {
     Route::get('notifications', 'ProfileController@getNotifications');
     Route::get('notificationsStats', 'ProfileController@getNotificationsStats');
     Route::get('UnreadNotifications', 'ProfileController@getUnreadNotifications');
+    Route::post('profile/{member}/flag', 'ProfileController@flag')->middleware('moderator');
     Route::post('member/{follower}/toggle-follow', 'ProfileController@toggleFollow')->name('api.follow');
 
     Route::post('profile/', 'ProfileController@update');
@@ -65,9 +67,12 @@ Route::prefix('api')->group(function () {
     Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
     Route::get('questions/{question}', 'QuestionController@get');
     Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
-    Route::post('questions', 'QuestionController@store')->name('question-add');
+    Route::post('questions/{question}/answers/{answer}', 'AnswerController@update')->name('question.edit');
+    Route::post('questions/{question}', 'QuestionController@update')->name('question.edit');
+    Route::post('questions', 'QuestionController@store')->name('question.add');
     Route::post('questions/{question}/solve', 'QuestionController@solve');
     Route::post('questions/{question}/unsolve', 'QuestionController@unsolve');
+    Route::delete('questions/{question}','QuestionController@delete')->name('question.delete');
 
     // Comments
     Route::get('comments/{comment}', 'CommentController@get');
@@ -76,6 +81,7 @@ Route::prefix('api')->group(function () {
 
     // Topics API
     Route::get('topic/{topic}', 'TopicController@get');
+    Route::post('topic/{topic}', 'TopicController@update')->middleware('moderator');
     Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
     //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
     Route::get('topic/', 'TopicController@getAllTopics');
@@ -100,6 +106,8 @@ Route::prefix('api')->group(function () {
 
     // Answer API
     Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
+    Route::delete('questions/{question}/answers/{answer}','AnswerController@delete')->name('answer.delete');
+
 });
 
 //Search
@@ -140,6 +148,7 @@ Route::prefix('admin')->group(function () {
 //API
 //Profile
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
+Route::patch('api/topic/{topic}/edit-pic', 'TopicController@updatePicture')->middleware('moderator');
 
 //Settings
 Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');

@@ -26,8 +26,6 @@ const NOTIFICATION_TYPES = {
 
 var NOTIFICATION_TEXT_LIMIT = 20;
 
-//${Laravel.userId}
-
 $(document).ready(function () {
 
     // check if there's a logged in user

@@ -1,55 +1,59 @@
 <template>
     <main class="img-background">
         <section class="pt-5 container">
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Reset Password</div>
-
-                        <div class="panel-body">
-                            <form class="form-horizontal" @submit.prevent="onSubmit">
-
-                                <div>
-                                    <label for="email" class="col-md-4 control-label">E-Mail Address</label>
-
-                                    <div class="col-md-6">
-                                        <input id="email" type="email" class="form-control" v-model="email"
-                                               autofocus>
-
-
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label for="password" class="col-md-4 control-label">Password</label>
-
-                                    <div class="col-md-6">
-                                        <input id="password" type="password" class="form-control" v-model="password"
-                                               required>
-
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label for="password-confirm" class="col-md-4 control-label">Confirm
-                                        Password</label>
-                                    <div class="col-md-6">
-                                        <input id="password-confirm" type="password" class="form-control"
-                                               v-model="password_confirmation" required>
-
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-md-6 col-md-offset-4">
-                                        <button type="submit" class="btn btn-primary">
-                                            Reset Password
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
+            <div class="card py-5 my-5">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3">
+                            <h1 class="text-center">Reset Password</h1>
                         </div>
                     </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 offset-lg-4 col-lg-4 d-flex flex-column align-items-center">
+
+                        <form class="form-horizontal" @submit.prevent="onSubmit">
+
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text"><i class="far fa-at"></i></div>
+                                </div>
+                                <input id="email" type="email" class="form-control" v-model="email"
+                                       placeholder="Your e-mail...">
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="far fa-key"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
+                                    </div>
+                                </div>
+                                <input v-model="password" type="password" class="form-control"
+                                       placeholder="Password"
+                                       pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
+                                       required>
+                            </div>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-key"></i>
+                                        <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                                           data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
+                                    </div>
+                                </div>
+                                <input v-model="password_confirmation" type="password" class="form-control"
+                                       placeholder="Confirm Password"
+                                       required>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button type="submit" class="btn btn-primary">Reset Password</button>
+                            </div>
+
+                        </form>
+                    </div>
+
                 </div>
             </div>
         </section>
@@ -119,22 +123,16 @@
                     'password_confirmation': this.password_confirmation,
                 })
                     .then(({data}) => {
-                        console.log(data);
                         // this.$router.push({path: '/'});
-                        window.location.href = '/';
-                        this.$alerts.addSuccess('Recovery password successfully!');
-                    })
-                    .catch(({response}) => {
-                        console.log(response);
-                        // this.$alerts.addError(response.data.message);
+                        if (data.response.data != null) {
+                            this.$alerts.addSuccess(data.response.data);
+                            window.location.href = '/';
 
-                        // let errors = response.data.errors;
-                        // for(let key in errors){
-                        //     for(let message of errors[key]){
-                        //         console.log(message);
-                        //         this.$alerts.addError(message);
-                        //     }
-                        // }
+                        } else if (data.response.error != null) {
+                            this.$alerts.addError(data.response.error);
+                        }
+                    })
+                    .catch(({error}) => {
                     });
             },
 
