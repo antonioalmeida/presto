@@ -133,14 +133,25 @@ class ProfileController extends Controller
 
     public function getFollowers(Member $member)
     {
+
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followers,$chunkNr,10);
+
         //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followers);
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function getFollowing(Member $member)
     {
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followings,$chunkNr,10);
+
         //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followings);
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function toggleFollow(Member $follower)
