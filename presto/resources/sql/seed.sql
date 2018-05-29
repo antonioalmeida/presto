@@ -179,6 +179,7 @@ CREATE TABLE answer (
     author_id INTEGER NOT NULL,
     is_chosen_answer BOOLEAN NOT NULL DEFAULT false,
     search tsvector NOT NULL,
+    deleted_at DATE,
     CONSTRAINT answer_pk PRIMARY KEY (id),
     CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)

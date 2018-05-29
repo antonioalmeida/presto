@@ -73,7 +73,7 @@
                     
                         <template v-if="answer.author.isSelf">
                             <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
-                            <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
+                            <b-dropdown-item v-b-modal="'deleteAnswerModal' + answer.id">Delete</b-dropdown-item>
                             <b-dropdown-item>Reopen</b-dropdown-item>
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
@@ -89,6 +89,19 @@
                 <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
             </div>
         </div>
+
+        <!-- delete question modal -->
+        <b-modal lazy centered
+            title="Delete Answer"
+            :id="'deleteAnswerModal' + answer.id"
+            ok-variant="primary"
+            cancel-variant="link"
+            ok-title="Confirm"
+            cancel-title="Cancel"
+            @ok="onDelete"
+        >
+        <h5><small>Are you sure you wish to delete this answer? You cannot restore it.</small></h5>
+        </b-modal>
     </div>
 </template>
 
@@ -144,6 +157,20 @@
                     this.errors = response.data.errors;
                     this.showError = true;
                 });
+            },
+
+            onDelete: function() {
+                axios.delete('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id)
+                .then(({data}) => {
+                    if(data.result) {
+                        this.$router.push({path: '/'});
+                        this.$alerts.addSuccess('Answer successfully deleted!');
+                    }
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    console.log(this.errors);
+                });            
             },
         },
 

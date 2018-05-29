@@ -103,6 +103,8 @@ Route::prefix('api')->group(function () {
 
     // Answer API
     Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
+    Route::delete('questions/{question}/answers/{answer}','AnswerController@delete')->name('answer.delete');
+
 });
 
 //Search
