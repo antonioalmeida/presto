@@ -40,8 +40,8 @@ class QuestionController extends Controller
 
         $question = new Question();
         $question->title = request('title');
-        date_default_timezone_set('Europe/Lisbon');
-        $question->date = now();
+        $date = new \DateTime("now", new \DateTimeZone('Europe/Lisbon'));
+        $date = $date->format('Y-m-d H:i:s');
         request()->user()->questions()->save($question);
 
         $tags = request('tags');
