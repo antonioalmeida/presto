@@ -18,14 +18,16 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-at"></i></div>
                                 </div>
-                                <input v-model="email" type="email" class="form-control"
+                                <label hidden for="email">Email</label>
+                                <input v-model="email" id="email" type="email" class="form-control"
                                        placeholder="your@email.com">
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-key"></i></div>
                                 </div>
-                                <input v-model="password" type="password" class="form-control"
+                                <label hidden for="password">Password</label>
+                                <input v-model="password" id="password" type="password" class="form-control"
                                        placeholder="Password"
                                        required>
                             </div>

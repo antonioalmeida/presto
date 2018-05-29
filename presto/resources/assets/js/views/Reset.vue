@@ -18,7 +18,8 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-at"></i></div>
                                 </div>
-                                <input id="email" type="email" class="form-control" v-model="email"
+                                <label hidden for="email">Email</label>
+                                <input id="email" name="email" type="email" class="form-control" v-model="email"
                                        placeholder="Your e-mail...">
                             </div>
                             <div class="input-group mb-2">
@@ -29,7 +30,8 @@
                                            data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="password" type="password" class="form-control"
+                                <label hidden for="password">Password</label>
+                                <input id="password" v-model="password" type="password" class="form-control"
                                        placeholder="Password"
                                        pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
                                        required>
@@ -42,7 +44,8 @@
                                            data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="password_confirmation" type="password" class="form-control"
+                                <label hidden for="password_confirmation">Password Confirmation</label>
+                                <input id="password_confirmation" v-model="password_confirmation" type="password" class="form-control"
                                        placeholder="Confirm Password"
                                        required>
                             </div>
