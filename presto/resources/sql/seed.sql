@@ -228,6 +228,7 @@ CREATE TABLE comment_rating (
 );
 
 CREATE TABLE question_report (
+    id SERIAL NOT NULL,
     question_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
@@ -238,6 +239,7 @@ CREATE TABLE question_report (
 );
 
 CREATE TABLE answer_report (
+    id SERIAL NOT NULL,
     answer_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,
@@ -248,6 +250,7 @@ CREATE TABLE answer_report (
 );
 
 CREATE TABLE comment_report (
+    id SERIAL NOT NULL,
     comment_id INTEGER NOT NULL,
     member_id INTEGER NOT NULL,
     "date" TIMESTAMP WITHOUT TIME ZONE NOT NULL,

@@ -40,9 +40,9 @@
                         <span class="sr-only">downvote number</span>
                     </div>
                     <div class="ml-auto">
-                        <a href="#" class="text-muted">
-                            <small>Report</small>
-                        </a>
+                        <b-btn @click="$emit('report-comment', comment.id)" variant="link" class="text-muted">
+                            Report
+                        </b-btn>
                     </div>
                 </div>
             </div>
