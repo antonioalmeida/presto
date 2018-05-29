@@ -166,6 +166,7 @@ CREATE TABLE question (
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
     search tsvector NOT NULL,
+    deleted_at DATE,
     CONSTRAINT question_pk PRIMARY KEY (id),
     CONSTRAINT question_fk_member FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
