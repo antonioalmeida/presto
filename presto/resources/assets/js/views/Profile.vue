@@ -11,9 +11,18 @@
                         </div>
 
                         <div class="col-md-6 text-shadow mobile-center">
-                            <h2 class="h2-adapt">{{ user.name }}</h2>
+                            <h2 class="h2-adapt">{{ user.name }}
+                                <template v-if="user.is_moderator">
+                                    <span id="modTag" class="fa-layers fa-fw">
+                                        <i class="fas fa-certificate" data-fa-transform="up-2 grow-2"></i>
+                                        <i class="fas fa-certificate text-info" data-fa-transform="up-2"></i>
+                                        <i class="far fa-user-shield" data-fa-transform="up-2 shrink-10"></i>
+                                    </span>
+                                    <b-tooltip target="modTag" :title="user.name + ' is a Moderator'"></b-tooltip>
+                                </template>
+                            </h2>
                             <router-link class="white-url" :to="/profile/ + username">
-                                <h4 class="h4-adapt">&#64;{{ user.username}}</h4>
+                                <h4 class="h4-adapt">&#64;{{ user.username}} </h4>
                             </router-link>
 
                             <!-- bio -->
@@ -89,6 +98,9 @@
 </template>
 
 <script>
+    import QuestionCard from '../components/QuestionCard';
+    import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
+
     export default {
 
         props: ['username'],
@@ -98,7 +110,8 @@
         },
 
         components: {
-            QuestionCard: require('../components/QuestionCard')
+            'QuestionCard': QuestionCard,
+            'bTooltip': bTooltip
         },
 
         data() {
