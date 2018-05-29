@@ -5,7 +5,7 @@
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
-
+                  <h3 v-if="question.solved"><span class="badge badge-primary"><i class="far fa-fw fa-check"></i>Solved</span></h3>
                     <template v-if="!isEditing">
                         <h1>{{ question.title }}</h1>
                         <h4>
