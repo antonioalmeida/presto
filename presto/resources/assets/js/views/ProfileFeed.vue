@@ -70,6 +70,7 @@
                 questions: null,
                 answers: null,
                 currTab: 'Questions',
+                busy: true,
                 allQuestionsContent: false,
                 currQuestionsDataChunk: 1,
                 allAnswersContent: false,
