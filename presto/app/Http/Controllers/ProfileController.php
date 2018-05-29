@@ -34,12 +34,22 @@ class ProfileController extends Controller
 
     public function getAnswers(Member $member)
     {
-        return AnswerResource::collection($member->answers);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->answers,$chunkNr,10);
+
+        $res['data'] =  AnswerResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestions(Member $member)
     {
-        return QuestionResource::collection($member->questions);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->questions,$chunkNr,10);
+
+        $res['data'] =  QuestionResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestionsLoggedIn()
