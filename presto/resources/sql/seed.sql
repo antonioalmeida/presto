@@ -14,7 +14,6 @@ DROP TABLE IF EXISTS answer CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
 DROP TABLE IF EXISTS topic CASCADE;
 DROP TABLE IF EXISTS member CASCADE;
-DROP TABLE IF EXISTS country CASCADE;
 DROP TYPE IF EXISTS notification_origin CASCADE;
 
 DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
@@ -86,13 +85,6 @@ CREATE TABLE admin (
     CONSTRAINT admin_uk UNIQUE (email)
 );
 
-CREATE TABLE country (
-    id SERIAL NOT NULL,
-    name VARCHAR(30) NOT NULL,
-    CONSTRAINT country_pk PRIMARY KEY (id),
-    CONSTRAINT country_uk UNIQUE (name)
-);
-
 CREATE TABLE member (
     id SERIAL NOT NULL,
     username text NOT NULL,
@@ -113,10 +105,8 @@ CREATE TABLE member (
     score INTEGER NOT NULL DEFAULT 0,
     is_banned BOOLEAN NOT NULL DEFAULT false,
     is_moderator BOOLEAN NOT NULL DEFAULT false,
-    country_id INTEGER,
     CONSTRAINT member_pk PRIMARY KEY (id),
-    CONSTRAINT member_email_uk UNIQUE (email),
-    CONSTRAINT member_fk FOREIGN KEY (country_id) REFERENCES country (id) ON UPDATE CASCADE ON DELETE RESTRICT
+    CONSTRAINT member_email_uk UNIQUE (email)
 );
 
 CREATE TABLE flag (
@@ -649,47 +639,31 @@ CREATE INDEX answer_search_index ON answer USING GIST (search);
 --Populate
 INSERT INTO admin (email, password) VALUES ('admin@presto.com', '$2y$10$Akv1cjAsBv8i8MLwJRxJQOe9OSyCygfrjhL89lx9Qf678138cxDh6');
 
-INSERT INTO country (name) VALUES ('Falkland Islands');
-INSERT INTO country (name) VALUES ('Nicaragua');
-INSERT INTO country (name) VALUES ('Colombia');
-INSERT INTO country (name) VALUES ('Austria');
-INSERT INTO country (name) VALUES ('Tonga');
-INSERT INTO country (name) VALUES ('Lebanon');
-INSERT INTO country (name) VALUES ('Sierra Leone');
-INSERT INTO country (name) VALUES ('Bouvet Island');
-INSERT INTO country (name) VALUES ('Costa Rica');
-INSERT INTO country (name) VALUES ('Suriname');
-INSERT INTO country (name) VALUES ('Wallis and Futuna');
-INSERT INTO country (name) VALUES ('Lesotho');
-INSERT INTO country (name) VALUES ('Estonia');
-INSERT INTO country (name) VALUES ('Djibouti');
-INSERT INTO country (name) VALUES ('New Zealand');
-
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('blarby0', 'blarby0@marketwatch.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Brenden Larby', 'Staff Accountant II', 'https://robohash.org/occaecatimolestiaenam.png?size=200x200&set=set1', false, 11);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('jgaish1', 'jgaish1@tumblr.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Jeffy Gaish', 'Help Desk Operator', 'https://robohash.org/veniamvoluptatemest.png?size=200x200&set=set1', false, 8);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('aoxer2', 'aoxer2@free.fr', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Aprilette Oxer', 'Cost Accountant', 'https://robohash.org/etdelenitirerum.png?size=200x200&set=set1', true, 11);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('cmcreath3', 'cmcreath3@instagram.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Cliff McReath', 'Physical Therapy Assistant', 'https://robohash.org/suntquosex.png?size=200x200&set=set1', false, 6);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('aemmett4', 'aemmett4@yahoo.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Alethea Emmett', 'Financial Advisor', 'https://robohash.org/velaspernaturasperiores.png?size=200x200&set=set1', false, 11);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('mblonfield5', 'mblonfield5@shareasale.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Marlin Blonfield', 'Desktop Support Technician', 'https://robohash.org/sedquisipsa.png?size=200x200&set=set1', true, 1);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('adono6', 'adono6@woothemes.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Adelheid Dono', 'Civil Engineer', 'https://robohash.org/ipsampariaturdeserunt.png?size=200x200&set=set1', false, 3);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('ecuddy7', 'ecuddy7@cmu.edu', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Emylee Cuddy', 'Desktop Support Technician', 'https://robohash.org/temporedolorquam.png?size=200x200&set=set1', false, 2);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('jzanetello8', 'jzanetello8@howstuffworks.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Jefferson Zanetello', 'Business Systems Development Analyst', 'https://robohash.org/fugiatquisnon.png?size=200x200&set=set1', false, 9);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('rsolesbury9', 'rsolesbury9@reddit.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Rickard Solesbury', 'Research Nurse', 'https://robohash.org/quodatquedicta.png?size=200x200&set=set1', true, 6);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('mburcha', 'mburcha@chron.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Mickie Burch', 'Community Outreach Specialist', 'https://robohash.org/expeditalaboreblanditiis.png?size=200x200&set=set1', true, 5);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('obarthotb', 'obarthotb@sakura.ne.jp', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Oneida Barthot', 'Speech Pathologist', 'https://robohash.org/consequunturestin.png?size=200x200&set=set1', false, 3);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('czolinic', 'czolinic@xinhuanet.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Clarisse Zolini', 'Nuclear Power Engineer', 'https://robohash.org/quiasolutaomnis.png?size=200x200&set=set1', true, 5);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('rmapstoned', 'rmapstoned@biblegateway.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Reynard Mapstone', 'Payment Adjustment Coordinator', 'https://robohash.org/repellatsitet.png?size=200x200&set=set1', true, 12);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('cgoldbye', 'cgoldbye@netscape.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Catherina Goldby', 'Editor', 'https://robohash.org/possimusnonplaceat.png?size=200x200&set=set1', false, 3);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('smussingtonf', 'smussingtonf@topsy.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Sebastiano Mussington', 'Assistant Manager', 'https://robohash.org/etdoloreseaque.png?size=200x200&set=set1', false, 7);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('mroparsg', 'mroparsg@hibu.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Martguerita Ropars', 'Office Assistant II', 'https://robohash.org/etquia.png?size=200x200&set=set1', false, 8);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('llethemh', 'llethemh@goo.gl', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Lilllie Lethem', 'Civil Engineer', 'https://robohash.org/impeditquidemrepellendus.png?size=200x200&set=set1', false, 4);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('szavattarii', 'szavattarii@yellowpages.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Sonya Zavattari', 'VP Marketing', 'https://robohash.org/possimusestconsequatur.png?size=200x200&set=set1', true, 15);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('aklimmekj', 'aklimmekj@sbwire.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Ambrosius Klimmek', 'Community Outreach Specialist', 'https://robohash.org/minusaliasquasi.png?size=200x200&set=set1', true, 12);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('closebyk', 'closebyk@1und1.de', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Clem Loseby', 'Web Developer I', 'https://robohash.org/quidolorpariatur.png?size=200x200&set=set1', false, 3);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('fbosomworthl', 'kubix20@gmail.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Flem Bosomworth', 'Quality Engineer', 'https://robohash.org/quidemeumsit.png?size=200x200&set=set1', false, 3);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('sromanetm', 'antonioalmeida@gmail.com', '$2y$10$Akv1cjAsBv8i8MLwJRxJQOe9OSyCygfrjhL89lx9Qf678138cxDh6', 'Suzann Romanet', 'VP Accounting', 'https://robohash.org/minimaimpeditest.png?size=200x200&set=set1', false, 2);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('dcollyn', 'cyrilico@gmail.com', '$2y$10$xtVSp5JiSRec9Do8ZWvVcuFnzUx48mP4k70EIPIo160xMD/M8FlXa', 'Daron Colly', 'Operator', 'https://robohash.org/molestiasplaceatrerum.png?size=200x200&set=set1', false, 6);
-insert into member (username, email, password, name, bio, profile_picture, is_moderator, country_id) values ('aalvaradoo', 'diogo.rey@gmail.com', '$2y$10$xtVSp5JiSRec9Do8ZWvVcuFnzUx48mP4k70EIPIo160xMD/M8FlXa', 'Amanda Alvarado', 'Budget/Accounting Analyst IV', 'https://robohash.org/etsimiliquevoluptas.png?size=200x200&set=set1', true, 8);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('blarby0', 'blarby0@marketwatch.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Brenden Larby', 'Staff Accountant II', 'https://robohash.org/occaecatimolestiaenam.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('jgaish1', 'jgaish1@tumblr.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Jeffy Gaish', 'Help Desk Operator', 'https://robohash.org/veniamvoluptatemest.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('aoxer2', 'aoxer2@free.fr', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Aprilette Oxer', 'Cost Accountant', 'https://robohash.org/etdelenitirerum.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('cmcreath3', 'cmcreath3@instagram.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Cliff McReath', 'Physical Therapy Assistant', 'https://robohash.org/suntquosex.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('aemmett4', 'aemmett4@yahoo.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Alethea Emmett', 'Financial Advisor', 'https://robohash.org/velaspernaturasperiores.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('mblonfield5', 'mblonfield5@shareasale.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Marlin Blonfield', 'Desktop Support Technician', 'https://robohash.org/sedquisipsa.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('adono6', 'adono6@woothemes.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Adelheid Dono', 'Civil Engineer', 'https://robohash.org/ipsampariaturdeserunt.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('ecuddy7', 'ecuddy7@cmu.edu', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Emylee Cuddy', 'Desktop Support Technician', 'https://robohash.org/temporedolorquam.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('jzanetello8', 'jzanetello8@howstuffworks.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Jefferson Zanetello', 'Business Systems Development Analyst', 'https://robohash.org/fugiatquisnon.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('rsolesbury9', 'rsolesbury9@reddit.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Rickard Solesbury', 'Research Nurse', 'https://robohash.org/quodatquedicta.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('mburcha', 'mburcha@chron.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Mickie Burch', 'Community Outreach Specialist', 'https://robohash.org/expeditalaboreblanditiis.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('obarthotb', 'obarthotb@sakura.ne.jp', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Oneida Barthot', 'Speech Pathologist', 'https://robohash.org/consequunturestin.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('czolinic', 'czolinic@xinhuanet.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Clarisse Zolini', 'Nuclear Power Engineer', 'https://robohash.org/quiasolutaomnis.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('rmapstoned', 'rmapstoned@biblegateway.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Reynard Mapstone', 'Payment Adjustment Coordinator', 'https://robohash.org/repellatsitet.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('cgoldbye', 'cgoldbye@netscape.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Catherina Goldby', 'Editor', 'https://robohash.org/possimusnonplaceat.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('smussingtonf', 'smussingtonf@topsy.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Sebastiano Mussington', 'Assistant Manager', 'https://robohash.org/etdoloreseaque.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('mroparsg', 'mroparsg@hibu.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Martguerita Ropars', 'Office Assistant II', 'https://robohash.org/etquia.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('llethemh', 'llethemh@goo.gl', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Lilllie Lethem', 'Civil Engineer', 'https://robohash.org/impeditquidemrepellendus.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('szavattarii', 'szavattarii@yellowpages.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Sonya Zavattari', 'VP Marketing', 'https://robohash.org/possimusestconsequatur.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('aklimmekj', 'aklimmekj@sbwire.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Ambrosius Klimmek', 'Community Outreach Specialist', 'https://robohash.org/minusaliasquasi.png?size=200x200&set=set1', true);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('closebyk', 'closebyk@1und1.de', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Clem Loseby', 'Web Developer I', 'https://robohash.org/quidolorpariatur.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('fbosomworthl', 'kubix20@gmail.com', '$2y$10$eOXGvXu9HQX9j8hLAIFKXu6eWVYLwB6zElrBQ3bE0rF/ANu0QqyGu', 'Flem Bosomworth', 'Quality Engineer', 'https://robohash.org/quidemeumsit.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('sromanetm', 'antonioalmeida@gmail.com', '$2y$10$Akv1cjAsBv8i8MLwJRxJQOe9OSyCygfrjhL89lx9Qf678138cxDh6', 'Suzann Romanet', 'VP Accounting', 'https://robohash.org/minimaimpeditest.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('dcollyn', 'cyrilico@gmail.com', '$2y$10$xtVSp5JiSRec9Do8ZWvVcuFnzUx48mP4k70EIPIo160xMD/M8FlXa', 'Daron Colly', 'Operator', 'https://robohash.org/molestiasplaceatrerum.png?size=200x200&set=set1', false);
+insert into member (username, email, password, name, bio, profile_picture, is_moderator) values ('aalvaradoo', 'diogo.rey@gmail.com', '$2y$10$xtVSp5JiSRec9Do8ZWvVcuFnzUx48mP4k70EIPIo160xMD/M8FlXa', 'Amanda Alvarado', 'Budget/Accounting Analyst IV', 'https://robohash.org/etsimiliquevoluptas.png?size=200x200&set=set1', true);
 
 insert into flag (member_id, moderator_id, reason, "date") values (24, 25, 'Rude language', '2017-09-01 18:17:33');
 insert into flag (member_id, moderator_id, reason, "date") values (2, 25, 'Unecessary vocabulary', '2017-06-26 11:06:11');
