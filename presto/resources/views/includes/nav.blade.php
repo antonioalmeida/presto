@@ -74,7 +74,7 @@
                         </li>
 
                         <li class="nav-item pl-2">
-                          <b href="#" data-placement="top" data-toggle="tooltip" role="help" title=""
+                          <b data-placement="top" data-toggle="tooltip" title=""
                              data-original-title="If you're lost, at any time click the Presto logo to come back to the index. To access your profile and settings, click your profile picture."><i class="far fa-2x fa-question-circle"></i></b>
                         </li>
                     </ul>
