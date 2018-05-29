@@ -96,7 +96,7 @@
                                    role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
                                 <a v-on:click="currTab = 'New'"class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                                    role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
-                                <a v-on:click="currTab = 'Recommended'"" v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
+                                <a v-on:click="currTab = 'Recommended'" v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
                                    href="#nav-recommended" role="tab" aria-controls="nav-recommended"
                                    aria-selected="false">Recommended</a>
                             </div>
@@ -152,25 +152,29 @@
                             <div class="card-body">
                                 <h6>Who to Follow</h6>
                                 <div class="list-group list-group-flush short-padding">
-
-                                    <template v-for="member in topMembers">
-                                        <div class="list-group-item d-flex justify-content-begin">
-                                            <div class="align-self-center">
-                                                <img class="user-preview rounded-circle mr-2" width="50" height="50"
-                                                     :alt="member.name + '\'s profile picture'"
-                                                     :src="member.profile_picture">
-                                            </div>
-                                            <div>
-                                                <router-link :to="'/profile/' + member.username" class="text-dark">
-                                                    {{member.name}}
-                                                </router-link>
-                                                <br>
-                                                <span class="text-muted"><i
-                                                        class="fas fa-gem text-primary"></i> {{member.score}} points</span>
-                                            </div>
-                                            <div class="ml-auto align-self-center">
-                                                <a href=""><i class="far fa-fw fa-user-plus"></i></a>
-                                            </div>
+                                <template v-for="member in topMembers">
+                                    <div class="list-group-item d-flex justify-content-begin">
+                                        <div class="align-self-center">
+                                            <img class="user-preview rounded-circle mr-2" width="50" height="50"
+                                                 :alt="member.name + '\'s profile picture'"
+                                                 :src="member.profile_picture">
+                                        </div>
+                                        <div>
+                                            <router-link :to="'/profile/' + member.username" class="text-dark">
+                                                {{member.name}}
+                                            </router-link>
+                                            <br>
+                                            <span class="text-muted"><i
+                                                    class="fas fa-gem text-primary"></i> {{member.score}} points</span>
+                                        </div>
+                                        <div class="ml-auto align-self-center">
+                                            <follow-simple-button
+                                                    v-model="member.isFollowing"
+                                                    :classesDefault="'btn btn-sm btn-primary'"
+                                                    :classesActive="'btn btn-sm btn-outline-primary'"
+                                                    :path="'/api/member/' + member.username + '/toggle-follow'"
+                                            >
+                                            </follow-simple-button>
                                         </div>
                                     </template>
                                 </div>
@@ -195,7 +199,8 @@
 
         components: {
             QuestionCard: require('../components/QuestionCard'),
-            AnswerCard: require('../components/AnswerCard')
+            AnswerCard: require('../components/AnswerCard'),
+            FollowSimpleButton: require('../components/FollowSimpleButton'),
         },
 
         data() {

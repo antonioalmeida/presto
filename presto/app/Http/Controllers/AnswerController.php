@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Answer;
 use App\AnswerRating;
 use App\Http\Resources\AnswerResource;
+use App\Http\Resources\AnswerPartialResource;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
 use Purifier;
@@ -80,5 +81,27 @@ class AnswerController extends Controller
         ];
 
         return $response;
+    }
+
+    public function update(Question $question, Answer $answer) {
+        $this->validate(request(), [
+            'content' => 'required',
+        ]);
+
+        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
+
+        $answer->content = $content;
+
+        $answer->save();
+
+        return new AnswerPartialResource($answer);
+    }
+
+    public function delete(Question $question, Answer $answer) {
+        $result = false;
+        if($answer->delete())
+            $result = true;
+
+        return compact('result');
     }
 }

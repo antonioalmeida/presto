@@ -2,7 +2,7 @@
     <div class="mt-4">
         <hr>
         <div v-bind:class="{'card': answer.is_chosen_answer, 'card-body': answer.is_chosen_answer, 'border-primary': answer.is_chosen_answer}">
-            <h5 v-if="answer.is_chosen_answer"><span class="badge badge-primary">Chosen answer</span></h5>
+            <h5 class="mb-3" v-if="answer.is_chosen_answer"><span class="badge badge-primary">Best Answer</span></h5>
             <div class="d-flex flex-wrap">
                 <div class="align-self-center">
                     <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -30,46 +30,53 @@
                                    :path="'/api/member/' + answer.author.username + '/toggle-follow'"
                     >
                     </follow-button>
-                    <button v-on:click="$emit('solve-question')" class="btn btn-primary" v-if="!parent.solved"><i
-                            class="far fa-fw fa-lock-alt"></i> Choose as correct answer
-                    </button>
 
                 </div>
-                <!--
-                @can('update', $answer)
-                <div class="ml-auto ">
-                    <small>
-                      <a href="#" class="text-muted">Edit</a> |
-                      <a href="#" class="text-danger">Delete</a>
-                  </small>
-              </div>
-              @endcan
-          -->
 
             </div>
             <hr>
             <div>
-                <p v-html="answer.content">
-                </p>
+                <p v-if="!isEditing" v-html="answer.content"></p>
+                <div v-else class="card">
+                    <editor
+                        v-model="editorContent"
+                        :init="editorInit"
+                        @onChange="answerShowError = false">
+                    </editor>
 
-                <div v-if="!answer.author.isSelf" class="d-flex">
-                    <div>
-                        <a @click.stop.prevent="rateAnswer(1)" class="btn"
-                           :class="{'text-primary text-strong' : answer.isUpvoted}"><i
-                                class="far fa-fw fa-arrow-up"></i>
-                            <template v-if="answer.isUpvoted">Upvoted</template>
-                            <template v-else>Upvote</template>
-                            <span :class="[answer.isUpvoted ? 'badge-primary' : 'badge-light']" class="badge">{{ answer.upvotes }}</span>
-                            <span class="sr-only">upvote number</span>
-                        </a>
-                        <a @click.stop.prevent="rateAnswer(-1)" class="btn"
-                           :class="{'text-danger text-strong' : answer.isDownvoted}"><i
-                                class="far fa-fw fa-arrow-down"></i>
-                            <template v-if="answer.isDownvoted">Downvoted</template>
-                            <template v-else>Downvote</template>
-                            <span :class="[answer.isDownvoted ? 'badge-danger' : 'badge-light']" class="badge">{{ answer.downvotes }} </span>
-                            <span class="sr-only">downvote number</span></a>
+                    <div class="card-footer">
+                        <span v-if="answerShowError" class="text-danger"><small>You can't submit an empty answer.<br></small></span>
+
+                        <button @click="onAnswerSubmit" class="mt-1 btn btn-sm btn-primary">Submit</button>
+
+                        <button @click="isEditing = false" class="mt-1 btn btn-sm btn-link">Cancel</button>
                     </div>
+                </div>
+
+                <div class="mt-2 d-flex justify-content-between flex-wrap">
+
+                    <div v-if="!answer.author.isSelf" class="d-flex">
+                        <rate-content
+                        :content="answer"
+                        :endpoint="rateEndpoint"
+                        ></rate-content>
+                    </div>
+
+                    <b-dropdown class="ml-auto" variant="link" id="ddown1" size="lg" no-caret right>
+                        <template slot="button-content">
+                            <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
+                            <b-tooltip target="questionOptions" title="More options"></b-tooltip>
+                        </template>
+
+                        <template v-if="answer.author.isSelf">
+                            <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
+                            <b-dropdown-item v-b-modal="'deleteAnswerModal' + answer.id">Delete</b-dropdown-item>
+                            <b-dropdown-item v-if="parent.isOwner">Reopen</b-dropdown-item>
+                            <b-dropdown-divider></b-dropdown-divider>
+                        </template>
+                        <b-dropdown-item v-if="!parent.solved && parent.isOwner" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
+                        <b-dropdown-item>Report</b-dropdown-item>
+                    </b-dropdown>
                 </div>
 
             </div>
@@ -80,13 +87,28 @@
                 <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
             </div>
         </div>
+
+        <!-- delete question modal -->
+        <b-modal lazy centered
+            title="Delete Answer"
+            :id="'deleteAnswerModal' + answer.id"
+            ok-variant="primary"
+            cancel-variant="link"
+            ok-title="Confirm"
+            cancel-title="Cancel"
+            @ok="onDelete"
+        >
+        <h5><small>Are you sure you wish to delete this answer? You cannot restore it.</small></h5>
+        </b-modal>
     </div>
 </template>
 
 <script>
-    import CommentsList from '../components/CommentsList'
-    import FollowButton from '../components/FollowButton'
+    import CommentsList from './CommentsList'
+    import FollowButton from './FollowButton'
     import CommentBox from './CommentBox'
+    import RateContent from './RateContent'
+    import Editor from '@tinymce/tinymce-vue';
 
     export default {
 
@@ -97,32 +119,63 @@
         components: {
             'CommentsList': CommentsList,
             'FollowButton': FollowButton,
-            'CommentBox': CommentBox
+            'CommentBox': CommentBox,
+            'RateContent': RateContent,
+            'Editor': Editor,
         },
-
 
         data() {
             return {
-                answer: this.answerData
+                answer: this.answerData,
+
+                isEditing: false,
+                answerShowError: false,
+                editorContent: this.answerData.content,
+                editorInit: require('../tiny-mce-config').default,
             }
         },
 
         methods: {
-            rateAnswer: function (vote) {
-                axios.post('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id + '/rate', {
-                    'rate': vote,
-                })
-                    .then(({data}) => {
-                        this.answer.isUpvoted = data.isUpvoted;
-                        this.answer.isDownvoted = data.isDownvoted;
-                        this.answer.upvotes = data.upvotes;
-                        this.answer.downvotes = data.downvotes;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            }
+            onAnswerSubmit: function () {
+                if (this.editorContent.length === 0) {
+                    this.answerShowError = true;
+                    return;
+                }
 
+                axios.post('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id, {
+                    'content': this.editorContent,
+                })
+                .then(({data}) => {
+                    this.$alerts.addSuccess('Answer successfully edited!');
+                    this.answer = data;
+                    this.editorContent = data.content;
+                    this.isEditing = false;
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    this.showError = true;
+                });
+            },
+
+            onDelete: function() {
+                axios.delete('/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id)
+                .then(({data}) => {
+                    if(data.result) {
+                        this.$router.push({path: '/'});
+                        this.$alerts.addSuccess('Answer successfully deleted!');
+                    }
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    console.log(this.errors);
+                });
+            },
+        },
+
+        computed: {
+            rateEndpoint: function() {
+                return '/api/questions/' + this.answer.question.id + '/answers/' + this.answer.id + '/rate';
+            }
         }
 
     }

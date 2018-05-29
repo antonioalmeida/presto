@@ -8,6 +8,7 @@ use App\Http\Resources\NotificationsCollection;
 use App\Http\Resources\NotificationsResource;
 use App\Http\Resources\QuestionResource;
 use App\Member;
+use App\Flag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -152,5 +153,21 @@ class ProfileController extends Controller
             $member->follow($follower);
 
         return ['following' => $member->isFollowing($follower), 'no_follow' => $member->followings->count()];
+    }
+
+    public function flag(Member $member)
+    {
+        $flagger = Auth::user();
+
+        $this->validate(request(), [
+          'reason' => 'required|string'
+        ]);
+
+        $flag = new Flag;
+        $flag->moderator_id = $flagger->id;
+        $flag->member_id = $member->id;
+        $flag->reason = request('reason');
+        $flag->date = date("Y-m-d H:i:s");
+        $flag->save();
     }
 }

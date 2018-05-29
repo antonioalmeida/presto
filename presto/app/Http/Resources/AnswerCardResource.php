@@ -22,18 +22,11 @@ class AnswerCardResource extends Resource
             'profile_picture' => $this->member->profile_picture,
         ];
 
-        $response['topics'] = $this->question->topics;
-
         $response['question'] = $this->question;
 
-        $response['rating'] = $this->answerRatings()->where('rate', 1)->count();
+        $response['question']['topics'] = $this->question->topics;
 
-        /*
-        $response['question'] = [
-            'id' => $this->question->id,
-            'title' => $this->question->title
-        ]
-       */
+        $response['rating'] = $this->answerRatings()->where('rate', 1)->count();
 
         return $response;
     }

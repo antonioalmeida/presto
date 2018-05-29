@@ -11,9 +11,18 @@
                         </div>
 
                         <div class="col-md-6 text-shadow mobile-center">
-                            <h2 class="h2-adapt">{{ user.name }}</h2>
+                            <h2 class="h2-adapt">{{ user.name }}
+                                <template v-if="user.is_moderator">
+                                    <span id="modTag" class="fa-layers fa-fw">
+                                        <i class="fas fa-certificate" data-fa-transform="up-2 grow-2"></i>
+                                        <i class="fas fa-certificate text-info" data-fa-transform="up-2"></i>
+                                        <i class="far fa-user-shield" data-fa-transform="up-2 shrink-10"></i>
+                                    </span>
+                                    <b-tooltip target="modTag" :title="user.name + ' is a Moderator'"></b-tooltip>
+                                </template>
+                            </h2>
                             <router-link class="white-url" :to="/profile/ + username">
-                                <h4 class="h4-adapt">&#64;{{ user.username}}</h4>
+                                <h4 class="h4-adapt">&#64;{{ user.username}} </h4>
                             </router-link>
 
                             <!-- bio -->
@@ -41,6 +50,8 @@
                                 <router-link v-if="user.isOwner" :to="'/edit-profile'" class="btn btn-outline-light">
                                     Edit Profile
                                 </router-link>
+
+                                <a v-if="!user.isOwner && logged.is_moderator" href="" class="btn btn-outline-light" data-toggle="modal" data-target="#flagModal">Flag member</a>
                             </div>
                         </div>
 
@@ -51,7 +62,7 @@
                                 <div class="d-flex flex-column justify-content-around flex-wrap">
                                     <div class="d-flex p-1">
                                         <div class="mx-2">
-                                            <i class="fa fa-lg fa-gem"></i>
+                                            <i class="text-primary fa fa-gem"></i>
                                         </div>
                                         <h6>{{user.score}}
                                             <a href=""><small class="text-muted">points</small></a>
@@ -84,11 +95,37 @@
 
         <router-view :data="followData" @update:data="value => user.nrFollowing = value.no_follow"></router-view>
 
+        <!-- Flag modal -->
+        <div class="modal fade" id="flagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div>
+                            <h6><label for="email">Flag this member</label></h6>
+                            <div class="input-group">
+                                <input v-model="flagReason" type="text"
+                                       class="form-control" placeholder="Why is this member being flagged?"
+                                       aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
+                        <button @click="onFlagSubmit" class="btn btn-primary">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </main>
 
 </template>
 
 <script>
+    import QuestionCard from '../components/QuestionCard';
+    import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
+
     export default {
 
         props: ['username'],
@@ -98,19 +135,23 @@
         },
 
         components: {
-            QuestionCard: require('../components/QuestionCard')
+            'QuestionCard': QuestionCard,
+            'bTooltip': bTooltip
         },
 
         data() {
             return {
                 user: {},
+                logged: {},
                 followData: null,
+                flagReason: ''
             }
         },
 
         mounted() {
             this.loader = this.$loading.show();
             this.getData(this.username);
+            this.getLogged();
         },
 
         watch: {
@@ -135,6 +176,30 @@
                         console.log(error);
                     });
             },
+
+            getLogged: function () {
+              axios.get('/api/profile/')
+                  .then(({data}) => {
+                      this.logged = data;
+                  })
+                  .catch((error) => {
+                      this.logged.is_moderator = false; //In case not logged in
+                  });
+            },
+
+            onFlagSubmit: function() {
+              console.log(this.username);
+              axios.post('/api/profile/' + this.username + '/flag', {
+                'reason': this.flagReason
+              })
+                  .then(({data}) => {
+                    $('#flagModal').modal('toggle');
+                    this.$alerts.addSuccess('Member successfully flagged!');
+                  })
+                  .catch((error) => {
+                      console.log(error);
+                  });
+            }
         }
 
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Member;
+use App\Rules\BannedMember;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Validator;
 
@@ -49,7 +50,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'username' => 'required|string|alpha_dash|max:20|unique:member',
-            'email' => 'required|string|email|max:255|unique:member|unique:admin',
+            'email' => ['required', 'string', 'email','max:255','unique:member','unique:admin', new BannedMember],
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -68,7 +69,7 @@ class RegisterController extends Controller
             'username' => $data['username'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'profile_picture' => 'https://dummyimage.com/250/11214b/ffffff.png&text=' . $data['username']
+            'profile_picture' => 'http://identicon.org/?t=' . $data['username'] . '&s=256'
         ]);
 
     }
