@@ -40,6 +40,7 @@ class QuestionController extends Controller
 
         $question = new Question();
         $question->title = request('title');
+        date_default_timezone_set('Europe/Lisbon');
         $question->date = now();
         request()->user()->questions()->save($question);
 
