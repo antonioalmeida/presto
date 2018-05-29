@@ -142,7 +142,7 @@
         name: 'Topic',
 
         created() {
-            document.title = "Topic | Presto";
+            document.title = this.name + " | Presto";
         },
 
         components: {

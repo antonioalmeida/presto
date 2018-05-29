@@ -224,6 +224,7 @@
                         this.titleInput = data.title;
                         this.contentInput = data.content;
                         this.tagsInput = data.topics.map(tag => tag.name);
+                        document.title = this.question.title + " | Presto";
                     })
                     .catch((error) => {
                         console.log(error);
