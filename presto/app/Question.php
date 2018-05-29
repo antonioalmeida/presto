@@ -34,7 +34,7 @@ class Question extends Model
     /**
      * @var array
      */
-    protected $fillable = ['author_id', 'title', 'content', 'date', 'solved', 'search'];
+    protected $fillable = ['author_id', 'title', 'content', 'date', 'solved', 'search', 'topics'];
 
     protected $hidden = ['search'];
 
