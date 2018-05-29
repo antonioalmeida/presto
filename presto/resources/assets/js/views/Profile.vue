@@ -60,7 +60,7 @@
                                 <div class="d-flex flex-column justify-content-around flex-wrap">
                                     <div class="d-flex p-1">
                                         <div class="mx-2">
-                                            <i class="fa fa-lg fa-gem"></i>
+                                            <i class="text-primary fa fa-gem"></i>
                                         </div>
                                         <h6>{{user.score}}
                                             <a href=""><small class="text-muted">points</small></a>
