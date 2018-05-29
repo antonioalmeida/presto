@@ -44,6 +44,7 @@ Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 Route::view('questions/{question}', 'layouts.master');
 
 // Topic
+Route::view('topic/{topic}/edit', 'layouts.master')->middleware('moderator');
 Route::view('topic/{topic}', 'layouts.master');
 
 Route::prefix('api')->group(function () {
@@ -79,6 +80,7 @@ Route::prefix('api')->group(function () {
 
     // Topics API
     Route::get('topic/{topic}', 'TopicController@get');
+    Route::post('topic/{topic}', 'TopicController@update')->middleware('moderator');
     Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
     //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
     Route::get('topic/', 'TopicController@getAllTopics');
@@ -145,6 +147,7 @@ Route::prefix('admin')->group(function () {
 //API
 //Profile
 Route::patch('api/member/edit-profile-pic', 'ProfileController@updatePicture')->name('api.edit-profile-pic');
+Route::patch('api/topic/{topic}/edit-pic', 'TopicController@updatePicture')->middleware('moderator');
 
 //Settings
 Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
