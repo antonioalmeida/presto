@@ -96,7 +96,7 @@
                                    role="tab" aria-controls="nav-home" aria-selected="true">Top</a>
                                 <a v-on:click="currTab = 'New'"class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile"
                                    role="tab" aria-controls="nav-profile" aria-selected="false">New</a>
-                                <a v-on:click="currTab = 'Recommended' v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
+                                <a v-on:click="currTab = 'Recommended'" v-if="isLoggedIn" class="nav-item nav-link" id="nav-recommended-tab" data-toggle="tab"
                                    href="#nav-recommended" role="tab" aria-controls="nav-recommended"
                                    aria-selected="false">Recommended</a>
                             </div>
