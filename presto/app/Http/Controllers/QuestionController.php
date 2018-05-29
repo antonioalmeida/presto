@@ -66,6 +66,51 @@ class QuestionController extends Controller
         return new QuestionResource($question);
     }
 
+    public function update(Question $question) {
+
+        $this->validate(request(), [
+            'title' => 'required',
+            'content' => 'required',
+            'topics' => 'required'
+        ]);
+
+        $question->title = request('title');
+        $question->content = request('content');
+
+        $tags = request('topics');
+        $question->topics()->delete();
+
+        DB::transaction(function () use ($tags, $question) {
+            foreach ($tags as $tag) {
+                $topic = Topic::whereRaw('lower(name) ILIKE ?', array(trim($tag)))->get();
+
+                if ($topic->isEmpty()) {
+                    $newTopic = new Topic();
+                    $newTopic->name = $tag;
+                    $newTopic->picture = 'http://identicon.org/?t=' . $tag . '&s=256';
+                    $newTopic->save();
+                    $question->topics()->attach($newTopic);
+                } else {
+                    try {
+                        $question->addTopic($topic->first());
+                    } catch (\Illuminate \Database\QueryException $e) {
+
+                    }
+                }
+            }
+        });
+
+        $question->save();
+
+        $response = [
+            'title' => $question->title,
+            'content' => $question->content,
+            'topics' => $question->topics
+        ];
+
+        return $response;
+    }
+
     public function rate(Question $question)
     {
         $this->authorize('rate', $question);
@@ -94,9 +139,6 @@ class QuestionController extends Controller
                 $existing_rate->save();
             }
         }
-
-        $upvotes = $question->questionRatings->where('rate', 1)->count();
-        $downvotes = $question->questionRatings->where('rate', -1)->count();
 
           $response = [
             'isUpvoted' => $finalValue == 1 ? true : false,

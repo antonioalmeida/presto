@@ -26,7 +26,7 @@
                         </h5>
                     </template>
 
-                    <div v-else="isEditing" class="edit-profile">
+                    <div v-else class="edit-content">
                         <input v-model="titleInput" type="text" class="form-control input-h2">
                         <input v-model="contentInput" type="text" class="form-control input-h5 mt-2">
 
@@ -38,7 +38,7 @@
                             ></tags-input>
 
                             <div class="ml-1 mt-3">
-                                <button @click="" class="btn btn-outline-primary">Save</button>
+                                <button @click="onEditSubmit" class="btn btn-outline-primary">Save</button>
                                 <button @click="isEditing = false" class="btn btn-outline-danger">Cancel
                                 </button>
                             </div>
@@ -66,9 +66,6 @@
                                 <b-btn id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
-
-                                <b-tooltip target="questionComment" title="Leave a comment"></b-tooltip>
-
 
                                 <b-dropdown variant="link" id="ddown1" size="lg" no-caret right>
                                     <template slot="button-content">
@@ -182,6 +179,7 @@
                 //editing data
                 titleInput: '',
                 contentInput: '',
+                tagsInput:[],
 
                 //error handling utils
                 answerShowError: false
@@ -214,12 +212,6 @@
                         this.titleInput = data.title;
                         this.contentInput = data.content;
                         this.tagsInput = data.topics.map(tag => tag.name);
-                        /*
-                        this.tagsInput =  data.topics.reduce(function(result, item, index, array) {
-                           result[item] = item;
-                           return result;
-                       }, {});
-                       */
                     })
                     .catch((error) => {
                         console.log(error);
@@ -256,17 +248,41 @@
                 axios.post('/api/questions/' + this.question.id + '/answers/', {
                     'content': this.editorContent,
                 })
-                    .then(({data}) => {
-                        console.log(data);
-                        this.answers.push(data);
-                        this.editorContent = '';
+                .then(({data}) => {
+                    console.log(data);
+                    this.answers.push(data);
+                    this.editorContent = '';
 
-                    })
-                    .catch(({response}) => {
-                        this.errors = response.data.errors;
-                        this.showError = true;
-                    });
+                })
+                .catch(({response}) => {
+                    this.errors = response.data.errors;
+                    this.showError = true;
+                });
+            },
 
+            onEditSubmit: function() {
+               axios.post('/api/questions/' + this.question.id, {
+                'title': this.titleInput,
+                'content': this.contentInput,
+                'topics': this.tagsInput,
+            })
+               .then(({data}) => {
+                this.question.title = data.title;
+                this.question.content = data.content;
+                this.question.topics = data.topics;
+                this.isEditing = false;
+                this.$alerts.addSuccess('Question successfully edited!');
+            })
+               .catch(({response}) => {
+                let errors = response.data.errors;
+                let messages = [];
+                for (let key in errors) {
+                    for (let message of errors[key]) {
+                        messages.push(message);
+                    }
+                }
+                this.$alerts.addArrayError(messages);
+                });
             },
 
             solve: function (chosenAnswerId) {

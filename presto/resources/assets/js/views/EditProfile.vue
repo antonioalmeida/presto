@@ -14,7 +14,7 @@
 								</span>
                         </div>
 
-                        <div class="col-md-6 mobile-center text-shadow edit-profile">
+                        <div class="col-md-6 mobile-center text-shadow edit-content">
 
                             <input v-model="nameInput" type="text" class="form-control input-h2"
                                    pattern="^[a-zA-Z\s]{1,35}$"
