@@ -14,14 +14,12 @@ window.axios.defaults.headers.common = {
 window.axios.interceptors.response.use(
     response => response,
     (error) => {
-        console.log(error);
+        console.log(error); //TODO: Delete this
 
         if (error.response.status === 401) {
-            //window.Vue.router.push({path: '/login'});
-            // window.location.href = "/login";
+            window.location.href = "/login";
         } else if (error.response.status === 404 || error.response.status === 500) {
-            // window.Vue.router.push({path: '/404'});
-            // window.location.href = "/404";
+            window.location.href = "/404";
         }
 
         return Promise.reject(error);

@@ -78,6 +78,7 @@ class CommentController extends Controller
         $this->authorize('rate', $comment);
 
         $existing_rate = CommentRating::withTrashed()->whereCommentId($comment->id)->whereMemberId(Auth::id())->first();
+        $finalValue = request('rate');
 
         if (is_null($existing_rate)) {
             CommentRating::create([
@@ -89,6 +90,7 @@ class CommentController extends Controller
             if (is_null($existing_rate->deleted_at)) {
                 if ($existing_rate->rate == request('rate')) {
                     $existing_rate->delete();
+                    $finalValue = 0;
                 } else {
                     $existing_rate->rate = request('rate');
                     $existing_rate->save();
@@ -100,9 +102,13 @@ class CommentController extends Controller
             }
         }
 
-        $upvotes = $comment->commentRatings->where('rate', 1)->count();
-        $downvotes = $comment->commentRatings->where('rate', -1)->count();
+        $response = [
+            'isUpvoted' => $finalValue == 1 ? true : false,
+            'isDownvoted' => $finalValue == -1 ? true : false,
+            'upvotes' => $comment->commentRatings->where('rate', 1)->count(),
+            'downvotes' => $comment->commentRatings->where('rate', -1)->count()
+        ];
 
-        return compact('upvotes', 'downvotes');
+        return $response;
     }
 }

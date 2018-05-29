@@ -201,7 +201,6 @@
 
             loadMore: function(){
                 if(this.allData){
-                    //console.log("no more");
                     this.busy = true;
                     return;
                 }
@@ -213,8 +212,6 @@
 
 
                 this.getResults();
-                //let self = this;
-                //setTimeOut(function() { self.busy = false; },5000);
             },
 
             joinArray: function(data){

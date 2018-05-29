@@ -20,6 +20,12 @@ class CommentResource extends Resource
 
         $response['author'] = new MemberCommentResource($this->member);
 
+        $response['upvotes'] = $this->commentRatings->where('rate', 1)->count();
+        $response['downvotes'] = $this->commentRatings->where('rate', -1)->count();
+
+        $response['isUpvoted'] = $this->commentRatings->where('rate', 1)->where('member_id', Auth::id())->count() == 1;
+        $response['isDownvoted'] = $this->commentRatings->where('rate', -1)->where('member_id', Auth::id())->count() == 1;
+
         return $response;
     }
 }

@@ -26,6 +26,4 @@ if (document.getElementById('app') != null) {
             'Alerts': Alerts
         }
     });
-
-
 }

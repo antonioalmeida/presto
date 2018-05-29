@@ -34,12 +34,22 @@ class ProfileController extends Controller
 
     public function getAnswers(Member $member)
     {
-        return AnswerResource::collection($member->answers);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->answers,$chunkNr,10);
+
+        $res['data'] =  AnswerResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestions(Member $member)
     {
-        return QuestionResource::collection($member->questions);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->questions,$chunkNr,10);
+
+        $res['data'] =  QuestionResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestionsLoggedIn()
@@ -133,14 +143,25 @@ class ProfileController extends Controller
 
     public function getFollowers(Member $member)
     {
+
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followers,$chunkNr,10);
+
         //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followers);
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function getFollowing(Member $member)
     {
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followings,$chunkNr,10);
+
         //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followings);
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function toggleFollow(Member $follower)
