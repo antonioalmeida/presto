@@ -176,7 +176,7 @@
                     return a.date < b.date
                 };
 
-                return this.questions.sort(comparator);
+                return this.questions.slice().sort(comparator);
             },
 
             sortedAnswers: function () {
@@ -187,10 +187,9 @@
                     return a.date < b.date
                 };
 
-                return this.answers.sort(comparator);
+                return this.answers.slice().sort(comparator);
             }
 
         }
     }
 </script>
-
