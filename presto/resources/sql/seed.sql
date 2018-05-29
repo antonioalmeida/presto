@@ -113,7 +113,6 @@ CREATE TABLE member (
     score INTEGER NOT NULL DEFAULT 0,
     is_banned BOOLEAN NOT NULL DEFAULT false,
     is_moderator BOOLEAN NOT NULL DEFAULT false,
-    is_certified BOOLEAN NOT NULL DEFAULT false,
     country_id INTEGER,
     CONSTRAINT member_pk PRIMARY KEY (id),
     CONSTRAINT member_email_uk UNIQUE (email),
