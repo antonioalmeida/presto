@@ -11,24 +11,15 @@
 |
 */
 
-/*
-Route::get('/', function () {
-    return redirect('index');
-});
-*/
-
-// Route::get('/', 'HomeController@index')->name('index');
-
 //Index
 Route::view('', 'layouts.master')->name('index');
 Route::view('about', 'layouts.master')->name('about');
 Route::view('404', 'layouts.master')->name('404');
 
-
-Route::put('profile/{member}', 'ProfileController@update')->name('profile.update');
+//Notifications
 Route::view('notifications', 'layouts.master')->name('notifications');
 
-// Profile
+//Profile
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
 Route::view('profile/{member}/following', 'layouts.master');
@@ -37,7 +28,6 @@ Route::view('edit-profile', 'layouts.master')->name('profile.edit');
 
 
 // Answer
-// Route::view('answers/{answer}', 'layouts.master');
 Route::view('questions/{question}/answers/{answer}', 'layouts.master');
 
 // Question
@@ -67,7 +57,7 @@ Route::prefix('api')->group(function () {
     Route::get('questions/{question}/answers/{answer}', 'AnswerController@getAnswer');
     Route::get('questions/{question}', 'QuestionController@get');
     Route::get('questions/{question}/answers', 'QuestionController@getAnswers');
-    Route::post('questions/{question}/answers/{answer}', 'AnswerController@update')->name('question.edit');
+    Route::post('questions/{question}/answers/{answer}', 'AnswerController@update')->name('answer.edit');
     Route::post('questions/{question}', 'QuestionController@update')->name('question.edit');
     Route::post('questions', 'QuestionController@store')->name('question.add');
     Route::post('questions/{question}/solve', 'QuestionController@solve');
@@ -83,7 +73,6 @@ Route::prefix('api')->group(function () {
     Route::get('topic/{topic}', 'TopicController@get');
     Route::post('topic/{topic}', 'TopicController@update')->middleware('moderator');
     Route::post('topic/{topic}/toggle-follow', 'TopicController@toggleFollow');
-    //Route::delete('topic/{topic}/toggle-follow', 'TopicController@unFollow');
     Route::get('topic/', 'TopicController@getAllTopics');
 
     // Search API
@@ -111,11 +100,6 @@ Route::prefix('api')->group(function () {
 
 //Search
 Route::view('search/{query}', 'layouts.master');
-//Route::post('search', 'SearchController@search')->name('search');
-
-//Admin
-// Route::get('admin', 'AdminController@show')->name('admin');
-
 
 // Authentication
 Route::view('login', 'layouts.master_aux')->name('login');
@@ -139,7 +123,6 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset');
 Route::prefix('admin')->group(function () {
     Route::view('/login', 'layouts.master_aux')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
-    //Route::get('/', 'AdminController@show')->name('admin.dashboard');
     Route::view('/', 'layouts.master')->name('admin.dashboard');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
 });
@@ -153,10 +136,6 @@ Route::patch('api/topic/{topic}/edit-pic', 'TopicController@updatePicture')->mid
 Route::post('api/members/{username}/settings/email', 'ProfileController@updateEmail')->name('api.edit-email');
 Route::post('api/members/{username}/settings/password', 'ProfileController@updatePassword')->name('api.edit-password');
 
-//Follows Member
-// Route::post('api/member/{follower}/toggle-follow', 'ProfileController@follow')->name('api.follow');
-// Route::delete('api/member/{follower}/toggle-follow', 'ProfileController@unFollow')->name('api.unFollow');
-
 //Ban Member
 Route::post('api/members/{username}/ban', 'AdminController@ban')->name('api.ban');
 
@@ -168,7 +147,6 @@ Route::delete('api/flags/{member_id}/{moderator_id}/dismiss', 'AdminController@d
 
 Route::post('api/comments/{comment}/rate', 'CommentController@rate')->name('api.comment.rate');
 Route::post('api/comments/{comment}/report', 'CommentController@report')->name('api.comment.report');
-
 
 //Questions
 Route::post('api/questions/{question}/rate', 'QuestionController@rate')->name('api.rateQuestion');
