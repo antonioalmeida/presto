@@ -50,7 +50,7 @@
 
                         <div class="mt-2 d-flex justify-content-between flex-wrap">
 
-                            <rate-content 
+                            <rate-content
                                 class="mt-2"
                                 v-if="!question.isOwner"
                                 :content="question"
@@ -61,7 +61,7 @@
                                 <b-btn v-if="!question.solved" v-b-toggle.accordion1 variant="link">
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
-                                
+
                                 <b-btn class="ml-auto" id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
@@ -71,11 +71,11 @@
                                         <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
                                         <b-tooltip target="questionOptions" title="More options"></b-tooltip>
                                     </template>
-                            
+
                                     <template v-if="question.isOwner">
-                                        <b-dropdown-item @click="isEditing = true">Edit</b-dropdown-item>
+                                        <b-dropdown-item v-if="!question.solved" @click="isEditing = true">Edit</b-dropdown-item>
                                         <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
-                                        <b-dropdown-item>Reopen</b-dropdown-item>
+                                        <b-dropdown-item v-on:click="unsolve()" v-if="question.solved" >Reopen</b-dropdown-item>
                                         <b-dropdown-divider></b-dropdown-divider>
                                     </template>
                                     <b-dropdown-item>Report</b-dropdown-item>
@@ -308,7 +308,7 @@
                 .catch(({response}) => {
                         this.errors = response.data.errors;
                         console.log(this.errors);
-                    });            
+                    });
             },
 
             solve: function (chosenAnswerId) {
