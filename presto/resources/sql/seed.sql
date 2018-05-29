@@ -166,7 +166,6 @@ CREATE TABLE question (
     solved BOOLEAN NOT NULL DEFAULT false,
     author_id INTEGER NOT NULL,
     search tsvector NOT NULL,
-    deleted_at DATE,
     CONSTRAINT question_pk PRIMARY KEY (id),
     CONSTRAINT question_fk_member FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
@@ -179,10 +178,9 @@ CREATE TABLE answer (
     author_id INTEGER NOT NULL,
     is_chosen_answer BOOLEAN NOT NULL DEFAULT false,
     search tsvector NOT NULL,
-    deleted_at DATE,
     CONSTRAINT answer_pk PRIMARY KEY (id),
     CONSTRAINT answer_member_fk FOREIGN KEY (author_id) REFERENCES member (id) ON UPDATE CASCADE ON DELETE CASCADE,
-    CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id)
+    CONSTRAINT answer_question_fk FOREIGN KEY (question_id) REFERENCES question (id) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
 CREATE TABLE comment (
@@ -380,21 +378,6 @@ CREATE TRIGGER member_email
   BEFORE INSERT OR UPDATE OF email ON member
   FOR EACH ROW
     EXECUTE PROCEDURE admin_member_email();
-
--- A question must always have at least 1 topic associated with it
-CREATE FUNCTION question_topic() RETURNS TRIGGER AS $$
-BEGIN
-  IF NOT EXISTS (SELECT question.id FROM question_topic INNER JOIN question ON question.id = question_topic.question_id WHERE question.id = OLD.question_id) THEN
-    RAISE EXCEPTION 'Question must have at least 1 topic associated';
-  END IF;
-  RETURN OLD;
-END
-$$ LANGUAGE 'plpgsql';
-
-CREATE TRIGGER question_topic
-  BEFORE DELETE ON question_topic
-  FOR EACH ROW
-    EXECUTE PROCEDURE question_topic();
 
 -- Answers' dates must be consistent
 CREATE FUNCTION answer_date() RETURNS TRIGGER AS $$
