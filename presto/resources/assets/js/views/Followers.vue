@@ -62,7 +62,6 @@
 
             loadMore: function(){
                 if(this.allData){
-                    console.log("No more");
                     this.busy = true;
                     return;
                 }

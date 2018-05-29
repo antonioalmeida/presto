@@ -131,14 +131,12 @@
             loadMore: function(){
                 if(this.currTab == 'Questions'){
                     if(this.allQuestions){
-                        console.log("No more");
                         return;
                     }
                 }
 
                 if(this.currTab == 'Answers'){
                     if(this.allAnswers){
-                        console.log("No more");
                         return;
                     }
                 }
