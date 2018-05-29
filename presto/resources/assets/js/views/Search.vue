@@ -109,7 +109,7 @@
         name: 'Search',
 
         created() {
-            document.title = "Search | Presto";
+            document.title = this.query + " | Presto";
         },
 
         components: {
@@ -178,7 +178,7 @@
             
             getResults: function () {
                 let request = '/api/search/' + this.query;
-
+                document.title = this.query + " | Presto";
                 axios.get(request, {
                     params: {
                         type: this.type,
