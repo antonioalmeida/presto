@@ -2,7 +2,7 @@
     <div class="mt-4">
         <hr>
         <div v-bind:class="{'card': answer.is_chosen_answer, 'card-body': answer.is_chosen_answer, 'border-primary': answer.is_chosen_answer}">
-            <h5 v-if="answer.is_chosen_answer"><span class="badge badge-primary">Chosen answer</span></h5>
+            <h5 class="mb-3" v-if="answer.is_chosen_answer"><span class="badge badge-primary">Best Answer</span></h5>
             <div class="d-flex flex-wrap">
                 <div class="align-self-center">
                     <router-link :to="'/profile/' + answer.author.username" class="text-dark btn-link">
@@ -30,9 +30,6 @@
                                    :path="'/api/member/' + answer.author.username + '/toggle-follow'"
                     >
                     </follow-button>
-                    <button v-on:click="$emit('solve-question')" class="btn btn-primary" v-if="!parent.solved"><i
-                            class="far fa-fw fa-lock-alt"></i> Choose as correct answer
-                    </button>
 
                 </div>
 
@@ -77,6 +74,7 @@
                             <b-dropdown-item>Reopen</b-dropdown-item>
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
+                        <b-dropdown-item v-if="!parent.solved" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
                         <b-dropdown-item>Report</b-dropdown-item>
                     </b-dropdown>
                 </div>
