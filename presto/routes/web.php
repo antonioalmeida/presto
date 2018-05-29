@@ -102,7 +102,6 @@ Route::prefix('api')->group(function () {
     Route::get('admin/get-banned', 'AdminController@getBanned');
     Route::get('admin/get-flagged', 'AdminController@getFlagged');
     Route::get('admin/get-moderators', 'AdminController@getModerators');
-    Route::get('admin/get-certified', 'AdminController@getCertified');
 
     // Answer API
     Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
