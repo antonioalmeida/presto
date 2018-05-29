@@ -18,7 +18,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text"><i class="far fa-at"></i></div>
                                 </div>
-                                <label for="email">Email</label>
+                                <label hidden for="email">Email</label>
                                 <input id="email" type="email" class="form-control" v-model="email"
                                        placeholder="Your e-mail...">
                             </div>
