@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Question $question
  * @property Member $member
  */
-class Report extends Model
+class QuestionReport extends Model
 {
     // Don't add create and update timestamps in database.
     public $timestamps = false;
@@ -22,7 +22,7 @@ class Report extends Model
      */
     protected $table = 'question_report';
 
-    protected $fillable = ['date', 'reason'];
+    protected $fillable = ['question_id', 'member_id', 'date', 'reason'];
 
     public function question()
     {

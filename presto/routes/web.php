@@ -67,6 +67,8 @@ Route::prefix('api')->group(function () {
     Route::post('questions/{question}/unsolve', 'QuestionController@unsolve');
     Route::delete('questions/{question}','QuestionController@delete')->name('question.delete');
     Route::post('questions/{question}/rate', 'QuestionController@rate')->name('api.rateQuestion');
+    Route::post('questions/{question}/report', 'QuestionController@report')->name('question.report');
+
 
     // Comments
     Route::get('comments/{comment}', 'CommentController@get');
