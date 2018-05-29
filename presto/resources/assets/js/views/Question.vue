@@ -57,17 +57,16 @@
                                 :endpoint="rateEndpoint"
                             ></rate-content>
 
-                            <div class="mt-2 d-flex justify-content-between flex-wrap">
-
+                            <div>
                                 <b-btn v-if="!question.solved" v-b-toggle.accordion1 variant="link">
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
                                 
-                                <b-btn id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
+                                <b-btn class="ml-auto" id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
 
-                                <b-dropdown variant="link" id="ddown1" size="lg" no-caret right>
+                                <b-dropdown class="ml-auto" variant="link" id="ddown1" size="lg" no-caret right>
                                     <template slot="button-content">
                                         <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
                                         <b-tooltip target="questionOptions" title="More options"></b-tooltip>
