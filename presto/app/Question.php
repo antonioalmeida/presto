@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Question extends Model
 {
     use SoftDeletes;
-    
+
     // Don't add create and update timestamps in database.
     public $timestamps = false;
 
@@ -39,7 +39,7 @@ class Question extends Model
      */
     protected $fillable = ['author_id', 'title', 'content', 'date', 'solved', 'search', 'topics'];
 
-    protected $hidden = ['search'];
+    protected $hidden = ['search', 'deleted_at'];
 
     /**
      * Queries
