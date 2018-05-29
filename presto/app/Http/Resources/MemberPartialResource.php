@@ -30,7 +30,6 @@ class MemberPartialResource extends Resource
 
         $response['isSelf'] = $isSelf;
 
-
         return $response;
     }
 }

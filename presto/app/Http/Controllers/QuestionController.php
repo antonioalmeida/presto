@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\AnswerResource;
+use App\Http\Resources\AnswerPartialResource;
 use App\Http\Resources\FullQuestionResource;
 use App\Http\Resources\QuestionResource;
 use App\Question;
@@ -27,7 +28,7 @@ class QuestionController extends Controller
 
     public function getAnswers(Question $question)
     {
-        return AnswerResource::collection($question->answers);
+        return AnswerPartialResource::collection($question->answers);
     }
 
     public function store()
