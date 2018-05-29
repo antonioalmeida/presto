@@ -10,6 +10,7 @@ use App\Http\Resources\FullQuestionResource;
 use App\Http\Resources\QuestionResource;
 use App\Question;
 use App\QuestionRating;
+use App\QuestionReport;
 use App\Topic;
 use App\Answer;
 
@@ -182,5 +183,20 @@ class QuestionController extends Controller
 
         $question->solved = false;
         $question->save();
+    }
+
+    public function report(Question $question) {
+        $this->validate(request(), [
+            'reason' => 'required|min:5'
+        ]);
+
+        $result = QuestionReport::create([
+            'question_id' => $question->id,
+            'member_id' => Auth::id(),
+            'reason' => request('reason'),
+            'date' => now()
+        ]);
+
+        return compact('result');
     }
 }

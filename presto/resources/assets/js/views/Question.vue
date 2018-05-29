@@ -75,10 +75,10 @@
                                     <template v-if="question.isOwner">
                                         <b-dropdown-item v-if="!question.solved" @click="isEditing = true">Edit</b-dropdown-item>
                                         <b-dropdown-item v-b-modal.deleteQuestionModal>Delete</b-dropdown-item>
-                                        <b-dropdown-item v-on:click="unsolve()" v-if="question.solved" >Reopen</b-dropdown-item>
+                                        <b-dropdown-item @click="unsolve()" v-if="question.solved">Reopen</b-dropdown-item>
                                         <b-dropdown-divider></b-dropdown-divider>
                                     </template>
-                                    <b-dropdown-item>Report</b-dropdown-item>
+                                    <b-dropdown-item v-b-modal.questionReport>Report</b-dropdown-item>
                                 </b-dropdown>
                             </div>
                         </div>
@@ -138,8 +138,15 @@
             cancel-title="Cancel"
             @ok="onDelete"
         >
-        <h5><small>Are you sure you wish to delete this question? You cannot restore it.</small></h5>
+            <h5><small>Are you sure you wish to delete this question? You cannot restore it.</small></h5>
         </b-modal>
+
+        <!-- Report Question -->
+        <report-content
+            modalName="questionReport"
+            type="Question"
+            :endpoint="'/api/questions/' + question.id + '/report'"
+        ></report-content>
     </main>
 </template>
 
@@ -151,6 +158,7 @@
     import TagsInput from '../components/TagsInput';
     import CommentBox from '../components/CommentBox';
     import RateContent from '../components/RateContent';
+    import ReportContent from '../components/ReportContent';
     import bDropdown from 'bootstrap-vue/es/components/dropdown/dropdown';
     import bTooltip from 'bootstrap-vue/es/components/tooltip/tooltip';
 
@@ -173,6 +181,7 @@
             'TagsInput': TagsInput,
             'CommentBox': CommentBox,
             'RateContent': RateContent,
+            'ReportContent': ReportContent,
             'bDropdown': bDropdown,
             'bTooltip': bTooltip,
         },
@@ -194,7 +203,9 @@
                 tagsInput:[],
 
                 //error handling utils
-                answerShowError: false
+                answerShowError: false,
+
+                reportShow: false,
             }
         },
 
