@@ -26,8 +26,8 @@ class CommentController extends Controller
 
         $content = request('content');
         $author_id = Auth::id();
-        date_default_timezone_set('Europe/Lisbon');
-        $date = date('Y-m-d H:i:s');
+        $date = new \DateTime("now", new \DateTimeZone('Europe/Lisbon'));
+        $date = $date->format('Y-m-d H:i:s');
         $mentions = request('mentions');
 
         $comment = $question->comments()->create(compact('author_id', 'content', 'date'));
@@ -51,7 +51,8 @@ class CommentController extends Controller
 
         $content = request('content');
         $author_id = Auth::id();
-        $date = date('Y-m-d H:i:s');
+        $date = new \DateTime("now", new \DateTimeZone('Europe/Lisbon'));
+        $date = $date->format('Y-m-d H:i:s');
         $mentions = request('mentions');
 
         $comment = $answer->comments()->create(compact('author_id', 'content', 'date'));
