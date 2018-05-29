@@ -125,7 +125,7 @@
         props: ['username'],
 
         created() {
-            document.title = "Profile | Presto";
+            document.title = this.username + "'s Profile | Presto";
         },
 
         components: {
