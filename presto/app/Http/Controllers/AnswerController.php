@@ -8,7 +8,6 @@ use App\Http\Resources\AnswerResource;
 use App\Http\Resources\AnswerPartialResource;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
-use Purifier;
 
 class AnswerController extends Controller
 {
@@ -24,8 +23,7 @@ class AnswerController extends Controller
 
     public function create(Question $question)
     {
-
-        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
+        $content = '<span>' . request('content') . '</span>';
         $author_id = Auth::id();
         $date = new \DateTime("now", new \DateTimeZone('Europe/Lisbon'));
         $date = $date->format('Y-m-d H:i:s');
