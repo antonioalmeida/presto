@@ -6,15 +6,16 @@ use App\Http\Resources\AnswerCardResource;
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\QuestionResource;
 use App\Http\Resources\TopicCardResource;
+use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function get($query)
+    public function get(Request $request, $query)
     {
         // Content type being searched
         // (Questions, Answers, Topics, Members)
-        $type = request('type');
-        $chunk = request('chunk'); 
+        $type = $request->input('type');
+        $chunk = intval($request->input('chunk'));
         $maxNr = 10;
 
         $result = [];
@@ -46,7 +47,8 @@ class SearchController extends Controller
             ->get();
 
         $chunk = $questions->forPage($chunkNr,$maxNr);
-        if(count($chunk) < $maxNr)
+        $nextChunk = $questions->forPage(++$chunkNr,$maxNr);
+        if(count($chunk) < $maxNr || count($nextChunk) == 0)
             $last = true;
         else
             $last = false;

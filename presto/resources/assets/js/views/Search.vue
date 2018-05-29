@@ -121,30 +121,32 @@
 
         mounted() {
             this.loader = this.$loading.show();
-            this.getResults(this.query);
+            this.getResults();
         },
 
         watch: {
             type: function () {
+                this.busy = true;
                 this.results = null;
-                this.currDataChunk = 0; 
+                this.currDataChunk = 1; 
                 this.loader = this.$loading.show();
-                this.getResults(this.query);
+                this.getResults();
             },
 
             query: function () {
+                this.busy = true;
                 this.results = null;
-                this.currDataChunk = 0;
+                this.currDataChunk = 1;
                 this.loader = this.$loading.show();
-                this.getResults(this.query);
+                this.getResults();
             }
         },
 
         data() {
             return {
                 results: null,
-                busy: false,
-                currDataChunk: 0,
+                busy: true,
+                currDataChunk: 1,
                 allData: false,
 
                 // Active filters
@@ -173,13 +175,9 @@
         },
 
         methods: {
-            getData: function (id) {
-                this.getQuestion(id);
-                this.getAnswers(id);
-            },
-
-            getResults: function (query) {
-                let request = '/api/search/' + query;
+            
+            getResults: function () {
+                let request = '/api/search/' + this.query;
 
                 axios.get(request, {
                     params: {
@@ -201,11 +199,11 @@
                     });
             },
 
-            loadMore: function(query){
+            loadMore: function(){
                 if(this.allData){
-                    console.log("no more");
+                    //console.log("no more");
                     this.busy = true;
-                    return
+                    return;
                 }
 
                 console.log("Loading More");
@@ -213,13 +211,18 @@
                 this.loader = this.$loading.show();
                 this.currDataChunk++;
 
-                this.getResults(this.query);
+
+                this.getResults();
+                //let self = this;
                 //setTimeOut(function() { self.busy = false; },5000);
             },
 
             joinArray: function(data){
-                for(let i=0;i<data.length;i++)
-                    this.results.splice(this.results.length,0,data[i]);
+
+                for(let key in data){
+                    if(data[key] != null)
+                        this.results.push(data[key]);
+                }
             }
         },
 
@@ -263,9 +266,6 @@
 
                 if (!this.results)
                     return null;
-
-                console.log(this.results);
-
 
                 let limitDate;
 
