@@ -13,6 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+// Profile API
+
+Route::middleware('web')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::get('profile/{member}', 'ProfileController@get')->name('profile');

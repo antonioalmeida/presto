@@ -13,8 +13,8 @@ class QuestionPolicy
     /**
      * Determine whether the user can update the question.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Question  $question
+     * @param  \App\Member $user
+     * @param  \App\Question $question
      * @return mixed
      */
     public function update(Member $user, Question $question)
@@ -22,11 +22,21 @@ class QuestionPolicy
         return $user->id === $question->author_id || $user->is_moderator;
     }
 
+    public function rate(Member $user, Question $question)
+    {
+        return $user->id !== $question->author_id;
+    }
+
+    public function solve(Member $user, Question $question)
+    {
+        return $user->id === $question->author_id;
+    }
+
     /**
      * Determine whether the user can delete the question.
      *
-     * @param  \App\Member  $user
-     * @param  \App\Question  $question
+     * @param  \App\Member $user
+     * @param  \App\Question $question
      * @return mixed
      */
     public function delete(Member $user, Question $question)

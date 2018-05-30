@@ -2,33 +2,103 @@
 
 namespace App\Http\Controllers;
 
+require_once app_path() . '/Utils.php';
+
+use App\Http\Resources\AnswerResource;
+use App\Http\Resources\MemberResource;
+use App\Http\Resources\NotificationsCollection;
+use App\Http\Resources\NotificationsResource;
+use App\Http\Resources\QuestionResource;
+use App\Member;
+use App\Flag;
 use Illuminate\Http\Request;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
-use \App\Member;
-use App\Notification;
 
 class ProfileController extends Controller
 {
-    public function __construct(){
-        $this->middleware('auth')->except(['show','followers','following']);
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['get', 'getQuestions', 'getAnswers', 'getFollowers', 'following']);
     }
 
-    public function show(Member $member){
-        return view('pages.profile.show', compact('member'));
+    public function get(Member $member)
+    {
+        return new MemberResource($member);
     }
 
-    public function edit(){
+    public function getLoggedIn()
+    {
         $member = Auth::user();
-        return view('pages.profile.edit', compact('member'));
+        return new MemberResource($member);
     }
 
-    public function update(){
+    public function getAnswers(Member $member)
+    {
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->answers,$chunkNr,10);
+
+        $res['data'] =  AnswerResource::collection($res['data']);
+        return $res;
+    }
+
+    public function getQuestions(Member $member)
+    {
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->questions,$chunkNr,10);
+
+        $res['data'] =  QuestionResource::collection($res['data']);
+        return $res;
+    }
+
+    public function getQuestionsLoggedIn()
+    {
+        $member = Auth::user();
+        return QuestionResource::collection($member->questions);
+    }
+
+    public function getNotificationsStats()
+    {
+        $member = Auth::user();
+
+        return new NotificationsCollection($member->notifications);
+    }
+
+    public function getNotifications(Request $request)
+    {
+        $type = $request->input('type','All');
+        $member = Auth::user();
+
+        $member->unreadNotifications->markAsRead();
+
+        if(strcmp($type,'All') == 0)
+            $notifiations = $member->notifications;
+        else
+            $notifiations = $member->notifications->where('data.type',$type);
+
+        return paginate(NotificationsResource::collection($notifiations),10);
+        //return DB::table('notifications')->where([['notifiable_id',$member->id]])->get();
+    }
+
+    public function getUnreadNotifications()
+    {
+        $member = Auth::user();
+
+        return NotificationsResource::collection($member->unreadNotifications);
+    }
+
+    public function update()
+    {
         $member = Auth::user();
 
         $this->validate(request(), [
-       
+            'username' => ['required', 'string', 'alpha_dash', Rule::unique('member')->ignore($member->id)],
+            'name' => 'required|max:35'
         ]);
 
         $member->name = request('name');
@@ -37,11 +107,12 @@ class ProfileController extends Controller
 
         $member->save();
 
-        return redirect()->route('profile', $member);
+        return new MemberResource($member);
     }
- 
-    public function updatePicture(Request $request) {
-        $member = Auth::user(); 
+
+    public function updatePicture(Request $request)
+    {
+        $member = Auth::user();
 
         $request->validate([
             'profile-pic-url' => 'required|url'
@@ -50,14 +121,15 @@ class ProfileController extends Controller
         $member->profile_picture = request('profile-pic-url');
         $member->save();
 
-        return redirect()->route('profile.edit', $member);
+        return ['profile-pic-url' => $member->profile_picture];
     }
 
-    public function updateEmail(Request $request) {
-        $member = Auth::user(); 
+    public function updateEmail(Request $request)
+    {
+        $member = Auth::user();
 
         $request->validate([
-            'email' => 'required|string|email|max:255|unique:member'
+            'email' => ['required', 'string', 'email', 'max:255', Rule::unique('member')->ignore($member->id)]
         ]);
 
         $member->email = request('email');
@@ -66,8 +138,9 @@ class ProfileController extends Controller
         return redirect()->route('settings');
     }
 
-    public function updatePassword(Request $request) {
-        $member = Auth::user(); 
+    public function updatePassword(Request $request)
+    {
+        $member = Auth::user();
 
         $request->validate([
             'password' => 'required|string|min:6'
@@ -78,35 +151,53 @@ class ProfileController extends Controller
 
         return redirect()->route('settings');
     }
-           
-    public function followers(Member $member){
-        return view('pages.profile.followers', compact('member'));
+
+    public function getFollowers(Member $member)
+    {
+
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followers,$chunkNr,10);
+
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
-    public function following(Member $member){
-        return view('pages.profile.following', compact('member'));
+    public function getFollowing(Member $member)
+    {
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followings,$chunkNr,10);
+
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
-    public function follow(Member $follower) {
-        Auth::user()->follow($follower);
-        return back();
+    public function toggleFollow(Member $follower)
+    {
+        $member = Auth::user();
+
+        if ($member->isFollowing($follower))
+            $member->unFollow($follower);
+        else
+            $member->follow($follower);
+
+        return ['following' => $member->isFollowing($follower), 'no_follow' => $member->followings->count()];
     }
 
-    public function unFollow(Member $follower) {
-        Auth::user()->unFollow($follower);
-        return back();
+    public function flag(Member $member)
+    {
+        $flagger = Auth::user();
+
+        $this->validate(request(), [
+          'reason' => 'required|string'
+        ]);
+
+        $flag = new Flag;
+        $flag->moderator_id = $flagger->id;
+        $flag->member_id = $member->id;
+        $flag->reason = request('reason');
+        $flag->date = date("Y-m-d H:i:s");
+        $flag->save();
     }
-
-    public function settings(){
-        return view('pages.profile.settings');
-    }
-
-    public function notifications(){
-        $notifications_p = Notification::where('member_id', Auth::user()->id)->paginate(7);
-        $notifications = Auth()->user()->notifications;
-
-
-        return view('pages.profile.notifications', ['notifications' => $notifications, 'notifications_p' => $notifications_p]);
-    }
-
 }
