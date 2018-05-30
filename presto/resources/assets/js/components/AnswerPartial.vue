@@ -76,7 +76,7 @@
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
                         <b-dropdown-item v-if="!parent.solved && parent.isOwner" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
-                        <b-dropdown-item v-b-modal.answerReport>Report</b-dropdown-item>
+                        <b-dropdown-item v-b-modal="'answerReport' + answer.id">Report</b-dropdown-item>
                     </b-dropdown>
                 </div>
 
@@ -107,7 +107,7 @@
 
         <!-- Report Question -->
         <report-content
-            modalName="answerReport"
+            :modalName="'answerReport' + answer.id"
             type="Answer"
             :endpoint="'/api/questions/' + parent.id + '/answers/' + answer.id + '/report'"
         ></report-content>
