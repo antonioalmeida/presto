@@ -148,7 +148,6 @@ class ProfileController extends Controller
 
         $res = getDataChunk($member->followers,$chunkNr,10);
 
-        //TODO: use MemberCardResource instead (need to create it)
         $res['data'] =  MemberResource::collection($res['data']);
         return $res;
     }
@@ -159,7 +158,6 @@ class ProfileController extends Controller
 
         $res = getDataChunk($member->followings,$chunkNr,10);
 
-        //TODO: use MemberCardResource instead (need to create it)
         $res['data'] =  MemberResource::collection($res['data']);
         return $res;
     }
