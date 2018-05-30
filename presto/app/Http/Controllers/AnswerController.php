@@ -89,7 +89,7 @@ class AnswerController extends Controller
             'content' => 'required',
         ]);
 
-        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
+        $content = '<span>' . request('content') . '</span>';
 
         $answer->content = $content;
 
