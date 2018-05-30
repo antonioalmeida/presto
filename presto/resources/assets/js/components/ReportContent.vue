@@ -1,8 +1,8 @@
 <template>
-	<b-modal centered
+	<b-modal centered lazy
 		:id="modalName"
 		ref="reportModal"
-		title="Report Comment"
+		:title="'Report ' + type"
 		ok-variant="primary"
 		cancel-variant="link"
 		ok-title="Submit"
@@ -13,7 +13,7 @@
 			type="text"
 			v-model="reportReason"
 			required
-			placeholder="Why are you flagging this comment?">
+			:placeholder="'Why are you reporting this ' + typeLowerCase + '?'">
 		</b-form-input>
 	</b-modal>
 </template>
@@ -56,6 +56,12 @@ export default {
 				this.$alerts.addArrayError(messages);
 			});
 		},	
+	},
+
+	computed: {
+		typeLowerCase: function() {
+			return this.type.toLowerCase();
+		}
 	}
 }
 </script>

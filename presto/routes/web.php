@@ -105,9 +105,10 @@ Route::prefix('api')->group(function () {
     Route::delete('flags/{member_id}/{moderator_id}/dismiss', 'AdminController@dismissFlag')->name('api.dismiss');
 
     // Answer API
-    Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer-add');
+    Route::post('/questions/{question}/answers/', 'AnswerController@create')->name('answer.create');
     Route::delete('questions/{question}/answers/{answer}','AnswerController@delete')->name('answer.delete');
-    Route::post('questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('api.rateAnswer');
+    Route::post('questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('answer.rate');
+    Route::post('questions/{question}/answers/{answer}/report', 'AnswerController@report')->name('answer.report');
 
 });
 

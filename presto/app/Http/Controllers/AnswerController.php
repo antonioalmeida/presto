@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\AnswerRating;
+use App\AnswerReport;
 use App\Http\Resources\AnswerResource;
 use App\Http\Resources\AnswerPartialResource;
 use App\Question;
@@ -100,6 +101,21 @@ class AnswerController extends Controller
         $result = false;
         if($answer->delete())
             $result = true;
+
+        return compact('result');
+    }
+
+    public function report(Answer $answer) {
+        $this->validate(request(), [
+            'reason' => 'required|min:5'
+        ]);
+
+        $result = AnswerReport::create([
+            'question_id' => $answer->id,
+            'member_id' => Auth::id(),
+            'reason' => request('reason'),
+            'date' => now()
+        ]);
 
         return compact('result');
     }
