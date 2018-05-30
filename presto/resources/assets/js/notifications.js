@@ -2,7 +2,7 @@ window.$ = window.jQuery = jQuery;
 window.Pusher = require('pusher-js');
 import Echo from "laravel-echo";
 
-window.Pusher.logToConsole = true;
+// window.Pusher.logToConsole = true;
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
