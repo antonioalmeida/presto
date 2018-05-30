@@ -21,11 +21,11 @@ class ReportsController extends Controller
     	foreach($all as $report){
     	    $report['member'] = \App\Member::find($report->member_id);
     	    if($report->comment_id != null){
-                $report['comment'] = \App\Comment::find($report->comment_id);
+                $report['content'] = \App\Comment::find($report->comment_id);
             } else if($report->answer_id != null){
-                $report['answer'] = \App\Answer::find($report->answer_id);
+                $report['content'] = \App\Answer::find($report->answer_id);
             } else if($report->question_id != null){
-                $report['question'] = \App\Question::find($report->question_id);
+                $report['content'] = \App\Question::find($report->question_id);
             }
         }
     	return $all;
