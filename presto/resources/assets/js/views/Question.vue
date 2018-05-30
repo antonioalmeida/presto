@@ -204,8 +204,6 @@
 
                 //error handling utils
                 answerShowError: false,
-
-                reportShow: false,
             }
         },
 
