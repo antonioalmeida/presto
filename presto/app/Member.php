@@ -56,7 +56,6 @@ class Member extends Authenticatable
      * The attributes that should be hidden for arrays.
      */
     protected $hidden = [
-        //       'password', 'remember_token', 'positive_votes', 'total_votes', 'is_banned',
         'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot', 'provider', 'provider_id'
     ];
 
