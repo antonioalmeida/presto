@@ -193,6 +193,13 @@ class QuestionController extends Controller
             'reason' => 'required|min:5'
         ]);
 
+        $reports = QuestionReport::where('question_id', $question->id)
+            ->where('member_id', Auth::id())->get();
+
+        if (!$reports->isEmpty()) {
+            return ['error' => 'Member already reported this content!'];
+        }
+
         $result = QuestionReport::create([
             'question_id' => $question->id,
             'member_id' => Auth::id(),
