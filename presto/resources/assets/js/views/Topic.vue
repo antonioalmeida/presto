@@ -33,7 +33,7 @@
                                 >
                                 </follow-button>
 
-                                <router-link v-if="this.member.is_moderator" :to="'/topic/'+topic.name+'/edit'" class="btn btn-outline-light">
+                                <router-link v-if="this.topic.isModerator" :to="'/topic/'+topic.name+'/edit'" class="btn btn-outline-light">
                                     Edit Topic
                                 </router-link>
 
@@ -154,7 +154,6 @@
         mounted() {
             this.loader = this.$loading.show();
             this.getTopic(this.name);
-            this.getMember();
         },
 
         watch: {
@@ -182,16 +181,6 @@
                     .catch((error) => {
                         console.log(error);
                     });
-            },
-
-            getMember: function () {
-              axios.get('/api/profile/')
-                  .then(({data}) => {
-                      this.member = data;
-                  })
-                  .catch((error) => {
-                      this.member.is_moderator = false; //In case not logged in
-                  });
             }
         },
 
