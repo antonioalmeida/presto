@@ -83,7 +83,10 @@
             </div>
 
             <div class="card my-3">
-                <comments-list :comments="answer.comments"></comments-list>
+                <comments-list 
+                    :comments="answer.comments"
+                    @delete-comment="onDeleteComment">
+                ></comments-list>
 
                 <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
             </div>
@@ -179,6 +182,12 @@
                     this.errors = response.data.errors;
                     console.log(this.errors);
                 });
+            },
+
+            onDeleteComment: function(event) {
+                this.answer.comments = this.answer.comments.filter((comment) => {
+                    return comment.id != event;
+                }); 
             },
         },
 

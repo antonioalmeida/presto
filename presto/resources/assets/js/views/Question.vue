@@ -114,7 +114,10 @@
                     </div>
 
                     <div class="card my-3">
-                        <comments-list :comments="question.comments"></comments-list>
+                        <comments-list 
+                            :comments="question.comments"
+                            @delete-comment="onDeleteComment">
+                        </comments-list>
                     </div>
 
                     <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
@@ -319,6 +322,12 @@
                         this.errors = response.data.errors;
                         console.log(this.errors);
                     });
+            },
+
+            onDeleteComment: function(event) {
+                this.question.comments = this.question.comments.filter((comment) => {
+                    return comment.id != event;
+                }); 
             },
 
             solve: function (chosenAnswerId) {
