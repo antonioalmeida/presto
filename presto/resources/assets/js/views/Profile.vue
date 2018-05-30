@@ -7,7 +7,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center">
-                            <img class="profile-pic img-fluid rounded-circle m-2" :src="user.profile_picture"/>
+                            <b-img class="m-2 force-square" rounded="circle" :src="user.profile_picture"></b-img>
                         </div>
 
                         <div class="col-md-6 text-shadow mobile-center">
