@@ -118,6 +118,13 @@ class CommentController extends Controller
             'reason' => 'required|min:5'
         ]);
 
+        $reports = CommentReport::where('comment_id', $comment->id)
+            ->where('member_id', Auth::id())->get();
+
+        if (!$reports->isEmpty()) {
+            return ['error' => 'Member already reported this content!'];
+        }
+
         $result = CommentReport::create([
             'comment_id' => $comment->id,
             'member_id' => Auth::id(),

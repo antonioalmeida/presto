@@ -114,6 +114,14 @@ class AnswerController extends Controller
             'reason' => 'required|min:5'
         ]);
 
+        $reports = AnswerReport::where('answer_id', $answer->id)
+            ->where('member_id', Auth::id())->get();
+
+        if (!$reports->isEmpty()) {
+            return ['error' => 'Member already reported this content!'];
+        }
+
+
         $result = AnswerReport::create([
             'answer_id' => $answer->id,
             'member_id' => Auth::id(),

@@ -108,7 +108,11 @@
                     'reason': this.reportReason
                 })
                 .then(({data}) => {
-                    this.$alerts.addSuccess('Comment successfully reported!');
+                    if(data.error != null){
+                        this.$alerts.addError(data.error );
+                    } else {
+                        this.$alerts.addSuccess('Comment successfully reported!');
+                    }
                     this.$refs.reportModal.hide();
                 })
                  .catch(({response}) => {
