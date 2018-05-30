@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $member_id
  * @property string $date
  * @property string $reason
- * @property Comment $comment
+ * @property Answer $answer
  * @property Member $member
  */
-class CommentReport extends Model
+class AnswerReport extends Model
 {
     // Don't add create and update timestamps in database.
     public $timestamps = false;
@@ -20,13 +20,13 @@ class CommentReport extends Model
     /**
      * The table associated with the model.
      */
-    protected $table = 'comment_report';
+    protected $table = 'answer_report';
 
-    protected $fillable = ['comment_id', 'member_id', 'date', 'reason'];
+    protected $fillable = ['answer_id', 'member_id', 'date', 'reason'];
 
-    public function comment()
+    public function answer()
     {
-        return $this->belongsTo('App\Comment');
+        return $this->belongsTo('App\Answer');
     }
 
     public function member()

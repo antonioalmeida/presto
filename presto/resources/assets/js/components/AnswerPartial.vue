@@ -76,7 +76,7 @@
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
                         <b-dropdown-item v-if="!parent.solved && parent.isOwner" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
-                        <b-dropdown-item>Report</b-dropdown-item>
+                        <b-dropdown-item v-b-modal.answerReport>Report</b-dropdown-item>
                     </b-dropdown>
                 </div>
 
@@ -101,6 +101,13 @@
         >
         <h5><small>Are you sure you wish to delete this answer? You cannot restore it.</small></h5>
         </b-modal>
+
+        <!-- Report Question -->
+        <report-content
+            modalName="answerReport"
+            type="Answer"
+            :endpoint="'/api/question/' + parent.id + '/answers' + answer.id + '/report'"
+        ></report-content>
     </div>
 </template>
 
@@ -109,6 +116,7 @@
     import FollowButton from './FollowButton'
     import CommentBox from './CommentBox'
     import RateContent from './RateContent'
+    import ReportContent from './ReportContent'
     import Editor from '@tinymce/tinymce-vue';
 
     export default {
@@ -122,6 +130,7 @@
             'FollowButton': FollowButton,
             'CommentBox': CommentBox,
             'RateContent': RateContent,
+            'ReportContent': ReportContent,
             'Editor': Editor,
         },
 
