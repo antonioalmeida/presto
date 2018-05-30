@@ -37,9 +37,9 @@
                                         :placeholder="'Add topics...'"
                             ></tags-input>
 
-                            <div class="ml-1 mt-3">
-                                <button @click="onEditSubmit" class="btn btn-outline-primary">Save</button>
-                                <button @click="isEditing = false" class="btn btn-outline-danger">Cancel
+                            <div class="ml-3 mt-3">
+                                <button @click="onEditSubmit" class="btn btn-primary">Save</button>
+                                <button @click="isEditing = false" class="btn btn-link">Cancel
                                 </button>
                             </div>
 
@@ -48,7 +48,7 @@
 
                     <div :id="'questionAcordion'" class="mt-2">
 
-                        <div class="mt-2 d-flex justify-content-between flex-wrap">
+                        <div class="mt-2 d-flex justify-content-md-end justify-content-around flex-wrap">
 
                             <rate-content
                                 class="mt-2"
@@ -57,16 +57,16 @@
                                 :endpoint="rateEndpoint"
                             ></rate-content>
 
-                            <div>
+                            <div class="ml-md-auto d-flex justify-content-between">
                                 <b-btn v-if="!question.solved" v-b-toggle.accordion1 variant="link">
                                     <i class="far fa-fw fa-pen"></i> Answer
                                 </b-btn>
 
-                                <b-btn class="ml-auto" id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
+                                <b-btn id="questionComment" v-if="!question.solved" v-b-toggle.accordion2 variant="link">
                                     <i class="far fa-fw fa-comment"></i> Comment
                                 </b-btn>
 
-                                <b-dropdown class="ml-auto" variant="link" id="ddown1" size="lg" no-caret right>
+                                <b-dropdown variant="link" id="ddown1" size="lg" no-caret right>
                                     <template slot="button-content">
                                         <span id="questionOptions"><i class="fas fa-fw fa-ellipsis-h-alt"></i>    </span>
                                         <b-tooltip target="questionOptions" title="More options"></b-tooltip>
