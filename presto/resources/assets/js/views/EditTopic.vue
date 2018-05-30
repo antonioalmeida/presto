@@ -5,13 +5,11 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-md-2 text-center ">
-                            <img class="profile-pic img-fluid rounded-circle m-2" :src="topic.picture"/>
-                            <span class="fa-layers fa-fw fa-2x">
-                                 <i class="fas fa-circle text-shadow" style="color:white"></i>
-                                <a href="" data-toggle="modal" data-target="#editPicture"><i
-                                        class="fa-inverse fa-fw fas fa-pencil-alt text-muted"
-                                        data-fa-transform="shrink-8"></i></a>
-								</span>
+                            <b-img class="m-2 force-square" rounded="circle" :src="topic.picture"></b-img>
+                            
+                                <b-btn v-b-modal.editPicture variant="light">
+                                    Edit 
+                                </b-btn>
                         </div>
 
                         <div class="col-md-6 mobile-center text-shadow edit-profile">
@@ -40,30 +38,23 @@
                 </div>
             </div>
         </section>
-        <!-- edit picture modal -->
-        <div class="modal fade" id="editPicture" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-             aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div>
-                        <div class="modal-body">
-                            <div>
-                                <h6><label for="profilePicture">Change the topic's picture</label></h6>
-                                <div class="input-group">
-                                    <input type="text" v-model="picture" class="form-control"
-                                           placeholder="New URL"
-                                           aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                            <button @click="onPicSubmit" type="submit" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+        <b-modal
+        lazy centered
+        title="Change Topic Avatar"
+        id="editPicture"
+        ok-variant="primary"
+        cancel-variant="link"
+        ok-title="Submit"
+        cancel-title="Cancel"
+        @ok="onPicSubmit">
+        <div class="input-group">
+            <label for="profilePicture" hidden>Change the topic's photo</label>
+            <input type="text" v-model="picture" class="form-control"
+            placeholder="New URL"
+            aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
+        </div> 
+    </b-modal>
     </main>
 
 </template>
@@ -130,10 +121,8 @@
                     'pic-url': this.picture
                 })
                     .then(({data}) => {
-                        $('#editPicture').modal('toggle');
                         this.topic.picture = this.picture;
                         this.$alerts.addSuccess('Picture successfully updated!');
-                        location.reload();
                     })
                     .catch(({response}) => {
                         this.loader.hide();
