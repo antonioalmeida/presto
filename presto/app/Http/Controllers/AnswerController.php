@@ -72,7 +72,7 @@ class AnswerController extends Controller
             }
         }
 
-        //TODO: replace this with RateResource and use isLikedByMe
+
         $response = [
             'isUpvoted' => $finalValue == 1 ? true : false,
             'isDownvoted' => $finalValue == -1 ? true : false,
@@ -84,11 +84,13 @@ class AnswerController extends Controller
     }
 
     public function update(Question $question, Answer $answer) {
+        $this->authorize('update', $answer);
+
         $this->validate(request(), [
             'content' => 'required',
         ]);
 
-        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
+        $content = '<span>' . request('content') . '</span>';
 
         $answer->content = $content;
 
@@ -98,6 +100,8 @@ class AnswerController extends Controller
     }
 
     public function delete(Question $question, Answer $answer) {
+        $this->authorize('delete', $answer);
+
         $result = false;
         if($answer->delete())
             $result = true;

@@ -15,18 +15,19 @@
                              <li class="d-flex justify-content-between"><a href="" class="text-muted">People</a> <div><span class="badge badge-danger ">{{notifications.Follows}}</span></div></li>
                              <li class="d-flex justify-content-between"><a href="" class="text-muted">Upvotes</a> <div><span class="badge badge-danger ">{{notifications.Rating}}</span></div></li>
                          </ul> -->
-                        <b-form-radio-group class="text-muted" v-model="type" :options="typeOptions" stacked
-                                            name="typeRadio"></b-form-radio-group>
+                        <b-form-radio-group class="text-muted" v-on:change="filter($event)" v-model="selected" :options="typeOptions" stacked name="typeRadio"></b-form-radio-group>
                     </div>
                 </div>
                 <div class="col-md-9 mt-4">
                     <div class="list-group mt-4">
-                        <h4 class="text-mobile">Notifications</h4>
-
-                        <template v-for="notification in filteredResults">
+                        <h4 class="text-mobile">Notifications</h4
+>
+                        <template v-for="notification in results.data">
                             <notifications-card v-bind:notification="notification"></notifications-card>
                         </template>
-
+                        <div class="col-md-6 offset-md-3 d-flex justify-content-center pt-4">
+                            <pagination :data="results" @pagination-change-page="getNotifications"></pagination>
+                        </div>
 
                     </div>
                 </div>
@@ -43,13 +44,15 @@
     export default {
 
         components: {
-            NotificationsCard: require('../components/NotificationsCard')
+            NotificationsCard: require('../components/NotificationsCard'),
+            'pagination': require('laravel-vue-pagination')
         },
 
         data() {
             return {
                 notifications: {},
-                results: null,
+                results: {},
+                selected: 'All',
                 type: 'All',
                 typeOptions: {},
             }
@@ -92,8 +95,8 @@
                     });
             },
 
-            getNotifications: function () {
-                axios.get('/api/notifications')
+            getNotifications: function (page = 1) {
+                axios.get('/api/notifications?type='+this.type+'&page='+page)
                     .then(({data}) => {
                         this.results = data;
                         this.loader.hide();
@@ -101,15 +104,11 @@
                     .catch((error) => {
                         console.log(error);
                     });
-            }
-        },
+            },
 
-        computed: {
-            filteredResults: function () {
-                if (!this.results)
-                    return null;
-
-                return this.results.filter((entry) => entry.data['type'] == this.type || this.type == 'All');
+            filter: function(e){
+                this.type = e;
+                this.getNotifications();
             }
         }
     }

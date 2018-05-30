@@ -14,7 +14,6 @@ DROP TABLE IF EXISTS answer CASCADE;
 DROP TABLE IF EXISTS question CASCADE;
 DROP TABLE IF EXISTS topic CASCADE;
 DROP TABLE IF EXISTS member CASCADE;
-DROP TYPE IF EXISTS notification_origin CASCADE;
 
 DROP TRIGGER IF EXISTS member_question_rating ON question_rating;
 DROP TRIGGER IF EXISTS member_answer_rating ON answer_rating;
@@ -67,14 +66,6 @@ DROP FUNCTION IF EXISTS notify_on_comment_answer();
 DROP FUNCTION IF EXISTS notify_on_question_rating();
 DROP FUNCTION IF EXISTS notify_on_answer_rating();
 DROP FUNCTION IF EXISTS notify_on_follow();
-
-CREATE TYPE notification_origin AS ENUM (
-    'Answer',
-    'Comment',
-    'Rating',
-    'Follow',
-    'Mention'
-);
 
 CREATE TABLE admin (
     id SERIAL NOT NULL,
