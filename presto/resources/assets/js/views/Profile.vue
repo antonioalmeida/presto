@@ -52,7 +52,7 @@
                                 </router-link>
 
                                 <router-link v-if="user.isOwner && logged.is_moderator" :to="'/reports'" class="btn btn-outline-light">
-                                    Edit Profile
+                                    Reports 
                                 </router-link>
 
                                 <b-btn v-if="!user.isOwner && logged.is_moderator" variant="outline-light" v-b-modal.flagModal>Flag member</b-btn>
