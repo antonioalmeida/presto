@@ -32,8 +32,8 @@
 		},
 
 		methods: {
-			getData: function (username) {
-				axios.get('/api/reports/' + (username || ''))
+			getData: function () {
+				axios.get('/api/reports/')
 				.then(({data}) => {
 					this.reports = data;
 					for(let i = 0; i < this.reports.length; ++i){
@@ -43,9 +43,9 @@
 					this.loader.hide();
 				})
 				.catch((error) => {
-					console.log(error);
+					this.loader.hide();
 				});
-			},
+			}
 		}
 
 	}

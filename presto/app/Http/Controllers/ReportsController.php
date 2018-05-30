@@ -10,7 +10,7 @@ class ReportsController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('moderator')->except(['get']);
+
     }
 
     public function getReports() {
