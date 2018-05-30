@@ -70,6 +70,7 @@ class QuestionController extends Controller
     }
 
     public function update(Question $question) {
+        $this->authorize('update', $question);
 
         $this->validate(request(), [
             'title' => 'required',
@@ -115,6 +116,8 @@ class QuestionController extends Controller
     }
 
     public function delete(Question $question) {
+        $this->authorize('delete', $question);
+
         $result = false;
         if($question->delete())
             $result = true;

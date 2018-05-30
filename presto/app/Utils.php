@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Pagination\Paginator;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+
 function print_number_count($number)
 {
     $precision = 0;
@@ -29,6 +33,13 @@ function print_number_count($number)
     return number_format($number / $divisor, $precision) . $shorthand;
 
 }
+
+function paginate($items, $perPage = 15, $page = null, $options = [])
+    {
+        $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
+        $items = $items instanceof Collection ? $items : Collection::make($items);
+        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+    }
 
 function getDataChunk($data,$chunkNr,$maxNr){
     $chunk = $data->forPage($chunkNr,$maxNr);

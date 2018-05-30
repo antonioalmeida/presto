@@ -25,7 +25,6 @@ class QuestionResource extends Resource
 
         $response['rating'] = $this->questionRatings()->where('rate', 1)->count();
 
-        //TODO: replace this with TopicResource
         $response['topics'] = $this->topics;
         return $response;
     }
