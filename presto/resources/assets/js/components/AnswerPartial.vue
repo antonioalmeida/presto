@@ -76,14 +76,17 @@
                             <b-dropdown-divider></b-dropdown-divider>
                         </template>
                         <b-dropdown-item v-if="!parent.solved && parent.isOwner" @click="$emit('solve-question')">Choose answer</b-dropdown-item>
-                        <b-dropdown-item v-b-modal.answerReport>Report</b-dropdown-item>
+                        <b-dropdown-item v-b-modal="'answerReport' + answer.id">Report</b-dropdown-item>
                     </b-dropdown>
                 </div>
 
             </div>
 
             <div class="card my-3">
-                <comments-list :comments="answer.comments"></comments-list>
+                <comments-list 
+                    :comments="answer.comments"
+                    @delete-comment="onDeleteComment">
+                ></comments-list>
 
                 <CommentBox v-if="!parent.solved" v-bind:parentType="'answer'" v-bind:parent="this.answer"></CommentBox>
             </div>
@@ -104,7 +107,7 @@
 
         <!-- Report Question -->
         <report-content
-            modalName="answerReport"
+            :modalName="'answerReport' + answer.id"
             type="Answer"
             :endpoint="'/api/questions/' + parent.id + '/answers/' + answer.id + '/report'"
         ></report-content>
@@ -179,6 +182,12 @@
                     this.errors = response.data.errors;
                     console.log(this.errors);
                 });
+            },
+
+            onDeleteComment: function(event) {
+                this.answer.comments = this.answer.comments.filter((comment) => {
+                    return comment.id != event;
+                }); 
             },
         },
 

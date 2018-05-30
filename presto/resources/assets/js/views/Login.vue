@@ -107,7 +107,6 @@
                     .then(({data}) => {
                         // this.$router.push({path: '/'});
                         window.location.href = '/';
-                        this.$alerts.addSuccess('Member successfully loggedin!');
                     })
                     .catch(({response}) => {
                         this.$alerts.addError(response.data.message);
