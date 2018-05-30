@@ -42,7 +42,11 @@ export default {
 				'reason': this.reportReason
 			})
 			.then(({data}) => {
-				this.$alerts.addSuccess(this.type + ' successfully reported!');
+			    if(data.error != null){
+                    this.$alerts.addError(data.error );
+				} else {
+                    this.$alerts.addSuccess(this.type + ' successfully reported!');
+                }
 				this.$refs.reportModal.hide();
 			})
 			.catch(({response}) => {
