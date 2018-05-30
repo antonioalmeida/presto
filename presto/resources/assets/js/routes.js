@@ -118,6 +118,11 @@ let routes = [
     },
 
     {
+        path: '/reports',
+        component: require('./views/reports')
+    },
+
+    {
         path: '/404',
         component: require('./views/404')
     },
