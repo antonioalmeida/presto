@@ -109,7 +109,7 @@
         <report-content
             modalName="answerReport"
             type="Answer"
-            :endpoint="'/api/question/' + parent.id + '/answers' + answer.id + '/report'"
+            :endpoint="'/api/questions/' + parent.id + '/answers/' + answer.id + '/report'"
         ></report-content>
     </div>
 </template>
