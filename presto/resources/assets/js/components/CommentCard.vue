@@ -14,16 +14,6 @@
                         <span><router-link :to="'/profile/' + comment.author.username" class="btn-link"><strong>{{ comment.author.name }} </strong></router-link></span>
                         <span class="text-muted">{{ comment.date | moment("from") }}</span>
                     </div>
-                    <!--
-                    @can('update',comment.
-                    <div class="ml-auto ">
-                        <small>
-                            <a href="#" class="text-muted">Edit</a> |
-                            <a href="#" class="text-danger">Delete</a>
-                        </small>
-                    </div>
-                    @endcan
-                    -->
                 </div>
             </div>
             <div class="pl-2 mt-1">
@@ -32,13 +22,27 @@
                 </p>
                 <div v-if="!comment.author.isSelf" class="d-flex justify-content-between">
                     <div>
-                        <a @click.stop.prevent="rateComment(1)" class="text-muted">Upvote</a> <span class="text-muted">&bull;</span>
-                        <a class="text-muted" @click.stop.prevent="rateComment(-1)">Downvote</a>
+                        <a href="" :class="[comment.isUpvoted ? 'text-primary text-strong' : 'text-muted']" @click.stop.prevent="rateComment(1)">
+                            <template v-if="comment.isUpvoted">Upvoted</template>
+                            <template v-else>Upvote</template>
+                        </a> 
+                        <span :class="[comment.isUpvoted ? 'badge-primary' : 'badge-light']" class="badge">{{ comment.upvotes }}</span>
+                        <span class="sr-only">upvote number</span>
+
+                        <!-- divider -->
+                        <span class="text-muted">&bull;</span>
+
+                        <a href="" :class="[comment.isDownvoted ? 'text-danger text-strong' : 'text-muted']" @click.stop.prevent="rateComment(-1)">
+                            <template v-if="comment.isDownvoted">Downvoted</template>
+                            <template v-else>Downvote</template>
+                        </a>
+                        <span :class="[comment.isDownvoted ? 'badge-danger' : 'badge-light']" class="badge">{{ comment.downvotes }}</span>
+                        <span class="sr-only">downvote number</span>
                     </div>
                     <div class="ml-auto">
-                        <a href="#" class="text-muted">
-                            <small>Report</small>
-                        </a>
+                        <b-btn @click="$emit('report-comment', comment.id)" variant="link" class="text-muted">
+                            Report
+                        </b-btn>
                     </div>
                 </div>
             </div>
@@ -67,13 +71,15 @@
                 axios.post('/api/comments/' + this.comment.id + '/rate', {
                     'rate': vote,
                 })
-                    .then(({data}) => {
-                        console.log(data);
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-
+                .then(({data}) => {
+                    this.comment.upvotes = data.upvotes;
+                    this.comment.downvotes = data.downvotes;
+                    this.comment.isUpvoted = data.isUpvoted;
+                    this.comment.isDownvoted = data.isDownvoted;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
             }
         }
     }

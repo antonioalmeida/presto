@@ -48,7 +48,7 @@
                                     <!-- <a class="dropdown-item" href="#"><span class="text-muted">No Unread Notifications</span></a> -->
                                 </div>
                                 <div class="dropdown-divider"></div>
-                                <router-link to="/notifications" class="dropdown-item">See All Notifications
+                                <router-link to="/notifications" class="text-center dropdown-item">See All Notifications
                                 </router-link>
                             </div>
                         </li>

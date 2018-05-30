@@ -29,11 +29,6 @@
                                    href="#nav-moderators" role="tab" aria-controls="nav-moderators"
                                    aria-selected="true"><i class="far fa-fw fa-id-badge text-icon"></i> Moderators</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-item nav-link" id="nav-certified-tab" data-toggle="tab"
-                                   href="#nav-certified" role="tab" aria-controls="nav-certified" aria-selected="false"><i
-                                        class="far fa-fw fa-flag text-icon"></i> Certified</a>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -202,46 +197,6 @@
                             </div>
                         </section>
                     </div>
-                    <div class="tab-pane fade" id="nav-certified" role="tabpanel" aria-labelledby="nav-moderators-tab">
-                        <section class="pb-3">
-                            <div class="d-flex justify-content-center">
-                                <div class="">
-                                    <div class="input-group">
-                                        <label for="userName" class="sr-only">Search Users</label>
-                                        <input v-on:keyup="filterBar" type="text" id="userName" class="form-control"
-                                               placeholder="Search for users" autofocus="">
-                                        <div class="input-group-append">
-                                            <button v-on:click="filterButton" class="btn btn-outline-primary"
-                                                    type="button"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="my-3 table-responsive">
-                                <table class="table table-hover admin-table">
-                                    <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Username</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Actions</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="user in certified">
-                                        <td>{{user.username}}</td>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.email}}</td>
-                                        <td class="admin-actions">ss="admin-actions">
-                                            <a v-on:click="banUser(user,$event)" href="" lass="text-danger">Ban</a> |
-                                            <a v-on:click="toggleModerator(user,$event)" href="" class="text-info">Promote</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
-                    </div>
                 </div>
             </div>
         </div>
@@ -250,6 +205,10 @@
 
 <script>
     export default {
+
+        created() {
+            document.title = "Admin | Presto";
+        },
 
         data() {
             return {
@@ -278,15 +237,12 @@
                 this.getFlagged();
                 this.getBanned();
                 this.getModerators();
-                this.getCertified();
             },
 
             getUsers: function (page = 1) {
-                console.log("Getting users");
 
                 axios.get('/api/admin/get-users?query=' + this.query + '&page=' + page)
                     .then(({data}) => {
-                        console.log("Done getting users");
                         this.users = data;
                     })
                     .catch((error) => {
@@ -295,10 +251,8 @@
             },
 
             getFlagged: function () {
-                console.log("Getting flagged");
                 axios.get('/api/admin/get-flagged')
                     .then(({data}) => {
-                        console.log("Done getting flags");
                         this.flagged = data;
                     })
                     .catch((error) => {
@@ -307,10 +261,8 @@
             },
 
             getBanned: function () {
-                console.log("Getting banned...");
                 axios.get('/api/admin/get-banned')
                     .then(({data}) => {
-                        console.log("Done getting buttonanned");
                         this.banned = data;
                     })
                     .catch((error) => {
@@ -319,23 +271,9 @@
             },
 
             getModerators: function () {
-                console.log("Getting moderators");
                 axios.get('/api/admin/get-moderators')
                     .then(({data}) => {
-                        console.log("Done getting moderators");
                         this.moderators = data;
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                    });
-            },
-
-            getCertified: function () {
-                console.log("Getting certified");
-                axios.get('/api/admin/get-certified')
-                    .then(({data}) => {
-                        console.log("Done getting certified");
-                        this.certified = data;
                         this.loader.hide();
                     })
                     .catch((error) => {
@@ -357,7 +295,6 @@
 
                 //Remove from all users
                 res = this.findUser(this.users.data, userName);
-                console.log(res.pos);
                 if (res.pos != -1) {
                     user = res.user;
                     this.getUsers(1);
@@ -378,15 +315,6 @@
                     user = res.user;
                     this.moderators.splice(index, 1);
                 }
-                console.log(res.pos);
-
-                //Remove from certified
-                res = this.findUser(this.moderators, userName);
-                if (res.pos != -1) {
-                    user = res.user;
-                    this.certified.splice(index, 1);
-                }
-                console.log(res.pos);
 
                 if (user == null)
                     this.getBanned();
@@ -397,8 +325,6 @@
             //When user is banned from all_users/moderators/certified tabs
             banUser(user, e) {
                 e.preventDefault();
-                console.log("Banning user");
-                console.log(user.username);
 
                 axios.post('/api/members/' + user.username + '/ban')
                     .then(() => {
@@ -412,12 +338,9 @@
             //When user is banned from the flagged tab
             banFlagged(flag, e) {
                 e.preventDefault();
-                console.log("Banning flagged user");
-                console.log(flag.member.username);
 
                 axios.post('/api/members/' + flag.member.username + '/ban')
                     .then(({data}) => {
-                        console.log(data);
                         this.ban(flag.member.username);
                     })
                     .catch((error) => {
@@ -427,7 +350,6 @@
 
             toggle_moderator(userName, modStatus) {
                 let index, res;
-                console.log(modStatus);
 
                 //Update user in all users
                 res = this.findUser(this.users.data, userName);
@@ -446,18 +368,10 @@
                     if ((index = this.findUser(this.moderators, userName).pos) != -1)
                         this.moderators.splice(index, 1);
                 }
-
-                //Update certified if exists
-                res = this.findUser(this.certified, userName);
-                if (res.pos != -1) {
-                    res.user.is_moderator = modStatus;
-                }
             },
 
             toggleModerator(user, e) {
                 e.preventDefault();
-                console.log("Toggle Mod");
-                console.log(user.username);
 
                 axios.post('/api/members/' + user.username + '/toggle-moderator')
                     .then(({data}) => {
@@ -477,8 +391,7 @@
 
             dismissFlag(flag, e) {
                 e.preventDefault();
-
-                console.log(flag.member['id'] + "  " + flag.moderator['id']);
+                
                 this.dismiss(flag);
                 this.flagged.splice(this.flagged.indexOf(flag), 1);
             },

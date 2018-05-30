@@ -23,7 +23,8 @@
                                            data-original-title="2 to 20 characters. Must start with a letter. Can contain alphanumeric characters, - and _ (but not end with the latter two)"><sup>(?)</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="username" type="text" class="form-control" id="inlineFormInputGroup"
+                                <label hidden for="username">Username</label>
+                                <input v-model="username" id="username" type="text" class="form-control"
                                        placeholder="Your Username"
                                        pattern="^[a-zA-Z][\w-]{1,18}(?![-_])\w$"
                                        required>
@@ -36,7 +37,8 @@
                                            data-original-title="Insert you real email, it's your only way to recover your account if you forget your password"><sup>(?)</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="email" type="email" class="form-control" id="inlineFormInputGroup"
+                                <label hidden for="email">Email</label>
+                                <input v-model="email" id="email" type="email" class="form-control"
                                        placeholder="your@email.com"
                                        required>
                             </div>
@@ -48,8 +50,9 @@
                                            data-original-title="8 to 32 characters. Must contain a letter, a number and at least one of the following -_?!@#+*$%/()="><sup>(?)</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="password" type="password" class="form-control"
-                                       id="inlineFormInputGroup" placeholder="Password"
+                                <label hidden for="password">Password</label>
+                                <input id="password" v-model="password" type="password" class="form-control"
+                                         placeholder="Password"
                                        pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
                                        required>
                             </div>
@@ -61,17 +64,19 @@
                                            data-original-title=""><sup>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</sup></b>
                                     </div>
                                 </div>
-                                <input v-model="password_confirmation" type="password" class="form-control"
-                                       id="inlineFormInputGroup" placeholder="Confirm Password"
+                                <label hidden for="password_confirmation">Password confirmation</label>
+                                <input v-model="password_confirmation" id="password_confirmation" type="password" class="form-control"
+                                         placeholder="Confirm Password"
                                        required>
                             </div>
                             <div class="form-check mb-2 mx-1">
+                                <label hidden for="defaultCheck1">Terms and Conditions</label>
                                 <input v-model="terms" class="form-check-input" type="checkbox" id="defaultCheck1"
                                 >
                                 <label class="form-check-label" for="defaultCheck1">
                                     <small>I accept Presto's <b href="#" data-placement="top" data-toggle="tooltip"
                                                                 role="help" title=""
-                                                                data-original-title="I am at least 13 years old and will not try to hack Preso.">Terms
+                                                                data-original-title="I am at least 13 years old and will not try to hack Presto.">Terms
                                         and Conditions</b>.
                                     </small>
                                 </label>
@@ -175,12 +180,13 @@
                         this.$alerts.addError(response.data.message);
 
                         let errors = response.data.errors;
+                        let messages = [];
                         for (let key in errors) {
                             for (let message of errors[key]) {
-                                console.log(message);
-                                this.$alerts.addError(message);
+                                messages.push(message);
                             }
                         }
+                        this.$alerts.addArrayError(messages);
                     });
             },
 

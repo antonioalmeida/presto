@@ -11,7 +11,6 @@ require_once app_path() . '/Utils.php';
 
 /**
  * @property int $id
- * @property int $country_id
  * @property string $username
  * @property string $email
  * @property string $password
@@ -25,8 +24,6 @@ require_once app_path() . '/Utils.php';
  * @property int $score
  * @property boolean $is_banned
  * @property boolean $is_moderator
- * @property boolean $is_certified
- * @property Country $country
  * @property Notification[] $notifications
  * @property Topic[] $topics
  * @property CommentRating[] $commentRatings
@@ -53,14 +50,13 @@ class Member extends Authenticatable
      */
     protected $table = 'member';
 
-    protected $fillable = ['provider', 'provider_id', 'country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
+    protected $fillable = ['provider', 'provider_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
 
     /**
      * The attributes that should be hidden for arrays.
      */
     protected $hidden = [
-        //       'password', 'remember_token', 'positive_votes', 'total_votes', 'is_banned',
-        'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot'
+        'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot', 'provider', 'provider_id'
     ];
 
     public function getRouteKeyName()
@@ -80,16 +76,6 @@ class Member extends Authenticatable
     /*
     * Relations
     */
-
-    public function country()
-    {
-        return $this->belongsTo('App\Country');
-    }
-
-    // public function notifications()
-    // {
-    //     return $this->hasMany('App\Notification');
-    // }
 
     public function commentRatings()
     {
