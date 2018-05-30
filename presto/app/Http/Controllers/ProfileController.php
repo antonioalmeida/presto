@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+require_once app_path() . '/Utils.php';
+
 use App\Http\Resources\AnswerResource;
 use App\Http\Resources\MemberResource;
 use App\Http\Resources\NotificationsCollection;
@@ -10,7 +12,9 @@ use App\Http\Resources\QuestionResource;
 use App\Member;
 use App\Flag;
 use Illuminate\Http\Request;
+use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 
@@ -65,13 +69,20 @@ class ProfileController extends Controller
         return new NotificationsCollection($member->notifications);
     }
 
-    public function getNotifications()
+    public function getNotifications(Request $request)
     {
+        $type = $request->input('type','All');
         $member = Auth::user();
 
         $member->unreadNotifications->markAsRead();
 
-        return NotificationsResource::collection($member->notifications);
+        if(strcmp($type,'All') == 0)
+            $notifiations = $member->notifications;
+        else
+            $notifiations = $member->notifications->where('data.type',$type);
+
+        return paginate(NotificationsResource::collection($notifiations),10);
+        //return DB::table('notifications')->where([['notifiable_id',$member->id]])->get();
     }
 
     public function getUnreadNotifications()
