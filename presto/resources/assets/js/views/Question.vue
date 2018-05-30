@@ -114,7 +114,7 @@
                     </div>
 
                     <div class="card my-3">
-                        <comments-list 
+                        <comments-list
                             :comments="question.comments"
                             @delete-comment="onDeleteComment">
                         </comments-list>
@@ -274,10 +274,9 @@
                     'content': this.editorContent,
                 })
                 .then(({data}) => {
-                    console.log(data);
                     this.answers.push(data);
                     this.editorContent = '';
-
+                    this.$alerts.addSuccess('Answer successfully submitted!');
                 })
                 .catch(({response}) => {
                     this.errors = response.data.errors;
@@ -327,7 +326,7 @@
             onDeleteComment: function(event) {
                 this.question.comments = this.question.comments.filter((comment) => {
                     return comment.id != event;
-                }); 
+                });
             },
 
             solve: function (chosenAnswerId) {
