@@ -9,7 +9,8 @@
                     <template v-if="!isEditing">
                         <h1>{{ question.title }}</h1>
                         <h4>
-                            <small>{{ question.content }}</small>
+                            <small v-if="question.content">{{ question.content }}</small>
+                            <small v-else><i>No description yet.</i></small>
                         </h4>
                         <h5>
                             <small class="text-muted"><i class="far fa-fw fa-tags"></i>
@@ -120,12 +121,16 @@
                         </comments-list>
                     </div>
 
-                    <h4 class="mt-5"> {{ answers.length }} Answer(s)</h4>
-
+                    <h4 v-if="answers.length > 0" class="mt-5"> {{ answers.length }} Answer(s)</h4>
+                    <div v-else>
+                    <h4 class="my-3 text-center"><small>Be the first to <span class="fake-button text-primary" v-if="!question.solved" v-b-toggle.accordion1>write an answer</span>.</small></h4>
+                    </div>
+                    
                     <AnswerPartial v-for="answer in answers" v-bind:answerData="answer" v-bind:parent="question"
                                    v-on:solve-question="solve(answer.id)"
                                    :key="answer.id">
                     </AnswerPartial>
+                   
 
                 </div>
             </div>

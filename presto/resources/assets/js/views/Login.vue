@@ -32,9 +32,9 @@
                                        required>
                             </div>
                             <div>
-                                <a href="/password/reset"><p>Forgot your password?</p></a>
+                                <a class="text-dark" href="/password/reset"><small>Forgot your password?</small></a>
                             </div>
-                            <div class="d-flex justify-content-center">
+                            <div class="mt-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary">Login</button>
                             </div>
 
