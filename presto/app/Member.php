@@ -2,17 +2,15 @@
 
 namespace App;
 
-use DB;
 use App\Presto\Follow;
-use Illuminate\Notifications\Notifiable;
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use \App\Topic;
+use Illuminate\Notifications\Notifiable;
 
-require_once app_path().'/Utils.php';
+require_once app_path() . '/Utils.php';
 
 /**
  * @property int $id
- * @property int $country_id
  * @property string $username
  * @property string $email
  * @property string $password
@@ -26,7 +24,6 @@ require_once app_path().'/Utils.php';
  * @property int $score
  * @property boolean $is_banned
  * @property boolean $is_moderator
- * @property Country $country
  * @property Notification[] $notifications
  * @property Topic[] $topics
  * @property CommentRating[] $commentRatings
@@ -46,23 +43,24 @@ class Member extends Authenticatable
     use Notifiable, Follow;
 
     // Don't add create and update timestamps in database.
-    public $timestamps  = false;
+    public $timestamps = false;
 
     /**
      * The table associated with the model.
      */
     protected $table = 'member';
 
-    protected $fillable = ['country_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator'];
+    protected $fillable = ['provider', 'provider_id', 'username', 'email', 'password', 'name', 'bio', 'profile_picture', 'positive_votes', 'total_votes', 'nr_questions', 'nr_answers', 'score', 'is_banned', 'is_moderator', 'is_certified'];
 
     /**
      * The attributes that should be hidden for arrays.
      */
     protected $hidden = [
-        'password', 'remember_token'
+        'password', 'remember_token', 'positive_votes', 'total_votes', 'pivot', 'provider', 'provider_id'
     ];
 
-    public function getRouteKeyName(){
+    public function getRouteKeyName()
+    {
         return 'username';
     }
 
@@ -70,23 +68,14 @@ class Member extends Authenticatable
      * Queries
      */
 
-     public function getAnswerViews() {
-        return print_number_count($this->answers->sum('views'));
-     }
+    public function getScore()
+    {
+        return print_number_count($this->score);
+    }
 
     /*
     * Relations
     */
-
-     public function country()
-    {
-        return $this->belongsTo('App\Country');
-    }
-
-    public function notifications()
-    {
-        return $this->hasMany('App\Notification');
-    }
 
     public function commentRatings()
     {
@@ -130,12 +119,12 @@ class Member extends Authenticatable
 
     public function questionRatings()
     {
-        return $this->hasMany('App\QuestionRating');
+        return $this->hasMany('App\QuestionRating', 'member_id', 'question_id');
     }
 
     public function answerRatings()
     {
-        return $this->hasMany('App\AnswerRating');
+        return $this->hasMany('App\AnswerRating', 'member_id', 'answer_id');
     }
 
     public function followers()

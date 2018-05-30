@@ -8,6 +8,8 @@ IMAGE_NAME=lbaw1725
 
 # Ensure that dependencies are available
 composer install
+npm install
+npm run prod
 php artisan clear-compiled
 php artisan optimize
 
