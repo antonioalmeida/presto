@@ -109,13 +109,13 @@ class AnswerController extends Controller
         return compact('result');
     }
 
-    public function report(Answer $answer) {
+    public function report(Question $question, Answer $answer) {
         $this->validate(request(), [
             'reason' => 'required|min:5'
         ]);
 
         $result = AnswerReport::create([
-            'question_id' => $answer->id,
+            'answer_id' => $answer->id,
             'member_id' => Auth::id(),
             'reason' => request('reason'),
             'date' => now()
