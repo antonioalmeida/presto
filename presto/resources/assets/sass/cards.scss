@@ -19,6 +19,10 @@
     }
   }
 
+  .user-preview {
+    object-fit: cover;
+  }
+
   // Make a button look and behave like a link
   .btn-link {
     border: $btn-border-width solid transparent;
