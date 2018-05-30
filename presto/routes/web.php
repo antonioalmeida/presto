@@ -20,7 +20,7 @@ Route::view('404', 'layouts.master')->name('404');
 Route::view('notifications', 'layouts.master')->name('notifications');
 
 //Reports
-Route::view('reports', 'layouts.master')->name('reports');
+Route::view('reports', 'layouts.master')->name('reports')->middleware('moderator');
 
 //Profile
 Route::view('profile/{member}', 'layouts.master');
@@ -116,7 +116,7 @@ Route::prefix('api')->group(function () {
     Route::post('questions/{question}/answers/{answer}/report', 'AnswerController@report')->name('answer.report');
 
     // Moderator API
-    Route::get('reports/', 'ReportsController@getReports');
+    Route::get('reports/', 'ReportsController@getReports')->middleware('moderator');
 });
 
 //Search

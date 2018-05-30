@@ -10,7 +10,7 @@ class ReportsController extends Controller
 {
 	public function __construct()
     {
-        $this->middleware('moderator')->except(['get']);
+
     }
 
     public function getReports() {
@@ -18,6 +18,16 @@ class ReportsController extends Controller
     	$questions = QuestionReport::limit(10)->get()->concat($answers);
     	$all = CommentReport::limit(10)->get()->concat($questions);
 
+    	foreach($all as $report){
+    	    $report['member'] = \App\Member::find($report->member_id);
+    	    if($report->comment_id != null){
+                $report['content'] = \App\Comment::find($report->comment_id);
+            } else if($report->answer_id != null){
+                $report['content'] = \App\Answer::find($report->answer_id);
+            } else if($report->question_id != null){
+                $report['content'] = \App\Question::find($report->question_id);
+            }
+        }
     	return $all;
     }
 
