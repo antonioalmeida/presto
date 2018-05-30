@@ -52,7 +52,7 @@
 
                             <rate-content
                                 class="mt-2"
-                                v-if="!question.isOwner"
+                                v-if="!question.author.isOwner"
                                 :content="question"
                                 :endpoint="rateEndpoint"
                             ></rate-content>
