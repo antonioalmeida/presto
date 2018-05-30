@@ -32,6 +32,11 @@ class TopicResource extends Resource
 
         $response['questions'] = QuestionResource::collection($this->questions);
 
+        if (Auth::user() != null)
+            $response['isModerator'] = Auth::user()->is_moderator;
+        else
+            $response['isModerator'] = false;
+
         return $response;
     }
 }
