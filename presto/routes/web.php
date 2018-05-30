@@ -19,6 +19,9 @@ Route::view('404', 'layouts.master')->name('404');
 //Notifications
 Route::view('notifications', 'layouts.master')->name('notifications');
 
+//Reports
+Route::view('reports', 'layouts.master')->name('reports');
+
 //Profile
 Route::view('profile/{member}', 'layouts.master');
 Route::view('profile/{member}/followers', 'layouts.master');
@@ -112,6 +115,8 @@ Route::prefix('api')->group(function () {
     Route::post('questions/{question}/answers/{answer}/rate', 'AnswerController@rate')->name('answer.rate');
     Route::post('questions/{question}/answers/{answer}/report', 'AnswerController@report')->name('answer.report');
 
+    // Moderator API
+    Route::get('reports/', 'ReportsController@getReports');
 });
 
 //Search
