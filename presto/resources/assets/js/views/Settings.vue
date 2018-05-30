@@ -11,7 +11,7 @@
                     <div class="col-md-9 col-sm-6 py-2">
                         <span>{{ this.user.email }}</span>
                         <br>
-                        <a href="" data-toggle="modal" data-target="#editEmailModal">Change Email</a>
+                        <a href="#" variant="outline-light" v-b-modal.editEmailModal>Change Email</a>
                     </div>
                 </div>
                 <br>
@@ -21,60 +21,47 @@
                         <h6>Password</h6>
                     </div>
                     <div class="col-md-9 py-2 col-sm-6">
-                        <a href="" data-toggle="modal" data-target="#changePasswordModal"> Change Password</a>
+                        <a href="#" variant="outline-light" v-b-modal.changePasswordModal> Change Password</a>
                     </div>
                 </div>
             </div>
 
-            <div class="modal fade" id="editEmailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div>
-                                <h6><label for="email">Change your E-Mail</label></h6>
-                                <div class="input-group">
-                                    <input @input="updateErrors" v-model="emailInput" type="email" name="email"
-                                           class="form-control" placeholder="New email"
-                                           aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
-                                </div>
-                            </div>
-                            <span v-if="emailError" class="text-danger"><small>New email is not invalid, please enter an email in the correct format.</small></span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                            <button @click="onEmailSubmit" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </div>
+            <!-- Edit email modal -->
+            <b-modal lazy centered
+                title="Update your email"
+                id="editEmailModal"
+                ok-variant="primary"
+                cancel-variant="link"
+                ok-title="Submit"
+                cancel-title="Cancel"
+                @ok="onEmailSubmit"
+            >
+            <div class="input-group">
+                <input v-model="emailInput" type="email"
+                class="form-control" placeholder="New email"
+                aria-label="Default" aria-describedby="inputGroup-sizing-default" required>
             </div>
+            </b-modal>
 
             <!-- edit password modal -->
-            <div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog"
-                 aria-labelledby="exampleModalLabel"
-                 aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <div>
-                                <h6><label for="password">Change your password</label></h6>
-                                <div class="input-group">
-                                    <input @input="updateErrors" v-model="passwordInput" type="password" name="password"
-                                           class="form-control" placeholder="New password"
-                                           aria-label="Default" aria-describedby="inputGroup-sizing-default"
-                                           pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
-                                           required>
-                                </div>
-                            </div>
-                            <span v-if="passwordError" class="text-danger"><small>New password is not valid. It must have 8-32 characters and contain alphanumeric and special (";-?!@#+*$%&/()=) characters.</small></span>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-link" data-dismiss="modal">Cancel</button>
-                            <button @click="onPasswordSubmit" class="btn btn-primary">Save</button>
-                        </div>
-                    </div>
-                </div>
+            <b-modal lazy centered
+                title="Update your password"
+                id="changePasswordModal"
+                ok-variant="primary"
+                cancel-variant="link"
+                ok-title="Submit"
+                cancel-title="Cancel"
+                @ok="onPasswordSubmit"
+            >
+            <div class="input-group">
+                <input v-model="passwordInput" type="password"
+                class="form-control" placeholder="New password"
+                aria-label="Default" aria-describedby="inputGroup-sizing-default"
+                pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[&quot;-_?!@#+*$%&/()=])[&quot;\w\-?!@#+*$%&/()=]{8,32}$"
+                title="New password is not valid. It must have 8-32 characters and contain alphanumeric and special (&quot;;-?!@#+*$%&/()=) characters"
+                required>
             </div>
+            </b-modal>
         </section>
     </main>
 </template>
@@ -88,9 +75,7 @@
             return {
                 user: {},
                 emailInput: '',
-                passwordInput: '',
-                passwordError: true,
-                emailError: false
+                passwordInput: ''
             }
         },
 
@@ -120,12 +105,11 @@
                     'email': this.emailInput
                 })
                     .then(({data}) => {
-                        $('#editEmailModal').modal('toggle');
                         this.user.email = this.emailInput;
                         this.$alerts.addSuccess('Email successfully updated!')
                     })
                     .catch(({response}) => {
-
+                        this.$alerts.addError(response.data.errors.email[0]);
                     });
 
             },
@@ -136,18 +120,12 @@
                     'password': this.passwordInput
                 })
                     .then(({data}) => {
-                        $('#changePasswordModal').modal('toggle');
                         this.$alerts.addSuccess('Password successfully updated!')
                     })
                     .catch(({response}) => {
-
+                        this.$alerts.addError('Could not update password.');
                     });
 
-            },
-
-            updateErrors: function (evt) {
-                this.passwordError = !document.querySelector('input[type="password"]').validity.valid;
-                this.emailError = !document.querySelector('input[type="email"]').validity.valid;
             }
         }
     }

@@ -16,7 +16,7 @@
                     subject.
                 </p>
                 <p>
-                    A variety of other features are available aswell. Members can follow other users, topics or threads
+                    A variety of other features are available aswell. Members can follow other users and topics
                     of their interest to always be updated.
                     It is also possible to comment and rate all the content, so users can express their opinion on
                     others' messages.

@@ -84,6 +84,12 @@ let routes = [
     },
 
     {
+        path: '/topic/:name/edit',
+        component: require('./views/EditTopic'),
+        props: true,
+    },
+
+    {
         path: '/topic/:name',
         component: require('./views/Topic'),
         props: true,
@@ -96,9 +102,15 @@ let routes = [
     },
 
     {
+        path: '/admin/login',
+        component: require('./views/AdminLogin'),
+    },
+
+    {
         path: '/admin',
         component: require('./views/Admin'),
     },
+
 
     {
         path: '/notifications',

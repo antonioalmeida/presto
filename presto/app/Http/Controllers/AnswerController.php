@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Answer;
 use App\AnswerRating;
+use App\AnswerReport;
 use App\Http\Resources\AnswerResource;
+use App\Http\Resources\AnswerPartialResource;
 use App\Question;
 use Illuminate\Support\Facades\Auth;
-use Purifier;
 
 class AnswerController extends Controller
 {
@@ -23,10 +24,10 @@ class AnswerController extends Controller
 
     public function create(Question $question)
     {
-
-        $content = '<span>' . Purifier::clean(stripslashes(request('content'))) . '</span>';
+        $content = '<span>' . request('content') . '</span>';
         $author_id = Auth::id();
-        $date = date('Y-m-d H:i:s');
+        $date = new \DateTime("now", new \DateTimeZone('Europe/Lisbon'));
+        $date = $date->format('Y-m-d H:i:s');
 
         $answer = $question->answers()->create(compact('content', 'author_id', 'date'));
 
@@ -71,7 +72,7 @@ class AnswerController extends Controller
             }
         }
 
-        //TODO: replace this with RateResource and use isLikedByMe
+
         $response = [
             'isUpvoted' => $finalValue == 1 ? true : false,
             'isDownvoted' => $finalValue == -1 ? true : false,
@@ -80,5 +81,46 @@ class AnswerController extends Controller
         ];
 
         return $response;
+    }
+
+    public function update(Question $question, Answer $answer) {
+        $this->authorize('update', $answer);
+
+        $this->validate(request(), [
+            'content' => 'required',
+        ]);
+
+        $content = '<span>' . request('content') . '</span>';
+
+        $answer->content = $content;
+
+        $answer->save();
+
+        return new AnswerPartialResource($answer);
+    }
+
+    public function delete(Question $question, Answer $answer) {
+        $this->authorize('delete', $answer);
+
+        $result = false;
+        if($answer->delete())
+            $result = true;
+
+        return compact('result');
+    }
+
+    public function report(Answer $answer) {
+        $this->validate(request(), [
+            'reason' => 'required|min:5'
+        ]);
+
+        $result = AnswerReport::create([
+            'question_id' => $answer->id,
+            'member_id' => Auth::id(),
+            'reason' => request('reason'),
+            'date' => now()
+        ]);
+
+        return compact('result');
     }
 }

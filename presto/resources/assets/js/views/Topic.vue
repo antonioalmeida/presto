@@ -26,11 +26,16 @@
                                 <follow-button
                                         v-model="topic.isFollowing"
                                         :classesDefault="'btn btn-outline-light'"
+                                        :classesValue="'btn btn-light'"
                                         :classesActive="'btn btn-danger'"
                                         :path="'/api/topic/' + topic.name + '/toggle-follow'"
                                         :data="followData" @update:data="value => topic.nrFollowers = value.no_follow"
                                 >
                                 </follow-button>
+
+                                <router-link v-if="this.member.is_moderator" :to="'/topic/'+topic.name+'/edit'" class="btn btn-outline-light">
+                                    Edit Topic
+                                </router-link>
 
                             </div>
 
@@ -138,7 +143,7 @@
         name: 'Topic',
 
         created() {
-            document.title = "Topic | Presto";
+            document.title = this.name + " | Presto";
         },
 
         components: {
@@ -149,6 +154,7 @@
         mounted() {
             this.loader = this.$loading.show();
             this.getTopic(this.name);
+            this.getMember();
         },
 
         watch: {
@@ -161,6 +167,7 @@
         data() {
             return {
                 topic: {},
+                member: {},
                 followData: null,
             }
         },
@@ -175,6 +182,16 @@
                     .catch((error) => {
                         console.log(error);
                     });
+            },
+
+            getMember: function () {
+              axios.get('/api/profile/')
+                  .then(({data}) => {
+                      this.member = data;
+                  })
+                  .catch((error) => {
+                      this.member.is_moderator = false; //In case not logged in
+                  });
             }
         },
 

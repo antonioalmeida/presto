@@ -16,11 +16,6 @@ class TopicCardResource extends Resource
     {
         return parent::toArray($request);
 
-        $response['author'] = [
-            'username' => $this->member->username,
-            'name' => $this->member->name,
-            'profile_picture' => $this->member->profile_picture,
-        ];
 
     }
 }

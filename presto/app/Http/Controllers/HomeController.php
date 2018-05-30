@@ -44,18 +44,9 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
-            if ($item->type == 'question') {
-                $item->question = new QuestionResource(Question::find($item->id));
-            } else {
-                $item->answer = new AnswerCardResource(Answer::find($item->id));
-            }
-            return $item;
-        });
-
-        return $data;
+        return $this->getDataChunk($data,10);
     }
 
     public function getNewContent()
@@ -68,19 +59,9 @@ class HomeController extends Controller
             ->selectRaw('id, date')
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('date', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('date', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
-            if ($item->type == 'question') {
-                $item->question = new QuestionResource(Question::find($item->id));
-            } else {
-                $item->answer = new AnswerCardResource(Answer::find($item->id));
-            }
-            return $item;
-        });
-
-
-        return $data;
+        return $this->getDataChunk($data,10);
     }
 
     public function getRecommendedContent()
@@ -101,9 +82,17 @@ class HomeController extends Controller
             ->whereRaw('(select count(*) from answer_rating where answer_id = answer.id) > 0 and answer.author_id in (select following_id from follow_member where follower_id = ?) ', ['user_id' => $user_id])
             ->addSelect(DB::raw("'answer' as type"));
 
-        $data = $query1->union($query2)->orderBy('score', 'DESC')->limit(10)->get();
+        $data = $query1->union($query2)->orderBy('score', 'DESC')->get();
 
-        $data = $data->map(function ($item, $key) {
+        return $this->getDataChunk($data,10);
+    }
+
+    public function getDataChunk($data,$maxNr){
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($data,$chunkNr,$maxNr);
+        
+        $res['data'] = $res['data']->map(function ($item, $key) {
             if ($item->type == 'question') {
                 $item->question = new QuestionResource(Question::find($item->id));
             } else {
@@ -113,8 +102,7 @@ class HomeController extends Controller
         });
 
 
-        return $data;
-
+        return $res;
     }
 
     public function getTrendingTopics()

@@ -10,6 +10,7 @@ use App\Http\Resources\NotificationsCollection;
 use App\Http\Resources\NotificationsResource;
 use App\Http\Resources\QuestionResource;
 use App\Member;
+use App\Flag;
 use Illuminate\Http\Request;
 use App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
@@ -37,12 +38,22 @@ class ProfileController extends Controller
 
     public function getAnswers(Member $member)
     {
-        return AnswerResource::collection($member->answers);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->answers,$chunkNr,10);
+
+        $res['data'] =  AnswerResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestions(Member $member)
     {
-        return QuestionResource::collection($member->questions);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->questions,$chunkNr,10);
+
+        $res['data'] =  QuestionResource::collection($res['data']);
+        return $res;
     }
 
     public function getQuestionsLoggedIn()
@@ -143,14 +154,23 @@ class ProfileController extends Controller
 
     public function getFollowers(Member $member)
     {
-        //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followers);
+
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followers,$chunkNr,10);
+
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function getFollowing(Member $member)
     {
-        //TODO: use MemberCardResource instead (need to create it)
-        return MemberResource::collection($member->followings);
+        $chunkNr = request('chunk');
+
+        $res = getDataChunk($member->followings,$chunkNr,10);
+
+        $res['data'] =  MemberResource::collection($res['data']);
+        return $res;
     }
 
     public function toggleFollow(Member $follower)
@@ -165,4 +185,19 @@ class ProfileController extends Controller
         return ['following' => $member->isFollowing($follower), 'no_follow' => $member->followings->count()];
     }
 
+    public function flag(Member $member)
+    {
+        $flagger = Auth::user();
+
+        $this->validate(request(), [
+          'reason' => 'required|string'
+        ]);
+
+        $flag = new Flag;
+        $flag->moderator_id = $flagger->id;
+        $flag->member_id = $member->id;
+        $flag->reason = request('reason');
+        $flag->date = date("Y-m-d H:i:s");
+        $flag->save();
+    }
 }

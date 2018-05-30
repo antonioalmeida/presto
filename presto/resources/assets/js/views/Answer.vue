@@ -5,6 +5,7 @@
         <section class="container pt-5">
             <div class="row">
                 <div class="offset-md-2 col-md-8">
+                    
                     <router-link :to="'/questions/' + answer.question.id" class="text-dark list-group-item-action">
                         <h1>{{answer.question.title}}</h1>
                     </router-link>
@@ -24,7 +25,7 @@
 
                     <div class="mt-4">
 
-                        <AnswerPartial v-bind:answerData="answer" :key="answer.id" v-bind:parent="answer.question" v-on:solve-question="solve()"></AnswerPartial>
+                        <AnswerPartial :answerData="answer" :key="answer.id" :parent="answer.question" v-on:solve-question="solve()"></AnswerPartial>
 
                     </div>
                 </div>
@@ -100,6 +101,7 @@
                                data
                            }) => {
                         this.answer = data;
+                        document.title = this.answer.question.title + " | Presto";
                         this.loader.hide();
                     })
                     .catch((error) => {
