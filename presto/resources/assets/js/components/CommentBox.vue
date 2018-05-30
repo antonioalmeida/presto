@@ -12,7 +12,6 @@
         </vue-tribute>
 
         <span v-if="showError" class="text-danger"><small>You can't submit an empty comment.</small></span>
-        <span v-if="showSuccess" class="text-primary"><small>Comment successfully added.</small></span>
 
 
         <div class="mt-2">
@@ -53,7 +52,7 @@
                 //vue-tribute mentions options
                 options: {
                     menuItemTemplate: function (item) {
-                        return '<strong>' + item.string + '</strong>';
+                        return item.string;
                     },
                     values: function (text, cb) {
                         if (text == '') {
@@ -66,7 +65,7 @@
                             }
                         })
                             .then(({data}) => {
-                                cb(data.data.slice(0, 6));
+                                cb(data.slice(0, 6));
                             })
                             .catch((error) => {
                                 cb([]);
@@ -112,6 +111,7 @@
                         this.parent.comments.unshift(data);
                         this.commentText = '';
                         this.showSuccess = true;
+                        this.$alerts.addSuccess('Comment successfully added!');
                     })
                     .catch((error) => {
                         console.log(error);

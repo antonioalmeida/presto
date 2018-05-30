@@ -76,6 +76,8 @@ Route::prefix('api')->group(function () {
     Route::post('comments/answer/{answer}', 'CommentController@storeAnswerComment')->name('answer.add.comment');
     Route::post('comments/{comment}/rate', 'CommentController@rate')->name('api.comment.rate');
     Route::post('comments/{comment}/report', 'CommentController@report')->name('api.comment.report');
+    Route::delete('comments/{comment}','CommentController@delete')->name('api.comment.delete');
+
 
     // Topics API
     Route::get('topic/{topic}', 'TopicController@get');

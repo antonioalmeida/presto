@@ -134,4 +134,14 @@ class CommentController extends Controller
 
         return compact('result');
     }
+
+    public function delete(Comment $comment) {
+        $this->authorize('delete', $comment);
+
+        $result = false;
+        if($comment->delete())
+            $result = true;
+
+        return compact('result');
+    }
 }

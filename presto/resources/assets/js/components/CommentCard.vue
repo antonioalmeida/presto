@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="pl-2 mt-1">
-                <p>
+                <p class="mt-1">
                     {{ comment.content }}
                 </p>
                 <div v-if="!comment.author.isSelf" class="d-flex justify-content-between">
@@ -44,6 +44,29 @@
                             Report
                         </b-btn>
                     </div>
+                </div>
+                <div v-else class="d-flex justify-content-between">
+                    <div :id="'upvoteNumber' + comment.id">
+                        <a class="text-muted">
+                            Upvotes
+                        </a> 
+                        <span :class="[comment.upvotes > 0 ? 'badge-primary' : 'badge-light']" class="badge">{{ comment.upvotes }}</span>
+                        <span class="sr-only">upvote number</span>
+                       
+
+                        <!-- divider -->
+                        <span class="text-muted">&bull;</span>
+
+                        <a class="text-muted">
+                            Downvotes
+                        </a> 
+                        <span :class="[comment.downvotes > 0 ? 'badge-primary' : 'badge-light']" class="badge">{{ comment.downvotes }}</span>
+                        <span class="sr-only">downvote number</span> 
+                    </div>
+                    <b-tooltip :target="'upvoteNumber' + comment.id" title="You can't rate your own comments"></b-tooltip>
+                    <b-btn @click="$emit('delete-comment', comment.id)" variant="link" class="text-muted">
+                        Delete
+                    </b-btn> 
                 </div>
             </div>
         </div>
