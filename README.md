@@ -39,7 +39,7 @@ More information [here](https://github.com/antonioalmeida/lbaw1725/tree/master/d
 
 Prototype [here](https://antonioalmeida.me/lbaw1725/).
 
-[<img src="/docs/res/mainPage.png" width="256" heigth="256">](/docs/res/mainPage.png)                                                                                                                              
+[<img src="/docs/res/mainPage.png">](/docs/res/mainPage.png)                                                                                                                              
  
 ## How to Run
 ### Installing Dependencies
