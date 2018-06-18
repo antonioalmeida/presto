@@ -1,5 +1,6 @@
 # lbaw1725
 Repository to host Database and Web Applications Laboratory project. Made  in collaboration with @cyrilico and @diogotorres97.
+
 LBAW is a course given at FEUP in the third year of the MIEIC course.
 
 ## The Product
@@ -38,7 +39,7 @@ More information [here](https://github.com/antonioalmeida/lbaw1725/tree/master/d
 
 Prototype [here](https://antonioalmeida.me/lbaw1725/).
 
-[<img src="/docs/res/mainPage.png" width="256" heigth="256">](/res/mainPage.png)                                                                                                                              
+[<img src="/docs/res/mainPage.png" width="256" heigth="256">](/docs/res/mainPage.png)                                                                                                                              
  
 ## How to Run
 ### Installing Dependencies
