@@ -17,16 +17,16 @@ More information [here](https://github.com/antonioalmeida/lbaw1725/tree/master/d
 
 ## Development
 
-### API
+### APIs
 * [Google API](https://developers.google.com/identity/protocols/OAuth2)
 
 ### Framework/Libraries
 * [Laravel](https://laravel.com/)
-* [VueJS](https://vuejs.org/)
+* [Vue](https://vuejs.org/)
 * [Laravel Socialite](https://laravel.com/docs/5.5/socialite)
 * [Pusher](https://pusher.com/)
 * [TinyMCE](https://www.tinymce.com/)
-* Several javascript libraries
+* Minor Javascript helper libraries
 
 ### Technologies 
 * PHP
@@ -37,21 +37,27 @@ More information [here](https://github.com/antonioalmeida/lbaw1725/tree/master/d
 
 ## Gallery
 
-Prototype [here](https://antonioalmeida.me/lbaw1725/).
+A visual prototype is live [here](https://antonioalmeida.me/lbaw1725/).
 
-[<img src="/docs/res/mainPage.png">](/docs/res/mainPage.png)                                                                                                                              
+[<img src="/docs/res/index.png">](/docs/res/index.png)                                                                                                                              
+[<img src="/docs/res/profile.png">](/docs/res/profile.png)                                                                                                                              
+[<img src="/docs/res/answer.png">](/docs/res/answer.png)                                                                                                                              
  
 ## How to Run
-### Installing Dependencies
-1. composer install
-2. npm install
-3. npm run prod
-4. php artisan clear-compiled
-5. php artisan optimize
+### Install dependencies and compile assets
+``
+$ composer install
+$ npm install
+$ npm run prod
+$ php artisan clear-compiled
+$ php artisan optimize
+``
 
 ### Run
-1. docker-compose up
-2. php artisan serve
+``
+$ docker-compose up
+$ php artisan serve
+``
 
 ## Team 
   **Name:** GROUP1725
@@ -59,7 +65,7 @@ Prototype [here](https://antonioalmeida.me/lbaw1725/).
   **Theme:** Collaborative Q&A
   
   **Elements:**
-- [António Almeida](https://github.com/antonioalmeida), up201505836@fe.up.pt
-- [Bruno Piedade](https://github.com/Kubix20), up201505668@fe.up.pt
-- [Diogo Torres](https://github.com/diogotorres97), up201506428@fe.up.pt
-- [João Damas](https://github.com/cyrilico), up201504088@fe.up.pt
+- António Almeida [@antonioalmeida](https://github.com/antonioalmeida), up201505836@fe.up.pt
+- Bruno Piedade [@Kubix20](https://github.com/Kubix20), up201505668@fe.up.pt
+- Diogo Torres [@diogotorres97](https://github.com/diogotorres97), up201506428@fe.up.pt
+- João Damas [@cyrilico](https://github.com/cyrilico), up201504088@fe.up.pt
