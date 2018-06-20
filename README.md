@@ -1,5 +1,5 @@
 # lbaw1725
-Repository to host Database and Web Applications Laboratory project. Made  in collaboration with @cyrilico and @diogotorres97.
+Repository to host Database and Web Applications Laboratory project. Made  in collaboration with [@cyrilico](https://github.com/cyrilico), [@diogotorres97](https://github.com/diogotorres97) and [@Kubix20](https://github.com/Kubix20).
 
 LBAW is a course given at FEUP in the third year of the MIEIC course.
 
@@ -11,9 +11,7 @@ are notified of activity that can be of their interest, such as questions from p
 
 More information [here](https://github.com/antonioalmeida/lbaw1725/tree/master/docs/Artifacts).
 
-### Promotion
-
-[Presto promotional video](https://www.youtube.com/watch?v=EEsTcBUwF6o)
+You can also checkout Presto's [promotional video](https://www.youtube.com/watch?v=EEsTcBUwF6o).
 
 ## Development
 
@@ -45,19 +43,19 @@ A visual prototype is live [here](https://antonioalmeida.me/lbaw1725/).
  
 ## How to Run
 ### Install dependencies and compile assets
-``
+```
 $ composer install
 $ npm install
 $ npm run prod
 $ php artisan clear-compiled
 $ php artisan optimize
-``
+```
 
 ### Run
-``
+```
 $ docker-compose up
 $ php artisan serve
-``
+```
 
 ## Team 
   **Name:** GROUP1725
