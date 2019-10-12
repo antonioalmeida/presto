@@ -1,4 +1,4 @@
-# lbaw1725
+# Presto
 Repository to host Database and Web Applications Laboratory project. Made  in collaboration with [@cyrilico](https://github.com/cyrilico), [@diogotorres97](https://github.com/diogotorres97) and [@Kubix20](https://github.com/Kubix20).
 
 LBAW is a course given at FEUP in the third year of the MIEIC course.
@@ -34,8 +34,6 @@ You can also checkout Presto's [promotional video](https://www.youtube.com/watch
 * PostgreSQL
 
 ## Gallery
-
-A visual prototype is live [here](https://antonioalmeida.me/lbaw1725/).
 
 [<img src="/docs/res/index.png">](/docs/res/index.png)                                                                                                                              
 [<img src="/docs/res/profile.png">](/docs/res/profile.png)                                                                                                                              
