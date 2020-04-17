@@ -1,7 +1,6 @@
-# Presto
-Repository to host Database and Web Applications Laboratory project. Made  in collaboration with [@cyrilico](https://github.com/cyrilico), [@diogotorres97](https://github.com/diogotorres97) and [@Kubix20](https://github.com/Kubix20).
+# presto-q&a
 
-LBAW is a course given at FEUP in the third year of the MIEIC course.
+Work done for a subject in Database and Web Applications Laboratory  [LBAW] in MIEIC @FEUP, in collaboration with [@cyrilico](https://github.com/cyrilico), [@diogotorres97](https://github.com/diogotorres97) and [@Kubix20](https://github.com/Kubix20).
 
 ## The Product
 Presto is an online platform where people can ask questions and contribute with answers, developing a community of unique insights on a wide variety of topics.
