@@ -15,7 +15,7 @@
     "cross-env": "^5.1.6",
     "laravel-mix": "^1.0",
     "laravel-vue-pagination": "^1.2.0",
-    "lodash": "^4.17.10",
+    "lodash": "^4.17.13",
     "tributejs": "^3.2.0",
     "vue": "^2.5.16",
     "vue-loading-overlay": "^2.0.4",
