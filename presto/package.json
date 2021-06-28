@@ -19,7 +19,7 @@
     "tributejs": "^3.2.0",
     "vue": "^2.5.16",
     "vue-loading-overlay": "^2.0.4",
-    "vue-moment": "^3.2.0",
+    "vue-moment": "^4.1.0",
     "vue-router": "^3.0.1",
     "vue-tribute": "^1.0.1"
   },
