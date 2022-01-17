@@ -26,7 +26,7 @@
   "dependencies": {
     "@tinymce/tinymce-vue": "^1.0.8",
     "laravel-echo": "^1.4.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^4.13.1",
     "pusher-js": "^4.2.2",
     "vue-infinite-scroll": "^2.0.2"
   }
