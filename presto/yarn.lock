@@ -6696,7 +6696,7 @@ tough-cookie@~2.5.0:
     psl "^1.1.28"
     punycode "^2.1.1"
 
-tributejs@^3.2.0:
+tributejs@^3.7.3:
   version "3.7.3"
   resolved "https://registry.yarnpkg.com/tributejs/-/tributejs-3.7.3.tgz#24f0405aff6383db5e1dc76b9dc1e503e71db9b9"
 
