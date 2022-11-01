@@ -16,7 +16,7 @@
     "laravel-mix": "^1.0",
     "laravel-vue-pagination": "^1.2.0",
     "lodash": "^4.17.21",
-    "tributejs": "^3.2.0",
+    "tributejs": "^3.7.3",
     "vue": "^2.5.16",
     "vue-loading-overlay": "^2.0.4",
     "vue-moment": "^4.1.0",
