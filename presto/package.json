@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "axios": "^0.21",
-    "bootstrap-vue": "^2.0.0-rc.11",
+    "bootstrap-vue": "^2.23.1",
     "cross-env": "^5.1.6",
     "laravel-mix": "^1.0",
     "laravel-vue-pagination": "^1.2.0",
