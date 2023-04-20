@@ -13,7 +13,7 @@
     "axios": "^0.21",
     "bootstrap-vue": "^2.23.1",
     "cross-env": "^5.1.6",
-    "laravel-mix": "^1.0",
+    "laravel-mix": "^6.0",
     "laravel-vue-pagination": "^1.2.0",
     "lodash": "^4.17.21",
     "tributejs": "^3.2.0",
