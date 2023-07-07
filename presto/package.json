@@ -13,7 +13,7 @@
     "axios": "^0.21",
     "bootstrap-vue": "^2.23.1",
     "cross-env": "^5.1.6",
-    "laravel-mix": "^1.0",
+    "laravel-mix": "^6.0",
     "laravel-vue-pagination": "^1.2.0",
     "lodash": "^4.17.21",
     "tributejs": "^3.2.0",
@@ -26,7 +26,7 @@
   "dependencies": {
     "@tinymce/tinymce-vue": "^1.0.8",
     "laravel-echo": "^1.4.0",
-    "node-sass": "^4.9.0",
+    "node-sass": "^9.0.0",
     "pusher-js": "^4.2.2",
     "vue-infinite-scroll": "^2.0.2"
   }
